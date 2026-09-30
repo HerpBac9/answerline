@@ -1,0 +1,3895 @@
+[
+  {
+    "id": 1,
+    "question": "Что такое языковая модель и какую вероятность она оценивает?",
+    "variants": [
+      "Как формально описать задачу language modeling?",
+      "Что именно предсказывает языковая модель для последовательности токенов?"
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Чем токен отличается от слова, символа и байта?",
+    "variants": [
+      "Почему нельзя считать, что один токен LLM всегда равен одному слову?",
+      "Какие единицы текста могут соответствовать одному token ID?"
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Зачем LLM вообще нужна токенизация перед подачей текста в нейросеть?",
+    "variants": [
+      "Почему Transformer не работает напрямую со строками текста?",
+      "Какую роль tokenizer играет между текстом пользователя и матрицами модели?"
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Что означает embedding в LLM и что происходит с token ID после токенизации?",
+    "variants": [
+      "Как целочисленный ID токена превращается в входной вектор Transformer?",
+      "Что хранит embedding matrix языковой модели?"
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Как вы определите скрытая размерность модели и как она связана с размером embedding?",
+    "variants": [
+      "Что означает параметр hidden size в Transformer?",
+      "Почему все токены внутри большинства Transformer-блоков представлены векторами одной размерности?"
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Как формально определить Transformer и из каких основных подслоёв состоит его блок?",
+    "variants": [
+      "Какие вычислительные компоненты повторяются в Transformer layer?",
+      "Из чего структурно состоит типичный блок современной LLM?"
+    ]
+  },
+  {
+    "id": 7,
+    "question": "Чем encoder, decoder и encoder-decoder Transformer отличаются друг от друга?",
+    "variants": [
+      "В чём архитектурная разница между BERT-подобной, GPT-подобной и T5-подобной моделью?",
+      "Какие типы Transformer-архитектур используют bidirectional и causal attention?"
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Почему decoder-only LLM использует causal mask при обучении?",
+    "variants": [
+      "Как модель не подсматривает следующий правильный токен во время teacher forcing?",
+      "Что делает треугольная attention mask в авторегрессионном Transformer?"
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Какое техническое определение можно дать self-attention и какую задачу он решает внутри Transformer?",
+    "variants": [
+      "Как токен в Transformer получает информацию от других токенов той же последовательности?",
+      "Какой механизм позволяет каждой позиции выбирать релевантные позиции контекста?"
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Что означают Q, K и V в механизме attention?",
+    "variants": [
+      "Как интерпретировать query, key и value в self-attention?",
+      "Почему в attention из одного hidden state делают три разных проекции?"
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Почему dot-product attention делят на квадратный корень из размерности головы?",
+    "variants": [
+      "Откуда берётся множитель 1/sqrt(d_k) в scaled dot-product attention?",
+      "Что произойдёт с softmax, если не масштабировать QKᵀ при большой размерности key?"
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Что делает softmax в attention и почему нужны именно нормированные веса?",
+    "variants": [
+      "Как attention scores превращаются в коэффициенты смешивания value-векторов?",
+      "Зачем применять softmax к QKᵀ перед умножением на V?"
+    ]
+  },
+  {
+    "id": 13,
+    "question": "Как объяснить термин или механизм multi-head attention и зачем нужны несколько голов внимания?",
+    "variants": [
+      "Почему Transformer делит attention на несколько heads?",
+      "Чем одна большая attention-проекция отличается от набора меньших голов?"
+    ]
+  },
+  {
+    "id": 14,
+    "question": "Что такое positional encoding и почему Transformer без него не знает порядок токенов?",
+    "variants": [
+      "Почему одной self-attention недостаточно, чтобы различать порядок элементов последовательности?",
+      "Откуда Transformer получает информацию о позиции токена?"
+    ]
+  },
+  {
+    "id": 15,
+    "question": "Что означает feed-forward network в Transformer и зачем она нужна после attention?",
+    "variants": [
+      "Какую функцию выполняет MLP-подслой Transformer-блока?",
+      "Почему одного attention недостаточно без позиционной FFN?"
+    ]
+  },
+  {
+    "id": 16,
+    "question": "Как вы определите residual connection и почему она важна в глубоком Transformer?",
+    "variants": [
+      "Зачем выход attention или FFN складывают с их входом?",
+      "Как остаточные связи помогают обучать десятки и сотни Transformer-слоёв?"
+    ]
+  },
+  {
+    "id": 17,
+    "question": "Зачем в Transformer нужна нормализация активаций?",
+    "variants": [
+      "Какую проблему решают LayerNorm или RMSNorm в LLM?",
+      "Почему глубокий Transformer обычно содержит normalization layers?"
+    ]
+  },
+  {
+    "id": 18,
+    "question": "Чем pre-norm Transformer отличается от post-norm Transformer?",
+    "variants": [
+      "Где располагается LayerNorm относительно residual branch в pre-LN и post-LN схемах?",
+      "Почему многие современные LLM используют нормализацию до attention и MLP?"
+    ]
+  },
+  {
+    "id": 19,
+    "question": "Как формально определить logits на выходе LLM и как из них получается распределение следующего токена?",
+    "variants": [
+      "Что выдаёт последний линейный слой decoder перед softmax?",
+      "Как hidden state последней позиции преобразуется в вероятности словаря?"
+    ]
+  },
+  {
+    "id": 20,
+    "question": "Какое техническое определение можно дать cross-entropy loss для next-token prediction?",
+    "variants": [
+      "Как считается ошибка авторегрессионной LLM на обучающей последовательности?",
+      "Почему обучение next-token model эквивалентно максимизации log-likelihood правильных токенов?"
+    ]
+  },
+  {
+    "id": 21,
+    "question": "Как объяснить термин или механизм perplexity и как она связана с cross-entropy?",
+    "variants": [
+      "Как интерпретировать perplexity языковой модели?",
+      "Почему exp(loss) используют как метрику language modeling?"
+    ]
+  },
+  {
+    "id": 22,
+    "question": "Что такое autoregressive generation и почему она выполняется последовательно по токенам?",
+    "variants": [
+      "Почему обычная decoder-only LLM не генерирует все выходные токены одновременно?",
+      "Откуда берётся последовательная зависимость decode loop?"
+    ]
+  },
+  {
+    "id": 23,
+    "question": "Чем training, prefill и decode отличаются по вычислительному паттерну Transformer?",
+    "variants": [
+      "Почему один и тот же Transformer по-разному нагружает GPU при обучении, обработке prompt и генерации?",
+      "Какие три основных режима вычисления LLM нужно различать при оценке производительности?"
+    ]
+  },
+  {
+    "id": 24,
+    "question": "Что означает context window и что именно ограничивает его размер?",
+    "variants": [
+      "Что означает заявленный контекст 32K или 128K токенов у LLM?",
+      "Почему длина контекста является архитектурным и вычислительным ограничением?"
+    ]
+  },
+  {
+    "id": 25,
+    "question": "Как вы определите параметр модели и почему число параметров не равно объёму активной памяти при работе LLM?",
+    "variants": [
+      "Почему модель на 7B параметров может требовать существенно больше или меньше памяти, чем 7 миллиардов чисел одного типа?",
+      "Из чего кроме weights складывается память LLM?"
+    ]
+  },
+  {
+    "id": 26,
+    "question": "Как формально определить vocabulary size и какие архитектурные последствия имеет размер словаря?",
+    "variants": [
+      "Как размер словаря влияет на embedding и выходной softmax LLM?",
+      "Почему увеличение числа токенов в tokenizer не является бесплатным?"
+    ]
+  },
+  {
+    "id": 27,
+    "question": "Какое техническое определение можно дать special tokens и почему их семантика должна согласовываться между tokenizer и моделью?",
+    "variants": [
+      "Для чего LLM нужны BOS, EOS, PAD и другие служебные token IDs?",
+      "Что произойдёт, если перепутать специальные токены при запуске checkpoint?"
+    ]
+  },
+  {
+    "id": 28,
+    "question": "Как объяснить термин или механизм weight tying между input embeddings и output projection?",
+    "variants": [
+      "Почему одна и та же матрица может использоваться и для входных токенов, и для предсказания словаря?",
+      "Как связывание embedding weights уменьшает число параметров языковой модели?"
+    ]
+  },
+  {
+    "id": 29,
+    "question": "Что такое head dimension в attention и чем она отличается от числа attention heads?",
+    "variants": [
+      "Как связаны hidden size, number of heads и размер одной головы?",
+      "Что означает d_head в multi-head attention?"
+    ]
+  },
+  {
+    "id": 30,
+    "question": "Что означает attention mask и чем padding mask отличается от causal mask?",
+    "variants": [
+      "Какие два разных ограничения обычно кодируются масками внимания?",
+      "Почему маска padding и треугольная autoregressive mask решают разные задачи?"
+    ]
+  },
+  {
+    "id": 31,
+    "question": "Как вы определите teacher forcing при обучении авторегрессионной модели?",
+    "variants": [
+      "Почему на training шаге decoder получает реальные предыдущие токены, а не собственные предсказания?",
+      "Как можно параллельно обучать next-token prediction для всех позиций последовательности?"
+    ]
+  },
+  {
+    "id": 32,
+    "question": "Как формально определить sequence length и почему увеличение её в два раза может стоить существенно больше вычислений?",
+    "variants": [
+      "Почему длинный контекст особенно дорог для стандартного self-attention?",
+      "Как вычислительная сложность Transformer зависит от числа токенов?"
+    ]
+  },
+  {
+    "id": 33,
+    "question": "Какое техническое определение можно дать batch size при обучении LLM и почему полезно считать его в токенах?",
+    "variants": [
+      "Почему число sequences в batch не всегда отражает реальный объём работы Transformer?",
+      "Что означает global batch size в tokens для pretraining?"
+    ]
+  },
+  {
+    "id": 34,
+    "question": "Как объяснить термин или механизм gradient accumulation и зачем он нужен при ограниченной памяти GPU?",
+    "variants": [
+      "Как имитировать большой effective batch без одновременного размещения всех примеров в памяти?",
+      "Чем microbatch отличается от effective batch при training?"
+    ]
+  },
+  {
+    "id": 35,
+    "question": "Что такое learning rate и почему слишком большой или слишком маленький шаг мешает обучению LLM?",
+    "variants": [
+      "Как интерпретировать learning rate в оптимизации нейросети?",
+      "Почему выбор шага обновления параметров критичен для Transformer training?"
+    ]
+  },
+  {
+    "id": 36,
+    "question": "Что означает warmup learning rate и зачем он применяется в начале Transformer training?",
+    "variants": [
+      "Почему learning rate часто сначала постепенно увеличивают?",
+      "Как warmup помогает избежать нестабильности первых optimizer steps?"
+    ]
+  },
+  {
+    "id": 37,
+    "question": "Как вы определите AdamW и чем decoupled weight decay отличается от L2-регуляризации в Adam?",
+    "variants": [
+      "Почему в LLM training часто используют AdamW, а не просто Adam с L2 penalty?",
+      "Что означает decoupled weight decay в оптимизаторе?"
+    ]
+  },
+  {
+    "id": 38,
+    "question": "Как формально определить gradient clipping и какую проблему он решает?",
+    "variants": [
+      "Зачем ограничивать norm градиента при обучении Transformer?",
+      "Как clipping помогает при редких всплесках gradient norm?"
+    ]
+  },
+  {
+    "id": 39,
+    "question": "Какое техническое определение можно дать dropout и почему его роль в больших pretrained LLM может отличаться от небольших моделей?",
+    "variants": [
+      "Как dropout регуляризует нейросеть?",
+      "Почему некоторые крупные LLM используют очень малый или нулевой dropout на pretraining?"
+    ]
+  },
+  {
+    "id": 40,
+    "question": "Как объяснить термин или механизм activation function и зачем Transformer нужна нелинейность?",
+    "variants": [
+      "Почему стек только линейных слоёв нельзя сделать выразительным простым увеличением глубины?",
+      "Какую роль ReLU, GELU или SiLU играют в MLP Transformer?"
+    ]
+  },
+  {
+    "id": 41,
+    "question": "Чем ReLU, GELU и SiLU отличаются как функции активации?",
+    "variants": [
+      "Почему современные Transformer часто используют гладкие активации вместо ReLU?",
+      "Как ведут себя ReLU, GELU и Swish/SiLU для отрицательных входов?"
+    ]
+  },
+  {
+    "id": 42,
+    "question": "Что такое SwiGLU и чем gated FFN отличается от обычного двухслойного MLP?",
+    "variants": [
+      "Как устроен SwiGLU-блок в современных LLM?",
+      "Зачем в feed-forward layer добавляют отдельную gate-проекцию?"
+    ]
+  },
+  {
+    "id": 43,
+    "question": "Что означает RMSNorm и чем она математически отличается от LayerNorm?",
+    "variants": [
+      "Почему RMSNorm не вычитает среднее hidden state?",
+      "Какая нормализация используется в RMSNorm вместо mean и variance?"
+    ]
+  },
+  {
+    "id": 44,
+    "question": "Как вы определите parameter initialization и почему начальные масштабы весов важны для глубокого Transformer?",
+    "variants": [
+      "Почему нельзя инициализировать все веса Transformer одинаковыми константами?",
+      "Как initialization влияет на variance активаций и градиентов по глубине?"
+    ]
+  },
+  {
+    "id": 45,
+    "question": "Как формально определить model depth и model width и какие параметры Transformer они описывают?",
+    "variants": [
+      "Чем сделать Transformer глубже отличается от сделать его шире?",
+      "Какие архитектурные гиперпараметры отвечают за depth и width LLM?"
+    ]
+  },
+  {
+    "id": 46,
+    "question": "Почему число параметров LLM само по себе не определяет её качество?",
+    "variants": [
+      "Почему более крупная по parameter count модель не гарантированно лучше меньшей?",
+      "Какие факторы кроме размера весов определяют capability языковой модели?"
+    ]
+  },
+  {
+    "id": 47,
+    "question": "Какое техническое определение можно дать dense model и что означает, что все её параметры «активны» на каждом токене?",
+    "variants": [
+      "Чем плотная LLM принципиально отличается от sparse MoE-модели?",
+      "Что подразумевают под dense Transformer?"
+    ]
+  },
+  {
+    "id": 48,
+    "question": "Как объяснить термин или механизм FLOPs и почему ими удобно, но недостаточно, оценивать стоимость LLM?",
+    "variants": [
+      "Что измеряет число floating-point operations в Transformer?",
+      "Почему одинаковый FLOP count может давать разное wall-clock время на GPU?"
+    ]
+  },
+  {
+    "id": 49,
+    "question": "Что такое training token и почему объём датасета в гигабайтах плохо заменяет число токенов?",
+    "variants": [
+      "Почему scaling laws обычно считают обучающие данные в tokens, а не в GB файлов?",
+      "Как tokenizer влияет на число training tokens в одном и том же текстовом корпусе?"
+    ]
+  },
+  {
+    "id": 50,
+    "question": "Что означает pretraining LLM и чем оно отличается от последующего instruction tuning?",
+    "variants": [
+      "Какую задачу решает базовое предварительное обучение до превращения модели в assistant?",
+      "Почему pretrained base model и instruction-following model с той же архитектурой ведут себя по-разному?"
+    ]
+  },
+  {
+    "id": 51,
+    "question": "Как работает Byte Pair Encoding и какие шаги выполняются при обучении BPE-tokenizer?",
+    "variants": [
+      "Как BPE строит субсловный словарь из частых пар символов или байтов?",
+      "Опишите алгоритм обучения byte-pair tokenizer на корпусе."
+    ]
+  },
+  {
+    "id": 52,
+    "question": "Чем unigram tokenizer принципиально отличается от BPE?",
+    "variants": [
+      "Как unigram language-model tokenization выбирает segmentation в отличие от жадных merge rules BPE?",
+      "Почему SentencePiece Unigram допускает несколько разбиений одной строки?"
+    ]
+  },
+  {
+    "id": 53,
+    "question": "Что означает byte fallback в tokenizer и когда он полезен?",
+    "variants": [
+      "Как tokenizer может гарантировать кодирование ранее невидимых Unicode-символов без `<unk>`?",
+      "Зачем SentencePiece-подобным tokenizer нужен режим разложения неизвестных символов на bytes?"
+    ]
+  },
+  {
+    "id": 54,
+    "question": "Как оценить tokenization fertility и почему она важна для мультиязычной LLM?",
+    "variants": [
+      "Как измерить, насколько экономно tokenizer кодирует разные языки?",
+      "Почему одинаковый 128K context может давать разный полезный объём текста для английского и русского?"
+    ]
+  },
+  {
+    "id": 55,
+    "question": "Почему normalization текста в tokenizer может изменить семантику данных?",
+    "variants": [
+      "Какие риски создаёт Unicode normalization перед subword tokenization?",
+      "Почему NFKC-нормализация полезна, но не всегда безобидна?"
+    ]
+  },
+  {
+    "id": 56,
+    "question": "Как vocabulary size влияет на softmax bottleneck и время вычисления logits?",
+    "variants": [
+      "Почему большой словарь увеличивает стоимость последнего слоя даже при неизменном Transformer body?",
+      "Где возникает вычислительная цена vocab из 250K токенов?"
+    ]
+  },
+  {
+    "id": 57,
+    "question": "Как реализовать простой scaled dot-product attention на NumPy или PyTorch и проверить формы тензоров?",
+    "variants": [
+      "Покажите минимальную реализацию attention(Q,K,V) без готового attention API.",
+      "Как из Q, K и V вручную получить attention output?"
+    ]
+  },
+  {
+    "id": 58,
+    "question": "Как добавить causal mask в ручную реализацию attention и какие ошибки здесь типичны?",
+    "variants": [
+      "Покажите корректное маскирование будущих позиций перед softmax.",
+      "Почему causal mask нужно применять к logits, а не после softmax?"
+    ]
+  },
+  {
+    "id": 59,
+    "question": "Почему softmax вычисляют через вычитание максимального logit?",
+    "variants": [
+      "Как log-sum-exp trick предотвращает overflow в softmax?",
+      "Что произойдёт при прямом exp больших attention logits?"
+    ]
+  },
+  {
+    "id": 60,
+    "question": "Почему attention matrix имеет квадратичный размер и как это выводится из форм Q и K?",
+    "variants": [
+      "Откуда в standard attention берётся O(S²) по памяти/вычислениям?",
+      "Почему QKᵀ создаёт взаимодействия каждой позиции с каждой?"
+    ]
+  },
+  {
+    "id": 61,
+    "question": "Чем cross-attention отличается от self-attention на уровне Q, K и V?",
+    "variants": [
+      "Почему в encoder-decoder Transformer queries приходят из decoder, а keys/values — из encoder?",
+      "Как выглядит перекрёстное внимание между двумя последовательностями?"
+    ]
+  },
+  {
+    "id": 62,
+    "question": "Как multi-head attention раскладывается по формам тензоров в batch?",
+    "variants": [
+      "Какие tensor shapes используются для Q/K/V до и после split into heads?",
+      "Как преобразовать [B,S,d_model] в [B,H,S,d_head]?"
+    ]
+  },
+  {
+    "id": 63,
+    "question": "Как вы определите Multi-Query Attention и почему она уменьшает KV cache?",
+    "variants": [
+      "Как MQA сокращает число key/value heads при сохранении нескольких query heads?",
+      "Почему один общий K/V head ускоряет autoregressive decode?"
+    ]
+  },
+  {
+    "id": 64,
+    "question": "Как формально определить Grouped-Query Attention и какой компромисс она занимает между MHA и MQA?",
+    "variants": [
+      "Как GQA группирует query heads вокруг меньшего числа KV heads?",
+      "Почему GQA часто выбирают для decoder LLM вместо полного MHA или MQA?"
+    ]
+  },
+  {
+    "id": 65,
+    "question": "Как рассчитать объём KV cache для decoder-only Transformer?",
+    "variants": [
+      "Какая формула даёт память key-value cache на запрос?",
+      "От каких архитектурных параметров линейно зависит KV-cache memory?"
+    ]
+  },
+  {
+    "id": 66,
+    "question": "Почему KV cache ускоряет autoregressive decoding?",
+    "variants": [
+      "Какую повторную работу устраняет key-value cache при генерации?",
+      "Почему Transformer не пересчитывает K и V всех предыдущих токенов на каждом decode step?"
+    ]
+  },
+  {
+    "id": 67,
+    "question": "Почему K и V прошлых токенов можно кэшировать, а Q обычно не кэшируют для следующего шага?",
+    "variants": [
+      "Почему query прошлой позиции не нужен при генерации будущего токена?",
+      "Какие тензоры attention имеют повторное использование между decode steps?"
+    ]
+  },
+  {
+    "id": 68,
+    "question": "Как RoPE кодирует позицию внутри Q и K?",
+    "variants": [
+      "Что математически делает Rotary Position Embedding с query/key vectors?",
+      "Почему в RoPE относительное расстояние проявляется в dot product внимания?"
+    ]
+  },
+  {
+    "id": 69,
+    "question": "Чем абсолютные positional embeddings отличаются от относительных positional schemes?",
+    "variants": [
+      "Какие ограничения возникают у learned absolute position table по сравнению с relative position encoding?",
+      "Что значит кодировать позицию как абсолютный индекс или как расстояние между токенами?"
+    ]
+  },
+  {
+    "id": 70,
+    "question": "Как работает ALiBi и чем она отличается от добавления positional embedding к hidden state?",
+    "variants": [
+      "Как Attention with Linear Biases кодирует расстояние непосредственно в attention logits?",
+      "Почему ALiBi не требует таблицы positional vectors?"
+    ]
+  },
+  {
+    "id": 71,
+    "question": "Почему простое увеличение max_position_embeddings в config не расширяет реально обученный context window?",
+    "variants": [
+      "Можно ли превратить 8K checkpoint в 128K, изменив одно число конфигурации?",
+      "Что кроме config limit мешает модели надёжно работать на новых позициях?"
+    ]
+  },
+  {
+    "id": 72,
+    "question": "Какое техническое определение можно дать position interpolation для RoPE и какую проблему она решает?",
+    "variants": [
+      "Как можно отобразить более длинные позиции в диапазон, виденный при pretraining?",
+      "Почему RoPE scaling позволяет адаптировать checkpoint к большему context?"
+    ]
+  },
+  {
+    "id": 73,
+    "question": "Как объяснить термин или механизм RoPE base/theta и как изменение этого параметра влияет на позиционные частоты?",
+    "variants": [
+      "Как параметр theta участвует в Rotary Position Embedding?",
+      "Почему увеличение RoPE base меняет поведение длинных волн позиционного кодирования?"
+    ]
+  },
+  {
+    "id": 74,
+    "question": "Что такое attention sink и почему первые токены иногда получают непропорционально большой вес?",
+    "variants": [
+      "Почему часть Transformer heads может стабильно направлять внимание на начальные позиции независимо от их содержания?",
+      "Как attention sinks связаны со streaming/long-context inference?"
+    ]
+  },
+  {
+    "id": 75,
+    "question": "Что означает sliding-window attention и как она меняет receptive field модели?",
+    "variants": [
+      "Как локальное окно внимания снижает стоимость длинной последовательности?",
+      "Что теряет Transformer, если каждый токен видит только последние W позиций?"
+    ]
+  },
+  {
+    "id": 76,
+    "question": "Как вы определите sparse attention и чем она отличается от dense full attention?",
+    "variants": [
+      "Как структурно разреженный attention уменьшает число пар query-key?",
+      "Какие зависимости теряются при замене полного внимания заданным sparse pattern?"
+    ]
+  },
+  {
+    "id": 77,
+    "question": "Почему FlashAttention является exact attention, хотя не материализует всю attention matrix?",
+    "variants": [
+      "Как можно получить тот же softmax attention без хранения S×S матрицы в HBM?",
+      "За счёт чего FlashAttention экономит память без аппроксимации результата?"
+    ]
+  },
+  {
+    "id": 78,
+    "question": "Почему уменьшение memory IO может ускорить attention даже без уменьшения FLOPs?",
+    "variants": [
+      "Что означает IO-aware optimization применительно к GPU attention?",
+      "Почему алгоритм с тем же числом арифметических операций может работать быстрее за счёт tiling?"
+    ]
+  },
+  {
+    "id": 79,
+    "question": "В чём различается bottleneck attention на training/prefill и на single-token decode?",
+    "variants": [
+      "Почему kernel, оптимальный для длинного query sequence, не обязательно оптимален для decoding q_len=1?",
+      "Как меняется параллелизм attention между prefill и decode?"
+    ]
+  },
+  {
+    "id": 80,
+    "question": "Как формально определить online softmax и почему он нужен блочному exact attention?",
+    "variants": [
+      "Как объединять softmax по частям, если все logits не помещаются одновременно в память?",
+      "Какие статистики нужно переносить между блоками для точного streaming softmax?"
+    ]
+  },
+  {
+    "id": 81,
+    "question": "Почему attention weights нельзя автоматически считать объяснением того, почему LLM дала конкретный ответ?",
+    "variants": [
+      "Насколько корректно интерпретировать высокое attention значение как причинную важность токена?",
+      "Почему visualization attention не равна feature attribution?"
+    ]
+  },
+  {
+    "id": 82,
+    "question": "Какое техническое определение можно дать attention entropy и что она может сказать о поведении головы?",
+    "variants": [
+      "Как измерить, насколько распределено или сконцентрировано внимание по positions?",
+      "Что означает низкая и высокая entropy attention probabilities?"
+    ]
+  },
+  {
+    "id": 83,
+    "question": "Как объяснить термин или механизм QK normalization и зачем нормализовать queries и keys перед attention?",
+    "variants": [
+      "Почему некоторые архитектуры применяют RMS/L2-like normalization к Q и K?",
+      "Как контроль нормы query/key влияет на attention logits?"
+    ]
+  },
+  {
+    "id": 84,
+    "question": "Что такое attention temperature и как масштаб logits меняет распределение внимания?",
+    "variants": [
+      "Почему умножение attention logits на коэффициент делает распределение более sharp или flat?",
+      "Как температура связана с softmax внутри attention?"
+    ]
+  },
+  {
+    "id": 85,
+    "question": "Что означает masked softmax и почему тип данных маски важен в mixed precision?",
+    "variants": [
+      "Почему `-1e9` не всегда безопасная универсальная константа для attention mask?",
+      "Как корректно исключать masked logits в FP16/BF16?"
+    ]
+  },
+  {
+    "id": 86,
+    "question": "Почему полностью замаскированная строка attention может породить NaN?",
+    "variants": [
+      "Что происходит с softmax, если все logits равны −∞?",
+      "Как избежать NaN в attention для query без разрешённых keys?"
+    ]
+  },
+  {
+    "id": 87,
+    "question": "Как вы определите packed sequences и зачем упаковывать несколько документов в один training sequence?",
+    "variants": [
+      "Как sequence packing уменьшает padding waste при pretraining?",
+      "Почему несколько коротких samples объединяют в один fixed-length block?"
+    ]
+  },
+  {
+    "id": 88,
+    "question": "Как формально определить sequence packing efficiency и как её измерить?",
+    "variants": [
+      "Как посчитать долю реальных training tokens относительно padding capacity?",
+      "Какая метрика показывает, насколько эффективно batch использует длину sequences?"
+    ]
+  },
+  {
+    "id": 89,
+    "question": "Как устроен shift labels для causal language modeling и где возникает типичная off-by-one ошибка?",
+    "variants": [
+      "Как из `[x1,x2,x3]` получить inputs и targets для next-token loss?",
+      "Почему token не должен обучаться предсказывать самого себя на той же позиции?"
+    ]
+  },
+  {
+    "id": 90,
+    "question": "Какое техническое определение можно дать label masking в supervised fine-tuning и зачем иногда обучать loss только на assistant tokens?",
+    "variants": [
+      "Почему в chat SFT часто игнорируют system/user части последовательности при loss?",
+      "Как маска labels меняет задачу instruction tuning?"
+    ]
+  },
+  {
+    "id": 91,
+    "question": "Чем causal LM objective отличается от masked language modeling?",
+    "variants": [
+      "Почему GPT предсказывает следующий токен, а BERT восстанавливает скрытые токены?",
+      "Как objective влияет на доступный контекст при pretraining?"
+    ]
+  },
+  {
+    "id": 92,
+    "question": "Как объяснить термин или механизм prefix language modeling и чем его mask отличается от обычного causal LM?",
+    "variants": [
+      "Как разрешить bidirectional attention внутри prefix, сохранив autoregressive generation suffix?",
+      "Что такое prefix-LM attention pattern?"
+    ]
+  },
+  {
+    "id": 93,
+    "question": "Чем encoder-decoder objective удобен для sequence-to-sequence задач по сравнению с decoder-only concatenation?",
+    "variants": [
+      "Почему перевод или суммаризация естественно формулируются через отдельные source encoder и target decoder?",
+      "Какие trade-offs у encoder-decoder и decoder-only для условной генерации?"
+    ]
+  },
+  {
+    "id": 94,
+    "question": "Что такое span corruption objective и зачем T5-подобные модели маскируют целые фрагменты?",
+    "variants": [
+      "Как обучение восстановлению spans отличается от независимого masking отдельных tokens?",
+      "Для чего sentinel tokens используются в denoising pretraining?"
+    ]
+  },
+  {
+    "id": 95,
+    "question": "Что означает next-token prediction на уровне всей последовательности и почему один training example даёт много supervision targets?",
+    "variants": [
+      "Почему sequence из 4096 tokens содержит тысячи обучающих предсказаний, а не одно?",
+      "Как causal mask позволяет использовать каждый prefix одного документа как training signal?"
+    ]
+  },
+  {
+    "id": 96,
+    "question": "Как вы определите exposure bias и почему teacher forcing создаёт различие между training и generation?",
+    "variants": [
+      "Почему модель на inference сталкивается с prefixes, которые сама же могла сгенерировать ошибочно?",
+      "Как отличается распределение контекстов при teacher-forced training и free-running decode?"
+    ]
+  },
+  {
+    "id": 97,
+    "question": "Как temperature применяется к output logits и почему T=0 обычно реализуется не буквально?",
+    "variants": [
+      "Что делает sampling temperature с распределением следующего токена?",
+      "Почему `temperature=0` в API часто означает greedy decoding, а не деление на ноль?"
+    ]
+  },
+  {
+    "id": 98,
+    "question": "Как работает top-k sampling и какие у него failure modes?",
+    "variants": [
+      "Что происходит с распределением, если разрешить выбирать только k самых вероятных токенов?",
+      "Когда fixed top-k слишком грубо обрезает vocabulary?"
+    ]
+  },
+  {
+    "id": 99,
+    "question": "Как работает nucleus/top-p sampling и чем оно отличается от top-k?",
+    "variants": [
+      "Как выбрать минимальный набор токенов с суммарной probability не меньше p?",
+      "Почему top-p адаптирует число кандидатов к форме распределения?"
+    ]
+  },
+  {
+    "id": 100,
+    "question": "Чем greedy decoding, sampling и beam search отличаются по цели и вычислительной стоимости?",
+    "variants": [
+      "Когда выбирать argmax, stochastic sampling или несколько beams при генерации?",
+      "Почему beam search не является универсально лучшим decoding для chat LLM?"
+    ]
+  },
+  {
+    "id": 101,
+    "question": "Как приблизительно посчитать число параметров в одном dense Transformer block?",
+    "variants": [
+      "Из каких матриц складывается parameter count decoder layer?",
+      "Почему FFN часто содержит больше параметров, чем attention?"
+    ]
+  },
+  {
+    "id": 102,
+    "question": "Как parameter count GQA attention отличается от MHA при одинаковом числе query heads?",
+    "variants": [
+      "Какие attention matrices становятся меньше при уменьшении числа KV heads?",
+      "Почему GQA экономит не только KV cache, но и часть weights?"
+    ]
+  },
+  {
+    "id": 103,
+    "question": "Почему SwiGLU FFN часто использует intermediate size меньше 4×hidden size?",
+    "variants": [
+      "Как подобрать expansion ratio gated MLP при сравнении с классическим FFN по parameter budget?",
+      "Почему три проекции SwiGLU меняют расчёт ширины FFN?"
+    ]
+  },
+  {
+    "id": 104,
+    "question": "Как работают residual stream и residual branches в pre-norm decoder block?",
+    "variants": [
+      "Проследите путь hidden state через attention и MLP с остаточными сложениями.",
+      "Где именно сохраняется identity path в pre-LN Transformer?"
+    ]
+  },
+  {
+    "id": 105,
+    "question": "Почему final normalization часто стоит после последнего Transformer block перед LM head?",
+    "variants": [
+      "Зачем decoder-only модели нормализуют residual stream перед выходной проекцией?",
+      "Как final RMSNorm влияет на масштаб logits?"
+    ]
+  },
+  {
+    "id": 106,
+    "question": "Как формально определить tied versus untied output head и как это влияет на checkpoint conversion?",
+    "variants": [
+      "Какие ошибки возможны при конвертации модели, если lm_head и token embeddings связаны или независимы?",
+      "Почему `tie_word_embeddings` важен для размера и корректности checkpoint?"
+    ]
+  },
+  {
+    "id": 107,
+    "question": "Как вычисляется RMSNorm и почему epsilon нужен даже при ненулевом типичном hidden state?",
+    "variants": [
+      "Какую роль ε играет в формуле RMS normalization?",
+      "Что предотвращает добавка epsilon в denominator RMSNorm?"
+    ]
+  },
+  {
+    "id": 108,
+    "question": "Почему BF16 обычно имеет большую устойчивость диапазона, чем FP16, несмотря на одинаковые 16 бит?",
+    "variants": [
+      "Чем exponent/mantissa BF16 отличается от FP16 для LLM training?",
+      "Почему BF16 реже переполняется на больших активациях?"
+    ]
+  },
+  {
+    "id": 109,
+    "question": "Какое техническое определение можно дать mixed-precision training и какие тензоры необязательно хранить в одном dtype?",
+    "variants": [
+      "Как LLM training сочетает BF16/FP16 compute с FP32 состояниями?",
+      "Почему mixed precision не означает, что вся модель просто переведена в 16 бит?"
+    ]
+  },
+  {
+    "id": 110,
+    "question": "Зачем dynamic loss scaling используется при FP16 training?",
+    "variants": [
+      "Как масштабирование loss помогает сохранить маленькие gradients в half precision?",
+      "Почему loss scale затем нужно компенсировать перед optimizer step?"
+    ]
+  },
+  {
+    "id": 111,
+    "question": "Как объяснить термин или механизм gradient checkpointing и какой memory-compute trade-off он создаёт?",
+    "variants": [
+      "Как activation recomputation позволяет обучать более длинные или крупные модели?",
+      "Почему checkpointing экономит память ценой дополнительного forward compute?"
+    ]
+  },
+  {
+    "id": 112,
+    "question": "Почему activation memory растёт с batch size и sequence length даже при неизменном числе параметров?",
+    "variants": [
+      "Какие training tensors делают длинный контекст memory-intensive кроме weights?",
+      "Почему одна и та же 7B модель может не помещаться при увеличении microbatch или seq_len?"
+    ]
+  },
+  {
+    "id": 113,
+    "question": "Как отличить optimizer-state memory от gradient и parameter memory при AdamW training?",
+    "variants": [
+      "Из каких крупных постоянных компонентов складывается память модели с Adam?",
+      "Почему Adam training требует значительно больше памяти, чем inference?"
+    ]
+  },
+  {
+    "id": 114,
+    "question": "Что такое weight decay exclusions и почему normalization/bias parameters часто обрабатывают иначе?",
+    "variants": [
+      "Почему AdamW parameter groups нередко исключают LayerNorm/RMSNorm scales и biases из decay?",
+      "Как разделять параметры Transformer на decay и no-decay groups?"
+    ]
+  },
+  {
+    "id": 115,
+    "question": "Как cosine learning-rate decay отличается от linear decay и constant schedule?",
+    "variants": [
+      "Какие формы schedule часто используют после warmup?",
+      "Как cosine annealing изменяет learning rate к концу pretraining?"
+    ]
+  },
+  {
+    "id": 116,
+    "question": "Почему gradient norm полезно логировать вместе с training loss?",
+    "variants": [
+      "Какие проблемы можно заметить по global gradient norm до того, как loss полностью разойдётся?",
+      "Что означает устойчивый рост или редкие spikes gradient norm?"
+    ]
+  },
+  {
+    "id": 117,
+    "question": "Что означает update-to-weight ratio и зачем смотреть его по слоям?",
+    "variants": [
+      "Как сравнить размер optimizer update с нормой текущих параметров?",
+      "Почему одинаковый absolute gradient может быть слишком большим для одного слоя и малым для другого?"
+    ]
+  },
+  {
+    "id": 118,
+    "question": "Почему training loss нельзя корректно сравнивать между моделями с разными tokenizers без оговорок?",
+    "variants": [
+      "Как tokenizer меняет единицу измерения cross-entropy per token?",
+      "Почему более низкий nats/token не обязательно означает лучшее modelling одного и того же текста?"
+    ]
+  },
+  {
+    "id": 119,
+    "question": "Как посчитать bits per byte из log-likelihood модели и зачем эта метрика нужна?",
+    "variants": [
+      "Как нормировать language-model loss на размер исходного UTF-8 текста?",
+      "Почему BPB удобнее perplexity при разных tokenizers?"
+    ]
+  },
+  {
+    "id": 120,
+    "question": "Как вы определите calibration output probabilities и почему next-token confidence может быть ошибочно высокой?",
+    "variants": [
+      "Когда вероятность top token не соответствует фактической частоте правильности?",
+      "Как понять, калиброваны ли token probabilities языковой модели?"
+    ]
+  },
+  {
+    "id": 121,
+    "question": "Как формально определить log-probability последовательности и почему длинные ответы имеют более отрицательную сумму log-probs?",
+    "variants": [
+      "Почему нельзя сравнивать hypotheses разной длины только по сумме log likelihood без length consideration?",
+      "Как вероятность sequence раскладывается в сумму token log-probabilities?"
+    ]
+  },
+  {
+    "id": 122,
+    "question": "Почему perplexity может улучшаться, а downstream quality почти не меняться?",
+    "variants": [
+      "Как base-model loss и task capability могут расходиться?",
+      "Почему небольшое снижение validation cross-entropy не гарантирует заметного роста benchmark accuracy?"
+    ]
+  },
+  {
+    "id": 123,
+    "question": "Какое техническое определение можно дать data leakage между train и validation corpus и как она искажает language-model loss?",
+    "variants": [
+      "Почему дубликаты validation документов в pretraining делают метрики чрезмерно оптимистичными?",
+      "Как contamination влияет на perplexity и benchmark results?"
+    ]
+  },
+  {
+    "id": 124,
+    "question": "Как отличить memorization от generalization в поведении LLM?",
+    "variants": [
+      "Какие эксперименты помогают понять, воспроизводит ли модель training example или выучила правило?",
+      "Почему точный ответ на известный benchmark item не доказывает способность рассуждать?"
+    ]
+  },
+  {
+    "id": 125,
+    "question": "Как объяснить термин или механизм induction heads в Transformer и почему их изучают как пример механизма in-context pattern copying?",
+    "variants": [
+      "Как attention head может продолжать повторяющийся шаблон вида A…B…A→B?",
+      "Что mechanistic interpretability называет induction pattern?"
+    ]
+  },
+  {
+    "id": 126,
+    "question": "Что такое gradient accumulation по токенам и почему простое усреднение loss каждого microbatch может быть неверным при разных длинах?",
+    "variants": [
+      "Как корректно накопить gradients, если microbatches содержат разное число active tokens?"
+    ]
+  },
+  {
+    "id": 127,
+    "question": "Как gradient accumulation взаимодействует с learning-rate schedule и числом optimizer steps?",
+    "variants": [
+      "Почему два runs с одинаковым числом processed tokens могут иметь разное число parameter updates?",
+      "Что нужно пересчитать при изменении accumulation_steps?"
+    ]
+  },
+  {
+    "id": 128,
+    "question": "Что означает effective batch size в distributed training и как его посчитать?",
+    "variants": [
+      "Как связаны microbatch, gradient accumulation и data-parallel world size?",
+      "Как получить global batch из per-GPU batch и accumulation?"
+    ]
+  },
+  {
+    "id": 129,
+    "question": "Как проверить, что distributed data loader не дублирует одни и те же samples между data-parallel ranks?",
+    "variants": [
+      "Каким тестом обнаружить ошибочный sharding dataset в DDP training?",
+      "Почему одинаковые batches на всех replicas снижают эффективный batch?"
+    ]
+  },
+  {
+    "id": 130,
+    "question": "Почему random seed в distributed LLM training нельзя просто сделать одинаковым для всех процессов?",
+    "variants": [
+      "Какие RNG streams должны быть синхронизированы, а какие различаться между ranks?",
+      "Почему одинаковый dropout/data sampling seed на всех GPUs может быть проблемой?"
+    ]
+  },
+  {
+    "id": 131,
+    "question": "Как вы определите deterministic training и почему полная воспроизводимость LLM run сложна?",
+    "variants": [
+      "Почему одинаковый seed не гарантирует bitwise identical loss curve на GPU cluster?",
+      "Какие источники недетерминизма остаются в distributed training?"
+    ]
+  },
+  {
+    "id": 132,
+    "question": "Как формально определить optimizer state checkpoint и почему одних model weights недостаточно для точного resume training?",
+    "variants": [
+      "Какие состояния кроме параметров нужно сохранить, чтобы продолжить AdamW run без скачка?",
+      "Почему restart только из weights меняет optimization trajectory?"
+    ]
+  },
+  {
+    "id": 133,
+    "question": "Как работает weight tying при vocabulary resize и какие токены можно добавлять безопаснее всего?",
+    "variants": [
+      "Что нужно изменить в embedding/lm_head при добавлении специальных token IDs?",
+      "Почему увеличение словаря pretrained checkpoint требует инициализации новых строк?"
+    ]
+  },
+  {
+    "id": 134,
+    "question": "Как можно обучить новый tokenizer и при этом оценить, стоит ли менять tokenizer существующей LLM?",
+    "variants": [
+      "Какие метрики сравнить перед миграцией pretrained model на другой vocabulary?",
+      "Когда улучшение token efficiency оправдывает tokenizer surgery?"
+    ]
+  },
+  {
+    "id": 135,
+    "question": "Почему tokenizer mismatch может давать грамматически странные ответы без runtime error?",
+    "variants": [
+      "Как проявляется загрузка checkpoint с несовместимым vocabulary mapping?",
+      "Почему совпадение vocab size не гарантирует совместимость tokenizer и weights?"
+    ]
+  },
+  {
+    "id": 136,
+    "question": "Как реализовать numerically stable cross-entropy без явного softmax?",
+    "variants": [
+      "Почему `log_softmax + NLL` устойчивее, чем `softmax` затем `log`?",
+      "Покажите формулу cross-entropy через log-sum-exp."
+    ]
+  },
+  {
+    "id": 137,
+    "question": "Почему logits для cross-entropy обычно не нужно предварительно пропускать через softmax?",
+    "variants": [
+      "Что ожидает `CrossEntropyLoss`: probabilities или raw logits?",
+      "Почему double softmax меняет loss и gradients?"
+    ]
+  },
+  {
+    "id": 138,
+    "question": "Как masking labels через ignore_index влияет на denominator средней cross-entropy?",
+    "variants": [
+      "Участвуют ли игнорируемые tokens в среднем loss?",
+      "Почему padding positions не должны уменьшать среднюю ошибку простым добавлением нулей?"
+    ]
+  },
+  {
+    "id": 139,
+    "question": "Какое техническое определение можно дать gradient overflow/underflow и как отличить его от обычного exploding gradient?",
+    "variants": [
+      "Чем численная проблема dtype отличается от реального роста нормы градиента?",
+      "Как диагностировать Inf/0 gradients в mixed precision?"
+    ]
+  },
+  {
+    "id": 140,
+    "question": "Почему NaN после нескольких тысяч training steps требует поиска первого невалидного тензора, а не только места падения loss?",
+    "variants": [
+      "Как локализовать источник numerical instability в Transformer training?"
+    ]
+  },
+  {
+    "id": 141,
+    "question": "Как объяснить термин или механизм activation outliers и почему они важны для low-precision LLM?",
+    "variants": [
+      "Почему несколько каналов с очень большой magnitude усложняют INT8/FP8 quantization?",
+      "Как редкие большие activations влияют на scale выбора quantizer?"
+    ]
+  },
+  {
+    "id": 142,
+    "question": "Что такое quantization scale и zero-point в affine integer quantization?",
+    "variants": [
+      "Как вещественное значение отображляется в INT8 через scale и zero point?",
+      "Чем symmetric quantization отличается от asymmetric на уровне формулы?"
+    ]
+  },
+  {
+    "id": 143,
+    "question": "Чем post-training quantization отличается от quantization-aware training?",
+    "variants": [
+      "Когда веса квантуют после обучения, а когда симулируют quantization во время training?",
+      "Какие trade-offs PTQ и QAT для LLM?"
+    ]
+  },
+  {
+    "id": 144,
+    "question": "Почему 4-bit weights не гарантируют четырёхкратное ускорение относительно FP16?",
+    "variants": [
+      "Почему memory compression и inference speedup у quantized LLM — разные вещи?",
+      "Какие bottlenecks мешают W4 модели быть ровно 4× быстрее?"
+    ]
+  },
+  {
+    "id": 145,
+    "question": "Что означает per-channel и group-wise weight quantization и почему они обычно точнее per-tensor?",
+    "variants": [
+      "Как granularity quantization scale влияет на ошибку разных rows/columns weight matrix?",
+      "Почему W4 часто хранит отдельный scale на группу из десятков/сотен weights?"
+    ]
+  },
+  {
+    "id": 146,
+    "question": "Как LoRA меняет линейный слой и почему число trainable parameters становится маленьким?",
+    "variants": [
+      "Как low-rank matrices A и B аппроксимируют update большой weight matrix?",
+      "Почему LoRA позволяет заморозить base model и обучать адаптер?"
+    ]
+  },
+  {
+    "id": 147,
+    "question": "Как вы определите QLoRA и почему 4-bit base weights всё равно позволяют обучать LoRA adapters?",
+    "variants": [
+      "Как gradients проходят через quantized frozen backbone к low-rank adapters?",
+      "Зачем NF4 и double quantization появились в QLoRA recipe?"
+    ]
+  },
+  {
+    "id": 148,
+    "question": "Чем full fine-tuning отличается от parameter-efficient fine-tuning на уровне optimizer memory и degrees of freedom?",
+    "variants": [
+      "Что теряется и что выигрывается, если обновлять только adapters вместо всех weights?",
+      "Почему PEFT экономит память сильнее, чем просто уменьшает checkpoint diff?"
+    ]
+  },
+  {
+    "id": 149,
+    "question": "Как формально определить catastrophic forgetting при continued pretraining или fine-tuning?",
+    "variants": [
+      "Почему модель после узкого domain tuning может ухудшить общие способности?",
+      "Как адаптация на новом distribution способна сдвинуть ранее полезные weights?"
+    ]
+  },
+  {
+    "id": 150,
+    "question": "Как понять, что fine-tuning начал overfit, если training loss продолжает снижаться?",
+    "variants": [
+      "Какие сигналы показывают переобучение instruction/domain tuning?",
+      "Почему lowest train loss не является критерием выбора лучшего checkpoint?"
+    ]
+  },
+  {
+    "id": 151,
+    "question": "Какое техническое определение можно дать scaling laws для языковых моделей и какие величины они обычно связывают?",
+    "variants": [
+      "Как эмпирические степенные законы связывают model size, data и training compute с loss?",
+      "Что означают power-law зависимости в LLM scaling?"
+    ]
+  },
+  {
+    "id": 152,
+    "question": "В чём главное различие выводов Kaplan scaling laws и Chinchilla compute-optimal analysis?",
+    "variants": [
+      "Почему Chinchilla изменила взгляд на баланс parameters и training tokens при фиксированном compute?",
+      "Что значит «модель недообучена по данным» в контексте compute-optimal scaling?"
+    ]
+  },
+  {
+    "id": 153,
+    "question": "Что означает compute-optimal training и почему оно не обязательно оптимально для production deployment?",
+    "variants": [
+      "Почему минимальный pretraining loss при фиксированных FLOPs может дать не лучший lifecycle cost?",
+      "Когда стоит обучить меньшую модель на большем числе токенов, чем предсказывает training-only optimum?"
+    ]
+  },
+  {
+    "id": 154,
+    "question": "Как приблизительно оценить training FLOPs dense decoder Transformer по числу parameters и tokens?",
+    "variants": [
+      "Откуда берётся ориентир порядка 6ND FLOPs для Transformer pretraining?",
+      "Как быстро прикинуть compute budget модели N параметров на D токенах?"
+    ]
+  },
+  {
+    "id": 155,
+    "question": "Как объяснить термин или механизм Model FLOPs Utilization и как она отличается от GPU utilization в `nvidia-smi`?",
+    "variants": [
+      "Почему высокая загрузка GPU не означает, что training близок к пиковым Tensor Core FLOPs?",
+      "Как интерпретировать MFU для LLM training?"
+    ]
+  },
+  {
+    "id": 156,
+    "question": "Как data quality меняет смысл «ещё одного триллиона training tokens»?",
+    "variants": [
+      "Почему одинаковое число tokens из разных corpora даёт разный прирост качества?",
+      "Что такое effective data quality в scaling context?"
+    ]
+  },
+  {
+    "id": 157,
+    "question": "Что такое data mixture в pretraining и почему доли доменов обычно задают по токенам?",
+    "variants": [
+      "Как смешивать web, code, books, math и multilingual data в одном LLM run?",
+      "Почему sampling weights pretraining corpora являются важным гиперпараметром?"
+    ]
+  },
+  {
+    "id": 158,
+    "question": "Что означает data curriculum и чем он отличается от статической pretraining mixture?",
+    "variants": [
+      "Зачем менять распределение обучающих данных по мере training?",
+      "Когда curriculum от общих к более качественным/сложным данным может быть полезен?"
+    ]
+  },
+  {
+    "id": 159,
+    "question": "Почему deduplication training corpus важна не только для benchmark contamination?",
+    "variants": [
+      "Как повторяющиеся web pages влияют на sample efficiency и memorization?",
+      "Что даёт near-duplicate removal внутри pretraining data?"
+    ]
+  },
+  {
+    "id": 160,
+    "question": "Как вы определите repeated-data regime и почему несколько эпох по одному corpus дают diminishing returns?",
+    "variants": [
+      "Почему повторное обучение на тех же токенах не эквивалентно получению новых данных?",
+      "Как data repetition влияет на compute-optimal planning?"
+    ]
+  },
+  {
+    "id": 161,
+    "question": "Как формально определить synthetic training data и какие два разных эффекта она может давать LLM?",
+    "variants": [
+      "Когда model-generated data расширяет capabilities, а когда усиливает ошибки teacher model?",
+      "Какие риски есть у массового добавления synthetic text в pretraining/post-training?"
+    ]
+  },
+  {
+    "id": 162,
+    "question": "Какое техническое определение можно дать knowledge distillation и чем она отличается от обычного supervised fine-tuning?",
+    "variants": [
+      "Как student model учится у teacher distributions или generated examples?",
+      "Какие сигналы кроме hard labels используются при distillation?"
+    ]
+  },
+  {
+    "id": 163,
+    "question": "Как объяснить термин или механизм distillation temperature и зачем смягчать teacher logits?",
+    "variants": [
+      "Почему soft targets с T>1 могут содержать больше информации о вторичных классах?",
+      "Как temperature используется в KL-based distillation?"
+    ]
+  },
+  {
+    "id": 164,
+    "question": "Как model size и training token budget совместно влияют на inference cost?",
+    "variants": [
+      "Почему две модели с одинаковым pretraining FLOP budget могут иметь разную стоимость serving?",
+      "Как smaller-overtrained model меняет lifecycle economics?"
+    ]
+  },
+  {
+    "id": 165,
+    "question": "Почему параметрическая эффективность MoE не равна вычислительной эффективности dense model того же total size?",
+    "variants": [
+      "Как различать total parameters и active parameters у Mixture-of-Experts?",
+      "Почему 8×7B MoE нельзя сравнивать с 56B dense только по названию?"
+    ]
+  },
+  {
+    "id": 166,
+    "question": "Что такое router в Mixture-of-Experts layer и как он выбирает экспертов?",
+    "variants": [
+      "Как token routing работает в sparse MoE FFN?",
+      "Что означает top-k gating для экспертов?"
+    ]
+  },
+  {
+    "id": 167,
+    "question": "Что означает expert load imbalance и почему он ухудшает throughput MoE?",
+    "variants": [
+      "Почему один перегруженный expert может замедлить весь MoE layer?",
+      "Какие метрики показывают, что router распределяет tokens неравномерно?"
+    ]
+  },
+  {
+    "id": 168,
+    "question": "Как вы определите expert capacity factor и что происходит при overflow tokens?",
+    "variants": [
+      "Как MoE ограничивает максимальное число токенов на expert в одном batch?",
+      "Что значит token dropping или rerouting при переполнении expert capacity?"
+    ]
+  },
+  {
+    "id": 169,
+    "question": "Зачем MoE использует auxiliary load-balancing loss и какую побочную цель она оптимизирует?",
+    "variants": [
+      "Почему основного language-model loss недостаточно для равномерной загрузки experts?",
+      "Как балансировочная loss взаимодействует с router quality?"
+    ]
+  },
+  {
+    "id": 170,
+    "question": "Как формально определить expert parallelism и почему MoE требует all-to-all communication?",
+    "variants": [
+      "Как tokens перемещаются между GPUs, если experts sharded по devices?",
+      "Почему expert parallelism чувствителен к interconnect bandwidth?"
+    ]
+  },
+  {
+    "id": 171,
+    "question": "Какое техническое определение можно дать expert specialization и как проверить, действительно ли эксперты выучили разные функции?",
+    "variants": [
+      "Как анализировать, по каким токенам/доменам router выбирает разные MoE experts?",
+      "Почему balanced routing не доказывает semantic specialization?"
+    ]
+  },
+  {
+    "id": 172,
+    "question": "Как dense-to-MoE upcycling работает на высоком уровне и зачем его используют?",
+    "variants": [
+      "Как превратить pretrained dense FFN в набор experts без обучения MoE с нуля?",
+      "Что означает upcycling dense checkpoint в sparse model?"
+    ]
+  },
+  {
+    "id": 173,
+    "question": "Почему long-context training резко меняет compute budget даже при том же числе training tokens?",
+    "variants": [
+      "Почему 1T tokens, упакованных по 2K и по 128K, не обязательно стоят одинаково?",
+      "Как sequence length влияет на FLOPs сверх linear parameter-token term?"
+    ]
+  },
+  {
+    "id": 174,
+    "question": "Как объяснить термин или механизм context-length curriculum и зачем сначала обучать модель на коротких sequences?",
+    "variants": [
+      "Почему training может постепенно увеличивать sequence length вместо 128K с первого шага?",
+      "Как staged context length экономит compute на раннем pretraining?"
+    ]
+  },
+  {
+    "id": 175,
+    "question": "Почему long-context capability нельзя оценивать только needle-in-a-haystack тестом?",
+    "variants": [
+      "Какие ограничения у теста поиска одной вставленной строки в огромном контексте?",
+      "Что ещё нужно измерять кроме exact retrieval одного needle?"
+    ]
+  },
+  {
+    "id": 176,
+    "question": "Чем prefill latency и decode latency отличаются и какими метриками их измерять?",
+    "variants": [
+      "Почему TTFT и inter-token latency нужно измерять отдельно?",
+      "Какая стадия отвечает за время до первого токена, а какая — за скорость продолжения?"
+    ]
+  },
+  {
+    "id": 177,
+    "question": "Почему decode малых batches часто memory-bandwidth-bound?",
+    "variants": [
+      "Почему GPU при генерации одного токена может не достигать высокой арифметической загрузки?",
+      "Что ограничивает single-user tokens/s большой dense LLM?"
+    ]
+  },
+  {
+    "id": 178,
+    "question": "Что такое arithmetic intensity и как roofline model помогает анализировать LLM inference?",
+    "variants": [
+      "Как отношение FLOPs к bytes moved показывает compute-bound или memory-bound режим?",
+      "Как использовать roofline intuition для prefill и decode?"
+    ]
+  },
+  {
+    "id": 179,
+    "question": "Что означает continuous batching и почему оно эффективнее статического batch для autoregressive serving?",
+    "variants": [
+      "Как iteration-level scheduling добавляет и удаляет requests между decode steps?",
+      "Почему ждать завершения самого длинного sequence в фиксированном batch невыгодно?"
+    ]
+  },
+  {
+    "id": 180,
+    "question": "Как вы определите max batch tokens и почему он полезнее фиксированного числа requests для LLM serving?",
+    "variants": [
+      "Почему batch из 32 коротких decode requests и 32 длинных prefills имеет разную стоимость?",
+      "Как token budget scheduler ограничивает объём одной iteration?"
+    ]
+  },
+  {
+    "id": 181,
+    "question": "Как формально определить chunked prefill и зачем разбивать длинный prompt на части при serving?",
+    "variants": [
+      "Как chunking длинного prefill снижает задержку decode requests в общем batch?",
+      "Почему один 100K prompt может ухудшить inter-token latency других пользователей?"
+    ]
+  },
+  {
+    "id": 182,
+    "question": "Какое техническое определение можно дать prefill-decode disaggregation и когда разделение стадий по разным GPU полезно?",
+    "variants": [
+      "Почему prefill и decode можно обслуживать разными пулами accelerators?",
+      "Какие trade-offs у disaggregated LLM serving?"
+    ]
+  },
+  {
+    "id": 183,
+    "question": "Как объяснить термин или механизм prefix caching и почему общий системный prompt можно не пересчитывать для каждого запроса?",
+    "variants": [
+      "Как reuse KV cache одинакового prompt prefix уменьшает prefill cost?",
+      "Какие условия нужны, чтобы KV prefix был идентичен между requests?"
+    ]
+  },
+  {
+    "id": 184,
+    "question": "Почему prefix cache нельзя безопасно переиспользовать после изменения LoRA adapter или модели?",
+    "variants": [
+      "Какие изменения инвалидируют сохранённые K/V даже при том же тексте prefix?",
+      "Почему KV cache зависит от weights, а не только от token IDs?"
+    ]
+  },
+  {
+    "id": 185,
+    "question": "Что такое PagedAttention и какую проблему memory management она решает?",
+    "variants": [
+      "Как paging KV cache уменьшает fragmentation при serving variable-length requests?",
+      "Почему непрерывный KV buffer на максимальную длину плохо использует GPU memory?"
+    ]
+  },
+  {
+    "id": 186,
+    "question": "Что означает internal и external fragmentation применительно к KV cache?",
+    "variants": [
+      "Чем потерянное место внутри KV block отличается от невозможности найти большой contiguous region?",
+      "Почему variable sequence lengths фрагментируют GPU memory?"
+    ]
+  },
+  {
+    "id": 187,
+    "question": "Как beam search или `n` параллельных продолжений влияют на KV memory?",
+    "variants": [
+      "Почему multiple hypotheses могут быстро умножить KV-cache расход?",
+      "Как copy-on-write prefix sharing уменьшает память beam decoding?"
+    ]
+  },
+  {
+    "id": 188,
+    "question": "Как speculative decoding ускоряет генерацию и при каком условии сохраняет distribution target model?",
+    "variants": [
+      "Как draft model предлагает несколько tokens, а target проверяет их параллельно?",
+      "Почему acceptance/rejection rule важен для exact speculative decoding?"
+    ]
+  },
+  {
+    "id": 190,
+    "question": "Почему speculative decoding обычно больше помогает latency, чем увеличивает максимальный throughput при полной загрузке сервера?",
+    "variants": [
+      "Когда draft verification ускоряет single-request decode, но почти не помогает saturated batching?",
+      "Как speculative decoding взаимодействует с arithmetic intensity большого batch?"
+    ]
+  },
+  {
+    "id": 191,
+    "question": "Как вы определите KV-cache quantization и какие тензоры она сжимает?",
+    "variants": [
+      "Как снижение precision keys/values увеличивает concurrency long-context serving?",
+      "Чем KV quantization отличается от weight quantization?"
+    ]
+  },
+  {
+    "id": 192,
+    "question": "Почему input length влияет на decode latency даже после завершения prefill?",
+    "variants": [
+      "Почему один output token после 100K prompt обычно дороже, чем после 1K prompt?",
+      "Как context length влияет на attention работы каждого decode step?"
+    ]
+  },
+  {
+    "id": 193,
+    "question": "Почему output length влияет на end-to-end latency почти линейно в обычном autoregressive decode?",
+    "variants": [
+      "Откуда берётся зависимость request latency от числа generated tokens?",
+      "Почему max_tokens является важным capacity parameter?"
+    ]
+  },
+  {
+    "id": 194,
+    "question": "Как формально определить stop token и чем остановка по EOS отличается от внешнего stop sequence?",
+    "variants": [
+      "Как runtime решает, когда прекратить autoregressive generation?",
+      "Почему stop string может требовать нескольких tokens и постобработки?"
+    ]
+  },
+  {
+    "id": 195,
+    "question": "Какое техническое определение можно дать repetition penalty и почему неправильное применение к logits может искажать distribution?",
+    "variants": [
+      "Как penalties за уже встречавшиеся tokens меняют generation?",
+      "Почему repetition penalty — эвристика decoding, а не свойство Transformer?"
+    ]
+  },
+  {
+    "id": 196,
+    "question": "Как объяснить термин или механизм logits processor и где он находится в generation pipeline?",
+    "variants": [
+      "Какие преобразования можно применить между LM head и выбором следующего токена?",
+      "Как temperature, penalties и constraints взаимодействуют с raw logits?"
+    ]
+  },
+  {
+    "id": 197,
+    "question": "Что такое constrained decoding и как grammar mask гарантирует синтаксически допустимый JSON?",
+    "variants": [
+      "Как ограничить next-token vocabulary состоянием конечного автомата/grammar?",
+      "Почему structured decoding надёжнее prompt-only просьбы «верни JSON»?"
+    ]
+  },
+  {
+    "id": 198,
+    "question": "Почему greedy decoding может быть недетерминированным на разных GPU/runtime, несмотря на `temperature=0`?",
+    "variants": [
+      "Откуда берутся разные argmax outputs при одинаковом prompt и weights?",
+      "Почему deterministic sampling не всегда означает bitwise deterministic inference?"
+    ]
+  },
+  {
+    "id": 199,
+    "question": "Что означает token throughput и почему нужно различать prompt tokens/s и output tokens/s?",
+    "variants": [
+      "Почему одна цифра tokens/s скрывает разные стадии serving?",
+      "Как корректно benchmark LLM prefill и decode throughput?"
+    ]
+  },
+  {
+    "id": 200,
+    "question": "Как построить минимальный корректный benchmark LLM inference, чтобы не сравнивать несопоставимые режимы?",
+    "variants": [
+      "Какие параметры workload нужно зафиксировать при сравнении serving runtimes?",
+      "Почему один запрос с коротким prompt не показывает production throughput?"
+    ]
+  },
+  {
+    "id": 201,
+    "question": "Как выбрать между data parallelism, tensor parallelism и pipeline parallelism при обучении крупной LLM?",
+    "variants": [
+      "Какие dimensions модели/батча шардируют DP, TP и PP и какие bottlenecks у каждого?",
+      "Как разложить Transformer по GPU, если одна replica не помещается на устройство?"
+    ]
+  },
+  {
+    "id": 202,
+    "question": "Как работает tensor parallelism для column-parallel и row-parallel linear layers?",
+    "variants": [
+      "Как матрицу W разделяют по столбцам/строкам и где нужны all-gather или all-reduce?",
+      "Объясните Megatron-style tensor parallel MLP на уровне линейной алгебры."
+    ]
+  },
+  {
+    "id": 203,
+    "question": "Почему tensor parallelism обычно стараются держать внутри узла с быстрым interconnect?",
+    "variants": [
+      "Что делает TP чувствительным к NVLink/NVSwitch bandwidth и latency?",
+      "Почему межузловой TP часто хуже pipeline/data parallelism?"
+    ]
+  },
+  {
+    "id": 204,
+    "question": "Как вы определите sequence parallelism в Megatron-style training и какую память оно экономит?",
+    "variants": [
+      "Почему LayerNorm/dropout activations можно шардировать по sequence dimension вместе с TP?",
+      "Как sequence parallelism дополняет tensor parallelism?"
+    ]
+  },
+  {
+    "id": 205,
+    "question": "Как формально определить context parallelism и почему attention требует специальной коммуникации между sequence shards?",
+    "variants": [
+      "Как обучать 128K sequence, разделив токены между GPU?",
+      "Почему linear/Norm работают локально по context shards, а attention — нет?"
+    ]
+  },
+  {
+    "id": 206,
+    "question": "Чем sequence parallelism отличается от context parallelism?",
+    "variants": [
+      "Почему SP и CP оба делят sequence dimension, но решают разные задачи?",
+      "Какие layers остаются sharded при SP и CP?"
+    ]
+  },
+  {
+    "id": 207,
+    "question": "Как pipeline parallelism создаёт pipeline bubble и от чего зависит его размер?",
+    "variants": [
+      "Почему часть stages простаивает при заполнении и опустошении pipeline?",
+      "Как microbatch count влияет на эффективность GPipe/1F1B schedule?"
+    ]
+  },
+  {
+    "id": 208,
+    "question": "Какое техническое определение можно дать 1F1B schedule в pipeline parallel training и зачем он нужен?",
+    "variants": [
+      "Как one-forward-one-backward уменьшает activation memory по сравнению с all-forward-all-backward?",
+      "Как чередуются microbatches в steady-state pipeline?"
+    ]
+  },
+  {
+    "id": 209,
+    "question": "Как load imbalance между pipeline stages влияет на throughput и как его исправлять?",
+    "variants": [
+      "Почему один stage с более тяжёлыми layers определяет скорость всего pipeline?",
+      "Как балансировать Transformer blocks и embedding/output layers по PP ranks?"
+    ]
+  },
+  {
+    "id": 210,
+    "question": "Как объяснить термин или механизм ZeRO-1, ZeRO-2 и ZeRO-3 и какие состояния они шардируют?",
+    "variants": [
+      "Как стадии Zero Redundancy Optimizer уменьшают per-GPU memory?",
+      "Чем sharding optimizer states, gradients и parameters отличается по communication?"
+    ]
+  },
+  {
+    "id": 211,
+    "question": "Как FSDP отличается от классического DDP на уровне хранения параметров и коммуникации?",
+    "variants": [
+      "Почему Fully Sharded Data Parallel не держит полную модель на каждом rank постоянно?",
+      "Какие all-gather/reduce-scatter операции появляются в FSDP?"
+    ]
+  },
+  {
+    "id": 212,
+    "question": "Что такое communication-computation overlap и почему без него distributed scaling быстро деградирует?",
+    "variants": [
+      "Как скрыть all-reduce/all-gather за GEMM вычислениями?",
+      "Почему одинаковый объём communication может иметь разный wall-clock overhead в зависимости от overlap?"
+    ]
+  },
+  {
+    "id": 213,
+    "question": "Как gradient bucketing влияет на DDP communication latency и overlap?",
+    "variants": [
+      "Почему невыгодно делать отдельный all-reduce для каждого маленького tensor gradient?",
+      "Что происходит, если DDP bucket слишком большой?"
+    ]
+  },
+  {
+    "id": 214,
+    "question": "Почему all-reduce bandwidth часто становится bottleneck при слишком большом data-parallel world size?",
+    "variants": [
+      "Что ограничивает strong scaling DDP, когда per-GPU batch становится маленьким?",
+      "Почему добавление GPU перестаёт ускорять один и тот же global workload?"
+    ]
+  },
+  {
+    "id": 215,
+    "question": "Что означает microbatch и global batch в pipeline-parallel training и почему их нельзя выбирать независимо?",
+    "variants": [
+      "Как число microbatches одновременно влияет на pipeline utilization и optimizer batch?",
+      "Почему увеличение M для уменьшения bubble меняет training dynamics, если ничего не компенсировать?"
+    ]
+  },
+  {
+    "id": 216,
+    "question": "Как вы определите activation partitioning и чем оно отличается от activation checkpointing?",
+    "variants": [
+      "Как шардирование activations между ranks отличается от их пересчёта на backward?",
+      "Можно ли комбинировать partitioning и recomputation?"
+    ]
+  },
+  {
+    "id": 217,
+    "question": "Почему distributed checkpointing нужен для моделей, которые не помещаются целиком на одном host?",
+    "variants": [
+      "Как сохранять sharded model/optimizer states без gather полного checkpoint на rank 0?",
+      "Какие требования есть у scalable LLM checkpoint format?"
+    ]
+  },
+  {
+    "id": 218,
+    "question": "Как оценить оптимальный checkpoint interval с учётом failure rate и стоимости записи?",
+    "variants": [
+      "Почему частота checkpoint зависит от MTBF кластера и времени save/restart?",
+      "Как балансировать lost compute и IO overhead?"
+    ]
+  },
+  {
+    "id": 219,
+    "question": "Почему смена world size при resume training может изменить numerical trajectory даже при корректном resharding?",
+    "variants": [
+      "Что меняется при восстановлении checkpoint на другом числе GPUs?",
+      "Почему одинаковые weights после elastic restart не гарантируют тот же следующий loss?"
+    ]
+  },
+  {
+    "id": 220,
+    "question": "Как network topology должна влиять на mapping TP, PP, DP и EP groups?",
+    "variants": [
+      "Почему одинаковые parallelism degrees могут работать по-разному при другом размещении ranks по nodes?",
+      "Как привязать наиболее communication-heavy collectives к быстрым links?"
+    ]
+  },
+  {
+    "id": 221,
+    "question": "Как формально определить expert parallel + tensor parallel комбинация и почему она усложняет layouts MoE layers?",
+    "variants": [
+      "Как совместить sharding experts и sharding matrices внутри каждого expert?",
+      "Какие дополнительные communication transitions возникают при EP×TP?"
+    ]
+  },
+  {
+    "id": 222,
+    "question": "Почему grouped GEMM полезен в MoE implementation?",
+    "variants": [
+      "Как объединить множество маленьких expert matrix multiplications в эффективный GPU workload?",
+      "Почему отдельный GEMM на каждый expert может недоиспользовать accelerator?"
+    ]
+  },
+  {
+    "id": 223,
+    "question": "Какое техническое определение можно дать pipeline interleaving/virtual pipeline stages и какой trade-off они создают?",
+    "variants": [
+      "Как несколько virtual chunks на одном physical rank уменьшают bubble?",
+      "Почему interleaved PP увеличивает число activation transfers?"
+    ]
+  },
+  {
+    "id": 224,
+    "question": "Как определить, что distributed training ограничен communication, а не compute или input pipeline?",
+    "variants": [
+      "Какие profiler сигналы отличают NCCL bottleneck от dataloader stall?",
+      "Как построить diagnosis низкого tokens/s на multi-GPU LLM run?"
+    ]
+  },
+  {
+    "id": 225,
+    "question": "Почему straggler одного rank может замедлить весь synchronous training и как найти источник?",
+    "variants": [
+      "Как один медленный GPU/node проявляется в collective operations?",
+      "Какие причины rank-level jitter типичны в больших LLM clusters?"
+    ]
+  },
+  {
+    "id": 226,
+    "question": "Как capacity-plan LLM serving по KV-cache memory, если requests имеют разные context lengths?",
+    "variants": [
+      "Почему средний context length недостаточен для расчёта concurrency?",
+      "Как перевести distribution prompt/output lengths в GPU memory demand?"
+    ]
+  },
+  {
+    "id": 227,
+    "question": "Как отличить KV-cache OOM от activation/workspace OOM во время serving?",
+    "variants": [
+      "Почему GPU может падать по памяти на prefill, хотя свободных KV blocks достаточно?",
+      "Какие компоненты peak memory нужно логировать в inference engine?"
+    ]
+  },
+  {
+    "id": 228,
+    "question": "Почему TTFT может расти при увеличении concurrency даже если prefill kernel сам не стал медленнее?",
+    "variants": [
+      "Как queueing и batching влияют на time-to-first-token?",
+      "Почему хороший kernel latency не гарантирует хороший user TTFT под нагрузкой?"
+    ]
+  },
+  {
+    "id": 229,
+    "question": "Почему p99 inter-token latency может ухудшаться при chunked prefill, даже если средняя TPOT улучшается?",
+    "variants": [
+      "Какие tail effects возможны при совместном scheduling prefill chunks и decode?",
+      "Почему настройка chunk size требует смотреть distribution, а не mean?"
+    ]
+  },
+  {
+    "id": 230,
+    "question": "Как выбрать optimal batch size для decode с учётом throughput-latency trade-off?",
+    "variants": [
+      "Почему увеличение decode batch сначала помогает GPU utilization, а затем ухудшает latency?",
+      "Как найти knee point batching curve?"
+    ]
+  },
+  {
+    "id": 231,
+    "question": "Как подтвердить, что model serving compute-bound на prefill и memory-bound на decode, используя profiler counters?",
+    "variants": [
+      "Какие признаки roofline regime искать в Nsight/профайлере?",
+      "Как доказать различный bottleneck двух стадий одной LLM?"
+    ]
+  },
+  {
+    "id": 232,
+    "question": "Почему увеличение tensor parallel degree может ухудшить single-request decode latency?",
+    "variants": [
+      "Как TP trade-off memory capacity против collective overhead проявляется на small batch inference?",
+      "Почему TP=8 не всегда быстрее TP=4 для одной 70B модели?"
+    ]
+  },
+  {
+    "id": 233,
+    "question": "Почему pipeline parallelism обычно неудобен для low-latency autoregressive inference?",
+    "variants": [
+      "Какие bubbles и stage-to-stage latency появляются при PP на decode token-by-token?",
+      "Когда PP всё же необходим при serving очень большой модели?"
+    ]
+  },
+  {
+    "id": 234,
+    "question": "Как prefix caching меняет capacity model при длинных общих system prompts?",
+    "variants": [
+      "Почему cache hit уменьшает prefill compute, но не всегда уменьшает per-request KV memory?",
+      "Какие ресурсы экономит shared prefix?"
+    ]
+  },
+  {
+    "id": 235,
+    "question": "Как выбрать eviction policy для prefix cache, если память ограничена?",
+    "variants": [
+      "Почему обычный LRU не всегда оптимален для дорогих длинных prefixes?",
+      "Какие признаки учитывать при кэшировании reusable KV prefixes?"
+    ]
+  },
+  {
+    "id": 236,
+    "question": "По каким критериям решать, выгодно ли disaggregate prefill и decode, если KV нужно передавать по сети?",
+    "variants": [
+      "Как сравнить saved interference с network cost KV transfer?",
+      "Какая модель стоимости нужна для PD disaggregation?"
+    ]
+  },
+  {
+    "id": 237,
+    "question": "Как объяснить термин или механизм admission control в LLM serving и почему нельзя принимать все requests в active batch?",
+    "variants": [
+      "Как избежать KV OOM и latency collapse под overload?",
+      "Какие ресурсы должен резервировать scheduler до начала generation?"
+    ]
+  },
+  {
+    "id": 238,
+    "question": "Что такое preemption в LLM scheduler и какие варианты восстановления состояния существуют?",
+    "variants": [
+      "Что делать, если активный request нужно временно убрать из GPU из-за нехватки KV capacity?",
+      "Чем recompute prefix отличается от swap KV на CPU?"
+    ]
+  },
+  {
+    "id": 239,
+    "question": "Как fairness policy конфликтует с throughput-optimal scheduling в LLM serving?",
+    "variants": [
+      "Почему shortest-job-first улучшает среднюю latency, но может голодать длинные prompts?",
+      "Как балансировать interactive и batch workloads на одном cluster?"
+    ]
+  },
+  {
+    "id": 240,
+    "question": "Почему model replica autoscaling по GPU utilization может плохо работать для LLM serving?",
+    "variants": [
+      "Какие сигналы лучше GPU busy% для масштабирования generative inference?",
+      "Почему KV occupancy и queue depth важнее простой utilization?"
+    ]
+  },
+  {
+    "id": 241,
+    "question": "Как model load time и warmup влияют на failover/autoscaling large-model service?",
+    "variants": [
+      "Почему запустить новый pod с 100B checkpoint — не то же самое, что обычный stateless web service?",
+      "Что входит в cold start LLM replica?"
+    ]
+  },
+  {
+    "id": 242,
+    "question": "Как rolling deployment новой quantized модели может вызвать latency regression без изменения качества?",
+    "variants": [
+      "Почему меньший checkpoint иногда обслуживается медленнее старого?",
+      "Какие serving regressions нужно проверять при смене quantization/runtime?"
+    ]
+  },
+  {
+    "id": 243,
+    "question": "Почему p95/p99 latency важнее среднего для interactive LLM product?",
+    "variants": [
+      "Какие системные проблемы скрывает mean latency?",
+      "Почему редкие long requests/queue bursts определяют пользовательский SLO?"
+    ]
+  },
+  {
+    "id": 244,
+    "question": "Как оценить root cause внезапного падения output tokens/s после роста среднего context length?",
+    "variants": [
+      "Какие гипотезы проверять, если traffic стал длиннее и decode throughput упал?",
+      "Как отделить ожидаемый KV-bandwidth эффект от regression runtime?"
+    ]
+  },
+  {
+    "id": 245,
+    "question": "Что означает request-level versus token-level throughput и почему оба нужны при планировании мощности?",
+    "variants": [
+      "Почему система может улучшить tokens/s и одновременно обслуживать меньше requests/s?",
+      "Как длина output меняет связь запросов и токенов?"
+    ]
+  },
+  {
+    "id": 246,
+    "question": "Как timeout и cancellation должны освобождать ресурсы в streaming LLM serving?",
+    "variants": [
+      "Что происходит с KV cache, если клиент отключился во время generation?",
+      "Почему отменённый request нельзя просто перестать отправлять по сети, продолжая decode?"
+    ]
+  },
+  {
+    "id": 247,
+    "question": "Как memory leak в KV allocator проявляется под длительной нагрузкой и как его доказать?",
+    "variants": [
+      "Почему сервер может OOM через часы при стабильной concurrency?",
+      "Какие инварианты проверить у block allocator после завершения requests?"
+    ]
+  },
+  {
+    "id": 248,
+    "question": "Как graceful degradation может выглядеть для перегруженного LLM service?",
+    "variants": [
+      "Какие меры лучше случайных OOM, когда спрос превышает capacity?",
+      "Как уменьшить resource demand, сохраняя предсказуемое качество сервиса?"
+    ]
+  },
+  {
+    "id": 249,
+    "question": "Как canary rollout LLM checkpoint должен учитывать stochastic outputs?",
+    "variants": [
+      "Почему нельзя сравнивать новую и старую generative модель только byte-for-byte?",
+      "Какие online/offline gates нужны для model canary?"
+    ]
+  },
+  {
+    "id": 250,
+    "question": "Как определить blast radius архитектурного serving change, например перехода MHA→GQA в новой модели?",
+    "variants": [
+      "Какие уровни системы затрагивает смена числа KV heads?",
+      "Почему architectural model change требует проверки не только model quality?"
+    ]
+  },
+  {
+    "id": 251,
+    "question": "После увеличения context window с 32K до 128K качество на дальних зависимостях ухудшилось, хотя модель принимает 128K токенов. Как различить формальную поддержку длины контекста и фактическую способность использовать дальнюю информацию?",
+    "variants": [
+      "Почему модель может принимать 128K токенов, но плохо пользоваться информацией из дальних частей контекста?",
+      "Как проверить, что длинный context window реально работает, а не только заявлен в спецификации?"
+    ]
+  },
+  {
+    "id": 252,
+    "question": "Как вы определите lost-in-the-middle effect и как вы бы измеряли его для конкретной модели и workload?",
+    "variants": [
+      "Как проверить, что LLM хуже использует информацию из середины длинного контекста?",
+      "Почему релевантный фрагмент в центре длинного prompt может влиять на ответ слабее, чем тот же фрагмент в начале или конце?"
+    ]
+  },
+  {
+    "id": 253,
+    "question": "После RoPE scaling модель стала принимать более длинные последовательности, но качество на коротком контексте немного просело. Какие причины вы проверите?",
+    "variants": [
+      "Почему расширение контекста через масштабирование RoPE может ухудшить качество на исходной длине?"
+    ]
+  },
+  {
+    "id": 254,
+    "question": "Почему naïve linear position interpolation для RoPE не эквивалентна обучению модели на длинном контексте?",
+    "variants": [
+      "Чем простое сжатие position IDs отличается от полноценной long-context адаптации?",
+      "Почему нельзя считать, что position interpolation сама по себе «научила» модель работать с длинными документами?"
+    ]
+  },
+  {
+    "id": 255,
+    "question": "Какие failure modes возникают при extrapolation позиционных кодировок далеко за длины, виденные при обучении?",
+    "variants": [
+      "Что может сломаться, если использовать positional embeddings далеко за training context?",
+      "Почему long-context extrapolation может формально работать, но давать нестабильные ответы?"
+    ]
+  },
+  {
+    "id": 256,
+    "question": "Какова асимптотическая стоимость self-attention по длине последовательности и почему FlashAttention не меняет эту асимптотику?",
+    "variants": [
+      "Почему FlashAttention ускоряет attention, хотя вычислительная сложность по sequence length остаётся квадратичной?",
+      "Чем уменьшение memory I/O в FlashAttention отличается от перехода к sub-quadratic attention?"
+    ]
+  },
+  {
+    "id": 257,
+    "question": "В каких случаях sliding-window attention экономит ресурсы без существенной потери качества, а когда он разрушает задачу?",
+    "variants": [
+      "Когда локальное окно внимания разумнее полного attention?",
+      "Какие workloads плохо переносят ограничение внимания последними W токенами?"
+    ]
+  },
+  {
+    "id": 258,
+    "question": "Как оценить реальную memory complexity длинного prefill, если используется memory-efficient attention?",
+    "variants": [
+      "Почему формула O(N²) для матрицы attention не означает, что FlashAttention обязан хранить O(N²) памяти?",
+      "Как прикинуть память prefill для 128K context при tiled attention?"
+    ]
+  },
+  {
+    "id": 259,
+    "question": "Почему длинный prefill и длинный decode создают разные bottlenecks на GPU?",
+    "variants": [
+      "Чем аппаратный профиль обработки большого prompt отличается от генерации длинного ответа?",
+      "Почему prefill чаще compute-bound, а decode — memory-bandwidth-bound?"
+    ]
+  },
+  {
+    "id": 260,
+    "question": "Как выбрать chunk size для chunked prefill и почему слишком маленький или слишком большой chunk вреден?",
+    "variants": [
+      "Какие trade-offs задают размер чанка при chunked prefill?",
+      "Как размер prefill-чанка влияет на TTFT, inter-token latency и GPU utilization?"
+    ]
+  },
+  {
+    "id": 261,
+    "question": "После включения prefix caching hit rate высокий, но p99 latency почти не улучшился. Какие гипотезы вы проверите?",
+    "variants": [
+      "Почему высокий cache hit для prompt prefixes может не давать заметного выигрыша по хвостовой задержке?",
+      "Prefix cache показывает 80% попаданий, а latency не снизилась. Как расследовать?"
+    ]
+  },
+  {
+    "id": 262,
+    "question": "Как распределять ёмкость prefix cache между tenants, чтобы один клиент не вытеснял кэш остальных?",
+    "variants": [
+      "Какие quotas нужны для prefix cache в multi-tenant LLM serving?",
+      "Как защитить общий prompt cache от noisy neighbor, который создаёт множество уникальных длинных префиксов?"
+    ]
+  },
+  {
+    "id": 263,
+    "question": "Какие риски появляются при совместном использовании prefix cache между tenants?",
+    "variants": [
+      "Можно ли безопасно шарить KV/prefix cache между разными клиентами?",
+      "Какие security и isolation проблемы создаёт cross-tenant prefix caching?"
+    ]
+  },
+  {
+    "id": 264,
+    "question": "Как оценить, окупится ли увеличение context window с точки зрения end-to-end стоимости системы?",
+    "variants": [
+      "Когда более длинный context дешевле RAG, а когда он лишь увеличивает inference cost?",
+      "Как посчитать экономический trade-off между большим prompt и внешним retrieval?"
+    ]
+  },
+  {
+    "id": 265,
+    "question": "Почему контекст 1M токенов не означает, что inference с 1M токенов экономически или операционно разумен?",
+    "variants": [
+      "Чем «модель поддерживает 1M context» отличается от «стоит отправлять ей 1M токенов»?",
+      "Какие ограничения делают максимальный context window плохим default для production?"
+    ]
+  },
+  {
+    "id": 266,
+    "question": "Как диагностировать регрессию long-context качества после смены tokenizer?",
+    "variants": [
+      "После замены tokenizer модель хуже отвечает по далёким фрагментам при том же лимите 64K токенов. Почему?",
+      "Как tokenizer может изменить эффективную длину контекста и long-context поведение?"
+    ]
+  },
+  {
+    "id": 267,
+    "question": "Как влияние GQA на long-context serving отличается от влияния FlashAttention?",
+    "variants": [
+      "Почему GQA и FlashAttention решают разные проблемы длинного контекста?",
+      "Что экономит KV memory, а что сокращает attention I/O: GQA или FlashAttention?"
+    ]
+  },
+  {
+    "id": 268,
+    "question": "Как KV-cache quantization влияет на long-context качество и latency, и что нужно измерить перед rollout?",
+    "variants": [
+      "Какие trade-offs у квантования KV cache для длинных контекстов?",
+      "Как проверить, безопасно ли хранить keys и values в низкой точности?"
+    ]
+  },
+  {
+    "id": 269,
+    "question": "Почему attention sink tokens могут стабилизировать streaming/sliding-window inference?",
+    "variants": [
+      "Что называют attention sinks и зачем первые токены иногда сохраняют вне sliding window?",
+      "Почему удаление самых первых KV entries может сильнее повредить streaming LLM, чем удаление более поздних?"
+    ]
+  },
+  {
+    "id": 270,
+    "question": "Как отличить проблему позиционного кодирования от недостатка training data на длинных последовательностях?",
+    "variants": [
+      "Long-context eval проваливается: как понять, виноват RoPE scaling или модель просто не обучалась использовать дальние зависимости?",
+      "Каким экспериментом разделить positional failure и недостаток long-context training?"
+    ]
+  },
+  {
+    "id": 271,
+    "question": "Какие ошибки в position IDs могут возникнуть при sequence packing и как они проявятся?",
+    "variants": [
+      "Почему packed sequences могут сломать позиционное кодирование даже при правильной attention mask?",
+      "Как проверить корректность position IDs при packing нескольких документов в один batch element?"
+    ]
+  },
+  {
+    "id": 272,
+    "question": "Почему длинный контекст усиливает проблему allocator fragmentation в serving runtime?",
+    "variants": [
+      "Как рост KV cache делает memory fragmentation более опасной?",
+      "Почему на GPU может возникать OOM при наличии заметного объёма свободной памяти в long-context serving?"
+    ]
+  },
+  {
+    "id": 273,
+    "question": "Как выбирать block/page size для paged KV cache?",
+    "variants": [
+      "Какие trade-offs определяют размер страницы PagedAttention?",
+      "Почему слишком крупные и слишком мелкие KV blocks по-разному вредят serving?"
+    ]
+  },
+  {
+    "id": 274,
+    "question": "Как оценить максимальную concurrency long-context сервера до запуска нагрузочного теста?",
+    "variants": [
+      "Как сделать capacity estimate числа одновременных длинных запросов по KV cache?",
+      "Как прикинуть, сколько sequences поместится на GPU при заданном контексте?"
+    ]
+  },
+  {
+    "id": 275,
+    "question": "Как long-context requests могут создавать head-of-line blocking и как его уменьшить?",
+    "variants": [
+      "Почему один огромный prompt способен ухудшить latency коротких запросов на общем LLM server?",
+      "Как scheduler должен обращаться с очень длинным prefill, чтобы не блокировать интерактивный трафик?"
+    ]
+  },
+  {
+    "id": 276,
+    "question": "Почему retrieval quality иногда улучшается при сокращении передаваемого LLM контекста?",
+    "variants": [
+      "Как может удаление части найденных документов повысить качество ответа LLM?",
+      "Почему больше релевантных на вид chunks не всегда означает лучший answer quality?"
+    ]
+  },
+  {
+    "id": 277,
+    "question": "После перехода обучения с BF16 на FP16 loss начинает периодически становиться NaN. Почему это может происходить и как локализовать причину?",
+    "variants": [
+      "Почему обучение LLM стабильно в BF16, но нестабильно в FP16?"
+    ]
+  },
+  {
+    "id": 278,
+    "question": "Как расследовать внезапный всплеск gradient norm в середине pretraining?",
+    "variants": [
+      "Gradient norm резко вырос после миллионов стабильных шагов. Как найти root cause?",
+      "Какие данные и метрики нужны, чтобы отличить плохой batch от системной нестабильности обучения?"
+    ]
+  },
+  {
+    "id": 279,
+    "question": "Как отличить optimizer instability от плохого data batch, если loss spike наблюдается только на одном шаге?",
+    "variants": [
+      "Однократный loss spike: виноваты данные или AdamW?",
+      "Как построить воспроизводимый эксперимент для расследования единичного скачка loss?"
+    ]
+  },
+  {
+    "id": 280,
+    "question": "Почему gradient clipping может скрывать, но не устранять нестабильность обучения?",
+    "variants": [
+      "Когда clipping градиентов является защитой, а когда маскирует root cause?",
+      "Почему постоянное срабатывание gradient clipping — плохой сигнал?"
+    ]
+  },
+  {
+    "id": 281,
+    "question": "Как обнаружить silent data corruption в распределённом pretraining?",
+    "variants": [
+      "Какие признаки указывают, что часть training samples повреждается без падения job?",
+      "Как защитить LLM training pipeline от тихой порчи данных?"
+    ]
+  },
+  {
+    "id": 282,
+    "question": "Почему exact reproducibility крупного distributed training сложна даже при фиксированных random seeds?",
+    "variants": [
+      "Почему одинаковый seed не гарантирует бит-в-бит одинаковый LLM training run?",
+      "Откуда берётся nondeterminism в multi-GPU обучении?"
+    ]
+  },
+  {
+    "id": 283,
+    "question": "Как проверить, что distributed checkpoint содержит достаточно состояния для корректного продолжения обучения?",
+    "variants": [
+      "Что должно сохраняться в checkpoint LLM training кроме model weights?",
+      "Почему восстановление только весов может изменить траекторию обучения?"
+    ]
+  },
+  {
+    "id": 284,
+    "question": "Какие проблемы возникают при изменении world size во время resume pretraining?",
+    "variants": [
+      "Почему checkpoint с 1024 GPU не всегда можно просто продолжить на 512 GPU?",
+      "Что нужно переразложить при elastic resume большой модели?"
+    ]
+  },
+  {
+    "id": 285,
+    "question": "Почему post-training quantization может дать почти нулевую деградацию perplexity, но заметно ухудшить tool calling или structured output?",
+    "variants": [
+      "Почему общая perplexity не гарантирует качество квантованной модели на function calling?",
+      "Как квантование может сохранить average LM quality и сломать редкие точные форматы?"
+    ]
+  },
+  {
+    "id": 286,
+    "question": "Как calibration dataset влияет на качество activation-aware quantization?",
+    "variants": [
+      "Почему набор для calibration важен при SmoothQuant или похожих методах?",
+      "Что произойдёт, если калибровать quantization на данных, не похожих на production traffic?"
+    ]
+  },
+  {
+    "id": 287,
+    "question": "Почему weight-only quantization часто особенно выгодна при decode малых batch sizes?",
+    "variants": [
+      "Когда INT4 weights дают большой inference speedup, а когда почти только экономят память?",
+      "Почему эффективность weight quantization зависит от batch size?"
+    ]
+  },
+  {
+    "id": 288,
+    "question": "Как диагностировать, что quantized kernel, а не качество квантования, стал причиной регрессии latency?",
+    "variants": [
+      "После INT4 модель стала меньше занимать памяти, но работает медленнее. Как понять почему?",
+      "Как разделить algorithmic quantization benefit и kernel implementation overhead?"
+    ]
+  },
+  {
+    "id": 289,
+    "question": "Почему activation outliers особенно осложняют INT8/FP8 quantization?",
+    "variants": [
+      "Что такое outlier channels и почему они вредят низкой точности?",
+      "Почему один большой activation может ухудшить точность квантования целого тензора?"
+    ]
+  },
+  {
+    "id": 290,
+    "question": "Как выбирать между GPTQ, AWQ-подобным weight-only подходом и более высокой точностью для production serving?",
+    "variants": [
+      "Какие критерии важнее названия алгоритма при выборе 4-bit quantization?",
+      "Как сравнить разные weight-only quantizers для одной LLM?"
+    ]
+  },
+  {
+    "id": 291,
+    "question": "Какие признаки показывают, какие слои модели нельзя агрессивно квантовать?",
+    "variants": [
+      "Как найти quantization-sensitive layers в LLM?",
+      "Стоит ли использовать mixed-precision quantization по слоям и как это обосновать?"
+    ]
+  },
+  {
+    "id": 292,
+    "question": "Почему MoE-модель с меньшим числом активных параметров на токен не обязательно дешевле dense-модели в production?",
+    "variants": [
+      "Почему sparse MoE может иметь низкие FLOPs/token и всё равно быть дорогой в serving?",
+      "Какие расходы MoE не видны в числе active parameters?"
+    ]
+  },
+  {
+    "id": 293,
+    "question": "Как диагностировать expert load imbalance в MoE training?",
+    "variants": [
+      "Что смотреть, если часть experts перегружена, а другие почти не получают токены?",
+      "Как доказать, что MoE router создаёт bottleneck из-за неравномерной маршрутизации?"
+    ]
+  },
+  {
+    "id": 294,
+    "question": "Что происходит, когда число токенов, направленных в expert, превышает его capacity?",
+    "variants": [
+      "Что такое capacity overflow в MoE и какие есть стратегии его обработки?",
+      "Как capacity factor влияет на качество и производительность mixture-of-experts?"
+    ]
+  },
+  {
+    "id": 295,
+    "question": "Как физическое размещение MoE experts по GPU и узлам влияет на стоимость all-to-all?",
+    "variants": [
+      "Почему expert placement должен учитывать NVLink/NVSwitch и межузловую сеть?",
+      "Как разложить experts по topology, чтобы MoE не тратил выигрыш sparse compute на коммуникацию?"
+    ]
+  },
+  {
+    "id": 296,
+    "question": "Как проверить, действительно ли grouped GEMM ускоряет MoE workload?",
+    "variants": [
+      "Почему объединение expert matmuls в grouped GEMM может повысить utilization?",
+      "Когда grouped GEMM для experts не даёт выигрыша?"
+    ]
+  },
+  {
+    "id": 297,
+    "question": "Как распознать router collapse в MoE и чем он отличается от полезной специализации экспертов?",
+    "variants": [
+      "Когда концентрация токенов на нескольких experts становится патологией?",
+      "Как отличить expert specialization от collapse маршрутизатора?"
+    ]
+  },
+  {
+    "id": 298,
+    "question": "Почему увеличение числа experts при фиксированном числе активных experts на токен меняет не только capacity модели, но и serving architecture?",
+    "variants": [
+      "Что меняется в инфраструктуре, если MoE имеет 8 экспертов вместо 128 при том же top-2 routing?"
+    ]
+  },
+  {
+    "id": 299,
+    "question": "Как исследовать деградацию качества после изменения capacity factor или routing policy в MoE?",
+    "variants": [
+      "После оптимизации MoE routing вырос throughput, но просели несколько задач. Как найти причину?",
+      "Как безопасно менять router/capacity настройки уже обученной sparse-модели?"
+    ]
+  },
+  {
+    "id": 300,
+    "question": "Почему small-batch MoE serving может быть особенно неэффективным?",
+    "variants": [
+      "Почему sparse experts плохо загружают GPU при одном интерактивном запросе?",
+      "Как batch size влияет на эффективность MoE inference?"
+    ]
+  },
+  {
+    "id": 301,
+    "question": "Какой эксперимент покажет, что bottleneck MoE находится в сети, а не в expert compute?",
+    "variants": [
+      "Как разделить all-to-all time и матричные вычисления при профилировании MoE?",
+      "MoE масштабируется хуже ожидаемого: как доказать communication bottleneck?"
+    ]
+  },
+  {
+    "id": 302,
+    "question": "В чём фундаментальное отличие state-space model от Transformer attention с точки зрения обработки последовательности?",
+    "variants": [
+      "Чем SSM-подход вроде Mamba отличается от self-attention по механизму памяти?",
+      "Как state-space architecture моделирует историю без явной N×N attention matrix?"
+    ]
+  },
+  {
+    "id": 303,
+    "question": "Что делает selective state-space mechanism в Mamba и зачем нужна зависимость параметров от входа?",
+    "variants": [
+      "Почему Mamba называют selective SSM?",
+      "Как input-dependent state updates помогают Mamba выбирать, что запоминать и забывать?"
+    ]
+  },
+  {
+    "id": 304,
+    "question": "Почему линейная по sequence length архитектура не гарантирует меньшую latency, чем Transformer на обычных длинах?",
+    "variants": [
+      "Почему O(N) Mamba может проигрывать O(N²) Transformer на коротком контексте?",
+      "Как константы и hardware utilization меняют сравнение asymptotic complexity?"
+    ]
+  },
+  {
+    "id": 305,
+    "question": "Какие задачи особенно чувствительны к ограниченной адресуемости recurrent/state-space памяти?",
+    "variants": [
+      "Где Transformer attention может иметь преимущество над компактным recurrent state?",
+      "Какие workloads требуют точного random access к далёким токенам?"
+    ]
+  },
+  {
+    "id": 306,
+    "question": "Зачем строят гибридные модели, чередующие attention и state-space/recurrent layers?",
+    "variants": [
+      "Какие преимущества пытаются совместить hybrid Transformer-SSM architectures?",
+      "Почему не обязательно выбирать только pure attention или pure SSM?"
+    ]
+  },
+  {
+    "id": 307,
+    "question": "Как изменится serving architecture, если модель имеет recurrent state вместо полного KV cache?",
+    "variants": [
+      "Какие инфраструктурные последствия у inference модели с фиксированным recurrent state?",
+      "Чем управление session state SSM отличается от KV-cache management Transformer?"
+    ]
+  },
+  {
+    "id": 308,
+    "question": "Когда encoder-decoder Transformer архитектурно предпочтительнее decoder-only модели?",
+    "variants": [
+      "В каких задачах sequence-to-sequence encoder-decoder может быть лучше causal decoder-only?",
+      "Почему для translation или conditional generation отдельный encoder иногда полезнее единого causal stack?"
+    ]
+  },
+  {
+    "id": 309,
+    "question": "Чем cross-attention memory в encoder-decoder inference отличается от causal KV cache decoder-only модели?",
+    "variants": [
+      "Какие cache structures нужны encoder-decoder Transformer при generation?",
+      "Почему encoder output можно переиспользовать на каждом decode step?"
+    ]
+  },
+  {
+    "id": 310,
+    "question": "Почему bidirectional encoder обычно нельзя напрямую использовать как autoregressive generator?",
+    "variants": [
+      "Чем attention mask BERT-подобного encoder отличается от causal LM mask?",
+      "Почему модель, обученная видеть будущие токены, не готова к left-to-right generation без изменения objective?"
+    ]
+  },
+  {
+    "id": 311,
+    "question": "Как prefix-LM mask сочетает bidirectional context внутри prefix и causal generation после него?",
+    "variants": [
+      "Что такое prefix language modeling и чем его mask отличается от обычного causal LM?",
+      "Как сделать так, чтобы input tokens видели друг друга, а output оставался autoregressive?"
+    ]
+  },
+  {
+    "id": 312,
+    "question": "Как архитектура tokenizer/vocabulary влияет на размер embedding и LM head у большой модели?",
+    "variants": [
+      "Почему увеличение vocabulary с 32K до 256K может заметно увеличить параметры и compute?",
+      "Какая стоимость у большого vocab помимо качества tokenization?"
+    ]
+  },
+  {
+    "id": 313,
+    "question": "Когда byte-level tokenization архитектурно привлекательна и какую цену она платит?",
+    "variants": [
+      "Какие плюсы и минусы у модели, работающей ближе к bytes вместо большого subword vocabulary?",
+      "Почему byte-level input решает OOV, но увеличивает sequence length?"
+    ]
+  },
+  {
+    "id": 314,
+    "question": "Почему weight tying между input embeddings и LM head не всегда является безусловно лучшим решением?",
+    "variants": [
+      "Какие trade-offs у общих весов token embedding и output projection?",
+      "Когда untied embeddings могут оправдать дополнительные параметры?"
+    ]
+  },
+  {
+    "id": 315,
+    "question": "Как изменение head dimension влияет на attention capacity и производительность kernels?",
+    "variants": [
+      "Почему одинаковый d_model можно разбить на разное число attention heads и получить разные свойства?",
+      "Какие hardware и modeling trade-offs задаёт размерность attention head?"
+    ]
+  },
+  {
+    "id": 316,
+    "question": "Почему увеличение глубины и увеличение ширины модели при одинаковом числе параметров дают разные свойства?",
+    "variants": [
+      "Чем deep-narrow Transformer отличается от shallow-wide при похожем parameter budget?",
+      "Как выбирать depth vs width, если общий размер модели фиксирован?"
+    ]
+  },
+  {
+    "id": 317,
+    "question": "Как residual stream становится общей коммуникационной шиной между attention и MLP блоками?",
+    "variants": [
+      "Что означает интерпретация residual stream как общего рабочего пространства Transformer?",
+      "Почему residual connections важны не только для gradient flow?"
+    ]
+  },
+  {
+    "id": 318,
+    "question": "Зачем в некоторых глубоких Transformer применяют residual scaling или специальные схемы инициализации?",
+    "variants": [
+      "Почему обычная инициализация может стать нестабильной при сотнях residual layers?",
+      "Как масштабирование residual branches помогает глубокому Transformer?"
+    ]
+  },
+  {
+    "id": 319,
+    "question": "Почему pre-norm Transformer легче оптимизировать на большой глубине, но может иметь другие representation trade-offs, чем post-norm?",
+    "variants": [
+      "Какие последствия выбора LayerNorm до или после residual branch?",
+      "Почему norm placement влияет на gradient path в Transformer?"
+    ]
+  },
+  {
+    "id": 320,
+    "question": "Почему операции normalization в LLM часто чувствительны к precision и какие части разумно считать в более высокой точности?",
+    "variants": [
+      "Почему mean/RMS reductions могут быть численно опаснее обычных матричных умножений?"
+    ]
+  },
+  {
+    "id": 321,
+    "question": "Почему SwiGLU обычно требует иначе выбирать hidden dimension MLP, чем обычный двухслойный FFN?",
+    "variants": [
+      "Как gated MLP меняет parameter count относительно GELU FFN?",
+      "Почему intermediate size SwiGLU часто уменьшают при сравнении с обычным FFN?"
+    ]
+  },
+  {
+    "id": 322,
+    "question": "Как gated MLP может влиять на выразительность по сравнению с обычной GELU-активацией?",
+    "variants": [
+      "Что добавляет multiplicative gate в SwiGLU кроме другой нелинейности?",
+      "Почему GLU-подобный FFN способен динамически пропускать признаки?"
+    ]
+  },
+  {
+    "id": 323,
+    "question": "Какие последствия имеет увеличение vocabulary для tensor parallel LM head?",
+    "variants": [
+      "Почему большой vocabulary может стать отдельным bottleneck при distributed inference/training?",
+      "Как vocab-parallel output projection уменьшает стоимость хранения большого LM head на rank?"
+    ]
+  },
+  {
+    "id": 324,
+    "question": "Почему архитектурное добавление Multi-Token Prediction head может менять training efficiency и representations?",
+    "variants": [
+      "Что даёт objective, предсказывающий несколько будущих токенов, кроме next-token loss?",
+      "Какие системные и модельные trade-offs у multi-token prediction?"
+    ]
+  },
+  {
+    "id": 325,
+    "question": "Как архитектурно оценить идею latent attention/сжатого KV представления вместо стандартного KV cache?",
+    "variants": [
+      "Какие trade-offs у сжатия key/value состояния через latent representation?",
+      "Что нужно доказать, чтобы заменить полный KV cache компактным learned state?"
+    ]
+  },
+  {
+    "id": 326,
+    "question": "В production после обновления inference runtime ответы модели иногда расходятся с baseline при temperature=0. Как расследовать расхождение?",
+    "variants": [
+      "Почему greedy decoding может измениться после смены serving backend?"
+    ]
+  },
+  {
+    "id": 327,
+    "question": "Как отличить регрессию модели от регрессии serving runtime после одновременного обновления обоих компонентов?",
+    "variants": [
+      "Модель и runtime обновили в одном релизе, качество просело. Как изолировать виновника?",
+      "Как спроектировать матрицу экспериментов для model-vs-runtime regression?"
+    ]
+  },
+  {
+    "id": 328,
+    "question": "Почему average latency может улучшиться после оптимизации, а пользовательский опыт ухудшиться?",
+    "variants": [
+      "Как возможно, что mean latency снизилась, но сервис стал ощущаться медленнее?",
+      "Почему оптимизация LLM serving должна смотреть на distribution, а не только average?"
+    ]
+  },
+  {
+    "id": 329,
+    "question": "Как диагностировать периодические паузы в streaming generation, если средний TPOT нормальный?",
+    "variants": [
+      "Почему токены идут равномерно, но иногда возникает заметный stall?",
+      "Какие причины искать у редких больших inter-token gaps?"
+    ]
+  },
+  {
+    "id": 330,
+    "question": "Как понять, что p99 latency ограничен queueing, а не скоростью самой модели?",
+    "variants": [
+      "Как разделить ожидание очереди и execution latency в LLM service?",
+      "Почему ускорение kernels не поможет, если хвост задержки создаёт admission queue?"
+    ]
+  },
+  {
+    "id": 331,
+    "question": "Как установить saturation point LLM replica при смешанном распределении prompt и output lengths?",
+    "variants": [
+      "Как найти реальную пропускную способность replica, если requests очень разные по числу токенов?",
+      "Почему RPS недостаточен для capacity planning LLM inference?"
+    ]
+  },
+  {
+    "id": 332,
+    "question": "Почему token-based admission control обычно точнее request-based лимитов для LLM serving?",
+    "variants": [
+      "Чем лимит по числу токенов в scheduler лучше простого max concurrent requests?",
+      "Как учитывать неодинаковую стоимость запросов при admission control?"
+    ]
+  },
+  {
+    "id": 333,
+    "question": "Как safely degrade LLM service при нехватке GPU capacity?",
+    "variants": [
+      "Какие механизмы graceful degradation применимы к overloaded LLM serving?",
+      "Что делать сервису, если latency SLO вот-вот будет нарушен из-за дефицита inference capacity?"
+    ]
+  },
+  {
+    "id": 334,
+    "question": "Как расследовать OOM, который возникает только на высокой concurrency, хотя одиночный максимальный запрос помещается в GPU?",
+    "variants": [
+      "Почему модель проходит max-context test в одиночку, но падает при параллельных запросах?",
+      "Как найти источник concurrency-dependent GPU OOM?"
+    ]
+  },
+  {
+    "id": 335,
+    "question": "Почему max_tokens, заданный пользователем, важен для capacity planning даже если большинство ответов заканчивается раньше?",
+    "variants": [
+      "Как output token limit влияет на reservation и риск перегрузки?",
+      "Нужно ли резервировать ресурсы под весь возможный decode budget?"
+    ]
+  },
+  {
+    "id": 336,
+    "question": "Как понять, что preemption в LLM scheduler приносит больше вреда, чем пользы?",
+    "variants": [
+      "Когда вытеснение активных sequences ухудшает throughput и latency?",
+      "Какие метрики показывают чрезмерный preemption churn?"
+    ]
+  },
+  {
+    "id": 337,
+    "question": "Почему disaggregated prefill/decode требует отдельного анализа сетевой стоимости переноса KV state?",
+    "variants": [
+      "Что может съесть выгоду разделения prefill- и decode-GPU?",
+      "Как оценить передачу KV cache между prefill и decode workers?"
+    ]
+  },
+  {
+    "id": 338,
+    "question": "Как выбрать, какие GPU использовать для prefill, а какие для decode в disaggregated serving?",
+    "variants": [
+      "Почему один и тот же accelerator может быть не оптимален для обеих фаз LLM inference?",
+      "Как сопоставить hardware characteristics с prefill и decode workload?"
+    ]
+  },
+  {
+    "id": 339,
+    "question": "Как проектировать backpressure между API gateway и inference scheduler?",
+    "variants": [
+      "Что должно происходить, когда gateway принимает запросы быстрее, чем GPU может их обработать?",
+      "Как не допустить бесконечного роста очереди перед LLM inference?"
+    ]
+  },
+  {
+    "id": 340,
+    "question": "Почему cancellation propagation критична для дорогих long-running LLM requests?",
+    "variants": [
+      "Что происходит, если клиент закрыл соединение, а backend продолжает decode?",
+      "Как отмена запроса должна проходить через LLM serving stack?"
+    ]
+  },
+  {
+    "id": 341,
+    "question": "Как безопасно выполнять rolling upgrade model server, если активные requests хранят большой KV state?",
+    "variants": [
+      "Как обновлять replicas без обрыва длинных generations?",
+      "Что означает graceful draining для stateful LLM inference?"
+    ]
+  },
+  {
+    "id": 342,
+    "question": "Как проектировать rollback после неудачного обновления модели, если prompt/template и tokenizer тоже изменились?",
+    "variants": [
+      "Почему откат только model weights может быть недостаточен?",
+      "Какие артефакты должны версионироваться атомарно для model rollback?"
+    ]
+  },
+  {
+    "id": 343,
+    "question": "Как выявить memory leak в LLM serving, если GPU memory постепенно растёт при стабильной нагрузке?",
+    "variants": [
+      "Какие признаки отличают утечку KV blocks от нормального allocator caching?",
+      "GPU memory не возвращается после завершения запросов. Как расследовать?"
+    ]
+  },
+  {
+    "id": 344,
+    "question": "Как диагностировать latency regression, проявляющуюся только при одном tenant с длинными system prompts?",
+    "variants": [
+      "Почему общий benchmark может не заметить деградацию конкретного клиента?",
+      "Как расследовать tenant-specific slowdown в multi-tenant LLM service?"
+    ]
+  },
+  {
+    "id": 345,
+    "question": "Почему LoRA adapters могут усложнить continuous batching в multi-tenant serving?",
+    "variants": [
+      "Как множество adapters влияет на batching efficiency LLM server?",
+      "Почему запросы к одной base model, но разным LoRA, не всегда одинаково выгодно батчить?"
+    ]
+  },
+  {
+    "id": 346,
+    "question": "Как обеспечить корректность prefix cache при использовании разных LoRA adapters?",
+    "variants": [
+      "Можно ли повторно использовать один KV prefix между запросами с разными adapters?",
+      "Почему adapter ID должен участвовать в ключе KV/prefix cache?"
+    ]
+  },
+  {
+    "id": 347,
+    "question": "Как проверить, что speculative decoding действительно даёт exact distribution относительно target model?",
+    "variants": [
+      "Что означает корректность speculative decoding и как её тестировать?",
+      "Почему нельзя просто принимать все токены draft model ради скорости?"
+    ]
+  },
+  {
+    "id": 348,
+    "question": "От чего зависит speedup speculative decoding и почему слабая draft model может замедлить inference?",
+    "variants": [
+      "Какие параметры определяют эффективность speculative decoding?",
+      "Почему низкий acceptance rate уничтожает выгоду speculative generation?"
+    ]
+  },
+  {
+    "id": 349,
+    "question": "Как long prompts меняют выгоду speculative decoding?",
+    "variants": [
+      "Помогает ли speculative decoding уменьшить TTFT длинного input?",
+      "Почему ускорение decode не обязательно решает latency длинного prefill?"
+    ]
+  },
+  {
+    "id": 350,
+    "question": "Как выбрать между speculative decoding и увеличением continuous batch для повышения throughput?",
+    "variants": [
+      "Когда лучше ускорять один sequence через draft model, а когда просто батчить больше запросов?",
+      "Какие trade-offs у speculation против batching?"
+    ]
+  },
+  {
+    "id": 351,
+    "question": "У вас три продуктовых workload: интерактивный чат, анализ 100K-документов и массовая offline-обработка. Стоит ли стандартизироваться на одной LLM-архитектуре и одном размере модели?",
+    "variants": [
+      "Как решить, нужна ли компании единая универсальная LLM или разные модели под разные классы нагрузки?"
+    ]
+  },
+  {
+    "id": 352,
+    "question": "Компания выбирает между более крупной dense-моделью и MoE-моделью сопоставимого качества. Какие системные данные нужны до архитектурного решения?",
+    "variants": [
+      "Как сравнить dense и sparse MoE не по benchmark score, а как production-платформы?"
+    ]
+  },
+  {
+    "id": 353,
+    "question": "Когда компании рационально выбирать модель с очень большим context window вместо инвестиций в retrieval и контекстную компрессию?",
+    "variants": [
+      "Как Lead должен решить long-context versus retrieval как базовую архитектурную стратегию?"
+    ]
+  },
+  {
+    "id": 354,
+    "question": "Как выбрать базовый размер модели для платформы, если качество растёт с параметрами, но traffic прогнозируется в десятикратном диапазоне?",
+    "variants": [
+      "Как балансировать model size, quality headroom и будущую нагрузку?"
+    ]
+  },
+  {
+    "id": 355,
+    "question": "Как сформировать model-routing strategy между малой и большой LLM так, чтобы экономия не разрушила качество?",
+    "variants": [
+      "Когда каскад small model → large model действительно снижает стоимость?"
+    ]
+  },
+  {
+    "id": 356,
+    "question": "Как решить, нужна ли отдельная модель для кода, многоязычности или другой специализированной области вместо одной general-purpose LLM?",
+    "variants": [
+      "Когда специализированный checkpoint оправдывает отдельный serving fleet?"
+    ]
+  },
+  {
+    "id": 357,
+    "question": "Компания хочет увеличить context window модели в четыре раза. Как определить, это model-training проект, serving-проект или оба?",
+    "variants": [
+      "Что входит в программу расширения контекста LLM кроме изменения max_position_embeddings?"
+    ]
+  },
+  {
+    "id": 358,
+    "question": "Как принять решение MHA, GQA или MQA для новой модели, если нужно одновременно качество и дешёвый long-context serving?",
+    "variants": [
+      "Как Lead выбирает число KV heads как архитектурный параметр?"
+    ]
+  },
+  {
+    "id": 359,
+    "question": "Как оценить, стоит ли инвестировать в собственную long-context adaptation модели вместо использования retrieval поверх готовой модели?",
+    "variants": [
+      "Когда компании имеет смысл самой дообучать positional/long-context capability?"
+    ]
+  },
+  {
+    "id": 360,
+    "question": "Как выбрать между decoder-only и encoder-decoder архитектурой для новой корпоративной модели, а не просто повторить рыночный тренд?",
+    "variants": [
+      "Какие критерии определяют causal decoder versus seq2seq model для внутренней разработки?"
+    ]
+  },
+  {
+    "id": 361,
+    "question": "Как оценить, оправдана ли state-space или hybrid архитектура для нового продукта с очень длинными потоками данных?",
+    "variants": [
+      "Когда Mamba/SSM-подобный подход стоит рассматривать вместо обычного Transformer?"
+    ]
+  },
+  {
+    "id": 362,
+    "question": "Как решать, использовать ли weight tying, более крупный vocabulary и другие архитектурные оптимизации до дорогого pretraining run?",
+    "variants": [
+      "Как организовать architecture ablation, если полный pretraining каждой конфигурации слишком дорог?"
+    ]
+  },
+  {
+    "id": 363,
+    "question": "Как выбрать compute-optimal размер модели, если цель — не минимальный pretraining loss, а минимальная lifetime cost продукта?",
+    "variants": [
+      "Почему Chinchilla-optimal training point может быть не оптимален для коммерческого сервиса?"
+    ]
+  },
+  {
+    "id": 364,
+    "question": "Как определить, нужен ли компании собственный pretraining или достаточно fine-tuning открытой/коммерческой foundation model?",
+    "variants": [
+      "Какие критерии оправдывают создание собственной базовой LLM?"
+    ]
+  },
+  {
+    "id": 365,
+    "question": "Как выстроить approved model portfolio, чтобы продуктовые команды не выбирали LLM только по публичному leaderboard?",
+    "variants": [
+      "Какая архитектура governance нужна для выбора моделей внутри компании без чрезмерной централизации?"
+    ]
+  },
+  {
+    "id": 366,
+    "question": "Когда новая модель действительно заслуживает миграции существующего production traffic?",
+    "variants": [
+      "Новая LLM лучше в benchmark. Какие условия должны быть выполнены до массовой миграции?",
+      "Какой migration threshold должен оправдать стоимость смены модели?"
+    ]
+  },
+  {
+    "id": 367,
+    "question": "Как сравнивать proprietary API model и self-hosted open-weight model на уровне архитектуры платформы?",
+    "variants": [
+      "Какие категории TCO и риска нужно учесть в vendor API versus self-hosting?"
+    ]
+  },
+  {
+    "id": 368,
+    "question": "Как избежать vendor lock-in, не построив при этом чрезмерно абстрактный «универсальный LLM API»?",
+    "variants": [
+      "Какой уровень abstraction между продуктом и несколькими model providers разумен?"
+    ]
+  },
+  {
+    "id": 369,
+    "question": "Как принимать архитектурное решение о multi-provider стратегии ради reliability?",
+    "variants": [
+      "Стоит ли держать резервного LLM-провайдера на случай outage основного?",
+      "Как оценить реальную ценность provider failover, если модели ведут себя по-разному?"
+    ]
+  },
+  {
+    "id": 370,
+    "question": "Как выбрать между моделью с лучшим качеством и моделью с более предсказуемой latency для интерактивного продукта?",
+    "variants": [
+      "Когда стабильный p99 важнее нескольких пунктов model-quality benchmark?"
+    ]
+  },
+  {
+    "id": 371,
+    "question": "По каким критериям решать, следует ли платформе поддерживать quantized и full-precision variants одной модели одновременно?",
+    "variants": [
+      "Когда несколько precision tiers одной LLM оправданы?"
+    ]
+  },
+  {
+    "id": 372,
+    "question": "Как выбрать hardware target до обучения собственной модели, если accelerator fleet может измениться через два года?",
+    "variants": [
+      "Насколько архитектуру LLM следует подгонять под конкретное поколение GPU?"
+    ]
+  },
+  {
+    "id": 373,
+    "question": "Как планировать запас качества модели, если будущие use cases ещё неизвестны?",
+    "variants": [
+      "Насколько foundation model должна быть «сильнее текущей задачи»?",
+      "Как не переплатить за capability headroom и не оказаться в тупике через год?"
+    ]
+  },
+  {
+    "id": 374,
+    "question": "Какие признаки показывают момент, когда model architecture становится частью конкурентного преимущества компании, а когда её лучше считать заменяемой инфраструктурой?",
+    "variants": [
+      "Когда стоит глубоко инвестировать в собственные model internals?"
+    ]
+  },
+  {
+    "id": 375,
+    "question": "Как выбрать критерии deprecation старой модели после появления новой версии?",
+    "variants": [
+      "Когда можно безопасно вывести старый checkpoint из эксплуатации?",
+      "Какие условия должны быть выполнены перед отключением предыдущей LLM version?"
+    ]
+  },
+  {
+    "id": 376,
+    "question": "Как спроектировать versioning модели, tokenizer, prompt template и runtime так, чтобы можно было воспроизводить production-ответы?",
+    "variants": [
+      "Что должно входить в immutable model deployment version?"
+    ]
+  },
+  {
+    "id": 377,
+    "question": "Как определить, где должна проходить граница ответственности между model team и inference platform team?",
+    "variants": [
+      "Кто должен владеть quality, latency и runtime compatibility модели?"
+    ]
+  },
+  {
+    "id": 378,
+    "question": "Какие данные нужны, чтобы решить, стоит ли создавать отдельную model-inference platform team или оставить serving внутри продуктовых команд?",
+    "variants": [
+      "Когда централизованный LLM serving слой окупается организационно?"
+    ]
+  },
+  {
+    "id": 379,
+    "question": "Как выбрать API contract для внутренней model platform, чтобы он переживал смену архитектур?",
+    "variants": [
+      "Какие сущности внутреннего LLM API должны быть стабильными при переходе dense→MoE или vendor→self-hosted?"
+    ]
+  },
+  {
+    "id": 380,
+    "question": "Как оценить, окупится ли собственная оптимизация inference kernels?",
+    "variants": [
+      "Когда команде стоит писать custom CUDA/Triton kernels для LLM?",
+      "Как решить build-versus-use-upstream для низкоуровневой inference оптимизации?"
+    ]
+  },
+  {
+    "id": 381,
+    "question": "Как выбрать между vLLM-подобным general-purpose runtime и специализированным serving engine?",
+    "variants": [
+      "Когда универсальный inference runtime перестаёт быть оптимальным?",
+      "Какие условия оправдывают собственный или узкоспециализированный model server?"
+    ]
+  },
+  {
+    "id": 382,
+    "question": "По каким критериям выбирать единый scheduler для разных моделей или отдельный scheduler на каждый model pool?",
+    "variants": [
+      "Стоит ли централизовать admission и routing нескольких LLM fleets?"
+    ]
+  },
+  {
+    "id": 383,
+    "question": "Как построить chargeback/showback для LLM platform, чтобы продуктовые команды видели реальную стоимость архитектурных решений?",
+    "variants": [
+      "Какие единицы стоимости использовать вместо простого RPS?"
+    ]
+  },
+  {
+    "id": 384,
+    "question": "Как выбрать экономически правильный utilization target для GPU fleet?",
+    "variants": [
+      "Почему стремиться к 100% GPU utilization в interactive LLM serving опасно?",
+      "Какой запас capacity нужен между эффективностью и latency reliability?"
+    ]
+  },
+  {
+    "id": 385,
+    "question": "Как выбрать стратегию reserved versus elastic GPU capacity для LLM workloads?",
+    "variants": [
+      "Когда держать постоянный GPU pool, а когда полагаться на autoscaling/on-demand capacity?",
+      "Как сочетать baseline и burst capacity для inference?"
+    ]
+  },
+  {
+    "id": 386,
+    "question": "Как решить, распределять ли inference fleet по нескольким регионам?",
+    "variants": [
+      "Когда multi-region LLM serving оправдан несмотря на удвоение capacity buffer?",
+      "Как оценить latency, data residency и disaster recovery для model serving?"
+    ]
+  },
+  {
+    "id": 387,
+    "question": "Как выбрать между scale-up и scale-out для serving большой модели?",
+    "variants": [
+      "Когда лучше больше GPU в одной replica, а когда больше независимых replicas?",
+      "Как tensor-parallel scale-up влияет на latency и reliability по сравнению с horizontal scaling?"
+    ]
+  },
+  {
+    "id": 388,
+    "question": "Какие данные нужны, чтобы решить, стоит ли использовать heterogeneous hardware в одном model fleet?",
+    "variants": [
+      "Можно ли смешивать разные поколения GPU для одной LLM service?",
+      "Какие риски и выгоды у heterogeneous accelerator pool?"
+    ]
+  },
+  {
+    "id": 389,
+    "question": "Как оценить, нужен ли отдельный inference pool для long-context traffic?",
+    "variants": [
+      "Когда длинные запросы следует изолировать от обычного чата?",
+      "Какие сигналы оправдывают разделение GPU pools по длине контекста?"
+    ]
+  },
+  {
+    "id": 390,
+    "question": "Как определить, нужен ли отдельный offline inference cluster?",
+    "variants": [
+      "Стоит ли batch-generation workload смешивать с interactive serving?",
+      "Когда preemptible offline jobs улучшают economics общего GPU fleet?"
+    ]
+  },
+  {
+    "id": 391,
+    "question": "Как выбрать между model parallelism и quantization, если модель не помещается на одной GPU?",
+    "variants": [
+      "Что делать первым: добавить GPU в replica или уменьшить precision весов?"
+    ]
+  },
+  {
+    "id": 392,
+    "question": "Как принимать решение о покупке GPU с большей памятью против оптимизации KV cache?",
+    "variants": [
+      "Когда HBM capacity стоит покупать аппаратно, а когда лучше изменить model/runtime?"
+    ]
+  },
+  {
+    "id": 393,
+    "question": "Как задать acceptable quality regression ради существенного снижения inference cost?",
+    "variants": [
+      "Можно ли формально решить, сколько качества можно обменять на 2× экономию?",
+      "Как устанавливать quality budget для quantization или smaller model migration?"
+    ]
+  },
+  {
+    "id": 394,
+    "question": "Какие признаки показывают момент, когда distillation лучше quantization для снижения стоимости модели?",
+    "variants": [
+      "Чем уменьшение размера через knowledge distillation отличается от низкой битности?",
+      "Когда стоит обучать student model вместо квантования teacher?"
+    ]
+  },
+  {
+    "id": 395,
+    "question": "Как решить, когда fine-tuned model variant должен стать отдельной моделью, а когда достаточно LoRA adapter?",
+    "variants": [
+      "Какие критерии выбора full fine-tune versus adapter в model fleet?"
+    ]
+  },
+  {
+    "id": 396,
+    "question": "Как спланировать upgrade base model, если на ней зависят десятки LoRA adapters?",
+    "variants": [
+      "Что делать с adapters при смене базового checkpoint?",
+      "Почему LoRA нельзя автоматически считать переносимой между версиями base model?"
+    ]
+  },
+  {
+    "id": 397,
+    "question": "Как выбрать model release cadence для внутренней LLM platform?",
+    "variants": [
+      "Стоит ли обновлять foundation model еженедельно при появлении новых checkpoints?",
+      "Как балансировать скорость улучшений и стабильность model platform?"
+    ]
+  },
+  {
+    "id": 398,
+    "question": "Когда model platform должна предоставлять SLA на конкретную модель, а когда на capability tier?",
+    "variants": [
+      "Что устойчивее как продуктовый контракт: имя checkpoint или класс возможностей?"
+    ]
+  },
+  {
+    "id": 399,
+    "question": "При каких условиях стоит объединить несколько model pools ради utilization, а когда isolation важнее?",
+    "variants": [
+      "Как балансировать resource pooling и fault isolation в LLM infrastructure?"
+    ]
+  },
+  {
+    "id": 400,
+    "question": "Как определить, когда оптимизация модели должна быть приоритетнее оптимизации serving infrastructure?",
+    "variants": [
+      "Куда инвестировать квартал: уменьшить модель или улучшить scheduler/runtime?",
+      "Как сравнить research roadmap и systems roadmap по одному экономическому критерию?"
+    ]
+  },
+  {
+    "id": 401,
+    "question": "Как построить capacity plan на год для LLM platform, если неизвестны будущие prompt lengths и model mix?",
+    "variants": [
+      "Как прогнозировать GPU capacity при высокой неопределённости workload?"
+    ]
+  },
+  {
+    "id": 402,
+    "question": "Как выбрать safety margin GPU capacity для отказа узла, зоны или целого региона?",
+    "variants": [
+      "Как связать N+1 capacity с SLO LLM serving?"
+    ]
+  },
+  {
+    "id": 403,
+    "question": "Как решить, нужен ли active-active или active-passive disaster recovery для LLM inference?",
+    "variants": [
+      "Какой DR pattern выбрать для дорогого GPU-сервиса?",
+      "Когда резервный region должен постоянно обслуживать traffic, а когда достаточно standby?"
+    ]
+  },
+  {
+    "id": 404,
+    "question": "Как установить SLO для LLM сервиса, если latency зависит от длины входа и ответа?",
+    "variants": [
+      "Почему один p99 latency target несправедлив для всех LLM requests?"
+    ]
+  },
+  {
+    "id": 405,
+    "question": "Как связать quality SLO модели с инфраструктурным SLO, если оба могут деградировать независимо?",
+    "variants": [
+      "Как platform должна контролировать и корректность ответов, и latency/availability?"
+    ]
+  },
+  {
+    "id": 406,
+    "question": "Как определять error budget для model-quality regressions?",
+    "variants": [
+      "Можно ли применять SRE error-budget подход к качеству LLM?",
+      "Как ограничивать частоту и масштаб ухудшений модели после релизов?"
+    ]
+  },
+  {
+    "id": 407,
+    "question": "Как решить, когда autoscaling LLM inference должен опираться на GPU utilization, queue depth или token demand?",
+    "variants": [
+      "Какая autoscaling metric лучше для генеративной модели?"
+    ]
+  },
+  {
+    "id": 408,
+    "question": "Какие признаки показывают момент, когда уменьшение cold-start времени модели имеет высокий business value?",
+    "variants": [
+      "Когда стоит инвестировать в быстрый loading/compilation LLM replicas?",
+      "Как посчитать ценность снижения startup time большого model server?"
+    ]
+  },
+  {
+    "id": 409,
+    "question": "Как выбрать checkpoint format и distribution architecture для сотен inference nodes?",
+    "variants": [
+      "Как масштабировать доставку весов большой LLM без перегрузки object store/network?",
+      "Какие свойства model artifact distribution важны для fleet startup?"
+    ]
+  },
+  {
+    "id": 410,
+    "question": "Как решить, хранить ли несколько quantized artifacts заранее или квантовать модель при deployment?",
+    "variants": [
+      "Precompute или on-the-fly quantization: что лучше для model platform?"
+    ]
+  },
+  {
+    "id": 411,
+    "question": "Как оценить, стоит ли хранить model weights локально на каждом inference host?",
+    "variants": [
+      "Когда local NVMe cache весов окупается?",
+      "Как сравнить network loading и локальный model cache?"
+    ]
+  },
+  {
+    "id": 412,
+    "question": "Как спроектировать model-health checks, которые обнаружат тихую порчу weights или неверную конфигурацию?",
+    "variants": [
+      "Почему readiness endpoint недостаточен для LLM replica?",
+      "Какие semantic canaries нужны после загрузки модели?"
+    ]
+  },
+  {
+    "id": 413,
+    "question": "Как решить, нужен ли shadow traffic для проверки новой model version?",
+    "variants": [
+      "Когда shadow evaluation полезнее offline benchmark?",
+      "Какие ограничения у отправки production prompts в кандидатную LLM?"
+    ]
+  },
+  {
+    "id": 414,
+    "question": "Как определить минимальный размер canary при model rollout?",
+    "variants": [
+      "Сколько production traffic нужно новой модели до расширения rollout?",
+      "Как учитывать редкие regressions при canary analysis?"
+    ]
+  },
+  {
+    "id": 415,
+    "question": "Как избежать Simpson’s paradox при сравнении двух моделей по production quality?",
+    "variants": [
+      "Почему aggregate win rate может сказать, что новая LLM лучше, хотя она хуже в каждом важном сегменте?",
+      "Как сегментировать model A/B results?"
+    ]
+  },
+  {
+    "id": 416,
+    "question": "Что в измерениях укажет на то, что LLM eval set устарел и больше не поддерживает архитектурные решения?",
+    "variants": [
+      "Когда внутренний benchmark перестаёт различать новые модели?"
+    ]
+  },
+  {
+    "id": 417,
+    "question": "Как принимать архитектурное решение, если offline eval и online A/B дают противоположные результаты?",
+    "variants": [
+      "Что важнее: benchmark quality или production KPI?"
+    ]
+  },
+  {
+    "id": 418,
+    "question": "Где нужен human evaluation, а где достаточно автоматических model-based graders, и по каким критериям это решать?",
+    "variants": [
+      "Как построить экономичный eval pipeline для сотен model candidates?",
+      "Когда LLM-as-a-judge недостаточно надёжен для release gate?"
+    ]
+  },
+  {
+    "id": 419,
+    "question": "Как планировать capacity для A/B тестов новых моделей, не ухудшая SLO основного сервиса?",
+    "variants": [
+      "Как финансировать compute для shadow/canary experiments в shared GPU fleet?"
+    ]
+  },
+  {
+    "id": 420,
+    "question": "При каких условиях снижение precision обучения с BF16 до FP8 оправдывает риск?",
+    "variants": [
+      "Какие условия должны быть выполнены перед переходом большого training run на FP8?",
+      "Как оценить economics и numerical risk low-precision training?"
+    ]
+  },
+  {
+    "id": 421,
+    "question": "Как решить, какой объём compute выделить на architecture search перед финальным pretraining?",
+    "variants": [
+      "Когда дополнительные ablations перестают окупаться?",
+      "Как управлять exploration-versus-final-run budget в разработке foundation model?"
+    ]
+  },
+  {
+    "id": 422,
+    "question": "Как оценить риск масштабирования архитектуры, протестированной только на маленьких моделях?",
+    "variants": [
+      "Почему ablation на 100M параметров может не перенестись на 70B?",
+      "Как строить evidence ladder перед scaling up новой архитектурной идеи?"
+    ]
+  },
+  {
+    "id": 423,
+    "question": "Как принимать решение о продолжении pretraining run, если quality curve отстаёт от ожиданий на 20%?",
+    "variants": [
+      "Когда останавливать дорогой training run раньше срока?"
+    ]
+  },
+  {
+    "id": 424,
+    "question": "Как планировать checkpoint cadence многонедельного pretraining с учётом стоимости отказов?",
+    "variants": [
+      "Как выбрать интервал сохранения checkpoint для огромной LLM?",
+      "Как сбалансировать I/O overhead и потерю compute при сбое?"
+    ]
+  },
+  {
+    "id": 425,
+    "question": "Как решить, стоит ли создавать geographically separate backup больших model artifacts и training checkpoints?",
+    "variants": [
+      "Какой disaster-recovery уровень нужен для сотен гигабайт/терабайт model state?"
+    ]
+  },
+  {
+    "id": 426,
+    "question": "Как построить roadmap миграции с одной архитектуры модели на другую, если продуктовые команды зависят от её поведенческих особенностей?",
+    "variants": [
+      "Как мигрировать platform с одной LLM family на другую без big-bang switch?"
+    ]
+  },
+  {
+    "id": 427,
+    "question": "Как оценить technical debt, создаваемый поддержкой устаревших model versions?",
+    "variants": [
+      "Как посчитать стоимость legacy LLM fleet?",
+      "Почему старый checkpoint создаёт долг даже если он стабильно работает?"
+    ]
+  },
+  {
+    "id": 428,
+    "question": "Какие признаки показывают момент, когда следует форкнуть open-source model/runtime, а когда оставаться близко к upstream?",
+    "variants": [
+      "Когда собственный fork оправдан стратегически?"
+    ]
+  },
+  {
+    "id": 429,
+    "question": "Как решить, когда архитектурная оптимизация должна быть upstream contribution, а когда proprietary implementation?",
+    "variants": [
+      "Что выгоднее для custom inference improvement: открыть upstream или держать внутри?"
+    ]
+  },
+  {
+    "id": 430,
+    "question": "Как организовать architecture review для изменения, которое улучшает throughput на 20%, но меняет numerical behavior модели?",
+    "variants": [
+      "Какие функции должны участвовать в review inference optimization с quality risk?"
+    ]
+  },
+  {
+    "id": 431,
+    "question": "Как определить, какие model-architecture знания должны быть обязательными для platform on-call, а какие можно оставить research team?",
+    "variants": [
+      "Как построить operational knowledge boundary между исследователями и SRE/platform engineers?"
+    ]
+  },
+  {
+    "id": 432,
+    "question": "Сколько разных model architectures команда реально способна поддерживать качественно и как оценить этот предел?",
+    "variants": [
+      "Как оценить operational complexity budget model fleet?",
+      "Когда добавление ещё одной architecture превышает возможности команды?"
+    ]
+  },
+  {
+    "id": 433,
+    "question": "Как выбрать organizational boundary между training platform и inference platform?",
+    "variants": [
+      "Стоит ли объединять training и serving systems в одну команду?",
+      "Какие общие компоненты у model training и inference, а где ownership лучше разделить?"
+    ]
+  },
+  {
+    "id": 434,
+    "question": "Как принять решение о переобучении модели после существенного изменения tokenizer?",
+    "variants": [
+      "Когда tokenizer migration требует нового pretraining, а когда возможна адаптация?",
+      "Как оценить цену и риск замены vocabulary у существующей LLM?"
+    ]
+  },
+  {
+    "id": 435,
+    "question": "Как оценить окупаемость увеличения vocabulary для многоязычной модели?",
+    "variants": [
+      "Когда большой словарь снижает общую стоимость мультиязычного LLM?",
+      "Как посчитать trade-off embedding size versus token fertility по языкам?"
+    ]
+  },
+  {
+    "id": 436,
+    "question": "Какие признаки показывают момент, когда увеличение context window является продуктовой функцией, а когда инфраструктурным анти-паттерном?",
+    "variants": [
+      "Нужно ли разрешать продуктам всегда заполнять максимально доступный context?"
+    ]
+  },
+  {
+    "id": 437,
+    "question": "Как оценить, следует ли запрещать определённые decoding modes на общей платформе?",
+    "variants": [
+      "Когда beam search, large best-of или экстремальный max_tokens должны быть ограничены?",
+      "Как platform governance управляет дорогими generation parameters?"
+    ]
+  },
+  {
+    "id": 438,
+    "question": "Как управлять архитектурными исключениями, чтобы они не превратились в постоянный platform debt?",
+    "variants": [
+      "Что делать, если один важный продукт требует уникальную модель/runtime feature?",
+      "Как оформлять exception к model platform standard?"
+    ]
+  },
+  {
+    "id": 439,
+    "question": "При каких условиях архитектуру нужно упростить ради incident response, даже если benchmark performance снизится?",
+    "variants": [
+      "Когда operational simplicity важнее максимального tokens/s?"
+    ]
+  },
+  {
+    "id": 440,
+    "question": "Как планировать знания и staffing перед внедрением MoE в production?",
+    "variants": [
+      "Какие компетенции нужны команде для эксплуатации sparse model fleet?",
+      "Почему выбор MoE — одновременно architecture и organizational decision?"
+    ]
+  },
+  {
+    "id": 441,
+    "question": "Как определить, когда shared model platform должна поддерживать custom kernels от продуктовых команд?",
+    "variants": [
+      "Можно ли позволять отдельным командам приносить собственные CUDA/Triton extensions в production runtime?"
+    ]
+  },
+  {
+    "id": 442,
+    "question": "Как решить, когда обновление CUDA/runtime stack должно быть связано с обновлением модели, а когда разделено?",
+    "variants": [
+      "Следует ли релизить новый checkpoint и новый inference backend одновременно?"
+    ]
+  },
+  {
+    "id": 443,
+    "question": "Когда полезно заморозить архитектуру модели на длительный срок?",
+    "variants": [
+      "Когда stability window модели важнее быстрого adoption новых архитектурных идей?",
+      "Зачем foundation-model program может вводить architecture freeze?"
+    ]
+  },
+  {
+    "id": 444,
+    "question": "Как оценить migration complexity при переходе с MHA-модели на GQA-модель в существующем сервисе?",
+    "variants": [
+      "Почему MHA→GQA migration — не просто уменьшение KV memory?"
+    ]
+  },
+  {
+    "id": 445,
+    "question": "Какой технический долг допустим в исследовательском прототипе model architecture и где провести границу?",
+    "variants": [
+      "Что можно временно упростить в research code, а что нельзя даже в prototype?",
+      "Как не превратить экспериментальную модель в неуправляемый production fork?"
+    ]
+  },
+  {
+    "id": 446,
+    "question": "Какие признаки показывают момент, когда нужно инвестировать в собственный performance-modeling tooling для LLM architectures?",
+    "variants": [
+      "Когда таблиц benchmark уже недостаточно для capacity/architecture решений?",
+      "Какую ценность даёт аналитическая модель FLOPs, memory и communication для model platform?"
+    ]
+  },
+  {
+    "id": 447,
+    "question": "Как выбрать единицу внутреннего benchmarking: tokens/s, requests/s, GPU-hours или cost per successful task?",
+    "variants": [
+      "Какая метрика лучше всего сравнивает LLM architectures для бизнеса?"
+    ]
+  },
+  {
+    "id": 448,
+    "question": "Когда «эффективнее на токен» не означает «дешевле на задачу»?",
+    "variants": [
+      "Почему модель с низкой ценой per token может иметь больший end-to-end cost?",
+      "Как response length и retries меняют economics моделей?"
+    ]
+  },
+  {
+    "id": 449,
+    "question": "Как определить, какую часть platform roadmap отдать снижению cost, а какую — повышению quality/capability?",
+    "variants": [
+      "Как балансировать economics и capability investment в LLM platform?"
+    ]
+  },
+  {
+    "id": 450,
+    "question": "Какую observability следует встроить в model runtime как обязательный platform contract?",
+    "variants": [
+      "Какие telemetry поля должны быть стандартом для любой LLM architecture?"
+    ]
+  },
+  {
+    "id": 451,
+    "question": "Как защитить model artifact supply chain для self-hosted LLM?",
+    "variants": [
+      "Какие controls нужны от скачивания checkpoint до запуска на GPU?",
+      "Как снизить риск подмены или компрометации model weights/runtime artifacts?"
+    ]
+  },
+  {
+    "id": 452,
+    "question": "Как принять решение, разрешать ли пользовательские model adapters в общей inference platform?",
+    "variants": [
+      "Какие риски у загрузки клиентских LoRA/adapters в shared serving?",
+      "Когда bring-your-own-adapter требует отдельного isolation tier?"
+    ]
+  },
+  {
+    "id": 453,
+    "question": "Какие критерии определяют необходимость физически изолировать inference для чувствительных tenants?",
+    "variants": [
+      "Когда логических quotas и cache isolation недостаточно?",
+      "Как выбирать shared versus dedicated model serving для confidential workloads?"
+    ]
+  },
+  {
+    "id": 454,
+    "question": "Как architecture choice модели влияет на риск denial-of-service через очень длинные prompts?",
+    "variants": [
+      "Почему context window — часть security/capacity boundary?",
+      "Как защитить сервис от adversarial запросов, максимизирующих prefill и KV cost?"
+    ]
+  },
+  {
+    "id": 455,
+    "question": "Какие критерии определяют допустимые model-level optimizations для regulated workloads, где требуется воспроизводимость?",
+    "variants": [
+      "Можно ли использовать dynamic routing, quantization и frequent model upgrades там, где нужен audit?",
+      "Как балансировать efficiency и reproducibility в регулируемом контуре?"
+    ]
+  },
+  {
+    "id": 456,
+    "question": "Как решить, нужно ли шифровать или очищать KV cache и другие промежуточные состояния после запроса?",
+    "variants": [
+      "Как обращаться с KV state как с потенциально чувствительными данными?"
+    ]
+  },
+  {
+    "id": 457,
+    "question": "Как выбрать стратегию model encryption at rest, если weights имеют высокую коммерческую ценность?",
+    "variants": [
+      "Как защищать proprietary checkpoints в storage и на inference hosts?"
+    ]
+  },
+  {
+    "id": 458,
+    "question": "Какие данные нужны, чтобы решить, нужна ли защита от model extraction для публичного API собственной LLM?",
+    "variants": [
+      "Когда риск копирования поведения модели влияет на API architecture?"
+    ]
+  },
+  {
+    "id": 459,
+    "question": "Как определить, когда model behavior regression является security incident, а не обычным quality incident?",
+    "variants": [
+      "В каких случаях смена отказов/инструкционного поведения модели требует security escalation?"
+    ]
+  },
+  {
+    "id": 460,
+    "question": "Как установить безопасный уровень логирования prompt/response для model debugging?",
+    "variants": [
+      "Как совместить глубокую диагностику LLM и минимизацию чувствительных данных в telemetry?",
+      "Нужно ли хранить полные prompts ради incident response?"
+    ]
+  },
+  {
+    "id": 461,
+    "question": "Как architecture platform должна предотвращать cross-tenant leakage через ошибочный prefix-cache key?",
+    "variants": [
+      "Какие invariants нужны для безопасного cache reuse?",
+      "Как тестировать, что cached model state не смешивается между конфигурациями и tenants?"
+    ]
+  },
+  {
+    "id": 462,
+    "question": "Какие данные нужны, чтобы решить, нужен ли отдельный security review при смене tokenizer или chat template?",
+    "variants": [
+      "Почему seemingly preprocessing-only изменение может иметь security последствия?"
+    ]
+  },
+  {
+    "id": 463,
+    "question": "Когда нужно ограничивать возможность пользователей задавать произвольный chat template?",
+    "variants": [
+      "Почему кастомизация prompt serialization может быть опасна на managed model platform?",
+      "Где проходит граница между гибкостью prompt и сохранением model contract?"
+    ]
+  },
+  {
+    "id": 464,
+    "question": "Какие safeguards должны быть реализованы вне модели, а не полагаться на её обученное поведение, и почему?",
+    "variants": [
+      "Почему нельзя делать LLM единственным enforcement layer для resource/security constraints?"
+    ]
+  },
+  {
+    "id": 465,
+    "question": "Как определить blast radius новой model architecture до production rollout?",
+    "variants": [
+      "Как оценить, сколько продуктов затронет дефект нового runtime/model?",
+      "Какие architectural boundaries уменьшают impact model incident?"
+    ]
+  },
+  {
+    "id": 466,
+    "question": "По каким критериям решать, должен ли fallback использовать ту же архитектуру модели или разнообразную?",
+    "variants": [
+      "Что лучше для reliability: вторая replica той же LLM или другая model family?",
+      "Когда diversity снижает correlated failure, а когда создаёт quality mismatch?"
+    ]
+  },
+  {
+    "id": 467,
+    "question": "По каким критериям решать, нужен ли отдельный control plane для model deployment от обычного application deployment?",
+    "variants": [
+      "Почему LLM artifacts и их rollout иногда требуют специализированного lifecycle?"
+    ]
+  },
+  {
+    "id": 468,
+    "question": "Какие данные нужны, чтобы решить, какие model capabilities должны быть объявлены как hard contract, а какие как best effort?",
+    "variants": [
+      "Можно ли гарантировать точный maximum context, JSON validity или latency для любой prompt?"
+    ]
+  },
+  {
+    "id": 469,
+    "question": "Когда shared prefix caching следует отключить ради simplicity/security, несмотря на экономию?",
+    "variants": [
+      "Когда cache hit savings не оправдывают cache complexity?"
+    ]
+  },
+  {
+    "id": 470,
+    "question": "Как определить, когда context compression/summarization становится новым источником model risk?",
+    "variants": [
+      "Почему сжатие длинной истории нельзя считать нейтральной инфраструктурной оптимизацией?",
+      "Какие gates нужны перед автоматическим summary старого контекста?"
+    ]
+  },
+  {
+    "id": 471,
+    "question": "Какие признаки показывают момент, когда prompt caching у внешнего provider создаёт нежелательную зависимость от его pricing/runtime semantics?",
+    "variants": [
+      "Стоит ли проектировать economics вокруг vendor-specific cache discounts?"
+    ]
+  },
+  {
+    "id": 472,
+    "question": "Как выбрать, какие model metadata должны храниться для forensic analysis после серьёзного incident?",
+    "variants": [
+      "Что нужно сохранить, чтобы через месяц доказать, какая модель и конфигурация обслужили запрос?"
+    ]
+  },
+  {
+    "id": 473,
+    "question": "Насколько глубоко модельная платформа должна поддерживать reproducible inference и как задать этот уровень?",
+    "variants": [
+      "Где нужна bit-exact determinism, а где достаточно statistical equivalence?",
+      "Какой уровень воспроизводимости реалистичен для разных LLM use cases?"
+    ]
+  },
+  {
+    "id": 474,
+    "question": "Какие признаки показывают момент, когда model platform должна поддерживать air-gapped deployment?",
+    "variants": [
+      "Какие architecture последствия у LLM inference в изолированном контуре?",
+      "Когда требования disconnected environment оправдывают отдельный distribution/runtime path?"
+    ]
+  },
+  {
+    "id": 475,
+    "question": "Как определить, нужен ли отдельный model-risk review для изменения maximum context length без изменения weights?",
+    "variants": [
+      "Почему config-only увеличение context может быть рискованным production change?"
+    ]
+  },
+  {
+    "id": 476,
+    "question": "Ваш основной LLM-провайдер внезапно удвоил цену на output tokens. Как пересмотреть model architecture и platform strategy, не делая аварийную миграцию?",
+    "variants": [
+      "Как реагировать на резкий рост inference price без немедленного падения качества?"
+    ]
+  },
+  {
+    "id": 477,
+    "question": "Новая модель на 30% дешевле и быстрее, но на одном критичном domain slice проигрывает текущей на 4%. Какое решение вы примете?",
+    "variants": [
+      "Стоит ли мигрировать на более эффективную LLM при локальной критичной регрессии?"
+    ]
+  },
+  {
+    "id": 478,
+    "question": "После роста трафика в пять раз GPU utilization высокий, но cost per successful task тоже вырос. Как вы разложите проблему?",
+    "variants": [
+      "Почему рост utilization не гарантирует улучшение unit economics LLM platform?"
+    ]
+  },
+  {
+    "id": 479,
+    "question": "После миграции на GQA вы получили +70% concurrency, но два long-context eval стали хуже. Как решать, оставлять ли архитектуру?",
+    "variants": [
+      "Как оценить обмен memory efficiency GQA на небольшую quality regression?"
+    ]
+  },
+  {
+    "id": 480,
+    "question": "Большой pretraining run завершён, но inference economics значительно хуже бизнес-плана. Какие варианты кроме «обучить всё заново»?",
+    "variants": [
+      "Что делать, если хорошая foundation model слишком дорога в serving?"
+    ]
+  },
+  {
+    "id": 481,
+    "question": "Через полгода после запуска model fleet состоит из 18 checkpoints, 60 adapters и четырёх runtimes. Как вы решите, что консолидировать?",
+    "variants": [
+      "Как проводить model-fleet rationalization после периода быстрого роста?"
+    ]
+  },
+  {
+    "id": 482,
+    "question": "Ваша команда предлагает перейти на экспериментальную SSM-архитектуру ради 3× более длинных потоков. Какие доказательства потребуете перед крупной инвестицией?",
+    "variants": [
+      "Как оценить риск ставки на новую sequence architecture?"
+    ]
+  },
+  {
+    "id": 483,
+    "question": "Вы можете купить вдвое более дорогие GPU с большей HBM или потратить квартал на KV-cache оптимизации. Как выбрать?",
+    "variants": [
+      "Hardware purchase или software optimization: как сравнить варианты для long-context serving?"
+    ]
+  },
+  {
+    "id": 484,
+    "question": "После крупного outage выяснилось, что fallback model не поддерживает нужный tool schema. Как изменить архитектуру platform?",
+    "variants": [
+      "Как превратить неработающий model failover в проверяемую capability?"
+    ]
+  },
+  {
+    "id": 485,
+    "question": "Продуктовая команда требует 1M context как обязательную функцию, но 99,5% их запросов меньше 20K. Как выстроить решение?",
+    "variants": [
+      "Стоит ли строить весь fleet под экстремальный context ради 0,5% запросов?"
+    ]
+  },
+  {
+    "id": 486,
+    "question": "Новая quantization схема даёт 40% экономии GPU, но результаты нестабильны между GPU поколениями. Как поступить?",
+    "variants": [
+      "Стоит ли принимать hardware-specific quantization optimization?"
+    ]
+  },
+  {
+    "id": 487,
+    "question": "Вы обнаружили, что public benchmark, на котором выбирали модель, почти не коррелирует с production outcomes. Что меняется в процессе model selection?",
+    "variants": [
+      "Как перестроить выбор LLM после провала внешнего leaderboard как proxy?"
+    ]
+  },
+  {
+    "id": 488,
+    "question": "Команда хочет обучить модель вдвое крупнее, потому что текущая достигла quality plateau. Какие альтернативные гипотезы нужно проверить до масштабирования?",
+    "variants": [
+      "Почему plateau качества не обязательно означает недостаток параметров?"
+    ]
+  },
+  {
+    "id": 489,
+    "question": "В production одновременно растут TTFT и OOM rate после добавления long-context клиентов. Какой архитектурный план вы предложите на уровне квартала?",
+    "variants": [
+      "Как превратить incident pattern long-context overload в roadmap, а не набор точечных fixes?"
+    ]
+  },
+  {
+    "id": 490,
+    "question": "После перехода на multi-model routing общий cost снизился на 35%, но debugging incidents стал вдвое дольше. Как решить, сохранять ли routing?",
+    "variants": [
+      "Как оценить экономию routing против роста operational complexity?"
+    ]
+  },
+  {
+    "id": 491,
+    "question": "Ваша компания приобрела другую команду с собственной LLM platform. Как решить, унифицировать две архитектуры или оставить обе?",
+    "variants": [
+      "Как проводить platform consolidation после M&A с разными model stacks?"
+    ]
+  },
+  {
+    "id": 492,
+    "question": "Вы выбираете архитектуру новой модели на три года, но hardware roadmap неопределён. Как встроить опциональность?",
+    "variants": [
+      "Как спроектировать LLM, чтобы не зависеть от одного accelerator поколения?"
+    ]
+  },
+  {
+    "id": 493,
+    "question": "Критичный продукт требует bit-exact ответы для аудита, а platform roadmap зависит от агрессивных kernel upgrades. Как совместить требования?",
+    "variants": [
+      "Как обслуживать deterministic workload и быстро оптимизировать остальной fleet?"
+    ]
+  },
+  {
+    "id": 494,
+    "question": "Компания хочет обещать клиентам фиксированную цену LLM-функции на два года. Какие архитектурные риски нужно заложить?",
+    "variants": [
+      "Как model architecture влияет на долгосрочное ценообразование AI продукта?"
+    ]
+  },
+  {
+    "id": 495,
+    "question": "После года оптимизаций модель уже близка к hardware roofline. Где искать следующий порядок экономии?",
+    "variants": [
+      "Что делать, когда kernel-level performance почти исчерпан?"
+    ]
+  },
+  {
+    "id": 496,
+    "question": "У вас есть возможность обучить новую модель с GQA и меньшим KV cache или оставить текущую и купить больше GPU. Как принять решение на lifetime horizon?",
+    "variants": [
+      "Когда выгоднее переобучить модель под меньший KV cache, чем просто добавлять GPU?",
+      "Как сравнить инвестиции в архитектуру модели и в покупку дополнительного железа на длинном горизонте?"
+    ]
+  },
+  {
+    "id": 497,
+    "question": "Модель показывает отличное среднее качество, но редкие catastrophic failures дорого обходятся бизнесу. Как это влияет на выбор архитектуры и размера?",
+    "variants": [
+      "Как выбирать LLM, если tail risk важнее average benchmark?"
+    ]
+  },
+  {
+    "id": 498,
+    "question": "Как подтвердить, что пора пересматривать саму базовую архитектуру модели, а не продолжать локальные оптимизации?",
+    "variants": [
+      "Какие признаки указывают на architectural ceiling текущей LLM?"
+    ]
+  },
+  {
+    "id": 499,
+    "question": "Вы должны выбрать одну главную метрику для совета директоров, отражающую эффективность LLM-платформы. Что это будет и какие технические метрики останутся под ней?",
+    "variants": [
+      "Как свести quality, latency и cost LLM platform в управленческий KPI без потери инженерного смысла?"
+    ]
+  },
+  {
+    "id": 500,
+    "question": "Как выглядит зрелый процесс принятия архитектурных решений для LLM platform, если убрать названия конкретных моделей и vendors?",
+    "variants": [
+      "Какая повторяемая схема позволяет AI Lead принимать model/platform decisions при быстро меняющемся рынке?"
+    ]
+  }
+]

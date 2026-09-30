@@ -1,0 +1,3507 @@
+[
+  {
+    "id": 1,
+    "question": "Что такое fine-tuning языковой модели и чем он отличается от pretraining?",
+    "variants": [
+      "Что именно меняется в уже обученной LLM во время дообучения на новой задаче?",
+      "Чем адаптация готовой модели на целевом датасете принципиально отличается от обучения модели с нуля?"
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Что такое supervised fine-tuning и какую обучающую задачу он решает для causal LLM?",
+    "variants": [
+      "Как устроено обучение instruction-модели на парах «запрос — эталонный ответ»?"
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Что означает teacher forcing при обучении autoregressive-модели?",
+    "variants": [
+      "Почему во время SFT модель получает правильный предыдущий токен, а на inference — собственный сгенерированный токен?"
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Почему низкая training loss сама по себе не означает, что fine-tuned модель стала лучше?",
+    "variants": [
+      "Почему нельзя принимать решение о качестве дообучения только по графику функции потерь?"
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Чем training, validation и test splits должны отличаться при fine-tuning LLM?",
+    "variants": [
+      "Зачем разделять данные на обучающую, валидационную и финальную тестовую выборки?"
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Что такое catastrophic forgetting при fine-tuning?",
+    "variants": [
+      "Почему после специализации на новом домене модель может хуже решать старые задачи?",
+      "Как называется потеря ранее усвоенных способностей после дообучения на узком наборе данных?"
+    ]
+  },
+  {
+    "id": 7,
+    "question": "Когда fine-tuning предпочтительнее prompt engineering?",
+    "variants": [
+      "В каких случаях стоит менять параметры модели, а не усложнять системный промпт?"
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Когда RAG лучше fine-tuning, а когда fine-tuning лучше RAG?",
+    "variants": [
+      "Что выбрать для изменяющихся фактов: retrieval или изменение весов модели?"
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Что такое continued pretraining и чем он отличается от supervised fine-tuning?",
+    "variants": [
+      "Чем domain-adaptive pretraining отличается от instruction fine-tuning?"
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Что такое task-adaptive pretraining и когда он может быть полезен?",
+    "variants": [
+      "Зачем продолжать pretraining на текстах, максимально близких к конечной задаче?"
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Что такое PEFT и какую проблему он решает?",
+    "variants": [
+      "Как адаптировать большую модель, не обновляя все её параметры?"
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Какие основные классы PEFT-методов существуют?",
+    "variants": [
+      "Чем отличаются adapter-based, low-rank, prompt-based и selective fine-tuning подходы?"
+    ]
+  },
+  {
+    "id": 13,
+    "question": "Что такое LoRA и в чём её основная идея?",
+    "variants": [
+      "Как Low-Rank Adaptation изменяет линейный слой, не обучая исходную матрицу весов?",
+      "Почему LoRA хранит небольшие матрицы вместо полной копии fine-tuned модели?"
+    ]
+  },
+  {
+    "id": 14,
+    "question": "Почему низкоранговое обновление может быть достаточным для адаптации большой модели?",
+    "variants": [
+      "На какой гипотезе основана эффективность LoRA при малом rank?"
+    ]
+  },
+  {
+    "id": 15,
+    "question": "Что означает rank в LoRA?",
+    "variants": [
+      "Как параметр r влияет на число обучаемых параметров и выразительность LoRA?"
+    ]
+  },
+  {
+    "id": 16,
+    "question": "Что такое lora_alpha и зачем масштабировать LoRA-обновление?",
+    "variants": [
+      "Как alpha взаимодействует с rank в стандартной параметризации LoRA?"
+    ]
+  },
+  {
+    "id": 17,
+    "question": "Зачем в LoRA используется dropout?",
+    "variants": [
+      "Как lora_dropout влияет на переобучение адаптера?"
+    ]
+  },
+  {
+    "id": 18,
+    "question": "Что такое target_modules в LoRA?",
+    "variants": [
+      "Почему выбор q_proj, k_proj, v_proj, o_proj и MLP-проекций влияет на качество и размер адаптера?"
+    ]
+  },
+  {
+    "id": 19,
+    "question": "Почему LoRA-адаптер можно слить с базовой моделью перед inference?",
+    "variants": [
+      "Что математически происходит при merge LoRA weights?"
+    ]
+  },
+  {
+    "id": 20,
+    "question": "Чем отдельное хранение LoRA-адаптера отличается от хранения полной fine-tuned модели?",
+    "variants": [
+      "Почему PEFT удобен, когда одна base model обслуживает много задач?"
+    ]
+  },
+  {
+    "id": 21,
+    "question": "Что такое QLoRA?",
+    "variants": [
+      "Как можно обучать LoRA поверх замороженной 4-bit базовой модели?",
+      "Чем QLoRA отличается от обычной LoRA с FP16/BF16 backbone?"
+    ]
+  },
+  {
+    "id": 22,
+    "question": "Что такое NF4 в QLoRA?",
+    "variants": [
+      "Почему NormalFloat 4 был предложен для квантизации весов при QLoRA?"
+    ]
+  },
+  {
+    "id": 23,
+    "question": "Что такое double quantization в QLoRA?",
+    "variants": [
+      "Какие дополнительные величины квантуются при двойной квантизации?"
+    ]
+  },
+  {
+    "id": 24,
+    "question": "Что такое paged optimizer в контексте QLoRA?",
+    "variants": [
+      "Как QLoRA снижает риск кратковременных пиков памяти optimizer state?"
+    ]
+  },
+  {
+    "id": 25,
+    "question": "Почему 4-bit QLoRA не означает, что все вычисления выполняются в 4 битах?",
+    "variants": [
+      "В какой точности обычно хранятся веса, выполняются матричные операции и обучаются LoRA-параметры?"
+    ]
+  },
+  {
+    "id": 26,
+    "question": "Чем LoRA отличается от классических adapter modules?",
+    "variants": [
+      "В чём разница между низкоранговым обновлением веса и вставкой bottleneck-adapter между слоями?"
+    ]
+  },
+  {
+    "id": 27,
+    "question": "Что такое prompt tuning?",
+    "variants": [
+      "Чем обучаемые soft prompts отличаются от текстового prompt engineering?"
+    ]
+  },
+  {
+    "id": 28,
+    "question": "Что такое prefix tuning?",
+    "variants": [
+      "Чем prefix tuning отличается от soft prompt, добавленного только на вход?"
+    ]
+  },
+  {
+    "id": 29,
+    "question": "Что такое P-tuning и почему этим названием обозначают отдельное семейство prompt-based adaptation?",
+    "variants": [
+      "Как обучаемые непрерывные промпты могут адаптировать модель без изменения большинства её весов?"
+    ]
+  },
+  {
+    "id": 30,
+    "question": "Что такое IA3?",
+    "variants": [
+      "Как IA3 адаптирует Transformer через обучаемое масштабирование активаций?"
+    ]
+  },
+  {
+    "id": 31,
+    "question": "Что такое BitFit?",
+    "variants": [
+      "Как можно адаптировать Transformer, обучая только bias-параметры?"
+    ]
+  },
+  {
+    "id": 32,
+    "question": "Что такое knowledge distillation?",
+    "variants": [
+      "Как teacher model передаёт поведение меньшей student model?",
+      "Чем distillation отличается от обычного fine-tuning на человеческой разметке?"
+    ]
+  },
+  {
+    "id": 33,
+    "question": "Что такое teacher и student в distillation?",
+    "variants": [
+      "Обязательно ли student должен иметь ту же архитектуру, что и teacher?"
+    ]
+  },
+  {
+    "id": 34,
+    "question": "Что такое logits distillation?",
+    "variants": [
+      "Почему soft probability distribution учителя содержит больше информации, чем только правильный токен?"
+    ]
+  },
+  {
+    "id": 35,
+    "question": "Зачем temperature используется в knowledge distillation?",
+    "variants": [
+      "Как повышение температуры меняет soft targets учителя?"
+    ]
+  },
+  {
+    "id": 36,
+    "question": "Как KL divergence применяется в distillation?",
+    "variants": [
+      "Что измеряет расхождение Кульбака—Лейблера между teacher и student distributions?"
+    ]
+  },
+  {
+    "id": 37,
+    "question": "Что такое sequence-level distillation?",
+    "variants": [
+      "Как обучать student на сгенерированных teacher ответах без доступа к logits учителя?"
+    ]
+  },
+  {
+    "id": 38,
+    "question": "Чем distillation отличается от quantization?",
+    "variants": [
+      "Почему уменьшение precision весов и обучение меньшей модели — разные способы компрессии?"
+    ]
+  },
+  {
+    "id": 39,
+    "question": "Чем distillation отличается от pruning?",
+    "variants": [
+      "Как обучение student-модели отличается от удаления весов или структур из teacher-модели?"
+    ]
+  },
+  {
+    "id": 40,
+    "question": "Что такое full fine-tuning?",
+    "variants": [
+      "Какие параметры обновляются при полном дообучении модели?"
+    ]
+  },
+  {
+    "id": 41,
+    "question": "Почему optimizer states занимают так много памяти при full fine-tuning?",
+    "variants": [
+      "Почему Adam требует значительно больше памяти, чем только хранение весов модели?"
+    ]
+  },
+  {
+    "id": 42,
+    "question": "Что такое gradient accumulation и зачем он нужен при fine-tuning?",
+    "variants": [
+      "Как получить большой effective batch size, если micro-batch не помещается в GPU память?"
+    ]
+  },
+  {
+    "id": 43,
+    "question": "Что такое gradient clipping и когда он полезен?",
+    "variants": [
+      "Как ограничение нормы градиента помогает при нестабильном fine-tuning?"
+    ]
+  },
+  {
+    "id": 44,
+    "question": "Зачем нужен learning-rate warmup при fine-tuning?",
+    "variants": [
+      "Почему обучение часто начинают с меньшего learning rate и постепенно повышают его?"
+    ]
+  },
+  {
+    "id": 45,
+    "question": "Как batch size влияет на fine-tuning LLM?",
+    "variants": [
+      "Почему очень большой batch не всегда улучшает качество дообучения?"
+    ]
+  },
+  {
+    "id": 46,
+    "question": "Что такое sequence packing при SFT?",
+    "variants": [
+      "Как packing уменьшает потери вычислений на padding при обучении коротких примеров?"
+    ]
+  },
+  {
+    "id": 47,
+    "question": "Что такое completion-only loss в instruction fine-tuning?",
+    "variants": [
+      "Почему часто маскируют loss на system и user tokens и обучают только assistant tokens?"
+    ]
+  },
+  {
+    "id": 48,
+    "question": "Что такое chat template и почему он критичен для fine-tuning instruct-модели?",
+    "variants": [
+      "Что произойдёт, если формат сообщений при SFT не совпадает с форматом, ожидаемым базовой chat-моделью?"
+    ]
+  },
+  {
+    "id": 49,
+    "question": "Почему добавление новых специальных токенов требует внимания к embeddings?",
+    "variants": [
+      "Что нужно сделать с embedding matrix после расширения tokenizer vocabulary?"
+    ]
+  },
+  {
+    "id": 50,
+    "question": "Какие базовые признаки говорят, что fine-tuning вообще нужен, а не является преждевременной оптимизацией?",
+    "variants": [
+      "Как доказать необходимость дообучения до расходования GPU-бюджета?"
+    ]
+  },
+  {
+    "id": 51,
+    "question": "Как подготовить instruction dataset для supervised fine-tuning, чтобы он отражал реальное production-распределение?",
+    "variants": [
+      "Какие свойства обучающей выборки важнее простого количества примеров при SFT?"
+    ]
+  },
+  {
+    "id": 52,
+    "question": "Как дедупликация данных влияет на fine-tuning?",
+    "variants": [
+      "Почему тысячи почти одинаковых примеров могут быть хуже меньшего, но разнообразного датасета?"
+    ]
+  },
+  {
+    "id": 53,
+    "question": "Как выявить train-test contamination в fine-tuning dataset?",
+    "variants": [
+      "Как проверить, что тестовые примеры или их перефразы не попали в обучение?"
+    ]
+  },
+  {
+    "id": 54,
+    "question": "Как балансировать несколько типов задач в одном SFT-датасете?",
+    "variants": [
+      "Что делать, если большая простая задача подавляет маленькую, но бизнес-критичную задачу?"
+    ]
+  },
+  {
+    "id": 55,
+    "question": "Как label noise влияет на SFT и чем опасны «почти правильные» ответы?",
+    "variants": [
+      "Почему неоднозначные или противоречивые targets могут ухудшать instruction-following?"
+    ]
+  },
+  {
+    "id": 56,
+    "question": "Как использовать synthetic data для fine-tuning, не копируя ошибки teacher model?",
+    "variants": [
+      "Какие фильтры нужны для датасета, сгенерированного более сильной LLM?"
+    ]
+  },
+  {
+    "id": 57,
+    "question": "Как отличить нехватку данных от нехватки model capacity при fine-tuning?",
+    "variants": [
+      "Как понять, что проблема решается большим датасетом, а не более крупной базовой моделью?"
+    ]
+  },
+  {
+    "id": 58,
+    "question": "Как определить разумное число эпох для SFT?",
+    "variants": [
+      "Почему «3 эпохи» не является универсальным правилом для LLM fine-tuning?"
+    ]
+  },
+  {
+    "id": 59,
+    "question": "Как learning rate для LoRA обычно соотносится с learning rate full fine-tuning и почему?",
+    "variants": [
+      "Почему адаптеры часто обучают с более высоким learning rate, чем все веса модели?"
+    ]
+  },
+  {
+    "id": 60,
+    "question": "Как weight decay работает при fine-tuning и почему его нельзя одинаково применять ко всем параметрам?",
+    "variants": [
+      "Какие параметры обычно исключают из weight decay в Transformer?"
+    ]
+  },
+  {
+    "id": 61,
+    "question": "В чём разница между Adam и AdamW в контексте fine-tuning Transformer?",
+    "variants": [
+      "Почему decoupled weight decay важен для современных optimizer configurations?"
+    ]
+  },
+  {
+    "id": 62,
+    "question": "Что такое cosine, linear и constant learning-rate schedules и как они влияют на fine-tuning?",
+    "variants": [
+      "Когда затухающий schedule полезнее постоянного learning rate?"
+    ]
+  },
+  {
+    "id": 63,
+    "question": "Что такое mixed-precision training и зачем использовать BF16 или FP16 при fine-tuning?",
+    "variants": [
+      "Как пониженная точность ускоряет обучение и уменьшает память?"
+    ]
+  },
+  {
+    "id": 64,
+    "question": "Что такое loss scaling в FP16 training?",
+    "variants": [
+      "Почему слишком маленькие FP16 gradients могут обнуляться и как это исправляют?"
+    ]
+  },
+  {
+    "id": 65,
+    "question": "Что такое gradient checkpointing и почему он снижает VRAM ценой вычислений?",
+    "variants": [
+      "Какие tensors не сохраняются при activation checkpointing?"
+    ]
+  },
+  {
+    "id": 66,
+    "question": "Как sequence length влияет на память fine-tuning Transformer?",
+    "variants": [
+      "Почему увеличение контекста в два раза может стоить значительно больше, чем в два раза?"
+    ]
+  },
+  {
+    "id": 67,
+    "question": "Как dynamic padding и bucketing улучшают эффективность SFT?",
+    "variants": [
+      "Зачем группировать примеры похожей длины в один batch?"
+    ]
+  },
+  {
+    "id": 68,
+    "question": "Что такое token-based batching и чем он лучше фиксированного количества sequences?",
+    "variants": [
+      "Почему для variable-length LLM данных полезно ограничивать tokens per batch?"
+    ]
+  },
+  {
+    "id": 69,
+    "question": "Как правильно нормализовать loss при разной длине completion?",
+    "variants": [
+      "Чем усреднение по токенам отличается от усреднения сначала по каждому примеру?"
+    ]
+  },
+  {
+    "id": 70,
+    "question": "Как class imbalance проявляется в generative fine-tuning?",
+    "variants": [
+      "Как бороться с редкими типами ответов или intent, если обучение формально генеративное?"
+    ]
+  },
+  {
+    "id": 71,
+    "question": "Что такое curriculum learning в fine-tuning LLM?",
+    "variants": [
+      "Когда полезно подавать модели сначала простые примеры, а затем более сложные?"
+    ]
+  },
+  {
+    "id": 72,
+    "question": "Что такое data leakage через системные инструкции или ответы teacher model?",
+    "variants": [
+      "Как случайно обучить модель на информации, которая должна быть доступна только во время evaluation?"
+    ]
+  },
+  {
+    "id": 73,
+    "question": "Как versioning датасета должен быть связан с checkpoint fine-tuned модели?",
+    "variants": [
+      "Какие артефакты нужно сохранить, чтобы воспроизвести fine-tuning run?"
+    ]
+  },
+  {
+    "id": 74,
+    "question": "Что такое LoRA initialization и почему стандартная инициализация делает адаптер no-op до обучения?",
+    "variants": [
+      "Почему одну из LoRA-матриц часто инициализируют нулями?"
+    ]
+  },
+  {
+    "id": 75,
+    "question": "Что такое rsLoRA и зачем менять scaling при росте rank?",
+    "variants": [
+      "Чем rank-stabilized LoRA отличается от стандартного alpha/r scaling?"
+    ]
+  },
+  {
+    "id": 76,
+    "question": "Что такое DoRA и чем она отличается от LoRA?",
+    "variants": [
+      "Зачем разделять magnitude и direction обновления веса?"
+    ]
+  },
+  {
+    "id": 77,
+    "question": "Что такое AdaLoRA?",
+    "variants": [
+      "Почему одинаковый LoRA rank для всех слоёв может быть неэффективным?"
+    ]
+  },
+  {
+    "id": 78,
+    "question": "Что такое PiSSA initialization для LoRA?",
+    "variants": [
+      "Как SVD предобученных весов используется для более информативного старта адаптера?"
+    ]
+  },
+  {
+    "id": 79,
+    "question": "Что такое EVA initialization в LoRA?",
+    "variants": [
+      "Зачем использовать активации реального fine-tuning dataset для инициализации LoRA?"
+    ]
+  },
+  {
+    "id": 80,
+    "question": "Что такое LoftQ и какую проблему он решает?",
+    "variants": [
+      "Почему обычная post-hoc quantization может ухудшить старт QLoRA, и как LoftQ это учитывает?"
+    ]
+  },
+  {
+    "id": 81,
+    "question": "Что такое OFT и почему это мультипликативная, а не аддитивная адаптация?",
+    "variants": [
+      "Чем orthogonal fine-tuning принципиально отличается от LoRA update W + BA?"
+    ]
+  },
+  {
+    "id": 82,
+    "question": "Что такое BOFT и зачем использовать butterfly factorization?",
+    "variants": [
+      "Как BOFT делает ортогональную адаптацию более параметрически эффективной?"
+    ]
+  },
+  {
+    "id": 83,
+    "question": "Когда нужно обучать embeddings или lm_head вместе с LoRA?",
+    "variants": [
+      "Почему одного адаптера в attention/MLP недостаточно после добавления новых токенов?"
+    ]
+  },
+  {
+    "id": 84,
+    "question": "Как проверить, что PEFT действительно обучает только ожидаемые параметры?",
+    "variants": [
+      "Какие sanity checks сделать перед дорогим LoRA run?"
+    ]
+  },
+  {
+    "id": 85,
+    "question": "Почему LoRA rank нельзя сравнивать между архитектурами без учёта target modules?",
+    "variants": [
+      "Почему r=16 на q,v и r=16 на всех linear layers — это разные бюджеты адаптации?"
+    ]
+  },
+  {
+    "id": 86,
+    "question": "Как LoRA dropout взаимодействует с merge на inference?",
+    "variants": [
+      "Почему dropout не остаётся случайным после слияния адаптера?"
+    ]
+  },
+  {
+    "id": 87,
+    "question": "Что такое multi-adapter serving и чем он полезен?",
+    "variants": [
+      "Как одна base model может обслуживать разные LoRA-специализации по запросу?"
+    ]
+  },
+  {
+    "id": 88,
+    "question": "Почему динамическая загрузка LoRA-адаптеров в runtime является security-sensitive функцией?",
+    "variants": [
+      "Какие риски появляются, если production server позволяет загрузить adapter по произвольному пути или URL?"
+    ]
+  },
+  {
+    "id": 89,
+    "question": "Что такое adapter hot-swapping и от чего зависит его latency?",
+    "variants": [
+      "Почему смена LoRA может быть дешёвой, но не всегда бесплатной?"
+    ]
+  },
+  {
+    "id": 90,
+    "question": "Какие compatibility checks нужны при загрузке LoRA-адаптера на base model?",
+    "variants": [
+      "Почему совпадения названия модели недостаточно для безопасного применения adapter checkpoint?"
+    ]
+  },
+  {
+    "id": 91,
+    "question": "Что такое adapter composition и когда имеет смысл объединять несколько специализаций?",
+    "variants": [
+      "Можно ли просто сложить два LoRA-адаптера и ожидать сумму их навыков?"
+    ]
+  },
+  {
+    "id": 92,
+    "question": "Что такое TIES merging?",
+    "variants": [
+      "Как разрешение конфликтующих знаков обновлений помогает при model merging?"
+    ]
+  },
+  {
+    "id": 93,
+    "question": "Что такое DARE в model merging?",
+    "variants": [
+      "Зачем случайно отбрасывать часть task-vector параметров перед объединением моделей?"
+    ]
+  },
+  {
+    "id": 94,
+    "question": "Чем model merging отличается от multi-task fine-tuning?",
+    "variants": [
+      "Когда объединять уже обученные adapters, а когда лучше обучить одну модель на смеси задач?"
+    ]
+  },
+  {
+    "id": 95,
+    "question": "Как вычислить число trainable parameters LoRA для одного линейного слоя?",
+    "variants": [
+      "Сколько параметров добавляет LoRA к матрице d×k при rank r?"
+    ]
+  },
+  {
+    "id": 96,
+    "question": "Как оценить VRAM для LoRA training точнее, чем «размер адаптера»?",
+    "variants": [
+      "Какие компоненты памяти остаются большими даже при малом числе trainable parameters?"
+    ]
+  },
+  {
+    "id": 97,
+    "question": "Почему QLoRA может быть медленнее LoRA в BF16, несмотря на меньшую память?",
+    "variants": [
+      "Как dequantization overhead влияет на training throughput?"
+    ]
+  },
+  {
+    "id": 98,
+    "question": "Что такое FlashAttention и почему он полезен при fine-tuning длинных последовательностей?",
+    "variants": [
+      "Как memory-efficient attention уменьшает HBM traffic без изменения математического результата attention?"
+    ]
+  },
+  {
+    "id": 99,
+    "question": "Чем FSDP отличается от обычного DistributedDataParallel при full fine-tuning?",
+    "variants": [
+      "Что именно shard-ится между GPU в Fully Sharded Data Parallel?"
+    ]
+  },
+  {
+    "id": 100,
+    "question": "Чем DeepSpeed ZeRO помогает при full fine-tuning больших моделей?",
+    "variants": [
+      "Что последовательно шардируют ZeRO Stage 1, 2 и 3?"
+    ]
+  },
+  {
+    "id": 101,
+    "question": "Как выбрать между FSDP и DeepSpeed ZeRO для fine-tuning?",
+    "variants": [
+      "Какие workload и инфраструктурные факторы определяют выбор sharding backend?"
+    ]
+  },
+  {
+    "id": 102,
+    "question": "Как устроить корректный gradient accumulation при multi-GPU training?",
+    "variants": [
+      "Когда нужно синхронизировать gradients между ranks при накоплении нескольких micro-batches?"
+    ]
+  },
+  {
+    "id": 103,
+    "question": "Как gradient checkpointing взаимодействует с FSDP?",
+    "variants": [
+      "Почему неправильная комбинация sharding и activation recomputation может увеличить коммуникации?"
+    ]
+  },
+  {
+    "id": 104,
+    "question": "Как checkpointing больших fine-tuning jobs влияет на training throughput?",
+    "variants": [
+      "Почему слишком частые полные checkpoints могут стать bottleneck обучения?"
+    ]
+  },
+  {
+    "id": 105,
+    "question": "Что нужно сохранить для точного resume fine-tuning после сбоя?",
+    "variants": [
+      "Почему загрузки одних model weights недостаточно для продолжения того же training trajectory?"
+    ]
+  },
+  {
+    "id": 106,
+    "question": "Как reproducibility fine-tuning зависит от random seed?",
+    "variants": [
+      "Почему одинаковый seed не гарантирует полностью одинаковую модель на разных GPU или версиях CUDA?"
+    ]
+  },
+  {
+    "id": 107,
+    "question": "Как выглядит минимальный LoRA fine-tuning pipeline на Hugging Face PEFT?",
+    "variants": [
+      "Какие шаги нужны от загрузки base model до получения trainable PeftModel?"
+    ]
+  },
+  {
+    "id": 108,
+    "question": "Как настроить SFTTrainer с LoRA без предварительного ручного wrapping модели?",
+    "variants": [
+      "Как TRL интегрирует PEFT configuration в supervised fine-tuning?"
+    ]
+  },
+  {
+    "id": 109,
+    "question": "Как реализовать QLoRA loading через BitsAndBytesConfig?",
+    "variants": [
+      "Какие параметры конфигурации задают 4-bit NF4 и compute dtype?"
+    ]
+  },
+  {
+    "id": 110,
+    "question": "Зачем функция prepare_model_for_kbit_training используется перед QLoRA в PEFT?",
+    "variants": [
+      "Какие подготовительные изменения нужны квантизованной модели перед PEFT training?"
+    ]
+  },
+  {
+    "id": 111,
+    "question": "Как проверить корректность loss masking в SFT программно?",
+    "variants": [
+      "Как убедиться, что user tokens имеют label -100, а assistant tokens участвуют в loss?"
+    ]
+  },
+  {
+    "id": 112,
+    "question": "Почему packed training требует особого внимания к attention masks?",
+    "variants": [
+      "Что произойдёт, если второй независимый пример сможет attend к первому внутри packed sequence?"
+    ]
+  },
+  {
+    "id": 113,
+    "question": "Как обнаружить неправильный EOS handling при SFT?",
+    "variants": [
+      "Почему модель после fine-tuning может не уметь вовремя завершать ответ?"
+    ]
+  },
+  {
+    "id": 114,
+    "question": "Как truncation может незаметно испортить fine-tuning dataset?",
+    "variants": [
+      "Почему обрезание справа иногда удаляет именно эталонный assistant answer?"
+    ]
+  },
+  {
+    "id": 115,
+    "question": "Как выбрать max sequence length для fine-tuning?",
+    "variants": [
+      "Почему максимальный контекст base model не означает, что нужно обучать на такой длине?"
+    ]
+  },
+  {
+    "id": 116,
+    "question": "Что такое response template masking и чем он опасен при неоднозначном совпадении текста?",
+    "variants": [
+      "Почему поиск строкового маркера \"Assistant:\" может неправильно определить начало target?"
+    ]
+  },
+  {
+    "id": 117,
+    "question": "Как multi-turn SFT должен маскировать несколько assistant turns?",
+    "variants": [
+      "Обучать loss на всех ответах assistant или только на последнем?"
+    ]
+  },
+  {
+    "id": 118,
+    "question": "Как обучать tool calling через SFT?",
+    "variants": [
+      "Какие части примера нужны, чтобы модель научилась выбирать функцию и формировать arguments?"
+    ]
+  },
+  {
+    "id": 119,
+    "question": "Как fine-tuning на structured output отличается от обычного instruction SFT?",
+    "variants": [
+      "Что нужно измерять, если цель — устойчивый JSON по схеме?"
+    ]
+  },
+  {
+    "id": 120,
+    "question": "Как fine-tuning влияет на calibration модели?",
+    "variants": [
+      "Почему более высокая task accuracy может сопровождаться худшей confidence calibration?"
+    ]
+  },
+  {
+    "id": 121,
+    "question": "Как fine-tuning может ухудшить safety behavior базовой модели?",
+    "variants": [
+      "Почему harmless-looking domain dataset способен ослабить отказ от опасных запросов?"
+    ]
+  },
+  {
+    "id": 122,
+    "question": "Как fine-tuning влияет на hallucination rate?",
+    "variants": [
+      "Может ли SFT уменьшить форматные ошибки, но увеличить фактические выдумки?"
+    ]
+  },
+  {
+    "id": 123,
+    "question": "Как использовать negative examples в SFT?",
+    "variants": [
+      "Зачем показывать модели случаи, когда действие или tool call делать не нужно?"
+    ]
+  },
+  {
+    "id": 124,
+    "question": "Что такое hard-example mining для iterative fine-tuning?",
+    "variants": [
+      "Как использовать production failures для следующей версии датасета, не переобучившись на них?"
+    ]
+  },
+  {
+    "id": 125,
+    "question": "Что такое preference tuning и чем оно отличается от SFT?",
+    "variants": [
+      "Что меняется, когда вместо одного эталонного ответа есть chosen и rejected response?"
+    ]
+  },
+  {
+    "id": 126,
+    "question": "Что такое DPO?",
+    "variants": [
+      "Как Direct Preference Optimization обходит отдельное обучение reward model и PPO loop?"
+    ]
+  },
+  {
+    "id": 127,
+    "question": "Как beta в DPO влияет на силу отклонения от reference model?",
+    "variants": [
+      "Что происходит при слишком сильной или слишком слабой preference optimization?"
+    ]
+  },
+  {
+    "id": 128,
+    "question": "Как PEFT применяется к DPO?",
+    "variants": [
+      "Можно ли preference-tune только LoRA adapters вместо всех параметров?"
+    ]
+  },
+  {
+    "id": 129,
+    "question": "Что такое reward model и где он используется в model adaptation?",
+    "variants": [
+      "Чем scalar reward model отличается от генеративного teacher?"
+    ]
+  },
+  {
+    "id": 130,
+    "question": "Что такое reinforcement fine-tuning и для каких задач он естественнее SFT?",
+    "variants": [
+      "Когда программно проверяемый reward полезнее большого набора эталонных ответов?"
+    ]
+  },
+  {
+    "id": 131,
+    "question": "Чем online и offline preference optimization отличаются по данным?",
+    "variants": [
+      "Почему статический preference dataset может устаревать по мере изменения policy?"
+    ]
+  },
+  {
+    "id": 132,
+    "question": "Что такое on-policy distillation?",
+    "variants": [
+      "Почему полезно обучать student на префиксах, которые генерирует сам student, а не только teacher?"
+    ]
+  },
+  {
+    "id": 133,
+    "question": "Чем forward KL и reverse KL различаются в distillation генеративных моделей?",
+    "variants": [
+      "Почему направление KL влияет на coverage и mode seeking?"
+    ]
+  },
+  {
+    "id": 134,
+    "question": "Что такое hidden-state distillation?",
+    "variants": [
+      "Как передавать student не только ответы, но и внутренние представления teacher?"
+    ]
+  },
+  {
+    "id": 135,
+    "question": "Что такое attention distillation?",
+    "variants": [
+      "Зачем student может имитировать attention patterns teacher?"
+    ]
+  },
+  {
+    "id": 136,
+    "question": "Как выбирать teacher model для distillation?",
+    "variants": [
+      "Всегда ли самый большой и дорогой teacher является лучшим источником targets?"
+    ]
+  },
+  {
+    "id": 137,
+    "question": "Как temperature и decoding strategy teacher влияют на synthetic distillation data?",
+    "variants": [
+      "Почему greedy teacher outputs могут снизить разнообразие student training?"
+    ]
+  },
+  {
+    "id": 138,
+    "question": "Как избежать distillation collapse на однообразный стиль teacher?",
+    "variants": [
+      "Почему student после обучения на synthetic answers может стать чрезмерно шаблонным?"
+    ]
+  },
+  {
+    "id": 139,
+    "question": "Как оценить, окупается ли model distillation экономически?",
+    "variants": [
+      "Как сравнить разовую стоимость teacher generation и training с постоянной экономией inference?"
+    ]
+  },
+  {
+    "id": 140,
+    "question": "Как distillation связана с model routing?",
+    "variants": [
+      "Почему после distillation всё равно может быть выгодно оставлять teacher как fallback?"
+    ]
+  },
+  {
+    "id": 141,
+    "question": "Что такое self-distillation?",
+    "variants": [
+      "Как модель может быть одновременно источником targets и обучаемой моделью другого поколения?"
+    ]
+  },
+  {
+    "id": 142,
+    "question": "Что такое data-free distillation и какие у неё ограничения?",
+    "variants": [
+      "Можно ли дистиллировать teacher без исходного training corpus?"
+    ]
+  },
+  {
+    "id": 143,
+    "question": "Что такое progressive distillation?",
+    "variants": [
+      "Зачем иногда использовать цепочку teacher → medium model → small model?"
+    ]
+  },
+  {
+    "id": 144,
+    "question": "Как distillation может использовать chain-of-thought или reasoning traces?",
+    "variants": [
+      "Чем обучение на teacher reasoning отличается от обучения только на final answer?"
+    ]
+  },
+  {
+    "id": 145,
+    "question": "Как distillation работает для tool-using agents?",
+    "variants": [
+      "Что именно можно дистиллировать из траекторий сильного агента в маленькую модель?"
+    ]
+  },
+  {
+    "id": 146,
+    "question": "Как distillation влияет на rare skills teacher model?",
+    "variants": [
+      "Почему student обычно первым теряет long-tail capabilities?"
+    ]
+  },
+  {
+    "id": 147,
+    "question": "Как сравнивать student и teacher честно?",
+    "variants": [
+      "Почему недостаточно измерить только win rate student против teacher на synthetic judge?"
+    ]
+  },
+  {
+    "id": 148,
+    "question": "Как validation loss интерпретировать при distillation с soft targets?",
+    "variants": [
+      "Почему низкая KL loss к teacher не гарантирует лучшую task accuracy?"
+    ]
+  },
+  {
+    "id": 149,
+    "question": "Как комбинировать hard-label loss и distillation loss?",
+    "variants": [
+      "Зачем student одновременно учить на gold targets и soft teacher distribution?"
+    ]
+  },
+  {
+    "id": 150,
+    "question": "Когда distillation не является подходящим способом адаптации модели?",
+    "variants": [
+      "В каких случаях проще использовать исходный teacher, RAG или обычный fine-tuning?"
+    ]
+  },
+  {
+    "id": 151,
+    "question": "Какие признаки указывают на overfitting при fine-tuning LLM?",
+    "variants": [
+      "Как выглядит переобучение на train/validation curves и в сгенерированных ответах?"
+    ]
+  },
+  {
+    "id": 152,
+    "question": "Как отличить overfitting от train-validation distribution mismatch?",
+    "variants": [
+      "Почему плохая validation metric не всегда означает слишком долгое обучение?"
+    ]
+  },
+  {
+    "id": 153,
+    "question": "Как диагностировать underfitting при LoRA?",
+    "variants": [
+      "Что проверять, если и training, и validation metrics почти не улучшаются?"
+    ]
+  },
+  {
+    "id": 154,
+    "question": "Что проверять, если loss внезапно становится NaN во время fine-tuning?",
+    "variants": [
+      "Как построить порядок диагностики численной нестабильности training?"
+    ]
+  },
+  {
+    "id": 155,
+    "question": "Что делать, если QLoRA training падает с OOM только на редких шагах?",
+    "variants": [
+      "Какие причины у эпизодических memory spikes при переменной длине последовательностей?"
+    ]
+  },
+  {
+    "id": 156,
+    "question": "Как диагностировать training, который идёт, но параметры LoRA не меняются?",
+    "variants": [
+      "Почему loss может вычисляться, хотя adapter фактически не обучается?"
+    ]
+  },
+  {
+    "id": 157,
+    "question": "Почему LoRA training может быть медленнее ожидаемого, хотя trainable parameters меньше 1%?",
+    "variants": [
+      "Почему PEFT уменьшает optimizer memory сильнее, чем основную стоимость forward/backward?"
+    ]
+  },
+  {
+    "id": 158,
+    "question": "Как понять, что bottleneck fine-tuning — data loading, а не GPU compute?",
+    "variants": [
+      "Какие признаки GPU starvation из-за preprocessing или storage?"
+    ]
+  },
+  {
+    "id": 159,
+    "question": "Как диагностировать низкий GPU utilization при multi-GPU fine-tuning?",
+    "variants": [
+      "Как отличить communication bottleneck от imbalance по длине batches?"
+    ]
+  },
+  {
+    "id": 160,
+    "question": "Как правильно измерять training throughput для LLM fine-tuning?",
+    "variants": [
+      "Почему examples/s плохо сравнивает runs с разной длиной последовательностей?"
+    ]
+  },
+  {
+    "id": 161,
+    "question": "Что такое MFU и какие ограничения у этой метрики?",
+    "variants": [
+      "Почему высокий Model FLOPs Utilization не гарантирует минимальную стоимость fine-tuning?"
+    ]
+  },
+  {
+    "id": 162,
+    "question": "Как fine-tuning data quality можно оценивать автоматически до training?",
+    "variants": [
+      "Какие data quality checks стоит запускать на каждом corpus revision?"
+    ]
+  },
+  {
+    "id": 163,
+    "question": "Как найти mislabeled examples после неудачного fine-tuning?",
+    "variants": [
+      "Как использовать per-example loss для аудита подозрительных training records?"
+    ]
+  },
+  {
+    "id": 164,
+    "question": "Как обнаружить memorization конкретных training examples?",
+    "variants": [
+      "Какие тесты показывают, что модель воспроизводит редкие последовательности почти дословно?"
+    ]
+  },
+  {
+    "id": 165,
+    "question": "Что такое membership inference применительно к fine-tuned LLM?",
+    "variants": [
+      "Как злоумышленник может пытаться определить, был ли конкретный текст в training set?"
+    ]
+  },
+  {
+    "id": 166,
+    "question": "Что такое differential privacy в fine-tuning?",
+    "variants": [
+      "Как DP-SGD ограничивает влияние отдельного training example на модель?"
+    ]
+  },
+  {
+    "id": 167,
+    "question": "Как PII должна обрабатываться перед fine-tuning?",
+    "variants": [
+      "Почему «модель всё равно закрытая» не является достаточной защитой персональных данных?"
+    ]
+  },
+  {
+    "id": 168,
+    "question": "Как data poisoning может повлиять на fine-tuned модель?",
+    "variants": [
+      "Что произойдёт, если злоумышленник добавит небольшое число специально сформированных training examples?"
+    ]
+  },
+  {
+    "id": 169,
+    "question": "Что такое model backdoor в контексте fine-tuning?",
+    "variants": [
+      "Как редкий trigger может активировать скрытое нежелательное поведение?"
+    ]
+  },
+  {
+    "id": 170,
+    "question": "Какие риски несёт загрузка чужого PEFT adapter checkpoint?",
+    "variants": [
+      "Почему adapter из публичного репозитория нужно проверять почти как полноценную модель?"
+    ]
+  },
+  {
+    "id": 171,
+    "question": "Как оценить regression общих способностей после domain fine-tuning?",
+    "variants": [
+      "Как построить capability retention suite?"
+    ]
+  },
+  {
+    "id": 172,
+    "question": "Как измерять catastrophic forgetting количественно?",
+    "variants": [
+      "Какие метрики сравнивают старые задачи до и после нового этапа адаптации?"
+    ]
+  },
+  {
+    "id": 173,
+    "question": "Что такое replay data и как оно помогает против forgetting?",
+    "variants": [
+      "Зачем смешивать старые примеры с новым domain dataset при continual fine-tuning?"
+    ]
+  },
+  {
+    "id": 174,
+    "question": "Что такое regularization toward pretrained weights?",
+    "variants": [
+      "Как штраф за сильное отклонение параметров может уменьшить forgetting?"
+    ]
+  },
+  {
+    "id": 175,
+    "question": "Как continual fine-tuning отличается от обучения одного multi-domain mixture?",
+    "variants": [
+      "Какие дополнительные проблемы появляются, когда домены приходят последовательно во времени?"
+    ]
+  },
+  {
+    "id": 176,
+    "question": "Когда лучше отдельные LoRA-адаптеры по доменам, а когда один общий fine-tuned checkpoint?",
+    "variants": [
+      "Как trade-off isolation vs shared learning влияет на multi-domain платформу?"
+    ]
+  },
+  {
+    "id": 177,
+    "question": "Как adapter routing может стать источником ошибок в production?",
+    "variants": [
+      "Что произойдёт, если правильный LoRA обучен, но запрос попал на неправильный adapter?"
+    ]
+  },
+  {
+    "id": 178,
+    "question": "Как version skew между tokenizer и fine-tuned checkpoint проявляется на inference?",
+    "variants": [
+      "Почему одинаковый текст может дать другое поведение после обновления tokenizer files?"
+    ]
+  },
+  {
+    "id": 179,
+    "question": "Как проверить, что merged LoRA модель эквивалентна adapter-mode модели?",
+    "variants": [
+      "Какие numerical tests нужно выполнить до удаления отдельного adapter path?"
+    ]
+  },
+  {
+    "id": 180,
+    "question": "Почему merge LoRA в 4-bit base model требует осторожности?",
+    "variants": [
+      "Что происходит с quantization error, если update сначала складывают с деквантизованным весом, а потом квантуют снова?"
+    ]
+  },
+  {
+    "id": 181,
+    "question": "Как оценить quantization error после QLoRA merge/export?",
+    "variants": [
+      "Какие сравнения показывают, что посттренировочная квантизация не уничтожила выигрыш fine-tuning?"
+    ]
+  },
+  {
+    "id": 182,
+    "question": "Как fine-tuning влияет на perplexity и почему это не всегда полезная конечная метрика?",
+    "variants": [
+      "Может ли perplexity улучшиться, а instruction-following — нет?"
+    ]
+  },
+  {
+    "id": 183,
+    "question": "Как строить evaluation для fine-tuned generative model без единственного правильного ответа?",
+    "variants": [
+      "Какие слои оценки нужны для open-ended tasks?"
+    ]
+  },
+  {
+    "id": 184,
+    "question": "Как использовать LLM-as-a-judge для оценки fine-tuning и не попасть в self-bias?",
+    "variants": [
+      "Почему teacher/judge, породивший synthetic data, может переоценивать student?"
+    ]
+  },
+  {
+    "id": 185,
+    "question": "Как измерять statistical significance улучшения после fine-tuning?",
+    "variants": [
+      "Когда разница в 1–2 процентных пункта может быть просто шумом eval set?"
+    ]
+  },
+  {
+    "id": 186,
+    "question": "Почему нужно оценивать несколько training seeds?",
+    "variants": [
+      "Как fine-tuning instability влияет на выбор hyperparameters?"
+    ]
+  },
+  {
+    "id": 187,
+    "question": "Как проводить hyperparameter search для LoRA без взрыва бюджета?",
+    "variants": [
+      "Какие параметры стоит тюнить в первую очередь?"
+    ]
+  },
+  {
+    "id": 188,
+    "question": "Как выбрать LoRA rank через ablation?",
+    "variants": [
+      "Как понять, что увеличение r перестало окупаться?"
+    ]
+  },
+  {
+    "id": 189,
+    "question": "Как выбирать target modules через ablation?",
+    "variants": [
+      "Как проверить, достаточно ли q/v projections или нужны MLP layers?"
+    ]
+  },
+  {
+    "id": 190,
+    "question": "Как оценить effect of data quality vs data quantity?",
+    "variants": [
+      "Как поставить эксперимент, который покажет, что 10k чистых примеров лучше 100k шумных?"
+    ]
+  },
+  {
+    "id": 191,
+    "question": "Как определить, что fine-tuning изменил именно требуемое поведение, а не просто стиль ответов?",
+    "variants": [
+      "Как отделить cosmetic improvement от реального task improvement?"
+    ]
+  },
+  {
+    "id": 192,
+    "question": "Как оценить robustness fine-tuned модели к перефразированию запросов?",
+    "variants": [
+      "Почему модель, обученная на одном шаблоне инструкций, может ломаться на эквивалентных формулировках?"
+    ]
+  },
+  {
+    "id": 193,
+    "question": "Как оценить out-of-distribution behavior после fine-tuning?",
+    "variants": [
+      "Какие тесты нужны за пределами узкого training domain?"
+    ]
+  },
+  {
+    "id": 194,
+    "question": "Как benchmark contamination может исказить оценку fine-tuning?",
+    "variants": [
+      "Почему публичный benchmark нельзя считать независимым, если его решения могли попасть в synthetic corpus?"
+    ]
+  },
+  {
+    "id": 195,
+    "question": "Как сравнивать full fine-tuning и LoRA честно?",
+    "variants": [
+      "Какие условия эксперимента нужно выровнять, чтобы сравнение методов было осмысленным?"
+    ]
+  },
+  {
+    "id": 196,
+    "question": "Как сравнивать QLoRA и LoRA в BF16 честно?",
+    "variants": [
+      "Какие эффекты нельзя смешивать: quantization, rank, batch size и model size?"
+    ]
+  },
+  {
+    "id": 197,
+    "question": "Как определить минимальный dataset size для fine-tuning?",
+    "variants": [
+      "Почему нет универсального числа вроде «нужно минимум 1000 примеров»?"
+    ]
+  },
+  {
+    "id": 198,
+    "question": "Как learning curves помогают планировать сбор данных?",
+    "variants": [
+      "Как по кривой quality vs training examples оценить marginal value новых labels?"
+    ]
+  },
+  {
+    "id": 199,
+    "question": "Как оценить cost-to-quality fine-tuning экспериментов?",
+    "variants": [
+      "Почему самая качественная конфигурация не всегда является лучшей production-конфигурацией?"
+    ]
+  },
+  {
+    "id": 200,
+    "question": "Какие критерии должны быть выполнены перед переходом fine-tuned модели из эксперимента в production candidate?",
+    "variants": [
+      "Что должно входить в минимальный release gate модели после дообучения?"
+    ]
+  },
+  {
+    "id": 201,
+    "question": "Как спроектировать production pipeline для регулярного fine-tuning LLM от сырых данных до deployable artifact?",
+    "variants": [
+      "Какие стадии должны быть изолированы и воспроизводимы в промышленном post-training конвейере?"
+    ]
+  },
+  {
+    "id": 202,
+    "question": "Как выбрать архитектуру хранения base models и множества PEFT adapters в model registry?",
+    "variants": [
+      "Какие связи и метаданные нужны для безопасного multi-adapter lifecycle?"
+    ]
+  },
+  {
+    "id": 203,
+    "question": "Как организовать reproducible distributed training, если cluster topology меняется между runs?",
+    "variants": [
+      "Какие параметры training semantics зависят от world size и должны быть нормализованы?"
+    ]
+  },
+  {
+    "id": 204,
+    "question": "Как оценить необходимое число GPU для full fine-tuning до запуска job?",
+    "variants": [
+      "Как построить memory и throughput capacity model для большого Transformer?"
+    ]
+  },
+  {
+    "id": 205,
+    "question": "Как оценить память AdamW full fine-tuning при BF16 weights?",
+    "variants": [
+      "Почему простая оценка 2 bytes × parameters серьёзно занижает VRAM training?"
+    ]
+  },
+  {
+    "id": 206,
+    "question": "Как 8-bit optimizer меняет trade-off fine-tuning?",
+    "variants": [
+      "В каких случаях квантизация optimizer states экономит память без квантизации model weights?"
+    ]
+  },
+  {
+    "id": 207,
+    "question": "Как выбирать между CPU offload и добавлением GPU памяти?",
+    "variants": [
+      "Когда offload спасает feasibility, но делает обучение экономически невыгодным?"
+    ]
+  },
+  {
+    "id": 208,
+    "question": "Когда NVMe offload имеет смысл при fine-tuning?",
+    "variants": [
+      "Какие ограничения storage bandwidth и latency появляются при ZeRO-Infinity-подобных схемах?"
+    ]
+  },
+  {
+    "id": 209,
+    "question": "Как network topology влияет на FSDP/ZeRO performance?",
+    "variants": [
+      "Почему одинаковые восемь GPU на одном узле и на восьми узлах дают разную эффективность?"
+    ]
+  },
+  {
+    "id": 210,
+    "question": "Как подобрать FSDP wrap policy для Transformer fine-tuning?",
+    "variants": [
+      "Почему слишком мелкое и слишком крупное шардирование оба могут быть плохими?"
+    ]
+  },
+  {
+    "id": 211,
+    "question": "Как обнаружить straggler GPU в distributed fine-tuning?",
+    "variants": [
+      "Почему один медленный rank замедляет весь синхронный training job?"
+    ]
+  },
+  {
+    "id": 212,
+    "question": "Как проектировать fault tolerance для multi-hour fine-tuning jobs?",
+    "variants": [
+      "Что кроме checkpoint frequency влияет на ожидаемую потерю compute при сбоях?"
+    ]
+  },
+  {
+    "id": 213,
+    "question": "Как избежать silent corruption checkpoint во время distributed save?",
+    "variants": [
+      "Какие проверки нужны после записи большого sharded checkpoint?"
+    ]
+  },
+  {
+    "id": 214,
+    "question": "Как строить data pipeline, чтобы training можно было возобновить без повторов или пропусков примеров?",
+    "variants": [
+      "Как checkpoint-ить состояние distributed sampler и streaming dataset?"
+    ]
+  },
+  {
+    "id": 215,
+    "question": "Как sequence packing усложняет deterministic resume?",
+    "variants": [
+      "Почему состояние packer тоже является частью training state?"
+    ]
+  },
+  {
+    "id": 216,
+    "question": "Как длинные последовательности влияют на gradient variance и batch design?",
+    "variants": [
+      "Почему batch из одинакового числа sequences может иметь сильно разный learning signal?"
+    ]
+  },
+  {
+    "id": 217,
+    "question": "Как обучать long-context behavior без постоянного обучения на максимальной длине?",
+    "variants": [
+      "Как построить length curriculum, сохраняющий стоимость под контролем?"
+    ]
+  },
+  {
+    "id": 218,
+    "question": "Как RoPE scaling взаимодействует с long-context fine-tuning?",
+    "variants": [
+      "Почему изменение positional scaling — это не просто ещё один training hyperparameter?"
+    ]
+  },
+  {
+    "id": 219,
+    "question": "Как fine-tuning Mixture-of-Experts модели отличается по ресурсам от dense LLM?",
+    "variants": [
+      "Какие особенности routing и expert parallelism влияют на PEFT/full tuning MoE?"
+    ]
+  },
+  {
+    "id": 220,
+    "question": "Как проверить, что fine-tuning не разрушил MoE routing balance?",
+    "variants": [
+      "Какие метрики router/expert utilization нужно смотреть после adaptation?"
+    ]
+  },
+  {
+    "id": 221,
+    "question": "Как fine-tuning multimodal model отличается от text-only LLM?",
+    "variants": [
+      "Какие компоненты VLM можно замораживать или адаптировать отдельно?"
+    ]
+  },
+  {
+    "id": 222,
+    "question": "Как обучать LoRA на VLM, если image encoder и language model имеют разные learning dynamics?",
+    "variants": [
+      "Нужно ли использовать разные ranks или learning rates для разных модальностей?"
+    ]
+  },
+  {
+    "id": 223,
+    "question": "Как fine-tuning code model отличается от general chat model?",
+    "variants": [
+      "Какие дополнительные eval и data risks появляются при адаптации LLM для программирования?"
+    ]
+  },
+  {
+    "id": 224,
+    "question": "Как repository-level fine-tuning отличается от обучения на независимых code snippets?",
+    "variants": [
+      "Почему cross-file context требует другого построения training examples?"
+    ]
+  },
+  {
+    "id": 225,
+    "question": "Как адаптировать модель для SQL generation без заучивания конкретных schemas?",
+    "variants": [
+      "Как построить training split, проверяющий schema generalization?"
+    ]
+  },
+  {
+    "id": 226,
+    "question": "Как fine-tuning переводческой LLM может переобучиться на шумный parallel corpus?",
+    "variants": [
+      "Почему ограниченное PEFT иногда устойчивее full fine-tuning на неидеальных переводах?"
+    ]
+  },
+  {
+    "id": 227,
+    "question": "Как построить experiment, подтверждающий, что PEFT выигрывает за счёт regularization, а не случайной настройки?",
+    "variants": [
+      "Какие ablations нужны в кейсе «LoRA лучше full fine-tuning»?"
+    ]
+  },
+  {
+    "id": 228,
+    "question": "Как измерить parameter drift при full fine-tuning?",
+    "variants": [
+      "Какие layer-wise метрики показывают, где модель изменилась сильнее всего?"
+    ]
+  },
+  {
+    "id": 229,
+    "question": "Как анализировать effective rank обученного LoRA update?",
+    "variants": [
+      "Что можно узнать из singular values матрицы BA после training?"
+    ]
+  },
+  {
+    "id": 230,
+    "question": "Как определить, какие слои наиболее чувствительны к adaptation?",
+    "variants": [
+      "Какие методы кроме полного перебора target_modules можно использовать?"
+    ]
+  },
+  {
+    "id": 231,
+    "question": "Как понять, что LoRA rank bottleneck проявляется только на некоторых слоях?",
+    "variants": [
+      "Когда использовать rank_pattern вместо одного глобального r?"
+    ]
+  },
+  {
+    "id": 232,
+    "question": "Как alpha_pattern может использоваться вместе с per-layer rank?",
+    "variants": [
+      "Почему одинаковый scaling не обязательно оптимален при разном r по слоям?"
+    ]
+  },
+  {
+    "id": 233,
+    "question": "Как adapter dropout влияет на distributed determinism и reproducibility?",
+    "variants": [
+      "Почему dropout masks должны корректно различаться между data-parallel ranks?"
+    ]
+  },
+  {
+    "id": 234,
+    "question": "Как выбирать checkpoint по нескольким конфликтующим метрикам?",
+    "variants": [
+      "Что делать, если лучший task score имеет худшую safety regression?"
+    ]
+  },
+  {
+    "id": 235,
+    "question": "Как провести canary deployment PEFT adapter безопасно?",
+    "variants": [
+      "Какие метрики и rollback механизмы нужны при выпуске новой adapter version?"
+    ]
+  },
+  {
+    "id": 236,
+    "question": "Как A/B test fine-tuned LLM отличается от обычного web A/B test?",
+    "variants": [
+      "Какие особенности stochastic generation усложняют причинный вывод?"
+    ]
+  },
+  {
+    "id": 237,
+    "question": "Как shadow evaluation помогает перед rollout fine-tuned модели?",
+    "variants": [
+      "Чем shadow traffic отличается от canary traffic?"
+    ]
+  },
+  {
+    "id": 238,
+    "question": "Как сделать rollback после fine-tuning release детерминированным?",
+    "variants": [
+      "Почему «вернуть прошлую модель» требует versioning не только weights?"
+    ]
+  },
+  {
+    "id": 239,
+    "question": "Как model observability должна учитывать fine-tuned versions?",
+    "variants": [
+      "Какие identifiers нужно записывать в trace каждого inference request?"
+    ]
+  },
+  {
+    "id": 240,
+    "question": "Как мониторить drift fine-tuned модели, если её weights после deploy не меняются?",
+    "variants": [
+      "Откуда берётся production degradation без нового checkpoint?"
+    ]
+  },
+  {
+    "id": 241,
+    "question": "Как определить retraining trigger для fine-tuned модели?",
+    "variants": [
+      "Какие события должны запускать новый adaptation cycle?"
+    ]
+  },
+  {
+    "id": 242,
+    "question": "Как мигрировать LoRA adapters на новую base model revision?",
+    "variants": [
+      "Можно ли просто применить старый adapter к обновлённому base checkpoint?"
+    ]
+  },
+  {
+    "id": 243,
+    "question": "Как массово мигрировать сотни tenant adapters на новую base model?",
+    "variants": [
+      "Как избежать «N adapters × ручной retrain» как операционного bottleneck?"
+    ]
+  },
+  {
+    "id": 244,
+    "question": "Как оценить storage economics multi-adapter platform?",
+    "variants": [
+      "Когда маленькие LoRA checkpoints действительно дают существенную экономию?"
+    ]
+  },
+  {
+    "id": 245,
+    "question": "Как adapter cache capacity влияет на tail latency multi-tenant serving?",
+    "variants": [
+      "Как моделировать working set LoRA adapters и cold misses?"
+    ]
+  },
+  {
+    "id": 246,
+    "question": "Как batch scheduling усложняется при одновременном serving разных LoRA adapters?",
+    "variants": [
+      "Почему слишком много active adapters в одном batch может ухудшить kernel efficiency?"
+    ]
+  },
+  {
+    "id": 247,
+    "question": "Как security isolation реализовать между LoRA adapters разных tenants?",
+    "variants": [
+      "Какие данные и состояния не должны пересекаться в shared-base serving?"
+    ]
+  },
+  {
+    "id": 248,
+    "question": "Как prefix/KV caching взаимодействует с LoRA adapters?",
+    "variants": [
+      "Можно ли повторно использовать KV cache, вычисленный с одним adapter, для другого adapter?"
+    ]
+  },
+  {
+    "id": 249,
+    "question": "Как LoRA merge влияет на inference latency по сравнению с runtime adapter application?",
+    "variants": [
+      "Когда выгоднее иметь отдельную merged model на горячую специализацию?"
+    ]
+  },
+  {
+    "id": 250,
+    "question": "Как спроектировать benchmark multi-LoRA serving перед выбором runtime?",
+    "variants": [
+      "Какие workload dimensions должны присутствовать кроме «один adapter, один запрос»?"
+    ]
+  },
+  {
+    "id": 251,
+    "question": "Как построить production distillation pipeline для black-box teacher API?",
+    "variants": [
+      "Какие стадии нужны от сбора prompts до выпуска student model, если logits teacher недоступны?"
+    ]
+  },
+  {
+    "id": 252,
+    "question": "Как контролировать стоимость teacher generation при distillation миллионов примеров?",
+    "variants": [
+      "Какие техники уменьшают число дорогих вызовов teacher без потери coverage?"
+    ]
+  },
+  {
+    "id": 253,
+    "question": "Как detect teacher drift в долгом distillation проекте с внешним API?",
+    "variants": [
+      "Что делать, если provider незаметно обновил модель или serving behavior?"
+    ]
+  },
+  {
+    "id": 254,
+    "question": "Как фильтровать синтетические teacher ответы программным verifier?",
+    "variants": [
+      "Как избежать ситуации, когда grader принимает красивый, но неверный target?"
+    ]
+  },
+  {
+    "id": 255,
+    "question": "Как избежать feedback loop при обучении student на собственных production логах?",
+    "variants": [
+      "Почему данные, собранные после deploy student, могут постепенно закреплять его ошибки?"
+    ]
+  },
+  {
+    "id": 256,
+    "question": "Как distillation synthetic dataset защищать от prompt injection из production logs?",
+    "variants": [
+      "Что если пользовательский текст пытается изменить инструкцию teacher, который генерирует training target?"
+    ]
+  },
+  {
+    "id": 257,
+    "question": "Как юридические ограничения на model outputs влияют на distillation?",
+    "variants": [
+      "Почему техническая возможность скопировать поведение API-модели не означает разрешение на это?"
+    ]
+  },
+  {
+    "id": 258,
+    "question": "Как оценить privacy risk teacher-generated synthetic data?",
+    "variants": [
+      "Может ли synthetic corpus всё равно содержать персональные или proprietary данные?"
+    ]
+  },
+  {
+    "id": 259,
+    "question": "Как спроектировать student architecture при distillation под конкретный latency SLO?",
+    "variants": [
+      "Почему выбор student size должен исходить не только из качества teacher imitation?"
+    ]
+  },
+  {
+    "id": 260,
+    "question": "Как distillation и quantization совместно оптимизировать под edge deployment?",
+    "variants": [
+      "В каком порядке выбирать smaller student и lower precision?"
+    ]
+  },
+  {
+    "id": 261,
+    "question": "Когда quantization-aware training полезнее обычного QLoRA?",
+    "variants": [
+      "Чем обучение с имитацией quantization noise отличается от PEFT поверх уже квантизованного backbone?"
+    ]
+  },
+  {
+    "id": 262,
+    "question": "Как оценить distillation student на adversarial prompts, которых не было у teacher generation?",
+    "variants": [
+      "Почему transfer safety нельзя считать автоматически сохранённой?"
+    ]
+  },
+  {
+    "id": 263,
+    "question": "Как distillation может переносить bias teacher model?",
+    "variants": [
+      "Почему масштабирование teacher outputs иногда усиливает систематические ошибки?"
+    ]
+  },
+  {
+    "id": 264,
+    "question": "Как выявить distillation-induced mode collapse?",
+    "variants": [
+      "Какие метрики показывают снижение разнообразия ответов student?"
+    ]
+  },
+  {
+    "id": 265,
+    "question": "Как рассчитать confidence interval для teacher-student non-inferiority?",
+    "variants": [
+      "Как доказать, что student не хуже teacher больше допустимого порога δ?"
+    ]
+  },
+  {
+    "id": 266,
+    "question": "Как distillation оценивать при routing cascade student→teacher?",
+    "variants": [
+      "Какие метрики важны кроме standalone student quality?"
+    ]
+  },
+  {
+    "id": 267,
+    "question": "Как выбрать между sequence distillation и logits distillation при open-weight teacher?",
+    "variants": [
+      "Когда дополнительная информация полного teacher distribution оправдывает storage/compute?"
+    ]
+  },
+  {
+    "id": 268,
+    "question": "Как дистиллировать модели с разными tokenizers?",
+    "variants": [
+      "Почему прямой KL по vocabulary невозможен при несовпадающих token ids?"
+    ]
+  },
+  {
+    "id": 269,
+    "question": "Как hidden-state distillation делать между teacher и student разной глубины?",
+    "variants": [
+      "Как выбрать layer mapping 32-layer teacher → 12-layer student?"
+    ]
+  },
+  {
+    "id": 270,
+    "question": "Как хранить teacher logits экономно для offline distillation?",
+    "variants": [
+      "Какие компромиссы у top-k, low-precision и sparse logit storage?"
+    ]
+  },
+  {
+    "id": 271,
+    "question": "Как проводить distillation на sequence lengths, где teacher и student имеют разные context windows?",
+    "variants": [
+      "Что делать, если teacher видит 128k, а student поддерживает только 32k?"
+    ]
+  },
+  {
+    "id": 272,
+    "question": "Как fine-tuning взаимодействует с speculative decoding?",
+    "variants": [
+      "Почему после adaptation target model может потребовать нового draft model или новой настройки acceptance?"
+    ]
+  },
+  {
+    "id": 273,
+    "question": "Как адаптировать draft model под fine-tuned target для speculative decoding?",
+    "variants": [
+      "Как distillation может повысить acceptance rate спекулятивного decoding?"
+    ]
+  },
+  {
+    "id": 274,
+    "question": "Как fine-tuning влияет на prefix caching hit rate и utility?",
+    "variants": [
+      "Почему изменение chat template или system prompt вместе с adapter release может обнулить cache reuse?"
+    ]
+  },
+  {
+    "id": 275,
+    "question": "Как fine-tuned model интегрировать с tensor/pipeline parallel serving?",
+    "variants": [
+      "Какие сложности добавляет PEFT adapter при шардированных весах inference engine?"
+    ]
+  },
+  {
+    "id": 276,
+    "question": "Как adapter rank влияет на tensor-parallel serving memory?",
+    "variants": [
+      "Почему слишком высокий global max_lora_rank может резервировать лишнюю память?"
+    ]
+  },
+  {
+    "id": 277,
+    "question": "Как оценить end-to-end latency penalty runtime LoRA?",
+    "variants": [
+      "Какие компоненты кроме дополнительного BAx влияют на задержку?"
+    ]
+  },
+  {
+    "id": 278,
+    "question": "Как fine-tuning влияет на token length и косвенно на serving cost?",
+    "variants": [
+      "Почему модель с тем же accuracy может стать дороже после preference tuning?"
+    ]
+  },
+  {
+    "id": 279,
+    "question": "Как fine-tuning может изменить stop behavior и вызвать runaway generation?",
+    "variants": [
+      "Какие training defects приводят к росту max-token terminations?"
+    ]
+  },
+  {
+    "id": 280,
+    "question": "Как fine-tuning tool-using model может ухудшить retry behavior?",
+    "variants": [
+      "Почему обучение только на успешных tool trajectories делает policy хрупкой к ошибкам API?"
+    ]
+  },
+  {
+    "id": 281,
+    "question": "Как fine-tuning model for agents влияет на orchestration architecture?",
+    "variants": [
+      "Когда перенос decision logic в weights уменьшает, а когда увеличивает системную сложность?"
+    ]
+  },
+  {
+    "id": 282,
+    "question": "Как выбирать training examples для agent tool selection при сильном class imbalance tools?",
+    "variants": [
+      "Что делать, если один популярный инструмент встречается в 90% успешных trajectories?"
+    ]
+  },
+  {
+    "id": 283,
+    "question": "Как fine-tuning structured tool arguments тестировать на schema evolution?",
+    "variants": [
+      "Что произойдёт, если tool API изменил обязательное поле после training?"
+    ]
+  },
+  {
+    "id": 284,
+    "question": "Как безопасно обучать модель на production conversations с tool results?",
+    "variants": [
+      "Какие поля tool responses нельзя автоматически превращать в training context?"
+    ]
+  },
+  {
+    "id": 285,
+    "question": "Как fine-tuning на support tickets может создать privacy и memorization risk?",
+    "variants": [
+      "Почему удаление имени клиента недостаточно для anonymization?"
+    ]
+  },
+  {
+    "id": 286,
+    "question": "Как fine-tuning for personalization отличается от per-user RAG/memory?",
+    "variants": [
+      "Почему индивидуальные пользовательские факты редко стоит записывать в weights?"
+    ]
+  },
+  {
+    "id": 287,
+    "question": "Как адаптировать модель под новый язык или диалект: continued pretraining или SFT?",
+    "variants": [
+      "Какие признаки показывают, что проблема находится в language representations, а не instruction behavior?"
+    ]
+  },
+  {
+    "id": 288,
+    "question": "Как расширение vocabulary влияет на PEFT strategy?",
+    "variants": [
+      "Почему новые токены требуют training не только LoRA matrices?"
+    ]
+  },
+  {
+    "id": 289,
+    "question": "Как оценить, нужен ли новый tokenizer для domain adaptation?",
+    "variants": [
+      "Какие метрики показывают, что текущая tokenization слишком неэффективна для домена?"
+    ]
+  },
+  {
+    "id": 290,
+    "question": "Как domain continued pretraining может ухудшить instruction-following instruct-модели?",
+    "variants": [
+      "Почему обучение instruct checkpoint на сыром тексте может «разучить» чат-поведение?"
+    ]
+  },
+  {
+    "id": 291,
+    "question": "Как определить порядок DAPT, SFT и preference tuning?",
+    "variants": [
+      "Почему порядок стадий post-training обычно не коммутативен?"
+    ]
+  },
+  {
+    "id": 292,
+    "question": "Как adapter stacking сравнивать с последовательным fine-tuning одного adapter?",
+    "variants": [
+      "Что лучше для domain adaptation + task adaptation: два adapters или один последовательно обученный?"
+    ]
+  },
+  {
+    "id": 293,
+    "question": "Как model soups/weight averaging применимы к fine-tuned LLM?",
+    "variants": [
+      "Когда усреднение нескольких checkpoints может улучшить generalization?"
+    ]
+  },
+  {
+    "id": 294,
+    "question": "Как определить, что два fine-tuned checkpoints находятся в совместимом basin для averaging?",
+    "variants": [
+      "Какие практические тесты провести до большого merge sweep?"
+    ]
+  },
+  {
+    "id": 295,
+    "question": "Как TIES/DARE merge оценивать на conflicting tasks?",
+    "variants": [
+      "Какие метрики показывают negative transfer после объединения adapters?"
+    ]
+  },
+  {
+    "id": 296,
+    "question": "Как fine-tuning нескольких задач вызывает gradient interference?",
+    "variants": [
+      "Как определить, что gradients двух task datasets конфликтуют?"
+    ]
+  },
+  {
+    "id": 297,
+    "question": "Как adapter fusion отличается от weight merge?",
+    "variants": [
+      "Что меняется, если комбинация adapters остаётся динамической на inference?"
+    ]
+  },
+  {
+    "id": 298,
+    "question": "Как continual adapters могут уменьшить catastrophic forgetting?",
+    "variants": [
+      "Почему выделение нового parameter subset под каждую задачу защищает старые skills?"
+    ]
+  },
+  {
+    "id": 299,
+    "question": "Как сделать knowledge consolidation из множества adapters в одну модель?",
+    "variants": [
+      "Какие варианты кроме прямого adapter merge существуют?"
+    ]
+  },
+  {
+    "id": 300,
+    "question": "Как решить incident «после fine-tuning качество выросло offline, но production conversion упал»?",
+    "variants": [
+      "Какой debugging plan применить к расхождению offline eval и online business metric?"
+    ]
+  },
+  {
+    "id": 301,
+    "question": "Production LoRA после недели работы начал выдавать ответы базовой модели для части tenants. Как расследовать проблему?",
+    "variants": [
+      "Какие гипотезы проверить, если adapter иногда «не применяется», но ошибок сервера нет?"
+    ]
+  },
+  {
+    "id": 302,
+    "question": "После увеличения LoRA rank с 32 до 128 offline quality выросла, но P99 latency ухудшилась на 40%. Как принимать решение?",
+    "variants": [
+      "Как найти Pareto-optimal rank при конфликте quality и serving latency?"
+    ]
+  },
+  {
+    "id": 303,
+    "question": "Fine-tuning job на 64 GPU масштабируется хуже, чем на 32. Как локализовать причину?",
+    "variants": [
+      "Какие измерения отличат network saturation, small local batch и dataloader bottleneck?"
+    ]
+  },
+  {
+    "id": 304,
+    "question": "После перехода с BF16 LoRA на QLoRA модель стала хуже только на числовых задачах. Как расследовать?",
+    "variants": [
+      "Как доказать, что regression вызвана quantization, а не другим training configuration?"
+    ]
+  },
+  {
+    "id": 305,
+    "question": "После merge LoRA качество упало, хотя unmerged adapter работал хорошо. Какой debugging sequence?",
+    "variants": [
+      "Какие ошибки merge/export наиболее вероятны?"
+    ]
+  },
+  {
+    "id": 306,
+    "question": "Training loss падает, validation стабильна, но генерация становится всё длиннее. Как интерпретировать?",
+    "variants": [
+      "Какие данные и метрики проверить при length drift во время fine-tuning?"
+    ]
+  },
+  {
+    "id": 307,
+    "question": "Fine-tuned classifier-like LLM резко потерял recall редкого класса после добавления большого нового датасета. Как расследовать?",
+    "variants": [
+      "Как отличить class-prior shift, forgetting и labeling inconsistency?"
+    ]
+  },
+  {
+    "id": 308,
+    "question": "После domain fine-tuning factual accuracy выросла на train-domain документах, но модель стала чаще выдумывать ссылки. Почему?",
+    "variants": [
+      "Как behavioral fine-tuning может усилить hallucinated citations?"
+    ]
+  },
+  {
+    "id": 309,
+    "question": "Fine-tuned model стала хуже следовать system prompt, хотя task accuracy выросла. Что могло произойти?",
+    "variants": [
+      "Как SFT data может переписать instruction hierarchy?"
+    ]
+  },
+  {
+    "id": 310,
+    "question": "Fine-tuned model перестала корректно работать после обновления Transformers/PEFT без изменения weights. Почему это возможно?",
+    "variants": [
+      "Какие version-sensitive runtime изменения могут повлиять на adapter behavior?"
+    ]
+  },
+  {
+    "id": 311,
+    "question": "Как проводить root-cause analysis regression между двумя fine-tuned checkpoints?",
+    "variants": [
+      "Как организовать experiment diff, если изменились и данные, и код, и hyperparameters?"
+    ]
+  },
+  {
+    "id": 312,
+    "question": "Как построить canary eval, который обнаружит adapter/base mismatch до пользовательского трафика?",
+    "variants": [
+      "Какие sentinel prompts полезны для каждой специализации?"
+    ]
+  },
+  {
+    "id": 313,
+    "question": "Как fine-tuning failures классифицировать по data, optimization, capacity и serving causes?",
+    "variants": [
+      "Как избежать хаотичного перебора гиперпараметров при плохом результате?"
+    ]
+  },
+  {
+    "id": 314,
+    "question": "Как определить, что base model просто не подходит для fine-tuning задачи?",
+    "variants": [
+      "Какие сигналы показывают, что adaptation пытается компенсировать фундаментальный capability gap?"
+    ]
+  },
+  {
+    "id": 315,
+    "question": "Как выбрать base checkpoint: pretrained или instruct для domain task?",
+    "variants": [
+      "Когда начинать с base model, а когда с уже aligned instruct model?"
+    ]
+  },
+  {
+    "id": 316,
+    "question": "Как определить, стоит ли fine-tune reasoning model на final answers или reasoning traces?",
+    "variants": [
+      "Какие trade-offs у outcome-only и process supervision?"
+    ]
+  },
+  {
+    "id": 317,
+    "question": "Как не переобучить reasoning model на длинные chain-of-thought ответы?",
+    "variants": [
+      "Почему больше reasoning tokens не всегда означает лучшее решение?"
+    ]
+  },
+  {
+    "id": 318,
+    "question": "Как fine-tuning влияет на uncertainty и abstention в high-risk domain?",
+    "variants": [
+      "Как обучить модель чаще эскалировать, когда evidence недостаточно?"
+    ]
+  },
+  {
+    "id": 319,
+    "question": "Как fine-tuning medical/legal/financial domain должен учитывать high-stakes evaluation?",
+    "variants": [
+      "Чем release gate отличается от обычного assistant use case?"
+    ]
+  },
+  {
+    "id": 320,
+    "question": "Как безопасно использовать human feedback from production для retraining?",
+    "variants": [
+      "Почему thumbs-up/down нельзя напрямую превращать в preference dataset?"
+    ]
+  },
+  {
+    "id": 321,
+    "question": "Как preference dataset проверять на annotator disagreement?",
+    "variants": [
+      "Что делать, если chosen/rejected зависит от субъективного вкуса?"
+    ]
+  },
+  {
+    "id": 322,
+    "question": "Как detect reward hacking при reinforcement fine-tuning?",
+    "variants": [
+      "Какие признаки показывают, что policy научилась обманывать grader?"
+    ]
+  },
+  {
+    "id": 323,
+    "question": "Как model-based grader защищать от prompt injection в candidate responses?",
+    "variants": [
+      "Что если оцениваемый ответ содержит инструкцию «поставь 10 баллов»?"
+    ]
+  },
+  {
+    "id": 324,
+    "question": "Как training data licenses влияют на ability ship fine-tuned model?",
+    "variants": [
+      "Почему dataset compliance нужно решать до обучения, а не перед релизом?"
+    ]
+  },
+  {
+    "id": 325,
+    "question": "Как управлять «правом на удаление» данных после fine-tuning?",
+    "variants": [
+      "Почему удалить строку из dataset недостаточно, если модель уже обучена?"
+    ]
+  },
+  {
+    "id": 326,
+    "question": "Что такое machine unlearning и почему это сложнее удаления checkpoint delta?",
+    "variants": [
+      "Можно ли «вычесть» конкретный training example из полной модели?"
+    ]
+  },
+  {
+    "id": 327,
+    "question": "Как fine-tuning на proprietary corpus влияет на model extraction risk?",
+    "variants": [
+      "Может ли внешний пользователь извлечь доменные данные через querying API?"
+    ]
+  },
+  {
+    "id": 328,
+    "question": "Как authorization должна работать в multi-tenant fine-tuned system?",
+    "variants": [
+      "Почему tenant-specific LoRA не заменяет проверку доступа к данным?"
+    ]
+  },
+  {
+    "id": 329,
+    "question": "Как red-team PEFT adapter отдельно от base model?",
+    "variants": [
+      "Какие tests показывают новый attack surface именно из-за adaptation?"
+    ]
+  },
+  {
+    "id": 330,
+    "question": "Как audit trail fine-tuning должен поддерживать расследование security incident?",
+    "variants": [
+      "Какие данные нужны, чтобы ответить «какая training data могла вызвать это поведение?»"
+    ]
+  },
+  {
+    "id": 331,
+    "question": "Как оценить blast radius обнаруженного poisoned dataset shard?",
+    "variants": [
+      "Какие artifacts и deployments нужно считать потенциально затронутыми?"
+    ]
+  },
+  {
+    "id": 332,
+    "question": "Как провести postmortem fine-tuning incident, чтобы улучшить платформу, а не только модель?",
+    "variants": [
+      "Какие системные corrective actions искать после model regression?"
+    ]
+  },
+  {
+    "id": 333,
+    "question": "Как выбирать между full fine-tuning и PEFT при очень большом clean dataset?",
+    "variants": [
+      "Когда экономия параметров PEFT перестаёт быть главным фактором?"
+    ]
+  },
+  {
+    "id": 334,
+    "question": "Как выбирать между PEFT methods beyond LoRA на production проекте?",
+    "variants": [
+      "Когда IA3, prompt tuning, DoRA или OFT стоит рассматривать вместо стандартной LoRA?"
+    ]
+  },
+  {
+    "id": 335,
+    "question": "Как оценивать новый PEFT paper перед внедрением?",
+    "variants": [
+      "Какие вопросы задать к claims «лучше LoRA при меньшем числе параметров»?"
+    ]
+  },
+  {
+    "id": 336,
+    "question": "Как version-sensitive claims PEFT документировать внутри engineering decision record?",
+    "variants": [
+      "Почему «PEFT поддерживает X» должно включать дату и версии?"
+    ]
+  },
+  {
+    "id": 337,
+    "question": "Как оценивать vendor-managed fine-tuning против self-hosted open-model tuning?",
+    "variants": [
+      "Какие operational trade-offs важнее простого сравнения цены GPU?"
+    ]
+  },
+  {
+    "id": 338,
+    "question": "Как vendor deprecation base model влияет на fine-tuned descendants?",
+    "variants": [
+      "Почему fine-tuned API model может иметь lifecycle, связанный с base model?"
+    ]
+  },
+  {
+    "id": 339,
+    "question": "Как считать vendor lock-in для fine-tuning количественно?",
+    "variants": [
+      "Какие assets определяют стоимость миграции на другой provider или open model?"
+    ]
+  },
+  {
+    "id": 340,
+    "question": "Как fine-tuning cost forecast учитывать experiment failure rate?",
+    "variants": [
+      "Почему бюджет нельзя считать как один финальный training run?"
+    ]
+  },
+  {
+    "id": 341,
+    "question": "Как spot/preemptible GPU использовать для fine-tuning без чрезмерного риска?",
+    "variants": [
+      "Когда дешёвая compute capacity становится дороже из-за interruptions?"
+    ]
+  },
+  {
+    "id": 342,
+    "question": "Как carbon/energy efficiency учитывать при выборе adaptation method?",
+    "variants": [
+      "Почему PEFT или distillation могут снижать не только денежную стоимость?"
+    ]
+  },
+  {
+    "id": 343,
+    "question": "Как определить, нужен ли custom training framework или достаточно TRL/Transformers/NeMo?",
+    "variants": [
+      "Какие признаки оправдывают уход от high-level trainer?"
+    ]
+  },
+  {
+    "id": 344,
+    "question": "Как валидировать custom loss для fine-tuning?",
+    "variants": [
+      "Какие unit/numerical tests нужны до запуска на миллиардах параметров?"
+    ]
+  },
+  {
+    "id": 345,
+    "question": "Как обнаружить bug в distributed loss normalization?",
+    "variants": [
+      "Почему multi-GPU training может давать другое качество, чем 1 GPU при том же global batch?"
+    ]
+  },
+  {
+    "id": 346,
+    "question": "Как fine-tuning pipeline тестировать на data ordering bugs?",
+    "variants": [
+      "Что если labels сдвинулись относительно prompts после shuffle/join?"
+    ]
+  },
+  {
+    "id": 347,
+    "question": "Как обнаружить leakage через duplicated conversations в multi-turn dataset?",
+    "variants": [
+      "Почему splitting по отдельным messages опасен?"
+    ]
+  },
+  {
+    "id": 348,
+    "question": "Как fine-tuning на temporal data оценивать через time-based split?",
+    "variants": [
+      "Почему random split может переоценить production performance при меняющемся домене?"
+    ]
+  },
+  {
+    "id": 349,
+    "question": "Как model adaptation strategy должна учитывать SLO по восстановлению после инцидента?",
+    "variants": [
+      "Почему PEFT может улучшать operational recovery time?"
+    ]
+  },
+  {
+    "id": 350,
+    "question": "Как принять Senior-уровня решение «fine-tune или не fine-tune» для production problem?",
+    "variants": [
+      "Какой evidence package нужен перед изменением weights модели?"
+    ]
+  },
+  {
+    "id": 351,
+    "question": "Как выбрать между prompting, RAG, SFT, PEFT, full fine-tuning, distillation и reinforcement fine-tuning для нового продукта?",
+    "variants": [
+      "Как построить decision framework для выбора механизма адаптации модели, а не выбирать метод по популярности?"
+    ]
+  },
+  {
+    "id": 352,
+    "question": "Как доказать бизнесу, что fine-tuning экономически оправдан?",
+    "variants": [
+      "Какие компоненты должны войти в ROI-модель проекта по адаптации LLM?"
+    ]
+  },
+  {
+    "id": 353,
+    "question": "Как управлять портфелем base models, если десятки команд хотят fine-tune разные модели?",
+    "variants": [
+      "Что лучше для организации: один стандартный foundation model или несколько поддерживаемых семейств?"
+    ]
+  },
+  {
+    "id": 354,
+    "question": "Когда для model adaptation разумнее использовать managed service, а когда строить собственную training platform?",
+    "variants": [
+      "Как принимать build-vs-buy решение для fine-tuning инфраструктуры?"
+    ]
+  },
+  {
+    "id": 355,
+    "question": "Как формально выбирать точку на frontier «качество — latency — throughput — стоимость» после адаптации модели?",
+    "variants": [
+      "Почему максимальный benchmark score редко является правильной production-целью?"
+    ]
+  },
+  {
+    "id": 356,
+    "question": "Как определить cadence обновления fine-tuned моделей в production?",
+    "variants": [
+      "Нужно ли переобучать модель по расписанию или только при доказанном drift?"
+    ]
+  },
+  {
+    "id": 357,
+    "question": "Как спроектировать deprecation policy для base model, на которой живут сотни LoRA adapters?",
+    "variants": [
+      "Что делать, если поставщик прекращает поддержку base model, совместимой с большим adapter fleet?"
+    ]
+  },
+  {
+    "id": 358,
+    "question": "Как построить data flywheel для continual model adaptation, не превратив production feedback в источник самоотравления?",
+    "variants": [
+      "Как использовать пользовательские взаимодействия для следующего fine-tuning цикла безопасно?"
+    ]
+  },
+  {
+    "id": 359,
+    "question": "Как организовать evaluation governance для десятков fine-tuned моделей и adapters?",
+    "variants": [
+      "Какие проверки должны быть централизованы, а какие можно оставить продуктовым командам?"
+    ]
+  },
+  {
+    "id": 360,
+    "question": "Как распределить ответственность между model team, platform team, product team и security за fine-tuning lifecycle?",
+    "variants": [
+      "Какой RACI нужен для production model adaptation?"
+    ]
+  },
+  {
+    "id": 361,
+    "question": "Как внедрить risk tiering для model adaptation проектов?",
+    "variants": [
+      "Почему одинаковый fine-tuning pipeline не должен иметь одинаковый approval process для внутреннего помощника и кредитного решения?"
+    ]
+  },
+  {
+    "id": 362,
+    "question": "Как оценивать ценность собственной fine-tuning платформы как внутреннего продукта?",
+    "variants": [
+      "Какие метрики показывают, что centralized adaptation platform действительно помогает командам?"
+    ]
+  },
+  {
+    "id": 363,
+    "question": "Как выбрать централизованную или федеративную организационную модель для fine-tuning?",
+    "variants": [
+      "Должна ли одна ML-команда обучать все корпоративные adapters?"
+    ]
+  },
+  {
+    "id": 364,
+    "question": "Как ограничить experimentation budget для fine-tuning, не подавив исследовательскую работу?",
+    "variants": [
+      "Как распределять GPU-бюджет между exploration и production-critical retraining?"
+    ]
+  },
+  {
+    "id": 365,
+    "question": "Как принимать решение о резервировании GPU capacity для model adaptation?",
+    "variants": [
+      "Когда reserved/owned GPUs выгоднее on-demand облачных ресурсов для fine-tuning?"
+    ]
+  },
+  {
+    "id": 366,
+    "question": "Когда организации нужно стандартизовать один PEFT-метод, например LoRA, а когда поддерживать несколько?",
+    "variants": [
+      "Как избежать «зоопарка адаптеров», не запрещая методы, которые реально лучше для отдельных задач?"
+    ]
+  },
+  {
+    "id": 367,
+    "question": "Как проектировать multi-tenant adaptation strategy: shared base с adapters или отдельные fine-tuned models на tenant?",
+    "variants": [
+      "Когда shared-base multi-LoRA архитектура перестаёт быть правильной?"
+    ]
+  },
+  {
+    "id": 368,
+    "question": "Как решить, объединять ли множество domain adapters в один consolidated model?",
+    "variants": [
+      "Когда adapter fleet лучше, чем один multi-domain fine-tuned checkpoint?"
+    ]
+  },
+  {
+    "id": 369,
+    "question": "Как спланировать migration waves при смене base model для большого числа fine-tuned приложений?",
+    "variants": [
+      "Как не превратить upgrade foundation model в «big bang» миграцию?"
+    ]
+  },
+  {
+    "id": 370,
+    "question": "Как использовать model routing вместе с fine-tuning, чтобы не обучать одну модель на все случаи?",
+    "variants": [
+      "Когда набор специализированных adapters плюс router эффективнее одного универсального fine-tuned model?"
+    ]
+  },
+  {
+    "id": 371,
+    "question": "Как оценить стратегическую ценность distillation program, а не отдельного student experiment?",
+    "variants": [
+      "Когда компании выгодно построить «фабрику дистилляции» для нескольких продуктов?"
+    ]
+  },
+  {
+    "id": 372,
+    "question": "Как управлять зависимостью от внешнего teacher model в distillation pipeline?",
+    "variants": [
+      "Что делать, если teacher API меняет цену, политику или поведение?"
+    ]
+  },
+  {
+    "id": 373,
+    "question": "Как учитывать open-weight licensing при выборе модели для корпоративного fine-tuning?",
+    "variants": [
+      "Почему «веса доступны» не означает, что модель можно свободно адаптировать и продавать?"
+    ]
+  },
+  {
+    "id": 374,
+    "question": "Как выбирать между адаптацией закрытой frontier model и open-weight модели?",
+    "variants": [
+      "Какие trade-offs кроме benchmark quality должны войти в архитектурное решение?"
+    ]
+  },
+  {
+    "id": 375,
+    "question": "Как построить vendor scorecard для fine-tuning capability?",
+    "variants": [
+      "Какие критерии должны решать выбор поставщика model adaptation платформы?"
+    ]
+  },
+  {
+    "id": 376,
+    "question": "Как встроить privacy-by-design в fine-tuning pipeline с персональными данными?",
+    "variants": [
+      "Какие архитектурные меры нужны до того, как sensitive examples попадут в training job?"
+    ]
+  },
+  {
+    "id": 377,
+    "question": "Как решать проблему права на удаление данных после того, как запись уже использовалась для fine-tuning?",
+    "variants": [
+      "Как спроектировать model lineage, чтобы выполнить deletion request без хаотичного поиска по экспериментам?"
+    ]
+  },
+  {
+    "id": 378,
+    "question": "Как управлять интеллектуальной собственностью в synthetic-data distillation pipeline?",
+    "variants": [
+      "Какие IP-риски возникают, когда закрытый teacher генерирует данные для open student?"
+    ]
+  },
+  {
+    "id": 379,
+    "question": "Как построить automated release gates для fine-tuned моделей?",
+    "variants": [
+      "Какие условия должны блокировать promotion model artifact в production автоматически?"
+    ]
+  },
+  {
+    "id": 380,
+    "question": "Как обеспечить audit readiness для корпоративного fine-tuning?",
+    "variants": [
+      "Какие доказательства должны быть доступны через полгода после выпуска модели?"
+    ]
+  },
+  {
+    "id": 381,
+    "question": "Как организовать incident command при обнаружении опасного поведения fine-tuned модели?",
+    "variants": [
+      "Кто и на основании каких сигналов должен иметь право немедленно откатить adapter или checkpoint?"
+    ]
+  },
+  {
+    "id": 382,
+    "question": "Как ограничить blast radius при обнаружении poisoned training data?",
+    "variants": [
+      "Какие архитектурные решения уменьшают масштаб переобучения после компрометации одного источника данных?"
+    ]
+  },
+  {
+    "id": 383,
+    "question": "Как организовать red teaming для fine-tuned моделей разных risk tiers?",
+    "variants": [
+      "Что именно должно меняться в adversarial evaluation после адаптации base model?"
+    ]
+  },
+  {
+    "id": 384,
+    "question": "Как управлять fine-tuning в high-risk domain, где человеческий reviewer обязателен?",
+    "variants": [
+      "Как избежать ложного ощущения безопасности из-за human-in-the-loop?"
+    ]
+  },
+  {
+    "id": 385,
+    "question": "Как измерять и контролировать fairness после domain fine-tuning?",
+    "variants": [
+      "Почему общий рост accuracy может скрывать ухудшение для отдельных групп?"
+    ]
+  },
+  {
+    "id": 386,
+    "question": "Как выбрать rollout policy для нового fine-tuned model artifact?",
+    "variants": [
+      "Когда shadow, canary, A/B и phased rollout применимы к model adaptation?"
+    ]
+  },
+  {
+    "id": 387,
+    "question": "Как определить RTO и RPO для model adaptation platform?",
+    "variants": [
+      "Что именно означает disaster recovery для training jobs, checkpoints и deployed adapters?"
+    ]
+  },
+  {
+    "id": 388,
+    "question": "Как задать SLO для fine-tuning платформы, если она обслуживает как research, так и production retraining?",
+    "variants": [
+      "Какие service-level objectives нужны training platform помимо uptime?"
+    ]
+  },
+  {
+    "id": 389,
+    "question": "Как управлять support matrix версий base model, tokenizer, PEFT library и serving runtime?",
+    "variants": [
+      "Как предотвратить combinatorial explosion совместимости в adaptation platform?"
+    ]
+  },
+  {
+    "id": 390,
+    "question": "Как спроектировать API contract для внутренней fine-tuning platform, чтобы менять backend без переписывания продуктов?",
+    "variants": [
+      "Какие абстракции должны быть стабильными, а какие нельзя скрывать за универсальным интерфейсом?"
+    ]
+  },
+  {
+    "id": 391,
+    "question": "Как организовать tenant onboarding на shared fine-tuning platform?",
+    "variants": [
+      "Какие проверки нужны до того, как новая команда получит возможность обучать и публиковать adapters?"
+    ]
+  },
+  {
+    "id": 392,
+    "question": "Как построить доверенную цепочку для adapters от training до serving?",
+    "variants": [
+      "Зачем подписывать model artifacts и проверять digest перед dynamic loading?"
+    ]
+  },
+  {
+    "id": 393,
+    "question": "Как безопасно разрешить runtime loading LoRA adapters в production?",
+    "variants": [
+      "Какие controls нужны, если serving engine умеет динамически загружать adapters без redeploy?"
+    ]
+  },
+  {
+    "id": 394,
+    "question": "Как обеспечить tenant isolation при multi-LoRA serving?",
+    "variants": [
+      "Как доказать, что запрос клиента A никогда не будет обслужен adapter клиента B?"
+    ]
+  },
+  {
+    "id": 395,
+    "question": "Как подготовить disaster recovery для adapter registry?",
+    "variants": [
+      "Что должно произойти, если metadata store adapters потерян, но object storage с weights доступен?"
+    ]
+  },
+  {
+    "id": 396,
+    "question": "Как спланировать continuity, если внешний fine-tuning vendor становится недоступен?",
+    "variants": [
+      "Какие меры снизят vendor outage risk для критичного model adaptation процесса?"
+    ]
+  },
+  {
+    "id": 397,
+    "question": "Как оценивать multi-cloud portability для fine-tuning platform?",
+    "variants": [
+      "Когда переносимость между облаками стоит дополнительной сложности?"
+    ]
+  },
+  {
+    "id": 398,
+    "question": "Как обеспечить data residency при международном fine-tuning?",
+    "variants": [
+      "Как строить regional adaptation pipeline, если training data нельзя перемещать между юрисдикциями?"
+    ]
+  },
+  {
+    "id": 399,
+    "question": "Как управлять различиями regulatory requirements между регионами для одного model adaptation продукта?",
+    "variants": [
+      "Когда лучше иметь единый global model, а когда региональные variants?"
+    ]
+  },
+  {
+    "id": 400,
+    "question": "Как определить, что model adaptation программа стала слишком сложной и её нужно архитектурно упростить?",
+    "variants": [
+      "Какие признаки показывают, что fine-tuning platform накопила опасный technical debt?"
+    ]
+  },
+  {
+    "id": 401,
+    "question": "Как спроектировать scheduler для общей GPU-платформы fine-tuning с разными приоритетами и длительностью jobs?",
+    "variants": [
+      "Как совместить высокую GPU utilization с гарантированным стартом критичного retraining?"
+    ]
+  },
+  {
+    "id": 402,
+    "question": "Как построить chargeback/showback для fine-tuning compute?",
+    "variants": [
+      "Как распределять стоимость shared GPU cluster между командами справедливо и полезно для поведения пользователей?"
+    ]
+  },
+  {
+    "id": 403,
+    "question": "Как выбирать между FSDP, ZeRO, tensor/model parallelism и managed distributed training на уровне платформы?",
+    "variants": [
+      "Нужно ли давать каждой продуктовой команде самостоятельно выбирать distributed backend?"
+    ]
+  },
+  {
+    "id": 404,
+    "question": "Как решить, использовать ли spot/preemptible GPU для длительного fine-tuning?",
+    "variants": [
+      "При какой частоте прерываний дешёвые GPU перестают быть экономически выгодными?"
+    ]
+  },
+  {
+    "id": 405,
+    "question": "Как спроектировать storage tiering для checkpoints, adapters и training datasets?",
+    "variants": [
+      "Что хранить на быстром storage, что отправлять в дешёвый archive, а что удалять?"
+    ]
+  },
+  {
+    "id": 406,
+    "question": "Как выбирать архитектуру multi-LoRA serving для тысяч adapters с неравномерным трафиком?",
+    "variants": [
+      "Как спроектировать hot/cold adapter cache при Zipf-подобном распределении запросов?"
+    ]
+  },
+  {
+    "id": 407,
+    "question": "Как выбирать между serving adapters отдельно и предварительным merge LoRA в base weights?",
+    "variants": [
+      "Когда operational simplicity merged model перевешивает преимущества shared-base serving?"
+    ]
+  },
+  {
+    "id": 408,
+    "question": "Как оценить экономический эффект обновления base model, если старые adapters уже хорошо работают?",
+    "variants": [
+      "Когда прирост capability новой foundation model не окупает миграцию adapter fleet?"
+    ]
+  },
+  {
+    "id": 409,
+    "question": "Как построить cascade из distilled students и более сильной модели для оптимизации стоимости?",
+    "variants": [
+      "Как решить, какие запросы обслуживать дешёвым student, а какие эскалировать teacher/large model?"
+    ]
+  },
+  {
+    "id": 410,
+    "question": "Как выбирать между маленьким distilled student и большой quantized model для дешёвого serving?",
+    "variants": [
+      "Что сравнивать, если оба подхода помещаются на одинаковый GPU?"
+    ]
+  },
+  {
+    "id": 411,
+    "question": "Как спроектировать adaptation strategy для edge/on-device deployment?",
+    "variants": [
+      "Почему cloud fine-tuning решение нельзя напрямую перенести на устройство с жёстким power/memory budget?"
+    ]
+  },
+  {
+    "id": 412,
+    "question": "Как принимать решение об обучении на длинном контексте, если стоимость fine-tuning резко растёт?",
+    "variants": [
+      "Когда long-context SFT оправдан, а когда лучше изменить retrieval/chunking архитектуру?"
+    ]
+  },
+  {
+    "id": 413,
+    "question": "Как построить единую platform architecture для text и multimodal fine-tuning?",
+    "variants": [
+      "Какие части pipeline можно унифицировать, а какие должны оставаться modality-specific?"
+    ]
+  },
+  {
+    "id": 414,
+    "question": "Как решить, fine-tune ли agent model на tool use или улучшать orchestration layer?",
+    "variants": [
+      "Где проходит граница между model adaptation и инженерией agent workflow?"
+    ]
+  },
+  {
+    "id": 415,
+    "question": "Как выбирать между fine-tuning structured outputs и constrained decoding?",
+    "variants": [
+      "Нужно ли обучать модель выдавать JSON, если runtime умеет гарантировать grammar/schema?"
+    ]
+  },
+  {
+    "id": 416,
+    "question": "Как проектировать гибрид RAG + fine-tuning, чтобы методы не дублировали друг друга?",
+    "variants": [
+      "Что помещать в weights, а что оставлять во внешнем knowledge store?"
+    ]
+  },
+  {
+    "id": 417,
+    "question": "Как построить continual adaptation architecture без catastrophic forgetting и uncontrolled drift?",
+    "variants": [
+      "Какие слои защиты нужны при регулярном дообучении на новых production data?"
+    ]
+  },
+  {
+    "id": 418,
+    "question": "Как выбрать последовательность DAPT, SFT и preference optimization для нового домена?",
+    "variants": [
+      "Когда domain-adaptive pretraining нужно делать до instruction fine-tuning?"
+    ]
+  },
+  {
+    "id": 419,
+    "question": "Как управлять model merging как production capability?",
+    "variants": [
+      "Какие governance и evaluation правила нужны для merged adapters/models?"
+    ]
+  },
+  {
+    "id": 420,
+    "question": "Как выбирать между specialist models и одним generalist model на уровне продуктовой платформы?",
+    "variants": [
+      "Как оценить, когда specialization снижает общую стоимость системы, а когда увеличивает её?"
+    ]
+  },
+  {
+    "id": 421,
+    "question": "Как спроектировать региональные serving pools для adapters при глобальном продукте?",
+    "variants": [
+      "Как балансировать residency, cold-start и replication cost для LoRA artifacts?"
+    ]
+  },
+  {
+    "id": 422,
+    "question": "Как определить необходимый capacity headroom для adaptation platform?",
+    "variants": [
+      "Сколько свободных GPU держать ради incidents и deadline retraining?"
+    ]
+  },
+  {
+    "id": 423,
+    "question": "Как принимать hardware procurement решение для fine-tuning, если поколения GPU быстро меняются?",
+    "variants": [
+      "Какие workload характеристики важнее рекламного FLOPS при выборе accelerators?"
+    ]
+  },
+  {
+    "id": 424,
+    "question": "Как проектировать checkpoint strategy для многодневных distributed training jobs?",
+    "variants": [
+      "Как выбрать interval и формат checkpoint с учётом RPO, I/O и времени восстановления?"
+    ]
+  },
+  {
+    "id": 425,
+    "question": "Как определить, когда стоимость адаптации модели нужно оптимизировать алгоритмически, а когда — инфраструктурно?",
+    "variants": [
+      "Что менять первым: LoRA rank/batch/sequence, distributed stack или закупку GPU?"
+    ]
+  },
+  {
+    "id": 426,
+    "question": "Поставщик объявил end-of-life base model через 90 дней, а на ней работают сотни adapters. Как вы организуете миграцию?",
+    "variants": [
+      "Как действовать при срочном выводе foundation model из поддержки без big-bang риска?"
+    ]
+  },
+  {
+    "id": 427,
+    "question": "После массового обновления base model средний benchmark вырос, но несколько ключевых adapters резко деградировали. Что делать?",
+    "variants": [
+      "Как расследовать selective regression после rebase большого adapter fleet?"
+    ]
+  },
+  {
+    "id": 428,
+    "question": "После релиза выяснилось, что часть training dataset нарушала внутреннюю data policy. Как ограничить ущерб?",
+    "variants": [
+      "Как действовать, если запрещённые данные уже попали в promoted adapters?"
+    ]
+  },
+  {
+    "id": 429,
+    "question": "Злоумышленник получил доступ к одному tenant adapter. Как оценить и сократить последствия?",
+    "variants": [
+      "Что делать при утечке LoRA weights клиента?"
+    ]
+  },
+  {
+    "id": 430,
+    "question": "Очередь на GPU выросла с минут до двух суток после подключения новых команд. Как вы восстановите service level?",
+    "variants": [
+      "Как расследовать capacity crisis на shared fine-tuning platform?"
+    ]
+  },
+  {
+    "id": 431,
+    "question": "После увеличения LoRA rank качество выросло, но production throughput резко упал. Как принимать решение?",
+    "variants": [
+      "Что делать, если более сильный adapter нарушает serving SLO?"
+    ]
+  },
+  {
+    "id": 432,
+    "question": "Стоимость teacher API для distillation внезапно удвоилась. Как пересмотреть программу, не потеряв качество?",
+    "variants": [
+      "Какие рычаги снижения synthetic-data cost проверять первыми?"
+    ]
+  },
+  {
+    "id": 433,
+    "question": "Поведение teacher model изменилось без изменения вашего distillation code, и новые students стали хуже. Как диагностировать teacher drift?",
+    "variants": [
+      "Как доказать, что деградация пришла от внешнего teacher, а не от training pipeline?"
+    ]
+  },
+  {
+    "id": 434,
+    "question": "Новое регуляторное требование запрещает использовать часть исторических данных для дальнейшего обучения. Как изменить model adaptation lifecycle?",
+    "variants": [
+      "Как выполнить policy change, не потеряв контроль над уже выпущенными моделями?"
+    ]
+  },
+  {
+    "id": 435,
+    "question": "На рынке появилась новая foundation model, которая заметно сильнее текущей. Как решить, начинать ли срочную миграцию?",
+    "variants": [
+      "Как не попасть в бесконечный цикл миграций на каждую новую LLM?"
+    ]
+  },
+  {
+    "id": 436,
+    "question": "Продукт выходит на пять новых языков, а текущий fine-tuned model обучался преимущественно на английском. Как строить expansion strategy?",
+    "variants": [
+      "Когда использовать один multilingual adapter, а когда отдельные language adapters?"
+    ]
+  },
+  {
+    "id": 437,
+    "question": "Компания приобрела другую организацию с собственным набором fine-tuned моделей. Как интегрировать два model adaptation стека?",
+    "variants": [
+      "Как провести technical due diligence и консолидацию после M&A?"
+    ]
+  },
+  {
+    "id": 438,
+    "question": "Одна бизнес-команда требует full fine-tuning, хотя PEFT показывает почти такое же качество. Как принять решение?",
+    "variants": [
+      "Как разрешить спор между «максимальным качеством» и платформенной стоимостью полного дообучения?"
+    ]
+  },
+  {
+    "id": 439,
+    "question": "Две команды хотят несовместимые policy поведения от одной shared base model. Как проектировать решение?",
+    "variants": [
+      "Нужно ли объединять противоречивые требования в один multi-task fine-tune?"
+    ]
+  },
+  {
+    "id": 440,
+    "question": "Новая base model использует другой tokenizer/chat template. Как оценить миграционный риск для старых datasets и adapters?",
+    "variants": [
+      "Почему одинаковый текст training corpus не означает одинаковый training signal после смены tokenizer?"
+    ]
+  },
+  {
+    "id": 441,
+    "question": "Переход model artifact между research и platform team постоянно теряет детали training recipe. Как устранить handoff failures?",
+    "variants": [
+      "Как превратить research-to-production передачу из документа/Slack-сообщения в воспроизводимый контракт?"
+    ]
+  },
+  {
+    "id": 442,
+    "question": "Миграция на новую fine-tuning platform провалилась: сроки сорваны, качество некоторых моделей хуже. Как восстановить программу?",
+    "variants": [
+      "Как перезапустить неудачную платформенную migration без повторения тех же ошибок?"
+    ]
+  },
+  {
+    "id": 443,
+    "question": "Новый adapter rollout вызвал production outage из-за memory exhaustion serving nodes. Как провести incident response?",
+    "variants": [
+      "Как локализовать OOM, если adapter корректно обучен, но runtime не выдержал релиз?"
+    ]
+  },
+  {
+    "id": 444,
+    "question": "Невозможно воспроизвести production model, хотя сохранены weights. Какие причины и организационные выводы?",
+    "variants": [
+      "Почему checkpoint без full lineage недостаточен для reproducibility?"
+    ]
+  },
+  {
+    "id": 445,
+    "question": "Offline eval показывает улучшение, но пользователи считают новую fine-tuned модель хуже. Как расследовать mismatch?",
+    "variants": [
+      "Что делать, если benchmark и production outcome расходятся?"
+    ]
+  },
+  {
+    "id": 446,
+    "question": "Обнаружен security incident, связанный с fine-tuned tool-use model. Как отделить model failure от platform failure?",
+    "variants": [
+      "Как расследовать несанкционированный вызов инструмента agent model?"
+    ]
+  },
+  {
+    "id": 447,
+    "question": "После обнаружения poisoned shard нужно понять, какие модели затронуты. Как организовать forensic analysis?",
+    "variants": [
+      "Как быстро вычислить blast radius training-data supply-chain инцидента?"
+    ]
+  },
+  {
+    "id": 448,
+    "question": "Fine-tuning vendor закрывает сервис, а export некоторых моделей недоступен. Как снизить стратегический ущерб?",
+    "variants": [
+      "Что делать, если критичные fine-tuned artifacts оказались не переносимыми?"
+    ]
+  },
+  {
+    "id": 449,
+    "question": "Лицензия base model изменилась и стала несовместима с вашим продуктом. Как действовать с производными adapters?",
+    "variants": [
+      "Как организовать technical response на неожиданный model-license change?"
+    ]
+  },
+  {
+    "id": 450,
+    "question": "Клиент требует удалить свои данные, но они использовались в нескольких adapters и distillation datasets. Как выполнить запрос end-to-end?",
+    "variants": [
+      "Как проследить deletion через derived training artifacts и students?"
+    ]
+  },
+  {
+    "id": 451,
+    "question": "Когда нужно перестать улучшать fine-tuning recipe и сменить base model?",
+    "variants": [
+      "Как понять, что команда упёрлась в capability ceiling текущей foundation model?"
+    ]
+  },
+  {
+    "id": 452,
+    "question": "Когда стоит инвестировать в собственную training objective, а не использовать стандартные SFT/DPO losses?",
+    "variants": [
+      "Какие доказательства нужны перед созданием custom loss для production use case?"
+    ]
+  },
+  {
+    "id": 453,
+    "question": "Когда reinforcement fine-tuning стоит включать в roadmap организации?",
+    "variants": [
+      "Какие свойства задачи делают reward-based adaptation разумнее дальнейшего SFT?"
+    ]
+  },
+  {
+    "id": 454,
+    "question": "Как распределить инвестиции между training data, evaluation и model experimentation?",
+    "variants": [
+      "Где следующий инженерный евро/час чаще создаёт больше ценности: в новых runs или в лучшем measurement?"
+    ]
+  },
+  {
+    "id": 455,
+    "question": "Как принимать решение при конфликте: модель достигла quality target, но экономически не масштабируется?",
+    "variants": [
+      "Что делать, если fine-tuned model проходит eval, но cost per request превышает unit economics продукта?"
+    ]
+  },
+  {
+    "id": 456,
+    "question": "Как определить retention policy для deprecated fine-tuned models и adapters?",
+    "variants": [
+      "Какие старые artifacts нужно хранить ради rollback/audit, а какие безопасно удалить?"
+    ]
+  },
+  {
+    "id": 457,
+    "question": "Как управлять synthetic training data как стратегическим активом?",
+    "variants": [
+      "Какие governance правила нужны для больших корпусов, сгенерированных teachers?"
+    ]
+  },
+  {
+    "id": 458,
+    "question": "Как определить оптимальный human-labeling budget для model adaptation?",
+    "variants": [
+      "Когда дополнительные экспертные labels ценнее увеличения synthetic data в десять раз?"
+    ]
+  },
+  {
+    "id": 459,
+    "question": "Когда active learning стоит включать в fine-tuning pipeline?",
+    "variants": [
+      "Как выбирать примеры для разметки, если labeling дорогой?"
+    ]
+  },
+  {
+    "id": 460,
+    "question": "Как выбрать cadence регулярного model refresh для продукта с сезонным drift?",
+    "variants": [
+      "Как совместить scheduled retraining с event-driven triggers?"
+    ]
+  },
+  {
+    "id": 461,
+    "question": "Как определить profitability threshold для distillation?",
+    "variants": [
+      "При каком объёме трафика student окупает teacher-generated training data и engineering cost?"
+    ]
+  },
+  {
+    "id": 462,
+    "question": "Как стандартизовать artifact compatibility между командами без замораживания инноваций?",
+    "variants": [
+      "Какой минимум model/adapter contract должен соблюдать любой эксперимент, претендующий на production?"
+    ]
+  },
+  {
+    "id": 463,
+    "question": "Как проектировать developer experience self-service fine-tuning platform?",
+    "variants": [
+      "Что должно быть простым для обычной команды, а что намеренно требовать expert review?"
+    ]
+  },
+  {
+    "id": 464,
+    "question": "Как задавать quotas и guardrails на внутренней model adaptation platform?",
+    "variants": [
+      "Как предотвратить случайный многотысячный GPU-счёт без ручного одобрения каждого эксперимента?"
+    ]
+  },
+  {
+    "id": 465,
+    "question": "Как определить reproducibility policy для research и production fine-tuning?",
+    "variants": [
+      "Должна ли каждая LLM training run быть bitwise reproducible?"
+    ]
+  },
+  {
+    "id": 466,
+    "question": "Как улучшить experimentation hygiene в большой команде, где сотни fine-tuning runs плохо сравнимы?",
+    "variants": [
+      "Как сделать так, чтобы experiments накапливали знания, а не только артефакты?"
+    ]
+  },
+  {
+    "id": 467,
+    "question": "Как решить, нанимать ли специалистов по distributed/model training или использовать managed services?",
+    "variants": [
+      "Какие сигналы показывают, что internal expertise становится стратегической необходимостью?"
+    ]
+  },
+  {
+    "id": 468,
+    "question": "Как управлять technical debt от custom forks Hugging Face/PyTorch/serving runtimes?",
+    "variants": [
+      "Когда локальный patch нужно upstream, а когда поддерживать внутри?"
+    ]
+  },
+  {
+    "id": 469,
+    "question": "Как решить, какие улучшения model adaptation отдавать upstream open source?",
+    "variants": [
+      "Как балансировать конкурентное преимущество и снижение внутренней стоимости поддержки?"
+    ]
+  },
+  {
+    "id": 470,
+    "question": "Кто должен владеть model incidents: ML team или service team?",
+    "variants": [
+      "Как построить on-call модель для систем, где ошибка может быть в weights, data, routing или infrastructure?"
+    ]
+  },
+  {
+    "id": 471,
+    "question": "Как измерять успех model adaptation roadmap на годовом горизонте?",
+    "variants": [
+      "Какие outcome-метрики полезнее количества обученных моделей?"
+    ]
+  },
+  {
+    "id": 472,
+    "question": "Как выбирать между единым централизованным roadmap и автономией продуктовых команд в model adaptation?",
+    "variants": [
+      "Какие решения должны приниматься на уровне платформы, а какие — локально?"
+    ]
+  },
+  {
+    "id": 473,
+    "question": "Как определить, что model adaptation capability является core platform, а не набором проектов?",
+    "variants": [
+      "Когда стоит инвестировать в shared APIs, registry и self-service вместо поддержки use cases вручную?"
+    ]
+  },
+  {
+    "id": 474,
+    "question": "Как построить программу снижения technical debt у большого model fleet без остановки feature development?",
+    "variants": [
+      "Как приоритизировать retirement, rebase и cleanup сотен adapters/models?"
+    ]
+  },
+  {
+    "id": 475,
+    "question": "Как принимать стратегические решения, если benchmark лидеры меняются каждые несколько месяцев?",
+    "variants": [
+      "Как построить устойчивую model adaptation стратегию в быстро меняющемся рынке foundation models?"
+    ]
+  },
+  {
+    "id": 476,
+    "question": "Спроектируйте enterprise model adaptation platform для десятков команд и нескольких foundation model families.",
+    "variants": [
+      "Какие control-plane и data-plane компоненты нужны корпоративной платформе fine-tuning?"
+    ]
+  },
+  {
+    "id": 477,
+    "question": "Спроектируйте multi-tenant adapter registry для тысяч LoRA artifacts.",
+    "variants": [
+      "Какие данные, APIs и security invariants нужны registry, который обслуживает dynamic adapter serving?"
+    ]
+  },
+  {
+    "id": 478,
+    "question": "Спроектируйте secure dynamic LoRA serving service.",
+    "variants": [
+      "Как безопасно обслуживать много adapters на shared base с hot loading и caching?"
+    ]
+  },
+  {
+    "id": 479,
+    "question": "Спроектируйте production distillation factory, которая регулярно создаёт дешёвые specialist students из нескольких teachers.",
+    "variants": [
+      "Какие stages нужны от teacher sampling до выпуска student в production?"
+    ]
+  },
+  {
+    "id": 480,
+    "question": "Спроектируйте continual adaptation system для продукта, который получает новые labeled interactions ежедневно.",
+    "variants": [
+      "Как автоматизировать обновления, не разрешая модели бесконтрольно обучаться на production feedback?"
+    ]
+  },
+  {
+    "id": 481,
+    "question": "Спроектируйте fine-tuning pipeline для регулируемого домена с PII, audit и обязательным human approval.",
+    "variants": [
+      "Как совместить ML experimentation с жёсткими требованиями privacy/compliance?"
+    ]
+  },
+  {
+    "id": 482,
+    "question": "Спроектируйте cost-optimized adaptation platform при ограниченном GPU-бюджете и растущем числе команд.",
+    "variants": [
+      "Как уменьшить cost per accepted model без ухудшения качества и reliability?"
+    ]
+  },
+  {
+    "id": 483,
+    "question": "Спроектируйте глобальную model adaptation архитектуру для продукта с data residency в нескольких регионах.",
+    "variants": [
+      "Как разделить global control plane и regional training/serving planes?"
+    ]
+  },
+  {
+    "id": 484,
+    "question": "Спроектируйте централизованный evaluation и approval service для fine-tuned models.",
+    "variants": [
+      "Как отделить measurement от training team и сделать release decisions воспроизводимыми?"
+    ]
+  },
+  {
+    "id": 485,
+    "question": "Спроектируйте data flywheel для улучшения fine-tuned support model на основе production traffic.",
+    "variants": [
+      "Какие сигналы собирать и как превращать их в training examples без feedback-loop bias?"
+    ]
+  },
+  {
+    "id": 486,
+    "question": "Спроектируйте migration system для перевода сотен adapters на новую foundation model.",
+    "variants": [
+      "Как автоматизировать rebase, сохранив per-workload quality controls?"
+    ]
+  },
+  {
+    "id": 487,
+    "question": "Спроектируйте rollback и disaster-recovery стратегию для model adaptation lifecycle.",
+    "variants": [
+      "Как гарантировать восстановление и serving, и незавершённых training jobs после крупного сбоя?"
+    ]
+  },
+  {
+    "id": 488,
+    "question": "Спроектируйте model lineage и unlearning architecture для организации с тысячами training runs.",
+    "variants": [
+      "Как представить зависимости данных и моделей так, чтобы отвечать на audit и deletion queries?"
+    ]
+  },
+  {
+    "id": 489,
+    "question": "Спроектируйте adaptation architecture для AI agent, который использует десятки tools и должен надёжно завершать многошаговые задачи.",
+    "variants": [
+      "Что fine-tune, а что оставить в planner/orchestrator/tool layer?"
+    ]
+  },
+  {
+    "id": 490,
+    "question": "Спроектируйте multimodal model adaptation platform для текста, изображений и аудио.",
+    "variants": [
+      "Как не создать три полностью независимых ML-стека для разных modalities?"
+    ]
+  },
+  {
+    "id": 491,
+    "question": "Спроектируйте self-service workflow от dataset до production adapter для продуктовой команды без эксперта по distributed training.",
+    "variants": [
+      "Какой «золотой путь» должен пройти инженер, чтобы безопасно fine-tune модель?"
+    ]
+  },
+  {
+    "id": 492,
+    "question": "Спроектируйте research-to-production gate для нового PEFT-метода, которого ещё нет в стандартной платформе.",
+    "variants": [
+      "Как безопасно внедрять исследовательские методы вроде нового adapter algorithm в production stack?"
+    ]
+  },
+  {
+    "id": 493,
+    "question": "Спроектируйте observability для полного fine-tuning lifecycle от data ingestion до production inference.",
+    "variants": [
+      "Какие метрики и traces нужны, чтобы расследовать как training, так и serving regressions?"
+    ]
+  },
+  {
+    "id": 494,
+    "question": "Спроектируйте vendor-agnostic abstraction для fine-tuning, работающую с managed APIs и self-hosted open models.",
+    "variants": [
+      "Как избежать lowest-common-denominator API, который скрывает важные различия провайдеров?"
+    ]
+  },
+  {
+    "id": 495,
+    "question": "Спроектируйте capability routing систему, которая выбирает между base, adapters, distilled students и frontier model.",
+    "variants": [
+      "Как строить routing по качеству, стоимости и риску, а не только по типу запроса?"
+    ]
+  },
+  {
+    "id": 496,
+    "question": "Спроектируйте quality-and-cost SLO для платформы, где несколько fine-tuned моделей могут обслуживать одну задачу.",
+    "variants": [
+      "Как формализовать acceptance, если нельзя одновременно максимизировать качество и минимизировать стоимость?"
+    ]
+  },
+  {
+    "id": 497,
+    "question": "Спроектируйте IP/privacy controls для платформы, где команды fine-tune модели на внутренних документах и customer data.",
+    "variants": [
+      "Как предотвратить смешивание данных и models с несовместимыми правами использования?"
+    ]
+  },
+  {
+    "id": 498,
+    "question": "Спроектируйте failure-recovery архитектуру для large-scale distributed fine-tuning с частыми hardware failures.",
+    "variants": [
+      "Как минимизировать потерю GPU-времени и риск некорректного resume?"
+    ]
+  },
+  {
+    "id": 499,
+    "question": "Какую пятилетнюю model adaptation стратегию вы предложите компании, если foundation models быстро дешевеют и усиливаются?",
+    "variants": [
+      "Во что инвестировать надолго, если конкретные модели и fine-tuning APIs могут устареть за год?"
+    ]
+  },
+  {
+    "id": 500,
+    "question": "Вам нужно с нуля спроектировать production-программу Fine-tuning, PEFT, Distillation & Model Adaptation для крупной компании. Какой end-to-end design и порядок решений вы предложите?",
+    "variants": [
+      "Как выглядит целостная архитектура и operating model зрелой enterprise model adaptation функции?"
+    ]
+  }
+]

@@ -1,0 +1,4003 @@
+[
+  {
+    "id": 1,
+    "question": "Что такое Retrieval-Augmented Generation (RAG) и какую проблему он решает?",
+    "variants": [
+      "Как работает RAG в самом общем виде?",
+      "Зачем LLM подключать внешний поиск перед генерацией ответа?"
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Чем parametric knowledge LLM отличается от non-parametric knowledge в RAG?",
+    "variants": [
+      "Что в RAG считается параметрической и непараметрической памятью?",
+      "Почему знания RAG не обязательно хранить в весах модели?"
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Из каких основных offline- и online-этапов состоит RAG-система?",
+    "variants": [
+      "Как разделить RAG на indexing path и query path?",
+      "Что происходит до пользовательского запроса и что происходит во время запроса?"
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Чем RAG отличается от обычного информационного поиска?",
+    "variants": [
+      "В чём разница между search и RAG?",
+      "Почему semantic search сам по себе ещё не RAG?"
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Когда RAG предпочтительнее fine-tuning?",
+    "variants": [
+      "Что выбрать для корпоративных знаний: RAG или fine-tuning?",
+      "Почему новые документы обычно не стоит просто дообучать в модель?"
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Когда длинный context window может быть лучше RAG?",
+    "variants": [
+      "Нужен ли RAG, если модель поддерживает очень большой контекст?",
+      "Когда проще положить весь корпус в prompt вместо retrieval?"
+    ]
+  },
+  {
+    "id": 7,
+    "question": "В каких случаях RAG вообще является неправильным решением?",
+    "variants": [
+      "Когда не стоит строить RAG?",
+      "Какие задачи лучше решить без retrieval-augmented generation?"
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Что означает grounding в контексте RAG?",
+    "variants": [
+      "Что значит grounded answer?",
+      "Чем заземлённый ответ отличается от просто правдоподобного ответа LLM?"
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Почему RAG не гарантирует отсутствие hallucinations?",
+    "variants": [
+      "Если есть RAG, может ли LLM всё равно выдумывать факты?",
+      "Почему retrieval не решает проблему галлюцинаций полностью?"
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Зачем RAG нужны provenance и citations?",
+    "variants": [
+      "Почему важно хранить связь ответа с исходными документами?",
+      "Для чего в RAG нужны ссылки на источники?"
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Что такое corpus, document и chunk в RAG?",
+    "variants": [
+      "Чем документ отличается от чанка в RAG?",
+      "Какая единица хранится и ищется в RAG-индексе?"
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Что такое ingestion pipeline в RAG?",
+    "variants": [
+      "Что происходит с документом до попадания в RAG-индекс?",
+      "Какие этапы проходит источник при загрузке в knowledge base?"
+    ]
+  },
+  {
+    "id": 13,
+    "question": "Зачем в RAG нужен document parsing?",
+    "variants": [
+      "Почему нельзя просто извлечь текст из файла и сразу сделать embeddings?",
+      "Что должен сохранять parser для хорошего RAG?"
+    ]
+  },
+  {
+    "id": 14,
+    "question": "Зачем нормализовать данные перед индексацией?",
+    "variants": [
+      "Что такое normalization в RAG ingestion?",
+      "Какая предобработка текста нужна перед embeddings и lexical search?"
+    ]
+  },
+  {
+    "id": 15,
+    "question": "Какие metadata обычно хранят вместе с chunk?",
+    "variants": [
+      "Какие поля кроме текста и embedding нужны RAG?",
+      "Что положить в metadata чанка?"
+    ]
+  },
+  {
+    "id": 16,
+    "question": "Зачем документы разбивают на chunks?",
+    "variants": [
+      "Почему не индексировать документ целиком?",
+      "Какую проблему решает chunking в RAG?"
+    ]
+  },
+  {
+    "id": 17,
+    "question": "Как размер chunk влияет на качество RAG?",
+    "variants": [
+      "Что происходит, если chunk слишком маленький или слишком большой?",
+      "Как chunk size связан с precision и recall?"
+    ]
+  },
+  {
+    "id": 18,
+    "question": "Зачем chunk overlap и почему его нельзя увеличивать бесконечно?",
+    "variants": [
+      "Для чего соседние чанки перекрываются?",
+      "Какие минусы у большого overlap при chunking?"
+    ]
+  },
+  {
+    "id": 19,
+    "question": "Что такое structure-aware chunking?",
+    "variants": [
+      "Чем разбиение по структуре документа лучше fixed-size splitting?",
+      "Как headings и sections использовать для chunking?"
+    ]
+  },
+  {
+    "id": 20,
+    "question": "Что такое semantic chunking?",
+    "variants": [
+      "Как semantic chunking отличается от разбиения по фиксированному размеру?",
+      "Как определить границы чанков по смене темы?"
+    ]
+  },
+  {
+    "id": 21,
+    "question": "Что такое parent-child retrieval?",
+    "variants": [
+      "Зачем искать по маленьким chunks, а в LLM отдавать большие?",
+      "Как работает small-to-big retrieval?"
+    ]
+  },
+  {
+    "id": 22,
+    "question": "Что такое embedding и какую роль он играет в RAG?",
+    "variants": [
+      "Что представляет собой embedding текста?",
+      "Почему в RAG текст переводят в векторы?"
+    ]
+  },
+  {
+    "id": 23,
+    "question": "Почему query и document embeddings иногда формируются по-разному?",
+    "variants": [
+      "Зачем embedding-модели отдельные encode_query и encode_document?",
+      "Почему нельзя всегда подавать вопрос и документ одинаково?"
+    ]
+  },
+  {
+    "id": 24,
+    "question": "Чем cosine similarity, dot product и L2 distance отличаются в vector retrieval?",
+    "variants": [
+      "Как выбрать метрику близости для embeddings?",
+      "Почему cosine и inner product иногда дают одинаковый ranking?"
+    ]
+  },
+  {
+    "id": 25,
+    "question": "Что такое dense retrieval?",
+    "variants": [
+      "Как работает семантический поиск по embeddings?",
+      "Чем dense retriever на bi-encoder отличается от lexical search?"
+    ]
+  },
+  {
+    "id": 26,
+    "question": "Что такое sparse retrieval?",
+    "variants": [
+      "Как работает lexical retrieval в RAG?",
+      "Чем sparse search отличается от dense embeddings?"
+    ]
+  },
+  {
+    "id": 27,
+    "question": "Что такое TF-IDF и как он связан с lexical retrieval?",
+    "variants": [
+      "Как TF-IDF оценивает важность термина?",
+      "Почему редкое слово обычно важнее частого в поиске?"
+    ]
+  },
+  {
+    "id": 28,
+    "question": "Как работает BM25 на концептуальном уровне?",
+    "variants": [
+      "Что учитывает BM25 при ранжировании документов?",
+      "Почему BM25 часто используют в RAG вместе с embeddings?"
+    ]
+  },
+  {
+    "id": 29,
+    "question": "Что такое hybrid search в RAG?",
+    "variants": [
+      "Зачем объединять BM25 и vector search?",
+      "Почему production RAG часто использует одновременно lexical и semantic retrieval?"
+    ]
+  },
+  {
+    "id": 30,
+    "question": "Зачем после retrieval нужен reranker?",
+    "variants": [
+      "Почему одного vector search часто недостаточно?",
+      "Что даёт второй этап ранжирования в RAG?",
+      "Зачем cross-encoder после initial retrieval?"
+    ]
+  },
+  {
+    "id": 31,
+    "question": "Чем bi-encoder отличается от cross-encoder?",
+    "variants": [
+      "Почему bi-encoder подходит для поиска по всему корпусу, а cross-encoder — для reranking?",
+      "Как различаются архитектуры embedding retriever и reranker?"
+    ]
+  },
+  {
+    "id": 32,
+    "question": "Что такое top-k в RAG и почему большее k не всегда лучше?",
+    "variants": [
+      "Сколько документов нужно передавать LLM?",
+      "Почему нельзя просто увеличить top-k, чтобы повысить recall?"
+    ]
+  },
+  {
+    "id": 33,
+    "question": "Что такое precision и recall в retrieval?",
+    "variants": [
+      "Как объяснить Precision@k и Recall@k для RAG?",
+      "Чем полнота поиска отличается от точности выдачи?"
+    ]
+  },
+  {
+    "id": 34,
+    "question": "Что измеряет MRR и когда эта метрика полезна?",
+    "variants": [
+      "Что такое Mean Reciprocal Rank?",
+      "Когда важно, на какой позиции найден первый релевантный документ?"
+    ]
+  },
+  {
+    "id": 35,
+    "question": "Что измеряет NDCG и чем он полезен для RAG retrieval?",
+    "variants": [
+      "Что такое Normalized Discounted Cumulative Gain?",
+      "Как оценить ranking, если документы имеют разную степень релевантности?"
+    ]
+  },
+  {
+    "id": 36,
+    "question": "Что такое Approximate Nearest Neighbor search и зачем он нужен RAG?",
+    "variants": [
+      "Почему vector search часто approximate, а не exact?",
+      "Зачем ANN-индекс при миллионах embeddings?"
+    ]
+  },
+  {
+    "id": 37,
+    "question": "Что даёт vector database сверх хранения массива embeddings?",
+    "variants": [
+      "Зачем отдельная vector DB в RAG?",
+      "Какие функции нужны от vector store в production?"
+    ]
+  },
+  {
+    "id": 38,
+    "question": "Как HNSW работает на концептуальном уровне?",
+    "variants": [
+      "Что представляет собой HNSW-индекс?",
+      "Почему HNSW использует несколько уровней графа?"
+    ]
+  },
+  {
+    "id": 39,
+    "question": "Как работает IVF на концептуальном уровне?",
+    "variants": [
+      "Что такое Inverted File Index для vector search?",
+      "Как кластеры помогают ускорить ANN-поиск?"
+    ]
+  },
+  {
+    "id": 40,
+    "question": "Что такое Product Quantization и зачем она нужна vector search?",
+    "variants": [
+      "Как PQ уменьшает объём хранения embeddings?",
+      "Какова цена сжатия vectors через Product Quantization?"
+    ]
+  },
+  {
+    "id": 41,
+    "question": "Зачем metadata filters нужны во время retrieval?",
+    "variants": [
+      "Почему фильтры нельзя заменять семантическим поиском?",
+      "Какие задачи решает фильтрация по metadata?"
+    ]
+  },
+  {
+    "id": 42,
+    "question": "Что такое query rewriting в RAG?",
+    "variants": [
+      "Зачем переписывать пользовательский запрос перед поиском?",
+      "Как сделать вопрос более подходящим для retriever?"
+    ]
+  },
+  {
+    "id": 43,
+    "question": "Что такое multi-query retrieval?",
+    "variants": [
+      "Зачем генерировать несколько поисковых запросов для одного вопроса?",
+      "Как несколько query variants могут повысить retrieval recall?"
+    ]
+  },
+  {
+    "id": 44,
+    "question": "Что такое HyDE и как он используется в retrieval?",
+    "variants": [
+      "Как работают Hypothetical Document Embeddings?",
+      "Зачем генерировать гипотетический ответ перед vector search?"
+    ]
+  },
+  {
+    "id": 45,
+    "question": "Зачем сложный вопрос разбивать на subqueries?",
+    "variants": [
+      "Что такое query decomposition в RAG?",
+      "Когда один retrieval-запрос недостаточен для ответа?"
+    ]
+  },
+  {
+    "id": 46,
+    "question": "Что такое context assembly в RAG?",
+    "variants": [
+      "Что происходит между retrieval и отправкой prompt в LLM?",
+      "Почему нельзя просто склеить top-k chunks?"
+    ]
+  },
+  {
+    "id": 47,
+    "question": "Чем prompt для grounded RAG отличается от обычного chatbot prompt?",
+    "variants": [
+      "Какие инструкции нужны LLM при ответе по retrieved context?",
+      "Как попросить модель отвечать только по источникам?"
+    ]
+  },
+  {
+    "id": 48,
+    "question": "Как правильно строить citations в RAG?",
+    "variants": [
+      "Как связать фразы ответа с реально найденными фрагментами?",
+      "Почему LLM не должна сама придумывать ссылки на источники?"
+    ]
+  },
+  {
+    "id": 49,
+    "question": "Опишите полный путь одного запроса через минимальную RAG-систему.",
+    "variants": [
+      "Что происходит от вопроса пользователя до финального RAG-ответа?",
+      "Как выглядит end-to-end query flow RAG?"
+    ]
+  },
+  {
+    "id": 50,
+    "question": "Что означает answerability в RAG и почему система должна уметь сказать, что ответа в источниках нет?",
+    "variants": [
+      "Почему RAG должен уметь отказываться от ответа при недостаточном evidence?",
+      "Что делать, если retrieval не нашёл достаточных данных для уверенного ответа?"
+    ]
+  },
+  {
+    "id": 51,
+    "question": "Как сделать ingestion идемпотентным при повторной доставке одного и того же документа?",
+    "variants": [
+      "Что произойдёт, если один source event придёт в индексатор дважды?",
+      "Как не создавать дубликаты chunks при retry ingestion?"
+    ]
+  },
+  {
+    "id": 52,
+    "question": "Как спроектировать document identity, version и checksum для RAG?",
+    "variants": [
+      "Какие идентификаторы нужны, чтобы корректно обновлять документы?",
+      "Как различать новую версию документа и повторную загрузку?"
+    ]
+  },
+  {
+    "id": 53,
+    "question": "Как обновлять и удалять документы так, чтобы старые chunks не оставались в выдаче?",
+    "variants": [
+      "Как избежать ghost chunks после удаления документа?",
+      "Что делать со старой версией документа в vector index?"
+    ]
+  },
+  {
+    "id": 54,
+    "question": "Как устроить incremental ingestion, чтобы не пересчитывать весь corpus?",
+    "variants": [
+      "Как индексировать только изменившиеся документы?",
+      "Как уменьшить стоимость re-embedding при регулярном обновлении knowledge base?"
+    ]
+  },
+  {
+    "id": 55,
+    "question": "Когда ingestion лучше делать batch, а когда streaming?",
+    "variants": [
+      "Что выбрать для обновления RAG: периодические пачки или события в реальном времени?",
+      "Как freshness requirements влияют на ingestion architecture?"
+    ]
+  },
+  {
+    "id": 56,
+    "question": "Как правильно извлекать reading order из сложного PDF?",
+    "variants": [
+      "Почему текст из двух колонок PDF часто перемешивается?",
+      "Как parsing layout влияет на RAG retrieval?"
+    ]
+  },
+  {
+    "id": 57,
+    "question": "Как строить ingestion для сканированных PDF и изображений с OCR?",
+    "variants": [
+      "Что делать, если в PDF нет text layer?",
+      "Как OCR errors влияют на RAG?"
+    ]
+  },
+  {
+    "id": 58,
+    "question": "Как индексировать таблицы для RAG?",
+    "variants": [
+      "Почему flatten таблицы в обычный текст часто ухудшает ответы?",
+      "Какие представления таблицы хранить для retrieval?"
+    ]
+  },
+  {
+    "id": 59,
+    "question": "Как индексировать изображения, диаграммы и charts в multimodal RAG?",
+    "variants": [
+      "Достаточно ли captioning для изображений в RAG?",
+      "Когда нужны visual embeddings вместо OCR-текста?"
+    ]
+  },
+  {
+    "id": 60,
+    "question": "Как chunk'ить исходный код для code RAG?",
+    "variants": [
+      "Почему fixed token chunks плохо подходят для репозиториев?",
+      "Какая единица retrieval лучше для функций и классов?"
+    ]
+  },
+  {
+    "id": 61,
+    "question": "Как очищать HTML для RAG, не потеряв полезную структуру?",
+    "variants": [
+      "Что сохранять из HTML при ingestion?",
+      "Почему strip_tags недостаточно для web knowledge base?"
+    ]
+  },
+  {
+    "id": 62,
+    "question": "Как обрабатывать Office-документы и презентации в RAG?",
+    "variants": [
+      "Как индексировать DOCX, XLSX и PPTX?",
+      "Почему слайды нужно обрабатывать иначе, чем обычный текст?"
+    ]
+  },
+  {
+    "id": 63,
+    "question": "Как делать near-duplicate detection в knowledge base?",
+    "variants": [
+      "Как найти копии и почти одинаковые версии документов?",
+      "Почему дубликаты вредят RAG retrieval?"
+    ]
+  },
+  {
+    "id": 64,
+    "question": "Как удалять boilerplate, не разрушая содержательный контекст?",
+    "variants": [
+      "Что делать с повторяющимися headers, footers и шаблонными блоками?",
+      "Почему шаблонный текст может ухудшать embeddings и BM25?"
+    ]
+  },
+  {
+    "id": 65,
+    "question": "Зачем определять язык документа и query в multilingual RAG?",
+    "variants": [
+      "Как language detection используется в retrieval routing?",
+      "Что делать с корпусом на нескольких языках?"
+    ]
+  },
+  {
+    "id": 66,
+    "question": "Где в ingestion pipeline обрабатывать PII и secrets?",
+    "variants": [
+      "Можно ли сначала проиндексировать секреты, а потом фильтровать выдачу?",
+      "Как предотвратить попадание чувствительных данных в embeddings?"
+    ]
+  },
+  {
+    "id": 67,
+    "question": "Как переносить ACL из исходной системы в RAG?",
+    "variants": [
+      "Как сохранить права Confluence/SharePoint при индексации?",
+      "Почему права доступа должны стать metadata каждого retrieval object?"
+    ]
+  },
+  {
+    "id": 68,
+    "question": "Как проектировать metadata schema для RAG?",
+    "variants": [
+      "Какие поля сделать обязательными в chunk metadata?",
+      "Почему schema-less metadata быстро становится проблемой?"
+    ]
+  },
+  {
+    "id": 69,
+    "question": "Как хранить timestamps и freshness metadata?",
+    "variants": [
+      "Какие даты важны для RAG: source update, ingest или index time?",
+      "Как понять, насколько свежий retrieved document?"
+    ]
+  },
+  {
+    "id": 70,
+    "question": "Зачем хранить lineage от ответа до исходного source span?",
+    "variants": [
+      "Как построить trace chunk → document → source version?",
+      "Почему одного URL недостаточно для provenance?"
+    ]
+  },
+  {
+    "id": 71,
+    "question": "Как chunk'ить документы по headings и sections?",
+    "variants": [
+      "Как сохранить иерархию заголовков внутри чанка?",
+      "Стоит ли добавлять breadcrumb документа в retrieval text?"
+    ]
+  },
+  {
+    "id": 72,
+    "question": "Как chunk'ить по предложениям, не разрывая смысловые блоки?",
+    "variants": [
+      "Когда sentence-based splitter лучше character splitter?",
+      "Как объединять предложения в chunks до token budget?"
+    ]
+  },
+  {
+    "id": 73,
+    "question": "Как chunk'ить таблицы, чтобы строка не потеряла headers?",
+    "variants": [
+      "Почему retrieval по отдельной строке таблицы без названий колонок опасен?",
+      "Как сделать table rows self-contained для embeddings?"
+    ]
+  },
+  {
+    "id": 74,
+    "question": "Как chunk'ить FAQ и knowledge-base пары question-answer?",
+    "variants": [
+      "Стоит ли разделять вопрос и ответ FAQ на разные chunks?",
+      "Как индексировать FAQ для хорошего matching по пользовательским формулировкам?"
+    ]
+  },
+  {
+    "id": 75,
+    "question": "Как chunk'ить длинные support tickets и диалоги?",
+    "variants": [
+      "Как индексировать Jira tickets или переписку, где важен порядок сообщений?",
+      "Почему простое разбиение чата каждые N токенов может терять incident context?"
+    ]
+  },
+  {
+    "id": 76,
+    "question": "Как экспериментально выбирать chunk size на данных продукта?",
+    "variants": [
+      "Как понять, какой размер чанка оптимален именно для моего корпуса?",
+      "Какие метрики использовать при сравнении chunk sizes?"
+    ]
+  },
+  {
+    "id": 77,
+    "question": "Как экспериментально выбирать overlap?",
+    "variants": [
+      "Как определить, нужен ли overlap 0%, 10% или больше?",
+      "Какие симптомы показывают, что overlap слишком большой?"
+    ]
+  },
+  {
+    "id": 78,
+    "question": "Как диагностировать ошибки, вызванные неудачными границами chunks?",
+    "variants": [
+      "Как понять, что retrieval miss связан именно с chunk boundary?",
+      "Какие признаки у boundary failure в RAG?"
+    ]
+  },
+  {
+    "id": 79,
+    "question": "Как реализовать small-to-big retrieval?",
+    "variants": [
+      "Как после поиска по маленькому fragment вернуть расширенный context?",
+      "Какую структуру данных использовать для child-to-parent lookup?"
+    ]
+  },
+  {
+    "id": 80,
+    "question": "Как дедуплицировать parents в parent-child retrieval?",
+    "variants": [
+      "Что делать, если top-k child chunks принадлежат одному разделу?",
+      "Как не передавать один parent несколько раз?"
+    ]
+  },
+  {
+    "id": 81,
+    "question": "Зачем добавлять contextual headers к chunk перед embedding?",
+    "variants": [
+      "Почему короткому чанку полезны title, section и document context?",
+      "Как сделать fragment более self-contained для retrieval?"
+    ]
+  },
+  {
+    "id": 82,
+    "question": "Что такое Contextual Retrieval от Anthropic и какую проблему он решает?",
+    "variants": [
+      "Как работают Contextual Embeddings и Contextual BM25?",
+      "Почему Anthropic добавляет chunk-specific context перед индексированием?"
+    ]
+  },
+  {
+    "id": 83,
+    "question": "Чем Contextual BM25 отличается от обычного BM25?",
+    "variants": [
+      "Как контекст чанка помогает lexical search?",
+      "Зачем добавлять generated context в BM25 index?"
+    ]
+  },
+  {
+    "id": 84,
+    "question": "Когда достаточно детерминированных title/section prefixes, а когда нужен LLM-contextualizer?",
+    "variants": [
+      "Стоит ли генерировать контекст для каждого чанка LLM?",
+      "Как выбрать между metadata header и Contextual Retrieval?"
+    ]
+  },
+  {
+    "id": 85,
+    "question": "Как выбирать embedding model для конкретной RAG-системы?",
+    "variants": [
+      "Какие критерии кроме leaderboard важны при выборе embeddings?",
+      "Как сравнить embedding providers для enterprise RAG?"
+    ]
+  },
+  {
+    "id": 86,
+    "question": "Как построить честный domain benchmark embedding-моделей?",
+    "variants": [
+      "Как не перепутать качество embeddings с качеством chunking и ANN?",
+      "Что фиксировать при сравнении двух embedding models?"
+    ]
+  },
+  {
+    "id": 87,
+    "question": "Почему MTEB и BEIR нельзя считать достаточным доказательством качества embeddings?",
+    "variants": [
+      "Почему public retrieval leaderboard не заменяет собственный eval?",
+      "Как domain mismatch влияет на embedding benchmark?"
+    ]
+  },
+  {
+    "id": 88,
+    "question": "Как выбирать multilingual embedding model?",
+    "variants": [
+      "Как проверить cross-lingual retrieval для русского и английского корпуса?",
+      "Что тестировать в multilingual RAG кроме средней Recall@k?"
+    ]
+  },
+  {
+    "id": 89,
+    "question": "Что такое instruction-aware embeddings и как использовать их правильно?",
+    "variants": [
+      "Зачем перед embedding query добавлять инструкцию?",
+      "Почему prefix вроде 'find a paragraph answering the question' может улучшить retrieval?"
+    ]
+  },
+  {
+    "id": 90,
+    "question": "Нужно ли L2-нормализовать embeddings перед индексацией?",
+    "variants": [
+      "Когда normalize_embeddings=True меняет ranking?",
+      "Как normalization связана с cosine и dot product?"
+    ]
+  },
+  {
+    "id": 91,
+    "question": "Как размерность embedding влияет на storage и retrieval?",
+    "variants": [
+      "Всегда ли больше dimensions означает лучшее качество?",
+      "Как оценить цену 384, 768, 1024 и больших vectors?"
+    ]
+  },
+  {
+    "id": 92,
+    "question": "Как безопасно мигрировать на новую версию embedding model?",
+    "variants": [
+      "Почему нельзя кодировать новые queries моделью v2 поверх индекса v1?",
+      "Как организовать re-embedding без остановки RAG?"
+    ]
+  },
+  {
+    "id": 93,
+    "question": "Когда нужно полностью re-embed corpus?",
+    "variants": [
+      "Какие изменения требуют перестроить vector index?",
+      "Нужно ли re-embedding при смене chunking или normalization?"
+    ]
+  },
+  {
+    "id": 94,
+    "question": "Как оптимизировать throughput вычисления embeddings при ingestion?",
+    "variants": [
+      "Как ускорить индексацию миллионов chunks?",
+      "Что дают batching и asynchronous embedding workers?"
+    ]
+  },
+  {
+    "id": 95,
+    "question": "Когда полезен cache embeddings при ingestion?",
+    "variants": [
+      "Можно ли не пересчитывать embedding повторяющихся fragments?",
+      "Как content hash помогает экономить embedding compute?"
+    ]
+  },
+  {
+    "id": 96,
+    "question": "Что такое zero-embedding rate и зачем его мониторить?",
+    "variants": [
+      "Как обнаружить массовый сбой embedding pipeline?",
+      "Какие data-quality метрики нужны для embeddings?"
+    ]
+  },
+  {
+    "id": 97,
+    "question": "Когда имеет смысл fine-tune embedding model под свой домен?",
+    "variants": [
+      "Что делать, если готовые embeddings плохо понимают внутреннюю терминологию?",
+      "Когда pipeline tuning уже недостаточно и нужен retriever training?"
+    ]
+  },
+  {
+    "id": 98,
+    "question": "Что такое hard negatives при обучении retriever?",
+    "variants": [
+      "Почему случайных отрицательных документов недостаточно?",
+      "Как hard-negative mining улучшает dense retrieval?"
+    ]
+  },
+  {
+    "id": 99,
+    "question": "Когда полезно сжимать или квантизовать embeddings?",
+    "variants": [
+      "Как уменьшить memory footprint vector index?",
+      "Какие риски у float16/int8/binary representations для retrieval?"
+    ]
+  },
+  {
+    "id": 100,
+    "question": "Как выбрать analyzer и tokenizer для BM25 в техническом корпусе?",
+    "variants": [
+      "Какая токенизация нужна lexical search по документации?",
+      "Почему стандартный analyzer может ломать коды ошибок и имена API?"
+    ]
+  },
+  {
+    "id": 101,
+    "question": "Когда stemming и lemmatization помогают BM25, а когда вредят?",
+    "variants": [
+      "Нужно ли приводить слова к основе в русском RAG?",
+      "Как morphology влияет на lexical retrieval?"
+    ]
+  },
+  {
+    "id": 102,
+    "question": "Как использовать synonyms в lexical retrieval?",
+    "variants": [
+      "Где лучше раскрывать внутренние сокращения: в query или в index?",
+      "Как связать «постмортем» и postmortem в поиске?"
+    ]
+  },
+  {
+    "id": 103,
+    "question": "Почему BM25 особенно полезен для identifiers, error codes и версий?",
+    "variants": [
+      "Почему embeddings могут пропустить TS-999 или конкретный SKU?",
+      "Как искать точные технические токены в hybrid RAG?"
+    ]
+  },
+  {
+    "id": 104,
+    "question": "Что делают параметры k1 и b в BM25?",
+    "variants": [
+      "Как k1 и b влияют на BM25 scoring?",
+      "Когда менять настройки насыщения term frequency и length normalization?"
+    ]
+  },
+  {
+    "id": 105,
+    "question": "Как поддерживать lexical index актуальным при частых обновлениях?",
+    "variants": [
+      "Как синхронизировать BM25 и vector index versions?",
+      "Что делать, чтобы hybrid branches не искали по разным версиям corpus?"
+    ]
+  },
+  {
+    "id": 106,
+    "question": "Как по failure cases понять, что dense и sparse retrieval дополняют друг друга?",
+    "variants": [
+      "Какие запросы отдавать BM25, а какие embeddings?",
+      "Как анализировать disagreement между lexical и semantic search?"
+    ]
+  },
+  {
+    "id": 107,
+    "question": "Почему raw scores BM25 и vector search нельзя напрямую складывать?",
+    "variants": [
+      "Зачем нормализовать scores перед weighted fusion?",
+      "Почему cosine 0.82 и BM25 12.4 несопоставимы?"
+    ]
+  },
+  {
+    "id": 108,
+    "question": "Как работает Reciprocal Rank Fusion?",
+    "variants": [
+      "Как объединить BM25 и dense rankings без калибровки scores?",
+      "Почему RRF удобен для hybrid retrieval?"
+    ]
+  },
+  {
+    "id": 109,
+    "question": "Как работает weighted score fusion?",
+    "variants": [
+      "Как выбрать веса dense и BM25?",
+      "Что означает формула alpha*dense + beta*lexical?"
+    ]
+  },
+  {
+    "id": 110,
+    "question": "Когда имеет смысл динамически менять веса hybrid search?",
+    "variants": [
+      "Можно ли для разных типов запросов использовать разный alpha в hybrid retrieval?",
+      "Как query classifier помогает fusion?"
+    ]
+  },
+  {
+    "id": 111,
+    "question": "Что такое candidate generation и почему его отделяют от final ranking?",
+    "variants": [
+      "Почему retrieval строят в два этапа?",
+      "Зачем сначала высокий recall, а потом высокая precision?"
+    ]
+  },
+  {
+    "id": 112,
+    "question": "Как выбирать candidate_k и final_k для reranking?",
+    "variants": [
+      "Сколько документов отдавать reranker и сколько оставлять LLM?",
+      "Как настроить top-N до и после cross-encoder?"
+    ]
+  },
+  {
+    "id": 113,
+    "question": "Как выбирать reranker model?",
+    "variants": [
+      "Что сравнивать у cross-encoder rerankers?",
+      "Когда LLM reranker хуже специализированного reranker?"
+    ]
+  },
+  {
+    "id": 114,
+    "question": "Как batching влияет на latency и throughput cross-encoder reranking?",
+    "variants": [
+      "Стоит ли rerank'ить passages одним batch?",
+      "Как GPU batching использовать для reranker?"
+    ]
+  },
+  {
+    "id": 115,
+    "question": "Когда использовать relevance threshold после reranking?",
+    "variants": [
+      "Нужно ли передавать LLM top-k всегда, даже если scores низкие?",
+      "Как reranker threshold связан с abstention?"
+    ]
+  },
+  {
+    "id": 116,
+    "question": "Как укладывать reranking в latency budget?",
+    "variants": [
+      "Что делать, если reranker улучшает качество, но ломает p95?",
+      "Какие оптимизации есть у reranking stage?"
+    ]
+  },
+  {
+    "id": 117,
+    "question": "Какой fallback нужен при недоступности reranker?",
+    "variants": [
+      "Должен ли RAG падать, если cross-encoder не отвечает?",
+      "Как graceful degrade без reranking?"
+    ]
+  },
+  {
+    "id": 118,
+    "question": "Что такое Maximal Marginal Relevance и когда она полезна?",
+    "variants": [
+      "Как MMR уменьшает дубли в top-k?",
+      "Как балансировать relevance и diversity контекста?"
+    ]
+  },
+  {
+    "id": 119,
+    "question": "Как измерять и обеспечивать diversity retrieval results?",
+    "variants": [
+      "Почему пять релевантных chunks из одного абзаца хуже пяти разных evidence?",
+      "Какие способы кроме MMR повышают document diversity?"
+    ]
+  },
+  {
+    "id": 120,
+    "question": "По каким критериям выбирать vector database для production RAG?",
+    "variants": [
+      "Что сравнивать кроме ANN benchmark при выборе vector DB?",
+      "Какие требования важны для vector store в enterprise?"
+    ]
+  },
+  {
+    "id": 121,
+    "question": "Когда PostgreSQL + pgvector достаточно для RAG?",
+    "variants": [
+      "В каких случаях не нужна отдельная vector DB?",
+      "Почему pgvector часто хороший старт для production?"
+    ]
+  },
+  {
+    "id": 122,
+    "question": "Когда специализированная vector database оправдана?",
+    "variants": [
+      "Какие требования заставляют уйти с pgvector?",
+      "Когда Qdrant, Milvus, Weaviate или аналогичный движок даст реальную пользу?"
+    ]
+  },
+  {
+    "id": 123,
+    "question": "Что регулирует параметр M в HNSW?",
+    "variants": [
+      "Как HNSW M влияет на memory и recall?",
+      "Почему нельзя бесконечно увеличивать число graph neighbors?"
+    ]
+  },
+  {
+    "id": 124,
+    "question": "Что регулируют ef_construction и ef_search в HNSW?",
+    "variants": [
+      "Как настроить HNSW для лучшего recall?",
+      "Чем параметры построения индекса отличаются от параметров query-time поиска?"
+    ]
+  },
+  {
+    "id": 125,
+    "question": "Как выбирать nlist и nprobe для IVF?",
+    "variants": [
+      "Как параметры IVF влияют на recall и latency?",
+      "Почему слишком много или слишком мало clusters вредно?"
+    ]
+  },
+  {
+    "id": 126,
+    "question": "Как выбирать степень Product Quantization compression?",
+    "variants": [
+      "Сколько subquantizers и bits использовать в PQ?",
+      "Как оценить потерю recall от PQ?"
+    ]
+  },
+  {
+    "id": 127,
+    "question": "Как benchmark'ить exact search против ANN?",
+    "variants": [
+      "Как измерить реальную потерю качества ANN-индекса?",
+      "Что взять за ground truth для HNSW/IVF tuning?"
+    ]
+  },
+  {
+    "id": 128,
+    "question": "Как измерять ANN recall при metadata filters?",
+    "variants": [
+      "Почему ANN может хорошо работать без filters и плохо с tenant/date filter?",
+      "Как оценивать filtered vector search?"
+    ]
+  },
+  {
+    "id": 129,
+    "question": "Чем pre-filtering отличается от post-filtering в vector search?",
+    "variants": [
+      "Когда filter нужно применить до ANN, а когда после?",
+      "Почему post-filter может вернуть меньше k результатов?"
+    ]
+  },
+  {
+    "id": 130,
+    "question": "Как high-cardinality metadata filters влияют на vector search?",
+    "variants": [
+      "Что происходит, если фильтровать по миллионам user IDs или ACL groups?",
+      "Как проектировать filtered ANN при большом числе уникальных значений?"
+    ]
+  },
+  {
+    "id": 131,
+    "question": "Как физически изолировать tenants в vector storage?",
+    "variants": [
+      "Shared index или отдельный index на tenant?",
+      "Какие варианты multi-tenant partitioning есть у RAG?"
+    ]
+  },
+  {
+    "id": 132,
+    "question": "Как шардировать vector index?",
+    "variants": [
+      "По чему распределять chunks между shards?",
+      "Как shard key влияет на recall и fan-out?"
+    ]
+  },
+  {
+    "id": 133,
+    "question": "Зачем vector database replication и какие данные она должна реплицировать?",
+    "variants": [
+      "Как обеспечить HA для retrieval layer?",
+      "Что происходит с индексом при падении одного node?"
+    ]
+  },
+  {
+    "id": 134,
+    "question": "Какая consistency нужна между документом, metadata и embedding?",
+    "variants": [
+      "Что будет, если текст уже обновлён, а vector остался старым?",
+      "Как избежать mixed-version chunks?"
+    ]
+  },
+  {
+    "id": 135,
+    "question": "Как обнаружить несовпадение dimension embedding и vector index?",
+    "variants": [
+      "Почему после обновления модели vector DB начинает возвращать ошибки dimension mismatch?",
+      "Как защититься от случайной записи vectors другой размерности?"
+    ]
+  },
+  {
+    "id": 136,
+    "question": "Когда нужен полный rebuild vector index?",
+    "variants": [
+      "Какие изменения нельзя применить online обычным upsert?",
+      "Когда reindex неизбежен?"
+    ]
+  },
+  {
+    "id": 137,
+    "question": "Что такое hot и cold retrieval tiers?",
+    "variants": [
+      "Как разделить свежие и архивные знания в RAG?",
+      "Можно ли использовать разные индексы для часто и редко запрашиваемых данных?"
+    ]
+  },
+  {
+    "id": 138,
+    "question": "Как превратить multi-turn вопрос в standalone retrieval query?",
+    "variants": [
+      "Как переписать «а что с ним?» с учётом истории диалога?",
+      "Как делать question condensation для conversational RAG?"
+    ]
+  },
+  {
+    "id": 139,
+    "question": "Как обнаруживать intent drift после query rewriting?",
+    "variants": [
+      "Что делать, если LLM переписала вопрос слишком сильно?",
+      "Как проверить, что rewritten query эквивалентна original?"
+    ]
+  },
+  {
+    "id": 140,
+    "question": "Как нормализовать опечатки и транслитерацию, не меняя technical identifiers?",
+    "variants": [
+      "Как обработать «постмортем/postmortem» и при этом не испортить error codes?",
+      "Где применять spell correction в RAG?"
+    ]
+  },
+  {
+    "id": 141,
+    "question": "Когда query entity expansion помогает retrieval?",
+    "variants": [
+      "Стоит ли добавлять aliases и canonical entity names к запросу?",
+      "Как использовать entity dictionary перед поиском?"
+    ]
+  },
+  {
+    "id": 142,
+    "question": "Как использовать acronym expansion в RAG?",
+    "variants": [
+      "Как обрабатывать внутренние сокращения, которых embedding model не знает?",
+      "Где хранить glossary аббревиатур?"
+    ]
+  },
+  {
+    "id": 143,
+    "question": "Как объединять результаты multi-query retrieval?",
+    "variants": [
+      "Как сделать fusion кандидатов от нескольких query variants?",
+      "Почему простого объединения списков недостаточно?"
+    ]
+  },
+  {
+    "id": 144,
+    "question": "Как исполнять query decomposition с зависимостями между subqueries?",
+    "variants": [
+      "Как построить multi-hop retrieval plan?",
+      "Что делать, если второй поиск зависит от результата первого?"
+    ]
+  },
+  {
+    "id": 145,
+    "question": "Чем multi-hop retrieval отличается от обычного top-k search?",
+    "variants": [
+      "Почему один vector query плохо решает вопросы с несколькими фактами?",
+      "Когда RAG должен искать последовательно?"
+    ]
+  },
+  {
+    "id": 146,
+    "question": "Как использовать HyDE так, чтобы гипотетический текст не стал ложным evidence?",
+    "variants": [
+      "Где должна проходить граница между HyDE query и retrieved facts?",
+      "Как не дать LLM процитировать выдуманный hypothetical document?"
+    ]
+  },
+  {
+    "id": 147,
+    "question": "Как выбрать между lexical, dense и hybrid retrieval на уровне query router?",
+    "variants": [
+      "Когда можно не запускать обе ветви hybrid search?",
+      "Как query type влияет на выбор retriever?"
+    ]
+  },
+  {
+    "id": 148,
+    "question": "Что такое adaptive retrieval и зачем иногда вообще пропускать RAG?",
+    "variants": [
+      "Должен ли retrieval запускаться на каждый запрос?",
+      "Когда модель может отвечать без обращения к knowledge base?"
+    ]
+  },
+  {
+    "id": 149,
+    "question": "Как построить no-retrieval decision без риска пропустить нужные знания?",
+    "variants": [
+      "Как калибровать gate «искать или не искать»?",
+      "Какие ошибки опаснее в adaptive RAG: лишний retrieval или пропущенный?"
+    ]
+  },
+  {
+    "id": 150,
+    "question": "Как маршрутизировать запросы по нескольким источникам данных?",
+    "variants": [
+      "Как выбрать между документацией, Jira, CRM и web search?",
+      "Что такое source routing в RAG?"
+    ]
+  },
+  {
+    "id": 151,
+    "question": "Как организовать retrieval по нескольким индексам?",
+    "variants": [
+      "Когда лучше отдельные индексы по типам документов?",
+      "Как объединять результаты Confluence, Jira и code index?"
+    ]
+  },
+  {
+    "id": 152,
+    "question": "Когда RAG нужно комбинировать с SQL или другим structured retrieval?",
+    "variants": [
+      "Почему таблицу БД не всегда стоит превращать в embeddings?",
+      "Как соединить semantic search и точные structured queries?"
+    ]
+  },
+  {
+    "id": 153,
+    "question": "Когда knowledge graph retrieval полезнее простого vector search?",
+    "variants": [
+      "Какие вопросы лучше решает граф отношений?",
+      "Зачем RAG knowledge graph, если уже есть embeddings?"
+    ]
+  },
+  {
+    "id": 154,
+    "question": "Как использовать temporal filters в RAG?",
+    "variants": [
+      "Как отвечать на вопрос «что было актуально на дату X»?",
+      "Почему текущая версия документа недостаточна для исторических вопросов?"
+    ]
+  },
+  {
+    "id": 155,
+    "question": "Как добавлять freshness signal в ranking?",
+    "variants": [
+      "Когда новый документ должен получать boost?",
+      "Как совместить semantic relevance и recency?"
+    ]
+  },
+  {
+    "id": 156,
+    "question": "Почему recency и relevance нельзя смешивать одним простым правилом?",
+    "variants": [
+      "Всегда ли самый новый документ лучше старого?",
+      "Как избежать вытеснения релевантного evidence свежим, но слабым?"
+    ]
+  },
+  {
+    "id": 157,
+    "question": "Как удалять near-duplicate chunks из final context?",
+    "variants": [
+      "Как не отдавать LLM пять перекрывающихся фрагментов?",
+      "Где делать dedup: retrieval, reranking или context assembly?"
+    ]
+  },
+  {
+    "id": 158,
+    "question": "Как распределять token budget между retrieved evidence?",
+    "variants": [
+      "Как решить, сколько токенов дать каждому документу?",
+      "Что делать, если top-k не помещается в context window?"
+    ]
+  },
+  {
+    "id": 159,
+    "question": "Когда нужно подгружать соседние chunks после retrieval?",
+    "variants": [
+      "Зачем context window around matched chunk?",
+      "Как восстановить локальный контекст без большого overlap?"
+    ]
+  },
+  {
+    "id": 160,
+    "question": "Как обеспечить document diversity в final context?",
+    "variants": [
+      "Стоит ли ограничивать число chunks от одного источника?",
+      "Как избежать context monopoly одного документа?"
+    ]
+  },
+  {
+    "id": 161,
+    "question": "Как задавать приоритет авторитетным источникам?",
+    "variants": [
+      "Что делать, если wiki и официальная policy противоречат друг другу?",
+      "Как source authority использовать в ranking?"
+    ]
+  },
+  {
+    "id": 162,
+    "question": "Как порядок chunks в prompt влияет на ответ?",
+    "variants": [
+      "Нужно ли сортировать evidence только по relevance?",
+      "Почему position bias важен в long-context RAG?"
+    ]
+  },
+  {
+    "id": 163,
+    "question": "Что означает эффект Lost in the Middle для RAG design?",
+    "variants": [
+      "Почему длинное окно модели не отменяет retrieval?",
+      "Что делать, если нужный документ есть в context, но модель его игнорирует?"
+    ]
+  },
+  {
+    "id": 164,
+    "question": "Что такое context compression в RAG?",
+    "variants": [
+      "Зачем сокращать retrieved chunks перед LLM?",
+      "Как уменьшить prompt, не потеряв evidence?"
+    ]
+  },
+  {
+    "id": 165,
+    "question": "Чем extractive context compression отличается от abstractive?",
+    "variants": [
+      "Какой способ сжатия evidence безопаснее?",
+      "Когда лучше вырезать предложения, а когда суммаризировать?"
+    ]
+  },
+  {
+    "id": 166,
+    "question": "Какие риски у abstractive summaries внутри RAG index?",
+    "variants": [
+      "Можно ли индексировать LLM-summary вместо исходного документа?",
+      "Почему summary-based index может терять детали?"
+    ]
+  },
+  {
+    "id": 167,
+    "question": "Когда RAG должен отказаться от ответа?",
+    "variants": [
+      "Как реализовать abstention при недостатке evidence?",
+      "Что делать, если retrieval не нашёл надёжный источник?"
+    ]
+  },
+  {
+    "id": 168,
+    "question": "Как оценивать answerability до generation?",
+    "variants": [
+      "Можно ли понять по retrieval results, что ответа в knowledge base нет?",
+      "Какие сигналы использовать для no-answer decision?"
+    ]
+  },
+  {
+    "id": 169,
+    "question": "Как программно валидировать citation IDs?",
+    "variants": [
+      "Как не позволить модели сослаться на несуществующий источник?",
+      "Что проверить после generation с citations?"
+    ]
+  },
+  {
+    "id": 170,
+    "question": "Когда нужны sentence-level citations?",
+    "variants": [
+      "Чем sentence-level ссылки лучше document-level?",
+      "Какой granularity citations выбирать?"
+    ]
+  },
+  {
+    "id": 171,
+    "question": "Как проверить, что citation действительно поддерживает утверждение?",
+    "variants": [
+      "Почему валидный source ID ещё не доказывает faithfulness?",
+      "Как автоматизировать citation entailment check?"
+    ]
+  },
+  {
+    "id": 172,
+    "question": "Как RAG должен обрабатывать конфликтующие источники?",
+    "variants": [
+      "Что отвечать, если два документа дают разные значения?",
+      "Должна ли LLM сама выбирать «правильный» source?"
+    ]
+  },
+  {
+    "id": 173,
+    "question": "Как выявлять и удалять устаревшие источники из RAG без полного перестроения индекса?",
+    "variants": [
+      "Как организовать lifecycle устаревших документов в RAG?",
+      "Как не позволить старым версиям документов участвовать в retrieval после обновления?"
+    ]
+  },
+  {
+    "id": 174,
+    "question": "Как определить доверие к источникам и использовать source priority при формировании RAG-контекста?",
+    "variants": [
+      "Как учитывать authoritative sources при ранжировании документов?",
+      "Что делать, если в RAG есть официальные документы и менее надёжные пользовательские материалы?"
+    ]
+  },
+  {
+    "id": 175,
+    "question": "Как защищать RAG от инструкций, находящихся внутри retrieved documents?",
+    "variants": [
+      "Почему retrieved document нельзя считать системной инструкцией для LLM?",
+      "Как отделить данные из RAG от инструкций prompt-а?"
+    ]
+  },
+  {
+    "id": 176,
+    "question": "Зачем в RAG prompt явно разделять user query, system instructions и retrieved context?",
+    "variants": [
+      "Почему нельзя просто склеить вопрос пользователя и найденные документы в один текст?",
+      "Как структурировать prompt для grounded generation?"
+    ]
+  },
+  {
+    "id": 177,
+    "question": "Как temperature и sampling влияют на grounded generation в RAG?",
+    "variants": [
+      "Нужно ли ставить temperature=0 для RAG?",
+      "Почему низкая temperature не гарантирует фактическую корректность ответа RAG?"
+    ]
+  },
+  {
+    "id": 178,
+    "question": "Когда RAG-ответ лучше возвращать как structured output, а не свободный текст?",
+    "variants": [
+      "Зачем использовать JSON Schema/Pydantic для ответа RAG?",
+      "В каких RAG-сценариях полезен типизированный output?"
+    ]
+  },
+  {
+    "id": 179,
+    "question": "Как отделять стиль ответа от фактической groundedness в RAG?",
+    "variants": [
+      "Почему красивый ответ нельзя использовать как показатель качества RAG?",
+      "Как отдельно оценивать presentation quality и factual correctness?"
+    ]
+  },
+  {
+    "id": 180,
+    "question": "Что именно можно кэшировать в RAG query path и какие уровни кэша обычно используют?",
+    "variants": [
+      "Какие кэши полезны в production RAG?",
+      "Где ставить cache: embeddings, retrieval results или final answers?"
+    ]
+  },
+  {
+    "id": 181,
+    "question": "Как проектировать cache key для query embeddings?",
+    "variants": [
+      "Почему нельзя кэшировать embeddings только по строке запроса?",
+      "Какие поля должны входить в ключ embedding cache?"
+    ]
+  },
+  {
+    "id": 182,
+    "question": "Когда имеет смысл кэшировать retrieval results, а когда это опасно?",
+    "variants": [
+      "Можно ли кэшировать top-k документы для одинаковых запросов?",
+      "Какие риски есть у retrieval cache в RAG?"
+    ]
+  },
+  {
+    "id": 183,
+    "question": "Почему final-answer cache в RAG сложнее retrieval cache?",
+    "variants": [
+      "Какие проблемы возникают при кэшировании готовых ответов RAG?",
+      "Как избежать выдачи устаревшего или чужого cached answer?"
+    ]
+  },
+  {
+    "id": 184,
+    "question": "Как строить offline evaluation dataset для RAG?",
+    "variants": [
+      "Из чего должен состоять хороший RAG eval set?",
+      "Как собрать benchmark для retrieval и generation на собственном продукте?"
+    ]
+  },
+  {
+    "id": 185,
+    "question": "Как выбирать репрезентативные запросы для RAG evaluation?",
+    "variants": [
+      "Почему случайная выборка запросов может давать ложную картину качества?",
+      "Как сегментировать eval queries для RAG?"
+    ]
+  },
+  {
+    "id": 186,
+    "question": "Как разметить relevance между query и chunk для retrieval evaluation?",
+    "variants": [
+      "Что считать релевантным chunk в RAG benchmark?",
+      "Как организовать human relevance labels для retriever?"
+    ]
+  },
+  {
+    "id": 187,
+    "question": "Когда и как использовать synthetic queries для RAG evaluation?",
+    "variants": [
+      "Полезны ли LLM-generated вопросы для тестирования RAG?",
+      "Какие ограничения у синтетического eval-набора RAG?"
+    ]
+  },
+  {
+    "id": 188,
+    "question": "Как вычисляется Recall@k и что он показывает в RAG retrieval?",
+    "variants": [
+      "Что означает Recall@10 для RAG?",
+      "Когда Recall@k полезнее Precision@k?"
+    ]
+  },
+  {
+    "id": 189,
+    "question": "Как вычисляется Precision@k и что она показывает в RAG?",
+    "variants": [
+      "Что означает Precision@5 для retriever?",
+      "Почему высокая Precision@k важна перед передачей context в LLM?"
+    ]
+  },
+  {
+    "id": 190,
+    "question": "Что такое MRR и когда эта метрика полезна для RAG?",
+    "variants": [
+      "Как Mean Reciprocal Rank оценивает retrieval?",
+      "Когда MRR лучше Recall@k?"
+    ]
+  },
+  {
+    "id": 191,
+    "question": "Что такое NDCG и зачем она нужна при graded relevance в RAG?",
+    "variants": [
+      "Почему NDCG полезна, если chunks имеют разную степень релевантности?",
+      "Чем NDCG отличается от Recall@k?"
+    ]
+  },
+  {
+    "id": 192,
+    "question": "Как отделять retrieval evaluation от end-to-end RAG evaluation?",
+    "variants": [
+      "Почему хороший retriever не гарантирует хороший final answer?",
+      "Какие уровни RAG нужно оценивать отдельно?"
+    ]
+  },
+  {
+    "id": 193,
+    "question": "Как оценивать faithfulness или groundedness ответа RAG?",
+    "variants": [
+      "Как проверить, что утверждения ответа действительно поддерживаются retrieved context?",
+      "Что такое faithfulness в RAG evaluation?"
+    ]
+  },
+  {
+    "id": 194,
+    "question": "Как оценивать answer relevance отдельно от faithfulness?",
+    "variants": [
+      "Может ли RAG-ответ быть faithful, но нерелевантным вопросу?",
+      "Чем answer relevance отличается от groundedness?"
+    ]
+  },
+  {
+    "id": 195,
+    "question": "Как организовать human evaluation RAG-системы без чрезмерной стоимости?",
+    "variants": [
+      "Когда нужна ручная оценка RAG и как её масштабировать?",
+      "Как использовать экспертов для проверки RAG quality?"
+    ]
+  },
+  {
+    "id": 196,
+    "question": "Как использовать LLM-as-a-Judge для RAG и какие ошибки он может вносить?",
+    "variants": [
+      "Можно ли полностью доверить оценку RAG другой LLM?",
+      "Как калибровать LLM-judge для RAG?"
+    ]
+  },
+  {
+    "id": 197,
+    "question": "Почему один агрегированный RAG quality score опасен для принятия инженерных решений?",
+    "variants": [
+      "Почему нельзя оценивать RAG только одной итоговой метрикой?",
+      "Какие проблемы скрывает единый RAG score?"
+    ]
+  },
+  {
+    "id": 198,
+    "question": "Как выбирать порог отказа RAG на основе бизнес-стоимости ошибок?",
+    "variants": [
+      "Как настроить abstention threshold, если ложный ответ дороже отказа?",
+      "От чего должен зависеть confidence threshold в enterprise RAG?"
+    ]
+  },
+  {
+    "id": 199,
+    "question": "Как проверять, что citation в RAG действительно поддерживает конкретное утверждение?",
+    "variants": [
+      "Почему наличие ссылки рядом с ответом ещё не делает citation корректной?",
+      "Как валидировать claim-to-source attribution в RAG?"
+    ]
+  },
+  {
+    "id": 200,
+    "question": "Как обрабатывать запросы, для которых релевантный документ существует, но пользователь сформулировал вопрос слишком неоднозначно?",
+    "variants": [
+      "Когда RAG должен задать уточняющий вопрос вместо немедленного retrieval?",
+      "Как распознавать ambiguous queries в RAG?"
+    ]
+  },
+  {
+    "id": 201,
+    "question": "Как проектировать fallback, если retrieval вернул недостаточно evidence?",
+    "variants": [
+      "Что должен делать RAG при пустом или слабом top-k?",
+      "Какие fallback-стратегии использовать при low-confidence retrieval?"
+    ]
+  },
+  {
+    "id": 202,
+    "question": "Как определить, что проблема RAG вызвана parsing, а не embeddings или retriever?",
+    "variants": [
+      "Как диагностировать retrieval failure, если нужный текст есть в исходном PDF, но не находится?",
+      "С чего начинать debugging ingestion-to-retrieval path?"
+    ]
+  },
+  {
+    "id": 203,
+    "question": "Как тестировать RAG при изменении chunking strategy, не смешивая эффект с изменением embedding model?",
+    "variants": [
+      "Как провести корректный A/B benchmark chunking?",
+      "Почему при сравнении chunk size нужно фиксировать остальные компоненты?"
+    ]
+  },
+  {
+    "id": 204,
+    "question": "Как проверить, что новый prompt улучшил generation, а не просто маскирует retrieval-проблемы?",
+    "variants": [
+      "Как отделить эффект prompt change от retriever quality?",
+      "Как корректно экспериментировать с RAG prompt?"
+    ]
+  },
+  {
+    "id": 205,
+    "question": "Почему рост Recall@20 может не улучшить end-to-end качество RAG?",
+    "variants": [
+      "Retriever стал находить больше релевантных chunks, но ответы не улучшились. Почему?",
+      "Как объяснить ситуацию: Recall@20 вырос, а answer correctness остался прежним?"
+    ]
+  },
+  {
+    "id": 206,
+    "question": "Почему увеличение top-k иногда ухудшает качество RAG, хотя retrieval recall растёт?",
+    "variants": [
+      "Почему больше retrieved chunks не всегда лучше?",
+      "Как top-k может одновременно повысить recall и ухудшить final answer?"
+    ]
+  },
+  {
+    "id": 207,
+    "question": "Как диагностировать ситуацию, когда retriever возвращает правильный evidence, но LLM отвечает неправильно?",
+    "variants": [
+      "Нужные chunks есть в context, но RAG всё равно ошибается. Что проверять?",
+      "Как отделить generation failure от retrieval failure?"
+    ]
+  },
+  {
+    "id": 208,
+    "question": "Как диагностировать обратную ситуацию: retriever плохой, но финальные ответы выглядят хорошими?",
+    "variants": [
+      "Почему хороший answer score может скрывать плохой retrieval?",
+      "Как обнаружить, что LLM отвечает из parametric memory вместо RAG evidence?"
+    ]
+  },
+  {
+    "id": 209,
+    "question": "Как выбирать business-aware trade-off между retrieval precision и recall?",
+    "variants": [
+      "Когда в production RAG важнее recall, а когда precision?",
+      "Как бизнес-стоимость ошибки влияет на настройку retriever?"
+    ]
+  },
+  {
+    "id": 210,
+    "question": "Как калибровать LLM-as-a-Judge и обнаруживать evaluator bias в RAG?",
+    "variants": [
+      "Как понять, что LLM-judge сам искажает RAG evaluation?",
+      "Как валидировать автоматического evaluator для RAG?"
+    ]
+  },
+  {
+    "id": 211,
+    "question": "Как избежать evaluation leakage при разработке RAG?",
+    "variants": [
+      "Что такое overfitting на RAG eval set?",
+      "Почему многократная настройка pipeline на одном benchmark делает метрики ненадёжными?"
+    ]
+  },
+  {
+    "id": 212,
+    "question": "Как версионировать RAG evaluation dataset и сохранять воспроизводимость экспериментов?",
+    "variants": [
+      "Что нужно сохранять вместе с результатами RAG benchmark?",
+      "Как воспроизвести RAG experiment через несколько месяцев?"
+    ]
+  },
+  {
+    "id": 213,
+    "question": "Как использовать online evaluation production RAG без чрезмерной стоимости и latency?",
+    "variants": [
+      "Как оценивать реальные RAG-запросы в production?",
+      "Как организовать sampling для online RAG eval?"
+    ]
+  },
+  {
+    "id": 214,
+    "question": "Как правильно проводить A/B-тест RAG pipeline, если ответы недетерминированы?",
+    "variants": [
+      "Как сравнивать две версии RAG в production?",
+      "Какие особенности A/B testing есть у LLM RAG?"
+    ]
+  },
+  {
+    "id": 215,
+    "question": "Что такое shadow evaluation RAG и когда она лучше прямого A/B?",
+    "variants": [
+      "Как безопасно проверить новый retriever на production traffic без влияния на пользователей?",
+      "Как использовать shadow traffic для RAG?"
+    ]
+  },
+  {
+    "id": 216,
+    "question": "Как проводить ablation study RAG pipeline и зачем она нужна?",
+    "variants": [
+      "Как понять, какой компонент реально дал прирост RAG quality?",
+      "Что отключать в RAG ablation: rewrite, hybrid, reranker, compression?"
+    ]
+  },
+  {
+    "id": 217,
+    "question": "Как отделить качество embedding model от качества ANN index?",
+    "variants": [
+      "Как понять, что низкий recall вызван embeddings, а не HNSW/IVF approximation?",
+      "Как benchmark'ить embedding и vector index независимо?"
+    ]
+  },
+  {
+    "id": 218,
+    "question": "Как измерять end-to-end latency RAG по стадиям и находить настоящий bottleneck?",
+    "variants": [
+      "Какие latency spans нужны в production RAG trace?",
+      "Как декомпозировать RAG p95 latency?"
+    ]
+  },
+  {
+    "id": 219,
+    "question": "Почему p95 и p99 RAG важнее среднего latency для production UX?",
+    "variants": [
+      "Почему средняя задержка скрывает проблемы RAG?",
+      "Что обычно создаёт tail latency в retrieval pipelines?"
+    ]
+  },
+  {
+    "id": 220,
+    "question": "Какие метрики нужны для observability retrieval layer кроме latency?",
+    "variants": [
+      "Что мониторить в retriever production RAG?",
+      "Какие сигналы показывают деградацию retrieval до жалоб пользователей?"
+    ]
+  },
+  {
+    "id": 221,
+    "question": "Как мониторить index freshness и ingestion lag в RAG?",
+    "variants": [
+      "Как доказать, что новые документы действительно доступны пользователю вовремя?",
+      "Какие метрики нужны для freshness SLO RAG?"
+    ]
+  },
+  {
+    "id": 222,
+    "question": "Как измерять стоимость одного RAG-запроса и связывать её с архитектурными решениями?",
+    "variants": [
+      "Какие компоненты входят в cost per RAG query?",
+      "Как построить cost attribution для RAG?"
+    ]
+  },
+  {
+    "id": 223,
+    "question": "Как оценивать ROI reranker в production RAG?",
+    "variants": [
+      "Как решить, оправдывает ли reranker дополнительные latency и cost?",
+      "Какие эксперименты нужны перед включением reranking?"
+    ]
+  },
+  {
+    "id": 224,
+    "question": "Как проектировать load shedding для RAG при перегрузке?",
+    "variants": [
+      "Что отключать первым, если RAG не укладывается в capacity?",
+      "Как деградировать RAG под пиковой нагрузкой без полного отказа?"
+    ]
+  },
+  {
+    "id": 225,
+    "question": "Как backpressure должен работать между ingestion и retrieval infrastructure?",
+    "variants": [
+      "Что делать, если ingestion генерирует embeddings быстрее, чем index успевает применять updates?",
+      "Как не перегрузить vector DB массовым backfill?"
+    ]
+  },
+  {
+    "id": 226,
+    "question": "Как проектировать timeouts и retries для retrieval pipeline?",
+    "variants": [
+      "Какие RAG-компоненты можно retry, а какие лучше пропустить?",
+      "Почему бесконтрольные retries ухудшают tail latency RAG?"
+    ]
+  },
+  {
+    "id": 227,
+    "question": "Как использовать circuit breaker вокруг внешних RAG-зависимостей?",
+    "variants": [
+      "Когда RAG должен временно перестать вызывать reranker или embedding API?",
+      "Как предотвратить cascading failure из-за одной внешней модели?"
+    ]
+  },
+  {
+    "id": 228,
+    "question": "Как RAG должен переживать частичный отказ hybrid search, когда dense или lexical branch недоступен?",
+    "variants": [
+      "Что делать, если BM25 работает, а vector search упал?",
+      "Как проектировать graceful degradation hybrid retrieval?"
+    ]
+  },
+  {
+    "id": 229,
+    "question": "Как проектировать fallback при недоступности генеративной модели, если retrieval работает?",
+    "variants": [
+      "Что может вернуть RAG, если LLM generation service недоступен?",
+      "Какой graceful degradation возможен при model outage?"
+    ]
+  },
+  {
+    "id": 230,
+    "question": "Как обрабатывать stale index fallback, если новая версия индекса не готова к сроку?",
+    "variants": [
+      "Что делать, если rebuild нового RAG-индекса затянулся?",
+      "Можно ли продолжать обслуживать запросы со старого index snapshot?"
+    ]
+  },
+  {
+    "id": 231,
+    "question": "Как RAG должен вести себя при zero-result spike в production?",
+    "variants": [
+      "Что проверять, если внезапно вырос процент запросов без результатов?",
+      "Как расследовать массовое отсутствие retrieval results?"
+    ]
+  },
+  {
+    "id": 232,
+    "question": "Как бороться с retrieval loops, когда query rewriting повторяет почти одинаковые запросы?",
+    "variants": [
+      "Как обнаружить stalled adaptive RAG?",
+      "Что делать, если агентный retriever бесконечно переписывает запрос и ищет заново?"
+    ]
+  },
+  {
+    "id": 233,
+    "question": "Как ограничивать fan-out в multi-query и multi-source retrieval?",
+    "variants": [
+      "Почему параллельный поиск по десяти вариантам query может разрушить production RAG?",
+      "Как контролировать concurrency adaptive retrieval?"
+    ]
+  },
+  {
+    "id": 234,
+    "question": "Как дедуплицировать concurrent ingestion одного документа?",
+    "variants": [
+      "Что делать, если несколько connector workers одновременно получили одну и ту же версию документа?",
+      "Как избежать двойной индексации при at-least-once delivery?"
+    ]
+  },
+  {
+    "id": 235,
+    "question": "Как обеспечить консистентность между document store и vector index при распределённом ingestion?",
+    "variants": [
+      "Что делать, если metadata записалась, а embeddings в index — нет?",
+      "Как проектировать atomicity между несколькими RAG storage systems?"
+    ]
+  },
+  {
+    "id": 236,
+    "question": "Как делать atomic update документа, состоящего из множества chunks?",
+    "variants": [
+      "Как избежать ситуации, когда RAG видит половину старых и половину новых chunks?",
+      "Как публиковать новую версию большого документа без смешения версий?"
+    ]
+  },
+  {
+    "id": 237,
+    "question": "Как выполнять blue-green migration RAG-индекса?",
+    "variants": [
+      "Как безопасно заменить production vector index новой версией?",
+      "Как внедрить новый chunking/embedding index без downtime?"
+    ]
+  },
+  {
+    "id": 238,
+    "question": "Как проводить embedding model migration без downtime?",
+    "variants": [
+      "Как перейти на новую embedding model, если её vector space несовместим со старой?",
+      "Можно ли смешивать embeddings двух моделей в одном ANN index?"
+    ]
+  },
+  {
+    "id": 239,
+    "question": "Как мигрировать metadata schema RAG без остановки ingestion и retrieval?",
+    "variants": [
+      "Что делать, если нужно добавить обязательное ACL/version поле ко всем chunks?",
+      "Как провести backward-compatible RAG schema migration?"
+    ]
+  },
+  {
+    "id": 240,
+    "question": "Как проектировать rollback после неудачного RAG release?",
+    "variants": [
+      "Что должно откатываться вместе с новым retriever?",
+      "Почему rollback RAG сложнее отката application code?"
+    ]
+  },
+  {
+    "id": 241,
+    "question": "Что должно входить в disaster recovery план RAG?",
+    "variants": [
+      "Как восстановить RAG после потери vector index?",
+      "Какие RTO/RPO учитывать для retrieval system?"
+    ]
+  },
+  {
+    "id": 242,
+    "question": "Как тестировать backup/restore RAG, а не просто считать backup успешным?",
+    "variants": [
+      "Как доказать, что RAG можно реально восстановить?",
+      "Что проверять после восстановления vector index и metadata?"
+    ]
+  },
+  {
+    "id": 243,
+    "question": "Как проектировать multi-region RAG и что реплицировать между регионами?",
+    "variants": [
+      "Как развернуть RAG в нескольких регионах?",
+      "Какие trade-offs у regional vector indices и global index?"
+    ]
+  },
+  {
+    "id": 244,
+    "question": "Как replication lag влияет на correctness и freshness multi-region RAG?",
+    "variants": [
+      "Что делать, если разные регионы отвечают по разным версиям документов?",
+      "Как измерять knowledge consistency между региональными RAG replicas?"
+    ]
+  },
+  {
+    "id": 245,
+    "question": "Как учитывать data residency при проектировании RAG?",
+    "variants": [
+      "Можно ли отправлять retrieved context в LLM другого региона?",
+      "Где должны находиться embeddings, index и model inference при требованиях residency?"
+    ]
+  },
+  {
+    "id": 246,
+    "question": "Как реализовать document-level authorization до retrieval?",
+    "variants": [
+      "Почему ACL нельзя проверять только после vector search?",
+      "Как сделать security trimming в RAG?"
+    ]
+  },
+  {
+    "id": 247,
+    "question": "Когда shared multi-tenant index лучше отдельных индексов на tenant?",
+    "variants": [
+      "Как выбрать shared vs per-tenant vector index?",
+      "Какие trade-offs multi-tenancy в RAG storage?"
+    ]
+  },
+  {
+    "id": 248,
+    "question": "Как ACL filters влияют на ANN recall и latency?",
+    "variants": [
+      "Почему security filtering может ухудшить vector search quality?",
+      "Что происходит с HNSW/ANN при очень селективном tenant filter?"
+    ]
+  },
+  {
+    "id": 249,
+    "question": "Как предотвращать cross-tenant leakage через RAG caches?",
+    "variants": [
+      "Почему shared retrieval cache опасен в multi-tenant RAG?",
+      "Что включать в cache key для tenant-isolated RAG?"
+    ]
+  },
+  {
+    "id": 250,
+    "question": "Как обнаружить indirect prompt injection в RAG documents и что делать после обнаружения?",
+    "variants": [
+      "Как расследовать malicious instructions в retrieved content?",
+      "Какая защита нужна от prompt injection через индексируемый документ?"
+    ]
+  },
+  {
+    "id": 251,
+    "question": "Чем RAG poisoning отличается от обычной prompt injection?",
+    "variants": [
+      "Что такое knowledge-base poisoning в RAG?",
+      "Как атакующий может повлиять на retrieval, не вставляя явную инструкцию для LLM?"
+    ]
+  },
+  {
+    "id": 252,
+    "question": "Как обнаруживать RAG poisoning через observability и evaluation?",
+    "variants": [
+      "Какие сигналы указывают на отравление knowledge base?",
+      "Как мониторить неожиданные изменения retrieval после ingestion?"
+    ]
+  },
+  {
+    "id": 253,
+    "question": "Как проектировать provenance, чтобы расследовать неправильный RAG-ответ?",
+    "variants": [
+      "Какие идентификаторы нужны, чтобы от финального claim дойти до исходного документа?",
+      "Что хранить в RAG trace для forensic debugging?"
+    ]
+  },
+  {
+    "id": 254,
+    "question": "Как использовать source allowlists и trust tiers без потери полезного recall?",
+    "variants": [
+      "Нужно ли разрешать RAG искать только по verified sources?",
+      "Как сочетать trusted и untrusted collections?"
+    ]
+  },
+  {
+    "id": 255,
+    "question": "Как защищать RAG web/document connectors от SSRF и опасных URL?",
+    "variants": [
+      "Почему retrieval connector не должен произвольно скачивать URL, предложенный LLM?",
+      "Какие egress controls нужны RAG ingestion/search tools?"
+    ]
+  },
+  {
+    "id": 256,
+    "question": "Какие риски возникают при индексации OCR-текста из изображений и сканов?",
+    "variants": [
+      "Почему malicious text в картинке опасен для multimodal RAG?",
+      "Как обрабатывать недоверенный OCR output?"
+    ]
+  },
+  {
+    "id": 257,
+    "question": "Как предотвращать утечку secrets через RAG ingestion и traces?",
+    "variants": [
+      "Что делать, если в индексируемом репозитории или документе есть API keys?",
+      "Почему observability RAG сама может стать источником data leakage?"
+    ]
+  },
+  {
+    "id": 258,
+    "question": "Как реализовать удаление данных пользователя во всех производных слоях RAG?",
+    "variants": [
+      "Как выполнить right-to-be-forgotten для embeddings и caches?",
+      "Почему delete source document недостаточно для RAG privacy?"
+    ]
+  },
+  {
+    "id": 259,
+    "question": "Как оценивать privacy risk внешнего embedding или reranking API?",
+    "variants": [
+      "Какие данные уходят внешнему provider в RAG pipeline?",
+      "Что проверить перед использованием SaaS embedding/reranker для enterprise RAG?"
+    ]
+  },
+  {
+    "id": 260,
+    "question": "Когда имеет смысл fine-tune retriever вместо дальнейшего усложнения query rewriting и reranking?",
+    "variants": [
+      "Как понять, что пора обучать domain retriever?",
+      "Что выбрать: больше эвристик вокруг retrieval или fine-tuning embeddings?"
+    ]
+  },
+  {
+    "id": 261,
+    "question": "Как собирать hard negatives для обучения domain retriever?",
+    "variants": [
+      "Что считать хорошим hard negative для embedding retriever?",
+      "Как использовать ошибки production retrieval для contrastive training?"
+    ]
+  },
+  {
+    "id": 262,
+    "question": "Как использовать click/selection logs для улучшения retriever и какие bias они содержат?",
+    "variants": [
+      "Можно ли обучать RAG retrieval по кликам пользователей?",
+      "Почему user clicks не являются чистыми relevance labels?"
+    ]
+  },
+  {
+    "id": 263,
+    "question": "Как обнаруживать popularity bias в retrieval и не вытеснять редкие, но правильные документы?",
+    "variants": [
+      "Почему популярные документы могут доминировать RAG ranking?",
+      "Как защитить long-tail knowledge от feedback loop?"
+    ]
+  },
+  {
+    "id": 264,
+    "question": "Как обнаруживать embedding drift после смены корпуса, языка или query distribution?",
+    "variants": [
+      "Что такое drift для embedding retrieval?",
+      "Какие сигналы показывают, что embedding model перестала соответствовать production запросам?"
+    ]
+  },
+  {
+    "id": 265,
+    "question": "Как corpus drift влияет на RAG даже без изменения кода и моделей?",
+    "variants": [
+      "Почему RAG quality может ухудшиться просто из-за роста knowledge base?",
+      "Что происходит с retrieval при появлении множества похожих документов?"
+    ]
+  },
+  {
+    "id": 266,
+    "question": "Как обновление LLM может вызвать RAG regression при неизменном retriever?",
+    "variants": [
+      "Почему новая версия генеративной модели иногда ухудшает groundedness?",
+      "Как тестировать model upgrade в RAG?"
+    ]
+  },
+  {
+    "id": 267,
+    "question": "Когда long-context LLM действительно лучше отдельного retrieval pipeline?",
+    "variants": [
+      "В каких случаях можно отказаться от vector DB и передать весь corpus в context?",
+      "Как сравнить full-context prompting с RAG?"
+    ]
+  },
+  {
+    "id": 268,
+    "question": "Как комбинировать long context и RAG вместо выбора только одного подхода?",
+    "variants": [
+      "Что такое long-context RAG на практике?",
+      "Как использовать retrieval вместе с большим context window?"
+    ]
+  },
+  {
+    "id": 269,
+    "question": "Как проектировать hierarchical retrieval для длинных документов и больших корпусов?",
+    "variants": [
+      "Когда нужен поиск document → section → chunk?",
+      "Как coarse-to-fine retrieval улучшает RAG?"
+    ]
+  },
+  {
+    "id": 270,
+    "question": "Как работает RAPTOR-подобный retrieval и для каких запросов он полезен?",
+    "variants": [
+      "Зачем строить рекурсивные summaries поверх chunks?",
+      "Когда tree-based retrieval лучше плоского vector search?"
+    ]
+  },
+  {
+    "id": 271,
+    "question": "Когда Contextual Retrieval оправдывает дополнительную стоимость ingestion?",
+    "variants": [
+      "Для каких chunks полезно добавлять document-specific context перед embedding/BM25?",
+      "Как оценить ROI contextualized chunks?"
+    ]
+  },
+  {
+    "id": 272,
+    "question": "Какие failure modes появляются, если contextualizer сам генерирует неверный контекст для chunk?",
+    "variants": [
+      "Может ли LLM-generated chunk context отравить retrieval?",
+      "Как валидировать Contextual Retrieval enrichment?"
+    ]
+  },
+  {
+    "id": 273,
+    "question": "Когда полезно хранить несколько embeddings для одного chunk?",
+    "variants": [
+      "Зачем multi-vector representation одного документа?",
+      "Какие представления можно индексировать отдельно для одного chunk?"
+    ]
+  },
+  {
+    "id": 274,
+    "question": "Чем late-interaction retrieval вроде ColBERT отличается от обычного bi-encoder поиска?",
+    "variants": [
+      "Почему ColBERT хранит token-level representations?",
+      "Как late interaction балансирует качество и стоимость retrieval?"
+    ]
+  },
+  {
+    "id": 275,
+    "question": "Какие operational trade-offs у ColBERT или другого multi-vector retrieval в production?",
+    "variants": [
+      "Почему late interaction сложнее эксплуатации, чем обычный HNSW по одному vector на chunk?",
+      "Когда качество ColBERT не оправдывает storage cost?"
+    ]
+  },
+  {
+    "id": 276,
+    "question": "Когда learning-to-rank полезнее ручных boost'ов в hybrid RAG?",
+    "variants": [
+      "Стоит ли обучать ranking model вместо ручных весов BM25/vector/freshness?",
+      "Как перейти от heuristic fusion к learned ranking?"
+    ]
+  },
+  {
+    "id": 277,
+    "question": "Как реализовать personalized retrieval без нарушения tenant/user privacy?",
+    "variants": [
+      "Когда RAG должен учитывать профиль пользователя?",
+      "Какие данные можно использовать для персонализации retrieval?"
+    ]
+  },
+  {
+    "id": 278,
+    "question": "Как session-aware retrieval может улучшить conversational RAG и где возникает риск intent drift?",
+    "variants": [
+      "Как использовать историю диалога для retrieval?",
+      "Почему поиск только по последнему сообщению чата иногда плох, а полный history тоже опасен?"
+    ]
+  },
+  {
+    "id": 279,
+    "question": "Чем conversational memory отличается от knowledge-base RAG?",
+    "variants": [
+      "Почему историю пользователя не стоит хранить в том же index, что корпоративные документы?",
+      "Как разделять memory retrieval и knowledge retrieval?"
+    ]
+  },
+  {
+    "id": 280,
+    "question": "Как entity resolution улучшает retrieval в корпусах с неоднозначными названиями?",
+    "variants": [
+      "Что делать, если один и тот же продукт/клиент имеет несколько aliases?",
+      "Как RAG должен различать одинаковые названия разных сущностей?"
+    ]
+  },
+  {
+    "id": 281,
+    "question": "Как строить temporal RAG, если истинность факта зависит от времени?",
+    "variants": [
+      "Как RAG отвечать на вопрос «какое правило действовало на дату X»?",
+      "Почему simple recency boost недостаточен для temporal knowledge?"
+    ]
+  },
+  {
+    "id": 282,
+    "question": "Как хранить versioned knowledge, если старые версии документов тоже нужны для исторических вопросов?",
+    "variants": [
+      "Почему нельзя просто удалять старую версию policy из RAG?",
+      "Как совместить current search и historical retrieval?"
+    ]
+  },
+  {
+    "id": 283,
+    "question": "Когда GraphRAG лучше обычного vector RAG?",
+    "variants": [
+      "Для каких вопросов графовая индексация действительно оправдана?",
+      "Когда стоит строить entity graph поверх corpus?"
+    ]
+  },
+  {
+    "id": 284,
+    "question": "Чем local и global search в GraphRAG решают разные задачи?",
+    "variants": [
+      "Когда GraphRAG должен идти к entity neighborhood, а когда к community summaries?",
+      "Почему один graph retrieval mode не покрывает все вопросы?"
+    ]
+  },
+  {
+    "id": 285,
+    "question": "Какие основные затраты GraphRAG переносит в ingestion?",
+    "variants": [
+      "Почему GraphRAG index дороже обычного chunk+embedding index?",
+      "Что приходится пересчитывать при обновлении GraphRAG corpus?"
+    ]
+  },
+  {
+    "id": 286,
+    "question": "Как ошибки entity/relationship extraction влияют на GraphRAG?",
+    "variants": [
+      "Что происходит, если LLM неправильно построил knowledge graph?",
+      "Как оценивать качество graph extraction отдельно от answer quality?"
+    ]
+  },
+  {
+    "id": 287,
+    "question": "Когда Knowledge Graph retrieval лучше GraphRAG, построенного автоматически из текста?",
+    "variants": [
+      "Чем curated knowledge graph отличается от LLM-extracted GraphRAG?",
+      "Когда использовать существующую domain ontology вместо извлечения графа из документов?"
+    ]
+  },
+  {
+    "id": 288,
+    "question": "Как комбинировать graph retrieval и vector search в одном RAG pipeline?",
+    "variants": [
+      "Как сделать hybrid GraphRAG + vector RAG?",
+      "Когда graph expansion должен дополнять semantic search?"
+    ]
+  },
+  {
+    "id": 289,
+    "question": "Что такое Self-RAG на концептуальном уровне и какую проблему он исследует?",
+    "variants": [
+      "Как Self-RAG связывает решение о retrieval и самопроверку генерации?",
+      "Чем Self-RAG отличается от always-retrieve pipeline?"
+    ]
+  },
+  {
+    "id": 290,
+    "question": "Что такое Corrective RAG и какова роль evaluator после retrieval?",
+    "variants": [
+      "Как CRAG-подобный pipeline реагирует на плохие retrieved documents?",
+      "Когда нужно корректировать search strategy после оценки evidence?"
+    ]
+  },
+  {
+    "id": 291,
+    "question": "Что такое adaptive RAG и какие сигналы должны управлять глубиной retrieval?",
+    "variants": [
+      "Почему не всем запросам нужен одинаковый RAG pipeline?",
+      "Как dynamically выбирать rewrite, multi-query, rerank и graph search?"
+    ]
+  },
+  {
+    "id": 292,
+    "question": "Чем agentic RAG отличается от фиксированного RAG pipeline?",
+    "variants": [
+      "Когда retrieval стоит отдать агенту как tool?",
+      "Какие новые failure modes появляются в agentic RAG?"
+    ]
+  },
+  {
+    "id": 293,
+    "question": "Как проектировать query planner для multi-step RAG?",
+    "variants": [
+      "Что должен выдавать planner перед несколькими retrieval шагами?",
+      "Как не позволить LLM-плану превратить RAG в бесконтрольный search loop?"
+    ]
+  },
+  {
+    "id": 294,
+    "question": "Как оценивать tool/source selection в agentic RAG отдельно от final answer?",
+    "variants": [
+      "Как понять, что агент выбирает неправильный retriever?",
+      "Какие trajectory metrics нужны agentic RAG?"
+    ]
+  },
+  {
+    "id": 295,
+    "question": "Как ограничивать cost и latency agentic RAG на уровне runtime?",
+    "variants": [
+      "Какие budgets нужны для агентного retrieval?",
+      "Как предотвратить дорогие бесконечные поисковые траектории?"
+    ]
+  },
+  {
+    "id": 296,
+    "question": "Почему воспроизводимость agentic RAG хуже фиксированного workflow и как её улучшить?",
+    "variants": [
+      "Как отлаживать RAG, если LLM каждый раз выбирает другой search path?",
+      "Что логировать для replay agentic retrieval?"
+    ]
+  },
+  {
+    "id": 297,
+    "question": "Как строить multimodal RAG для документов с текстом, таблицами, изображениями и диаграммами?",
+    "variants": [
+      "Почему text-only extraction недостаточен для enterprise PDF RAG?",
+      "Как индексировать mixed-media документы?"
+    ]
+  },
+  {
+    "id": 298,
+    "question": "Когда для изображения лучше caption embedding, а когда native multimodal embedding?",
+    "variants": [
+      "Как индексировать charts/screenshots в multimodal RAG?",
+      "Какие trade-offs у text captions против image embeddings?"
+    ]
+  },
+  {
+    "id": 299,
+    "question": "Как retrieval по таблицам должен отличаться от retrieval по обычным абзацам?",
+    "variants": [
+      "Почему flatten table в текст часто ломает RAG?",
+      "Как индексировать большие таблицы для вопрос-ответ?"
+    ]
+  },
+  {
+    "id": 300,
+    "question": "Как retrieval должен работать с графиками и диаграммами, где важны числовые значения?",
+    "variants": [
+      "Можно ли полагаться только на vision caption для chart QA?",
+      "Как grounded RAG извлекает числа из charts?"
+    ]
+  },
+  {
+    "id": 301,
+    "question": "Как использовать OCR confidence в retrieval и generation?",
+    "variants": [
+      "Что делать с low-confidence OCR chunks?",
+      "Должен ли RAG одинаково доверять OCR и native text?"
+    ]
+  },
+  {
+    "id": 302,
+    "question": "Чем code RAG отличается от RAG по обычной документации?",
+    "variants": [
+      "Почему chunking исходного кода по фиксированным токенам часто плох?",
+      "Какие сигналы нужны retrieval по repository?"
+    ]
+  },
+  {
+    "id": 303,
+    "question": "Как строить symbol-aware chunking для code RAG?",
+    "variants": [
+      "Как индексировать функции и классы так, чтобы не потерять контекст?",
+      "Какие metadata хранить для code chunks?"
+    ]
+  },
+  {
+    "id": 304,
+    "question": "Как call graph или dependency graph использовать вместе с vector retrieval для code RAG?",
+    "variants": [
+      "Зачем после поиска функции подтягивать callers/callees?",
+      "Как graph expansion помогает code assistant?"
+    ]
+  },
+  {
+    "id": 305,
+    "question": "Как учитывать branch/commit/version при code RAG?",
+    "variants": [
+      "Почему code RAG может давать правильный ответ для старой версии repository?",
+      "Как обеспечить freshness code assistant?"
+    ]
+  },
+  {
+    "id": 306,
+    "question": "Как проектировать RAG для технической поддержки с большим количеством жаргона, кодов ошибок и внутренних сокращений?",
+    "variants": [
+      "Почему support RAG часто требует lexical search даже при сильных embeddings?",
+      "Как искать по внутренним аббревиатурам и error codes в RAG поддержки?"
+    ]
+  },
+  {
+    "id": 307,
+    "question": "Как построить glossary normalization для RAG и не исказить intent пользователя?",
+    "variants": [
+      "Как обрабатывать транслитерацию и внутренние сокращения перед retrieval?",
+      "Когда query expansion словарём улучшает RAG, а когда вредит?"
+    ]
+  },
+  {
+    "id": 308,
+    "question": "Как использовать solution/status metadata в support-ticket RAG?",
+    "variants": [
+      "Стоит ли boost'ить resolved incidents при поиске похожих проблем?",
+      "Как отличать полезный historical ticket от нерешённого шума?"
+    ]
+  },
+  {
+    "id": 309,
+    "question": "Как проектировать retrieval для frequently updated Jira/Confluence-like knowledge sources?",
+    "variants": [
+      "Как индексировать постоянно меняющиеся тикеты и wiki без полного rebuild?",
+      "Какие проблемы возникают при incremental ingestion enterprise collaboration tools?"
+    ]
+  },
+  {
+    "id": 310,
+    "question": "Почему в production support RAG может быть полезно перейти от FAISS к PostgreSQL+pgvector?",
+    "variants": [
+      "Когда локальный FAISS становится неудобен для enterprise RAG?",
+      "Какие operational причины выбрать pgvector вместо отдельной vector DB?"
+    ]
+  },
+  {
+    "id": 311,
+    "question": "Как выбирать между pgvector, Qdrant, Weaviate, Milvus и другими vector backends на основании workload, а не списка функций?",
+    "variants": [
+      "Какие benchmarks нужны перед выбором vector DB для RAG?",
+      "Почему vendor feature matrix недостаточно для production выбора?"
+    ]
+  },
+  {
+    "id": 312,
+    "question": "Почему LLM reranker иногда не улучшает Precision@5, несмотря на более сложную модель?",
+    "variants": [
+      "Как объяснить ситуацию, когда reranking увеличил latency, но качество почти не изменилось?",
+      "Почему нельзя считать LLM reranking априори лучше baseline ranking?"
+    ]
+  },
+  {
+    "id": 313,
+    "question": "Как интерпретировать case, где hybrid retrieval дал устойчивый прирост, а reranker — нет?",
+    "variants": [
+      "Почему BM25+dense может быть ценнее дополнительного LLM reranker?",
+      "Как использовать production ablation для упрощения RAG pipeline?"
+    ]
+  },
+  {
+    "id": 314,
+    "question": "Как проектировать adaptive hybrid weights для коротких технических запросов и длинных естественных вопросов?",
+    "variants": [
+      "Почему одинаковый вес BM25/vector не оптимален для всех support queries?",
+      "Как query type может управлять lexical/dense fusion?"
+    ]
+  },
+  {
+    "id": 315,
+    "question": "Как организовать RAG service так, чтобы ingestion UI/prototype не был частью production query path?",
+    "variants": [
+      "Почему Streamlit-прототип RAG нужно отделять от production API?",
+      "Как эволюционировать RAG PoC в самостоятельный сервис?"
+    ]
+  },
+  {
+    "id": 316,
+    "question": "Почему тяжёлые log queries не стоит выполнять в том же worker pool, что обычный RAG search?",
+    "variants": [
+      "Как resource isolation предотвращает timeouts в support assistant?",
+      "Что делать, если поиск по логам блокирует document RAG requests?"
+    ]
+  },
+  {
+    "id": 317,
+    "question": "Когда RAG для incident support должен дополняться tools к логам, SQL и issue tracker?",
+    "variants": [
+      "Почему одной document knowledge base недостаточно для расследования инцидента?",
+      "Как соединить статические знания и live operational data?"
+    ]
+  },
+  {
+    "id": 318,
+    "question": "Почему для incident assistant фиксированный graph иногда лучше полностью автономного агента?",
+    "variants": [
+      "Когда не стоит позволять LLM самостоятельно решать весь troubleshooting workflow?",
+      "Как повысить воспроизводимость AI-помощника для инцидентов?"
+    ]
+  },
+  {
+    "id": 319,
+    "question": "Как выбирать между прямым HTTP-вызовом RAG и MCP/tool abstraction внутри agent system?",
+    "variants": [
+      "Почему background processing иногда лучше вызывать RAG API напрямую, а не через agent protocol?",
+      "Где protocol abstraction добавляет лишний overhead?"
+    ]
+  },
+  {
+    "id": 320,
+    "question": "Как использовать queue partitioning по проекту/tenant в support RAG и agent workloads?",
+    "variants": [
+      "Почему одна Celery/worker queue может создавать noisy-neighbor проблемы?",
+      "Когда полезны отдельные очереди для Jira projects?"
+    ]
+  },
+  {
+    "id": 321,
+    "question": "Как dedupe ключ с TTL помогает background RAG/agent processing и какие у него ограничения?",
+    "variants": [
+      "Зачем использовать SET NX + TTL для дедупликации фоновых задач?",
+      "Может ли TTL lock гарантировать exactly-once execution?"
+    ]
+  },
+  {
+    "id": 322,
+    "question": "Как строить classifier/router между log search и document RAG и обрабатывать ошибочную маршрутизацию?",
+    "variants": [
+      "Что делать, если RAG-router отправил incident query не в тот источник?",
+      "Как проектировать fallback между retrieval tools?"
+    ]
+  },
+  {
+    "id": 323,
+    "question": "Как построить multi-locale RAG без отдельной инфраструктуры для каждого региона?",
+    "variants": [
+      "Как масштабировать одну RAG-архитектуру на много локалей?",
+      "Когда metadata-driven regional filtering лучше отдельных knowledge bases?"
+    ]
+  },
+  {
+    "id": 324,
+    "question": "Зачем разделять ingestion, evaluation и promotion workflows в production RAG?",
+    "variants": [
+      "Почему новые документы/индексы не стоит сразу публиковать пользователям?",
+      "Как устроить promotion gate knowledge base?"
+    ]
+  },
+  {
+    "id": 325,
+    "question": "Как оценивать экономию от shared multi-locale RAG, не ограничиваясь стоимостью vector DB?",
+    "variants": [
+      "Какие cost components сравнивать при regional RAG consolidation?",
+      "Почему один shared index может быть дешевле инфраструктурно, но дороже организационно?"
+    ]
+  },
+  {
+    "id": 326,
+    "question": "Как проектировать multi-tenant authorization RAG, если разные роли видят разные документы внутри одного tenant?",
+    "variants": [
+      "Как сочетать tenant isolation и role-based document access?",
+      "Почему одного tenant_id filter недостаточно для enterprise RAG?"
+    ]
+  },
+  {
+    "id": 327,
+    "question": "Когда self-hosted LLM для RAG оправдан availability/latency требованиями, даже если managed API проще?",
+    "variants": [
+      "Почему enterprise RAG может отказаться от внешнего LLM API?",
+      "Какие operational trade-offs self-hosted generation?"
+    ]
+  },
+  {
+    "id": 328,
+    "question": "Как capacity GPU generation влияет на архитектуру RAG до model call?",
+    "variants": [
+      "Почему retrieval pipeline должен учитывать ограниченную пропускную способность LLM serving?",
+      "Как context size и reranking могут снизить нагрузку на generator?"
+    ]
+  },
+  {
+    "id": 329,
+    "question": "Как использовать retrieval для выбора candidate intents в customer-support LLM?",
+    "variants": [
+      "Чем retrieval по intents отличается от обычного document RAG?",
+      "Как RAG помогает сузить набор действий/ответов support assistant?"
+    ]
+  },
+  {
+    "id": 330,
+    "question": "Как проектировать уточняющий вопрос после ambiguous intent retrieval?",
+    "variants": [
+      "Когда support assistant должен не выбирать top-1 intent, а спросить пользователя?",
+      "Как использовать gap между top intent scores для clarification?"
+    ]
+  },
+  {
+    "id": 331,
+    "question": "Как RAG использовать для генерации структурированных параметров аналитического запроса, а не только текста ответа?",
+    "variants": [
+      "Как retrieval помогает LLM выбрать метрику и параметры графика?",
+      "Когда RAG context должен вести к JSON/typed command?"
+    ]
+  },
+  {
+    "id": 332,
+    "question": "Как оценивать RAG assistant по бизнес-метрике, если он не отвечает на все запросы?",
+    "variants": [
+      "Почему answer rate нельзя максимизировать отдельно от correctness?",
+      "Как измерять automation rate support RAG?"
+    ]
+  },
+  {
+    "id": 333,
+    "question": "Почему production case с 13% автоматически обработанных вопросов нельзя напрямую переносить на другой продукт?",
+    "variants": [
+      "Как правильно интерпретировать публичную метрику automation rate AI assistant?",
+      "Почему company case study не является универсальным benchmark?"
+    ]
+  },
+  {
+    "id": 334,
+    "question": "Как правильно использовать публичный GraphRAG experiment, если он не является production-кейсом компании?",
+    "variants": [
+      "Как отличать pet-project инженера компании от официальной production architecture?",
+      "Почему provenance источника важен при изучении engineering case studies?"
+    ]
+  },
+  {
+    "id": 335,
+    "question": "Почему GraphRAG pipeline, настроенный под сильные cloud models, может плохо работать с локальной моделью?",
+    "variants": [
+      "Какие проблемы возникают при переносе GraphRAG prompts на local LLM?",
+      "Почему framework defaults нельзя считать model-agnostic?"
+    ]
+  },
+  {
+    "id": 336,
+    "question": "Как temporal information меняет entity identity в GraphRAG?",
+    "variants": [
+      "Почему одна сущность может требовать versioned/temporal nodes?",
+      "Как избежать смешения состояний сущности из разных периодов в graph retrieval?"
+    ]
+  },
+  {
+    "id": 337,
+    "question": "Как оценивать качество RAG после миграции с одного vector backend на другой?",
+    "variants": [
+      "Какие regression tests нужны при переходе pgvector → Qdrant/Elasticsearch?",
+      "Почему совпадение embeddings не гарантирует одинаковую выдачу разных vector DB?"
+    ]
+  },
+  {
+    "id": 338,
+    "question": "Как определить, что специализированный vector backend добавляет больше operational surface, чем пользы?",
+    "variants": [
+      "Когда не стоит мигрировать с PostgreSQL+pgvector на отдельную vector DB?",
+      "Какие hidden costs есть у нового retrieval storage?"
+    ]
+  },
+  {
+    "id": 339,
+    "question": "Как проектировать query-time filtering по product/version, чтобы документы разных релизов не конкурировали?",
+    "variants": [
+      "Как не вернуть инструкцию для старой версии продукта?",
+      "Почему version metadata должна применяться до semantic ranking?"
+    ]
+  },
+  {
+    "id": 340,
+    "question": "Как обнаружить, что source freshness boost начал вытеснять более релевантные документы?",
+    "variants": [
+      "Почему сильный recency boost может ухудшить RAG?",
+      "Как тюнить freshness ranking без потери relevance?"
+    ]
+  },
+  {
+    "id": 341,
+    "question": "Как проектировать RAG для документации нескольких поддерживаемых версий продукта?",
+    "variants": [
+      "Как отвечать по v1 и v2 одной knowledge base?",
+      "Как организовать version-aware documentation retrieval?"
+    ]
+  },
+  {
+    "id": 342,
+    "question": "Как использовать source-specific parsers и при этом сохранить единый retrieval contract?",
+    "variants": [
+      "Как унифицировать PDF, Jira, Confluence, Git и database records в одном RAG?",
+      "Что должно быть общим после разных ingestion adapters?"
+    ]
+  },
+  {
+    "id": 343,
+    "question": "Как оценивать влияние document parsing upgrade на production RAG?",
+    "variants": [
+      "Что тестировать при переходе на новый PDF parser/OCR model?",
+      "Почему parser migration требует retrieval regression, а не только сравнения текста?"
+    ]
+  },
+  {
+    "id": 344,
+    "question": "Как обработать документ, где текстовая версия и вложенная таблица противоречат друг другу?",
+    "variants": [
+      "Что делать с конфликтом разных modalities одного source?",
+      "Как RAG должен сообщать disagreement внутри документа?"
+    ]
+  },
+  {
+    "id": 345,
+    "question": "Как строить retrieval по collections с разной политикой обновления и доверия?",
+    "variants": [
+      "Как объединить manuals, tickets, chat и external web в одном RAG?",
+      "Как не позволить свежему chat message вытеснить официальную документацию?"
+    ]
+  },
+  {
+    "id": 346,
+    "question": "Как проектировать retrieval для числовых/агрегационных вопросов, которые лучше решает SQL?",
+    "variants": [
+      "Когда RAG должен переключиться с documents на structured data tool?",
+      "Почему embedding search плохо подходит для точной агрегации миллионов строк?"
+    ]
+  },
+  {
+    "id": 347,
+    "question": "Как объединять structured query results и retrieved documents в один grounded answer?",
+    "variants": [
+      "Как построить RAG+SQL synthesis без смешения источников?",
+      "Как цитировать числа из базы и объяснения из документации?"
+    ]
+  },
+  {
+    "id": 348,
+    "question": "Как строить retrieval для rapidly changing operational data, если обычный vector index обновляется слишком медленно?",
+    "variants": [
+      "Что делать, если freshness SLA — секунды, а ingestion RAG занимает минуты?",
+      "Когда live API/search tool лучше индексирования?"
+    ]
+  },
+  {
+    "id": 349,
+    "question": "Как оценивать качество fallback source, если primary knowledge base ничего не нашла?",
+    "variants": [
+      "Как не ухудшить безопасность, переключившись на web search?",
+      "Какие gates нужны перед расширением retrieval scope?"
+    ]
+  },
+  {
+    "id": 350,
+    "question": "Как построить regression suite из реальных production incidents RAG?",
+    "variants": [
+      "Как превращать каждый серьёзный RAG bug в постоянный тест?",
+      "Что хранить в incident-driven eval dataset?"
+    ]
+  },
+  {
+    "id": 351,
+    "question": "Как проводить root-cause analysis неправильного RAG-ответа по trace?",
+    "variants": [
+      "Какой порядок расследования hallucination в production RAG?",
+      "Как локализовать failure между source, ingestion, retrieval, context и generation?"
+    ]
+  },
+  {
+    "id": 352,
+    "question": "Как классифицировать RAG incidents, чтобы команда исправляла системные причины, а не отдельные ответы?",
+    "variants": [
+      "Какая taxonomy ошибок полезна для production RAG?",
+      "Как группировать жалобы пользователей на RAG?"
+    ]
+  },
+  {
+    "id": 353,
+    "question": "Как определять ownership инцидента в RAG, где участвуют data, search, ML и application teams?",
+    "variants": [
+      "Кто должен чинить неправильный RAG-ответ?",
+      "Как избежать ситуации, когда каждая команда винит другой слой?"
+    ]
+  },
+  {
+    "id": 354,
+    "question": "Как определить, нужен ли продукту RAG вообще, прежде чем строить vector search?",
+    "variants": [
+      "Как AI Lead должен решить, что RAG — правильная архитектура?",
+      "Какие признаки показывают, что задачу лучше решить без RAG?"
+    ]
+  },
+  {
+    "id": 355,
+    "question": "Какие product metrics должны определить успех enterprise RAG до выбора технологий?",
+    "variants": [
+      "Что зафиксировать в success criteria RAG проекта?",
+      "Какими бизнес-метриками AI Lead должен обосновать RAG?"
+    ]
+  },
+  {
+    "id": 356,
+    "question": "Как построить ROI-модель RAG проекта до production запуска?",
+    "variants": [
+      "Как посчитать экономический смысл RAG, если качество ещё неизвестно?",
+      "Какие затраты и выгоды учитывать в business case RAG?"
+    ]
+  },
+  {
+    "id": 357,
+    "question": "Как выбрать между build и buy для enterprise RAG platform?",
+    "variants": [
+      "Когда покупать managed RAG/search service, а когда строить свою платформу?",
+      "Какие критерии AI Lead использует для build-vs-buy retrieval stack?"
+    ]
+  },
+  {
+    "id": 358,
+    "question": "Как определить правильную service boundary для RAG внутри AI-платформы?",
+    "variants": [
+      "Что должно быть отдельным RAG service, а что оставить в приложении?",
+      "Как разделить retrieval platform и product-specific logic?"
+    ]
+  },
+  {
+    "id": 359,
+    "question": "Как спроектировать RAG platform для нескольких команд без превращения её в один огромный универсальный pipeline?",
+    "variants": [
+      "Как дать продуктовым командам гибкость в общей retrieval platform?",
+      "Что стандартизировать централизованно, а что сделать configurable?"
+    ]
+  },
+  {
+    "id": 360,
+    "question": "Как определить source of truth в enterprise RAG с десятками систем-источников?",
+    "variants": [
+      "Кто решает, какой документ authoritative при конфликте?",
+      "Как AI Lead должен организовать knowledge governance для RAG?"
+    ]
+  },
+  {
+    "id": 361,
+    "question": "Как организовать ownership жизненного цикла знаний в RAG?",
+    "variants": [
+      "Кто отвечает за устаревшие документы в RAG: AI-команда или владельцы контента?",
+      "Как распределить ответственность между source owners и RAG platform?"
+    ]
+  },
+  {
+    "id": 362,
+    "question": "Как построить promotion workflow для новой версии knowledge index?",
+    "variants": [
+      "Какие gates должны быть перед публикацией нового RAG index?",
+      "Как превратить ingestion update в управляемый release?"
+    ]
+  },
+  {
+    "id": 363,
+    "question": "Как выбрать release strategy для изменения chunking, embeddings, reranker или prompt одновременно?",
+    "variants": [
+      "Можно ли выпускать несколько крупных RAG изменений одним релизом?",
+      "Как AI Lead должен снизить риск комплексного RAG migration?"
+    ]
+  },
+  {
+    "id": 364,
+    "question": "Что должно входить в production-readiness review RAG-системы?",
+    "variants": [
+      "Какие пункты проверять перед переводом RAG из PoC в production?",
+      "Какой checklist архитектурной готовности нужен AI Lead?"
+    ]
+  },
+  {
+    "id": 365,
+    "question": "Как задавать SLO для RAG, если качество вероятностное, а latency детерминированнее?",
+    "variants": [
+      "Какие SLO подходят retrieval+generation service?",
+      "Как формализовать reliability и quality objectives RAG?"
+    ]
+  },
+  {
+    "id": 366,
+    "question": "Как использовать error budget для RAG, где есть и технические, и качественные ошибки?",
+    "variants": [
+      "Можно ли применять SRE error-budget подход к AI quality?",
+      "Как объединить latency/availability и wrong-answer risk в управлении релизами?"
+    ]
+  },
+  {
+    "id": 367,
+    "question": "Как спроектировать graceful degradation tiers для enterprise RAG?",
+    "variants": [
+      "Какие режимы деградации должны быть заранее определены?",
+      "Как сохранить полезность RAG при отказах reranker, secondary search или LLM?"
+    ]
+  },
+  {
+    "id": 368,
+    "question": "Как определить RTO/RPO для RAG и какие компоненты реально требуют backup?",
+    "variants": [
+      "Что восстанавливать первым после серьёзного RAG outage?",
+      "Как AI Lead должен проектировать DR retrieval platform?"
+    ]
+  },
+  {
+    "id": 369,
+    "question": "Как проводить capacity planning RAG на рост corpus и query traffic?",
+    "variants": [
+      "Какие параметры нужны для расчёта ёмкости retrieval platform?",
+      "Как спрогнозировать ресурсы vector search, reranking и LLM?"
+    ]
+  },
+  {
+    "id": 370,
+    "question": "Как оценить memory/storage footprint векторного индекса до загрузки сотен миллионов chunks?",
+    "variants": [
+      "Как приблизительно посчитать размер vector storage?",
+      "Какие расходы кроме `N × dimension × bytes` учитывать?"
+    ]
+  },
+  {
+    "id": 371,
+    "question": "Как выбрать sharding key для multi-tenant RAG на сотнях миллионов vectors?",
+    "variants": [
+      "Шардировать по tenant, document ID или hash?",
+      "Какие trade-offs у tenant-aware sharding vector search?"
+    ]
+  },
+  {
+    "id": 372,
+    "question": "Как управлять noisy-neighbor эффектом в shared RAG platform?",
+    "variants": [
+      "Что делать, если один tenant запускает огромный backfill и портит p99 другим?",
+      "Как изолировать ресурсы tenants без полного физического разделения?"
+    ]
+  },
+  {
+    "id": 373,
+    "question": "Как решать, нужен ли GPU для reranking, или достаточно CPU?",
+    "variants": [
+      "Как capacity-plan reranker serving?",
+      "Когда cross-encoder на GPU оправдан в RAG?"
+    ]
+  },
+  {
+    "id": 374,
+    "question": "Как проектировать batching, если RAG workload имеет строгий p95 latency SLO?",
+    "variants": [
+      "Как совместить GPU efficiency и низкую задержку reranker/embedding service?",
+      "Почему большой batch не всегда выгоден online RAG?"
+    ]
+  },
+  {
+    "id": 375,
+    "question": "Как определить, какие кэши реально окупаются в RAG platform?",
+    "variants": [
+      "Как AI Lead выбрать между embedding, retrieval и answer cache?",
+      "Как оценить cache ROI и correctness risk?"
+    ]
+  },
+  {
+    "id": 376,
+    "question": "Как спроектировать cache invalidation при нескольких версиях corpus, моделей и ACL?",
+    "variants": [
+      "Что должно инвалидировать cached RAG result?",
+      "Как избежать stale/unauthorized cache после knowledge update?"
+    ]
+  },
+  {
+    "id": 377,
+    "question": "Как задать freshness SLA для разных классов знаний вместо одного глобального значения?",
+    "variants": [
+      "Почему policy manuals и live incidents не должны иметь одинаковый ingestion SLA?",
+      "Как классифицировать RAG sources по требованиям freshness?"
+    ]
+  },
+  {
+    "id": 378,
+    "question": "Как проектировать deletion SLA для sensitive RAG data?",
+    "variants": [
+      "Сколько времени допустимо удалять документ из embeddings, caches и replicas?",
+      "Как доказать удаление данных из RAG?"
+    ]
+  },
+  {
+    "id": 379,
+    "question": "Как спроектировать multi-tenant isolation RAG для банковского или другого regulated workload?",
+    "variants": [
+      "Какие isolation layers нужны RAG в регулируемой среде?",
+      "Когда shared vector index неприемлем даже при фильтрации?"
+    ]
+  },
+  {
+    "id": 380,
+    "question": "Как проводить threat modeling enterprise RAG до запуска?",
+    "variants": [
+      "Какие trust boundaries должен выделить AI Lead в RAG?",
+      "Как построить security model retrieval-augmented application?"
+    ]
+  },
+  {
+    "id": 381,
+    "question": "Как спроектировать defense-in-depth против indirect prompt injection в RAG?",
+    "variants": [
+      "Почему одного system prompt недостаточно против malicious documents?",
+      "Какие архитектурные меры реально снижают риск prompt injection через retrieval?"
+    ]
+  },
+  {
+    "id": 382,
+    "question": "Как реагировать на инцидент, когда в RAG knowledge base найден malicious poisoned document?",
+    "variants": [
+      "Какой incident response нужен при RAG poisoning?",
+      "Что делать, если вредоносный документ уже участвовал в ответах?"
+    ]
+  },
+  {
+    "id": 383,
+    "question": "Как реагировать на подтверждённую cross-tenant утечку через RAG?",
+    "variants": [
+      "Что делать AI Lead при tenant data leak в retrieval system?",
+      "Какие шаги нужны после нарушения ACL в RAG?"
+    ]
+  },
+  {
+    "id": 384,
+    "question": "Как решить, можно ли использовать внешний LLM/embedding provider для confidential RAG?",
+    "variants": [
+      "Какие критерии provider risk review для enterprise RAG?",
+      "Когда data classification требует self-hosted inference?"
+    ]
+  },
+  {
+    "id": 385,
+    "question": "Как обеспечить auditability RAG-ответа для regulated use case?",
+    "variants": [
+      "Что должно быть доказуемо после выдачи финансового или юридического RAG-ответа?",
+      "Какие данные нужны для аудита конкретного RAG run?"
+    ]
+  },
+  {
+    "id": 386,
+    "question": "Как построить hierarchy доверия источников для legal/compliance RAG?",
+    "variants": [
+      "Как RAG должен выбирать между законом, внутренней политикой и пользовательским комментарием?",
+      "Кто задаёт precedence конфликтующих источников?"
+    ]
+  },
+  {
+    "id": 387,
+    "question": "Как AI Lead должен проектировать end-to-end evaluation strategy RAG, а не набор случайных метрик?",
+    "variants": [
+      "Какая многоуровневая eval architecture нужна production RAG?",
+      "Как связать component metrics с product outcomes?"
+    ]
+  },
+  {
+    "id": 388,
+    "question": "Кто должен владеть golden dataset RAG и как избежать его деградации?",
+    "variants": [
+      "Как организовать ownership eval data между ML и domain experts?",
+      "Почему benchmark без владельца быстро перестаёт отражать продукт?"
+    ]
+  },
+  {
+    "id": 389,
+    "question": "Как построить human annotation program для enterprise RAG?",
+    "variants": [
+      "Как масштабировать экспертную разметку relevance и answer quality?",
+      "Как обеспечить качество human labels для RAG?"
+    ]
+  },
+  {
+    "id": 390,
+    "question": "Как управлять LLM-as-a-Judge как production dependency?",
+    "variants": [
+      "Нужно ли версионировать evaluator models и prompts?",
+      "Что происходит с historical RAG metrics после смены judge?"
+    ]
+  },
+  {
+    "id": 391,
+    "question": "Как построить hierarchy metrics для RAG executive/engineering dashboards?",
+    "variants": [
+      "Какие RAG метрики показывать руководству, а какие инженерам?",
+      "Как не утонуть в десятках retrieval metrics?"
+    ]
+  },
+  {
+    "id": 392,
+    "question": "Какие leading indicators RAG деградации полезны до падения product metrics?",
+    "variants": [
+      "Что алертить до того, как пользователи начнут жаловаться на ответы?",
+      "Какие ранние сигналы качества RAG?"
+    ]
+  },
+  {
+    "id": 393,
+    "question": "Как расследовать постепенное ухудшение RAG quality по мере роста corpus?",
+    "variants": [
+      "Что делать, если код не менялся, но ответы стали хуже после миллионов новых chunks?",
+      "Какие гипотезы проверять при corpus-growth regression?"
+    ]
+  },
+  {
+    "id": 394,
+    "question": "Как расследовать резкий p95 latency spike после включения reranker?",
+    "variants": [
+      "Что проверять, если среднее выросло немного, а tail latency сильно?",
+      "Как найти bottleneck нового reranking stage?"
+    ]
+  },
+  {
+    "id": 395,
+    "question": "Как расследовать случай, когда retrieval recall вырос, а answer correctness снизился?",
+    "variants": [
+      "Почему улучшение retriever может ухудшить RAG?",
+      "Какая диагностическая последовательность нужна при противоречивых метриках?"
+    ]
+  },
+  {
+    "id": 396,
+    "question": "Как расследовать массовые stale answers при формально успешном ingestion?",
+    "variants": [
+      "Что делать, если jobs зелёные, но пользователи получают старые правила?",
+      "Как проверить end-to-end freshness path?"
+    ]
+  },
+  {
+    "id": 397,
+    "question": "Как расследовать zero-result spike после изменения ACL policy?",
+    "variants": [
+      "Почему новый authorization layer может резко снизить RAG recall?",
+      "Как отличить корректное security trimming от policy bug?"
+    ]
+  },
+  {
+    "id": 398,
+    "question": "Как реагировать на деградацию embedding API во время массового ingestion?",
+    "variants": [
+      "Что делать, если embeddings начинают возвращать timeouts/ошибочные vectors?",
+      "Как защитить index от повреждения при проблемах embedding service?"
+    ]
+  },
+  {
+    "id": 399,
+    "question": "Как обнаружить и восстановить повреждённый vector index?",
+    "variants": [
+      "Какие признаки index corruption в RAG?",
+      "Что делать, если vector search внезапно возвращает несвязанные результаты?"
+    ]
+  },
+  {
+    "id": 400,
+    "question": "Как управлять RAG regression при обновлении foundation model?",
+    "variants": [
+      "Как выпускать новую LLM версию без потери groundedness?",
+      "Какие gates нужны model upgrade в RAG?"
+    ]
+  },
+  {
+    "id": 401,
+    "question": "Как анализировать систематическое disagreement BM25 и dense retrieval?",
+    "variants": [
+      "Что можно узнать из запросов, где lexical и semantic branches возвращают разные документы?",
+      "Как использовать disagreement для улучшения hybrid RAG?"
+    ]
+  },
+  {
+    "id": 402,
+    "question": "Как подготовить RAG к появлению нового внутреннего словаря или продуктовых терминов?",
+    "variants": [
+      "Что делать, если пользователи начали спрашивать новые названия, которых embedding model плохо знает?",
+      "Как быстро адаптировать retrieval к new vocabulary?"
+    ]
+  },
+  {
+    "id": 403,
+    "question": "Как проектировать RAG для low-resource language или mixed-language queries?",
+    "variants": [
+      "Что делать, если multilingual embedding плохо работает на одном языке?",
+      "Как поддерживать code-switching и транслитерацию?"
+    ]
+  },
+  {
+    "id": 404,
+    "question": "Как масштабировать RAG на десять и более локалей без копирования всей архитектуры?",
+    "variants": [
+      "Какой platform pattern подходит multi-locale knowledge assistant?",
+      "Как разделить общую платформу и локальные sources/evals?"
+    ]
+  },
+  {
+    "id": 405,
+    "question": "Как решить, когда knowledge base размером около контекстного окна лучше передавать целиком, а не индексировать?",
+    "variants": [
+      "Где граница между long-context и RAG architecture?",
+      "Как benchmark'ить small knowledge base: full context vs retrieval?"
+    ]
+  },
+  {
+    "id": 406,
+    "question": "Как сформировать Pareto frontier quality–latency–cost для RAG и использовать её в архитектурных решениях?",
+    "variants": [
+      "Как сравнивать RAG configs, если одна лучше по качеству, другая по цене?",
+      "Что значит Pareto-optimal RAG pipeline?"
+    ]
+  },
+  {
+    "id": 407,
+    "question": "Как спроектировать dynamic top-k policy вместо одного фиксированного значения для всех запросов?",
+    "variants": [
+      "Когда RAG должен возвращать 3 документа, а когда 30 candidates?",
+      "Как query complexity управляет retrieval depth?"
+    ]
+  },
+  {
+    "id": 408,
+    "question": "Как спроектировать conditional reranking, чтобы не платить за него на каждом запросе?",
+    "variants": [
+      "Когда можно пропустить reranker без потери качества?",
+      "Какие сигналы использовать для adaptive reranking?"
+    ]
+  },
+  {
+    "id": 409,
+    "question": "Как спроектировать adaptive retrieval policy как отдельный продуктовый компонент?",
+    "variants": [
+      "Кто должен решать, когда включать rewrite, multi-query, GraphRAG или web search?",
+      "Как избежать хаотичной логики adaptive RAG?"
+    ]
+  },
+  {
+    "id": 410,
+    "question": "Как выбирать между deterministic router и LLM router в RAG?",
+    "variants": [
+      "Когда routing можно сделать правилами, а когда нужна модель?",
+      "Какой router надёжнее для source selection?"
+    ]
+  },
+  {
+    "id": 411,
+    "question": "Как объединить источники с разным trust level в multi-source RAG?",
+    "variants": [
+      "Как строить ответ из internal docs, tickets и web search, не смешивая их авторитетность?",
+      "Как source trust должен влиять на retrieval и generation?"
+    ]
+  },
+  {
+    "id": 412,
+    "question": "Как спроектировать RAG для сочетания structured fresh data и неструктурированной документации?",
+    "variants": [
+      "Как архитектурно объединить SQL/API и document retrieval?",
+      "Что должно быть evidence source для актуального числа и для объяснения его смысла?"
+    ]
+  },
+  {
+    "id": 413,
+    "question": "Как спроектировать safe RAG+SQL для enterprise analytics assistant?",
+    "variants": [
+      "Какие boundaries нужны между LLM, retrieval и database query?",
+      "Как не дать модели произвольный SQL-доступ?"
+    ]
+  },
+  {
+    "id": 414,
+    "question": "Когда web search должен быть fallback RAG, а когда полностью запрещён?",
+    "variants": [
+      "Как решить, разрешать ли enterprise assistant искать во внешнем интернете?",
+      "Какие риски web-augmented RAG должен принять Lead?"
+    ]
+  },
+  {
+    "id": 415,
+    "question": "Как интегрировать logs в RAG/agent assistant, не индексируя весь поток логов как документы?",
+    "variants": [
+      "Почему live log search лучше постоянного embedding pipeline для incident assistant?",
+      "Как архитектурно разделить log retrieval и knowledge RAG?"
+    ]
+  },
+  {
+    "id": 416,
+    "question": "Как решить, когда фиксированный workflow лучше agentic RAG для production use case?",
+    "variants": [
+      "Какие признаки говорят, что retrieval orchestration не стоит отдавать агенту?",
+      "Как AI Lead выбирает autonomy level RAG?"
+    ]
+  },
+  {
+    "id": 417,
+    "question": "Как governance agentic RAG должен отличаться от обычного RAG?",
+    "variants": [
+      "Какие дополнительные controls нужны, если LLM сама выбирает retrieval tools?",
+      "Почему agentic RAG увеличивает risk surface?"
+    ]
+  },
+  {
+    "id": 418,
+    "question": "Как решить, когда полностью автономный RAG-agent нужно отклонить на architecture review?",
+    "variants": [
+      "Какие red flags у предложения «пусть агент сам ищет и решает всё»?",
+      "Когда autonomy не оправдана business value?"
+    ]
+  },
+  {
+    "id": 419,
+    "question": "Как проектировать source/tool routing fallback, чтобы ошибочный classifier не становился single point of failure?",
+    "variants": [
+      "Что делать, если router выбрал неверный retriever?",
+      "Как строить robust routing в multi-source RAG?"
+    ]
+  },
+  {
+    "id": 420,
+    "question": "Как оценивать надёжность MCP или другого tool protocol в RAG platform?",
+    "variants": [
+      "Что меняется, если retrieval service подключён как MCP tool?",
+      "Какие operational проблемы protocol layer добавляет к RAG?"
+    ]
+  },
+  {
+    "id": 421,
+    "question": "Когда Human-in-the-Loop нужен в RAG-системе, которая сама только ищет и отвечает?",
+    "variants": [
+      "Какие RAG operations требуют human approval даже без action tools?",
+      "Где человек полезен в knowledge ingestion и high-risk answers?"
+    ]
+  },
+  {
+    "id": 422,
+    "question": "Как решить, оправдан ли GraphRAG для конкретного enterprise corpus?",
+    "variants": [
+      "Какие доказательства нужны перед инвестициями в GraphRAG?",
+      "Как построить business/technical case GraphRAG вместо обычного hybrid RAG?"
+    ]
+  },
+  {
+    "id": 423,
+    "question": "Как оценивать TCO GraphRAG, включая ingestion, а не только query latency?",
+    "variants": [
+      "Какие скрытые costs GraphRAG должен учитывать AI Lead?",
+      "Почему entity extraction и community summaries меняют economics RAG?"
+    ]
+  },
+  {
+    "id": 424,
+    "question": "Когда temporal GraphRAG оправдан по сравнению с обычными validity metadata filters?",
+    "variants": [
+      "Нужен ли временной граф, если документы имеют версии?",
+      "Как выбрать между temporal metadata и temporal graph model?"
+    ]
+  },
+  {
+    "id": 425,
+    "question": "Как выбрать между RAPTOR-подобной и GraphRAG-подобной иерархией для global questions?",
+    "variants": [
+      "Что лучше для длинного corpus: hierarchical summaries или entity graph?",
+      "Когда tree summaries проще графовой индексации?"
+    ]
+  },
+  {
+    "id": 426,
+    "question": "Как принять решение о внедрении Contextual Retrieval на миллионах chunks?",
+    "variants": [
+      "Как оценить ingestion cost contextualization против quality gain?",
+      "Нужно ли LLM-contextualize каждый chunk enterprise corpus?"
+    ]
+  },
+  {
+    "id": 427,
+    "question": "Как снизить стоимость Contextual Retrieval при частых обновлениях документов?",
+    "variants": [
+      "Как не перегенерировать context для всех chunks при каждом изменении?",
+      "Какая cache/versioning стратегия нужна contextualized ingestion?"
+    ]
+  },
+  {
+    "id": 428,
+    "question": "Как решить, fine-tune retriever или сначала исправить pipeline/data quality?",
+    "variants": [
+      "Какая последовательность инвестиций правильна перед custom embedding model?",
+      "Когда fine-tuning является преждевременной оптимизацией RAG?"
+    ]
+  },
+  {
+    "id": 429,
+    "question": "Как решить, покупать отдельный reranker или использовать LLM, уже имеющуюся в системе?",
+    "variants": [
+      "Cross-encoder service vs LLM reranking: как выбирать?",
+      "Когда генеративная модель как reranker неоправданно дорога?"
+    ]
+  },
+  {
+    "id": 430,
+    "question": "Как принять решение о миграции embedding model с учётом стоимости полного re-index?",
+    "variants": [
+      "Когда прирост retrieval quality оправдывает re-embedding миллионов документов?",
+      "Как рассчитать ROI новой embedding model?"
+    ]
+  },
+  {
+    "id": 431,
+    "question": "Как построить evaluation flywheel из production feedback без самоподтверждающего bias?",
+    "variants": [
+      "Как превращать реальные ошибки пользователей в улучшение RAG?",
+      "Как не обучать систему только на тех результатах, которые она сама показала?"
+    ]
+  },
+  {
+    "id": 432,
+    "question": "Как построить программу synthetic evaluation так, чтобы она расширяла coverage, но не заменяла реальные запросы?",
+    "variants": [
+      "Как AI Lead должен использовать LLM-generated eval data?",
+      "Как избежать ложной уверенности от synthetic RAG benchmark?"
+    ]
+  },
+  {
+    "id": 433,
+    "question": "Как превратить RAG incident reviews в механизм приоритизации roadmap?",
+    "variants": [
+      "Как использовать taxonomy production ошибок для инвестиций команды?",
+      "Что AI Lead должен извлекать из postmortems RAG кроме конкретного bug fix?"
+    ]
+  },
+  {
+    "id": 434,
+    "question": "Как разделить ownership RAG platform и конкретных AI applications в организации?",
+    "variants": [
+      "Кто должен владеть retriever, prompts, data sources и product metrics?",
+      "Как организовать команды вокруг общей RAG инфраструктуры?"
+    ]
+  },
+  {
+    "id": 435,
+    "question": "Как спроектировать стабильный RAG service API, чтобы приложения не зависели от конкретной vector DB?",
+    "variants": [
+      "Каким должен быть retrieval contract платформы?",
+      "Как скрыть backend migration за RAG API?"
+    ]
+  },
+  {
+    "id": 436,
+    "question": "Как стандартизировать metadata schema для десятков RAG sources и не создать неподъёмную универсальную модель?",
+    "variants": [
+      "Какие metadata должны быть обязательными на платформе?",
+      "Как балансировать common schema и source-specific fields?"
+    ]
+  },
+  {
+    "id": 437,
+    "question": "Когда централизованная RAG platform лучше независимых pipelines команд, а когда хуже?",
+    "variants": [
+      "Стоит ли заставлять все AI-продукты использовать один RAG stack?",
+      "Как выбрать степень централизации retrieval infrastructure?"
+    ]
+  },
+  {
+    "id": 438,
+    "question": "Как решить, использовать LangChain/LlamaIndex/framework или собственный RAG orchestration layer?",
+    "variants": [
+      "Какие критерии выбора RAG framework для production?",
+      "Когда framework ускоряет, а когда создаёт lock-in/opaque behavior?"
+    ]
+  },
+  {
+    "id": 439,
+    "question": "Как построить observability platform, способную сравнивать разные RAG applications?",
+    "variants": [
+      "Какие единые trace fields нужны всей AI-платформе?",
+      "Как стандартизировать telemetry RAG без навязывания одного pipeline?"
+    ]
+  },
+  {
+    "id": 440,
+    "question": "Как использовать feature flags в RAG для безопасного выпуска нового retriever или reranker?",
+    "variants": [
+      "Какие RAG-компоненты нужно уметь включать по tenant/traffic slice?",
+      "Как feature flags помогают rollback AI changes?"
+    ]
+  },
+  {
+    "id": 441,
+    "question": "Как построить experiment infrastructure для RAG, чтобы сравнения были воспроизводимыми?",
+    "variants": [
+      "Что должна автоматически фиксировать RAG experiment platform?",
+      "Как убрать ручные notebook-сравнения из release process?"
+    ]
+  },
+  {
+    "id": 442,
+    "question": "Почему подход «сначала выберем vector DB, потом придумаем RAG» является архитектурным анти-паттерном?",
+    "variants": [
+      "Почему vector database не должна определять product architecture?",
+      "Что не так с vector-DB-first проектированием RAG?"
+    ]
+  },
+  {
+    "id": 443,
+    "question": "Почему «проиндексируем все корпоративные документы» — опасный старт enterprise RAG?",
+    "variants": [
+      "Что может пойти не так при массовом ingest без source governance?",
+      "Почему больше документов не всегда означает лучший enterprise RAG?"
+    ]
+  },
+  {
+    "id": 444,
+    "question": "Почему tuning top-k без eval dataset является ложной оптимизацией?",
+    "variants": [
+      "Можно ли выбрать top-k «по ощущениям»?",
+      "Какой анти-паттерн возникает при ручной настройке retrieval parameters?"
+    ]
+  },
+  {
+    "id": 445,
+    "question": "Почему нельзя использовать только LLM-as-a-Judge как единственный release gate RAG?",
+    "variants": [
+      "Какие риски у полностью автоматического judge-driven RAG development?",
+      "Почему evaluator LLM не заменяет retrieval labels и human review?"
+    ]
+  },
+  {
+    "id": 446,
+    "question": "Почему ACL, записанный только в prompt, не является контролем доступа RAG?",
+    "variants": [
+      "Что не так с инструкцией модели «не показывай секретные документы»?",
+      "Где должен enforced authorization в RAG?"
+    ]
+  },
+  {
+    "id": 447,
+    "question": "Почему регулярный полный rebuild индекса как основной механизм обновления плохо масштабируется?",
+    "variants": [
+      "Когда full reindex становится operational anti-pattern?",
+      "Какие проблемы у nightly rebuild всего RAG corpus?"
+    ]
+  },
+  {
+    "id": 448,
+    "question": "Почему rerank каждого запроса самой большой LLM — плохой default?",
+    "variants": [
+      "Что не так с unconditional LLM reranking?",
+      "Какой architecture review вопрос задать команде, которая хочет дорогой reranker для всех queries?"
+    ]
+  },
+  {
+    "id": 449,
+    "question": "Почему превращение любого RAG pipeline в агента может ухудшить production систему?",
+    "variants": [
+      "Что не так с agent-first RAG?",
+      "Когда agentic orchestration добавляет только latency и недетерминизм?"
+    ]
+  },
+  {
+    "id": 450,
+    "question": "Как организовать переход RAG PoC в production как отдельную engineering программу?",
+    "variants": [
+      "Какие workstreams появляются после успешного RAG demo?",
+      "Почему PoC quality — только малая часть production readiness?"
+    ]
+  },
+  {
+    "id": 451,
+    "question": "Почему UI-прототип не должен определять runtime architecture RAG?",
+    "variants": [
+      "Как отделить Streamlit/чат-интерфейс от retrieval service?",
+      "Какие проблемы появляются, если UI процесс владеет ingestion и search?"
+    ]
+  },
+  {
+    "id": 452,
+    "question": "Зачем разделять indexing plane и query serving plane в RAG platform?",
+    "variants": [
+      "Почему ingestion и search не должны конкурировать за одни и те же ресурсы без контроля?",
+      "Какие преимущества двух plane architecture?"
+    ]
+  },
+  {
+    "id": 453,
+    "question": "Как проектировать workload isolation между online RAG и background AI jobs?",
+    "variants": [
+      "Почему background summarization/eval может ухудшить production latency?",
+      "Как разделить ресурсы interactive и batch workloads?"
+    ]
+  },
+  {
+    "id": 454,
+    "question": "Как выбрать queue architecture для ingestion, re-embedding и evaluation RAG?",
+    "variants": [
+      "Какие очереди нужны RAG data plane?",
+      "Как разделять приоритеты background jobs retrieval platform?"
+    ]
+  },
+  {
+    "id": 455,
+    "question": "Как выполнять massive backfill RAG corpus, не разрушая online serving?",
+    "variants": [
+      "Как re-embed сотни миллионов chunks при работающей системе?",
+      "Какая стратегия throttling нужна для large RAG migration?"
+    ]
+  },
+  {
+    "id": 456,
+    "question": "Как спроектировать надёжность connectors, если RAG зависит от Confluence, Jira, SharePoint, Git и других внешних систем?",
+    "variants": [
+      "Какие failure modes source connectors должен учитывать AI Lead?",
+      "Как не потерять knowledge updates при сбоях внешних API?"
+    ]
+  },
+  {
+    "id": 457,
+    "question": "Когда использовать CDC/outbox для RAG ingestion вместо периодического polling?",
+    "variants": [
+      "Как выбрать push/CDC vs scheduled sync knowledge sources?",
+      "Когда near-real-time update оправдывает более сложный ingestion?"
+    ]
+  },
+  {
+    "id": 458,
+    "question": "Как обеспечить consistency, если lexical и vector indices живут в разных системах?",
+    "variants": [
+      "Что делать, если BM25 index уже обновился, а vector index ещё нет?",
+      "Как version RAG dual-store hybrid search?"
+    ]
+  },
+  {
+    "id": 459,
+    "question": "Когда выгоднее хранить vector и lexical search в одном backend, а когда разделить?",
+    "variants": [
+      "Single search engine vs separate vector DB + Elasticsearch: как выбирать?",
+      "Какие trade-offs operational simplicity и specialized performance?"
+    ]
+  },
+  {
+    "id": 460,
+    "question": "Кто в организации должен владеть search relevance RAG: ML team, platform или domain product?",
+    "variants": [
+      "Как распределить ответственность за retrieval quality?",
+      "Почему relevance нельзя полностью отдать platform team?"
+    ]
+  },
+  {
+    "id": 461,
+    "question": "Как встроить feedback domain experts в RAG без ручного редактирования ranking правил для каждого кейса?",
+    "variants": [
+      "Как масштабировать экспертные исправления RAG?",
+      "Что делать с feedback «этот документ должен быть выше»?"
+    ]
+  },
+  {
+    "id": 462,
+    "question": "Как спроектировать enterprise support RAG с требованиями p95, свежести и эскалации к человеку?",
+    "variants": [
+      "Какой high-level design для внутреннего support assistant?",
+      "Какие компоненты обязательны в production support RAG?"
+    ]
+  },
+  {
+    "id": 463,
+    "question": "Как спроектировать legal RAG, где неправильная версия нормативного документа опаснее отсутствия ответа?",
+    "variants": [
+      "Какие архитектурные решения меняются в юридическом RAG?",
+      "Как сделать version/time/source-aware legal retrieval?"
+    ]
+  },
+  {
+    "id": 464,
+    "question": "Как спроектировать financial RAG, где часть ответа приходит из live structured data, а часть из документов?",
+    "variants": [
+      "Как объединить market/account values и policy explanations?",
+      "Какие controls нужны финансовому RAG?"
+    ]
+  },
+  {
+    "id": 465,
+    "question": "Как спроектировать code assistant RAG для monorepo с миллионами строк и частыми commits?",
+    "variants": [
+      "Какая architecture нужна production code RAG?",
+      "Как масштабировать symbol-aware retrieval на большой repository?"
+    ]
+  },
+  {
+    "id": 466,
+    "question": "Как спроектировать multimodal RAG для технических PDF с таблицами, charts и scans?",
+    "variants": [
+      "Какие pipeline stages нужны enterprise multimodal document RAG?",
+      "Как определить, когда применять дорогой visual parsing?"
+    ]
+  },
+  {
+    "id": 467,
+    "question": "Как спроектировать multi-locale RAG с локальными законами и общими глобальными документами?",
+    "variants": [
+      "Как соединить shared и region-specific knowledge?",
+      "Какая routing/filtering architecture нужна международному RAG?"
+    ]
+  },
+  {
+    "id": 468,
+    "question": "Как спроектировать RAG для банка, если данные не могут покидать внутренний периметр?",
+    "variants": [
+      "Какая on-prem/private architecture нужна secure banking RAG?",
+      "Что меняется при запрете внешних model/vector services?"
+    ]
+  },
+  {
+    "id": 469,
+    "question": "Как спроектировать RAG/assistant для real-time incident response, где данные меняются каждую минуту?",
+    "variants": [
+      "Почему обычный document RAG недостаточен для live troubleshooting?",
+      "Как соединить runbooks, logs, metrics, DB и issue tracker?"
+    ]
+  },
+  {
+    "id": 470,
+    "question": "Как спроектировать research RAG для глобальных вопросов по миллионам документов?",
+    "variants": [
+      "Что делать, если пользователи спрашивают не про один документ, а про тенденции всего corpus?",
+      "Когда нужна hierarchical/GraphRAG architecture для research assistant?"
+    ]
+  },
+  {
+    "id": 471,
+    "question": "Как спроектировать ecommerce catalog RAG, где exact attributes важнее свободного текста?",
+    "variants": [
+      "Почему товары лучше искать не только embeddings?",
+      "Как сочетать filters, lexical, vector и structured catalog data?"
+    ]
+  },
+  {
+    "id": 472,
+    "question": "Как спроектировать HR RAG с жёстким разграничением персональных и общих документов?",
+    "variants": [
+      "Как избежать утечки employee data в внутреннем HR assistant?",
+      "Какая source/ACL architecture нужна HR RAG?"
+    ]
+  },
+  {
+    "id": 473,
+    "question": "Как спроектировать retrieval на миллиард vectors, не потеряв управляемость обновлений и фильтров?",
+    "variants": [
+      "Какие архитектурные решения появляются на scale ~1B vectors?",
+      "Как AI Lead подходит к billion-scale vector search?"
+    ]
+  },
+  {
+    "id": 474,
+    "question": "Как сократить стоимость RAG на 40%, не ухудшив измеримое качество?",
+    "variants": [
+      "Какая последовательность cost optimization RAG наиболее рациональна?",
+      "Где искать экономию до перехода на более дешёвую LLM?"
+    ]
+  },
+  {
+    "id": 475,
+    "question": "Что делать, если новый pipeline даёт +10% качества, но нарушает p95 latency SLO?",
+    "variants": [
+      "Как принять решение quality vs latency при сильном reranker?",
+      "Можно ли выпускать RAG улучшение, которое медленнее допустимого?"
+    ]
+  },
+  {
+    "id": 476,
+    "question": "Как мигрировать RAG с cloud vector DB на on-prem без потери качества и доступа?",
+    "variants": [
+      "Какая стратегия cloud-to-private retrieval migration?",
+      "Как перенести index при требованиях data sovereignty?"
+    ]
+  },
+  {
+    "id": 477,
+    "question": "Как спроектировать поведение platform при полном outage vector database?",
+    "variants": [
+      "Что должен видеть пользователь, если primary retrieval store недоступен?",
+      "Какой DR/fallback для vector search outage?"
+    ]
+  },
+  {
+    "id": 478,
+    "question": "Как построить roadmap от naive RAG к production platform и не внедрять advanced techniques раньше времени?",
+    "variants": [
+      "В какой последовательности развивать RAG архитектуру?",
+      "Когда добавлять hybrid, rerank, adaptive, GraphRAG и agents?"
+    ]
+  },
+  {
+    "id": 479,
+    "question": "Что означает production-grade RAG с точки зрения AI Lead?",
+    "variants": [
+      "Какие свойства отличают production RAG от демо?",
+      "Как кратко определить зрелую RAG-систему?"
+    ]
+  },
+  {
+    "id": 480,
+    "question": "Как снизить зависимость RAG от одного model/provider без построения абстракции с наименьшим общим знаменателем?",
+    "variants": [
+      "Как спроектировать provider portability для embeddings, rerankers и LLM?",
+      "Как управлять vendor concentration risk AI platform?"
+    ]
+  },
+  {
+    "id": 481,
+    "question": "Спроектируйте enterprise RAG для 20 млн документов, 30 000 пользователей и p95 ниже 3 секунд: с чего начнёте и какие решения примете?",
+    "variants": [
+      "Какой high-level design вы предложите для RAG на десятках миллионов документов и десятках тысяч пользователей?",
+      "Как спроектировать scalable RAG при corpus 20M docs и строгом p95?"
+    ]
+  },
+  {
+    "id": 482,
+    "question": "Спроектируйте multi-tenant RAG на 100 млн chunks, 15 крупных tenants и 200 QPS с разными ACL и data residency.",
+    "variants": [
+      "Как архитектурно разделить 15 enterprise tenants в большой RAG platform?",
+      "Что выберете: shared index или dedicated indices при 100M chunks и строгих ACL?"
+    ]
+  },
+  {
+    "id": 483,
+    "question": "Как спроектировать RAG, если corpus обновляется ежечасно, но полный re-index занимает двое суток?",
+    "variants": [
+      "Как обеспечить freshness при большом corpus и дорогом rebuild?",
+      "Что делать, если reindex time намного больше допустимого freshness SLA?"
+    ]
+  },
+  {
+    "id": 484,
+    "question": "Как спроектировать RAG на 500 млн chunks, если большинство запросов содержит очень селективные metadata/ACL filters?",
+    "variants": [
+      "Как filtered ANN влияет на выбор vector backend при hundreds of millions vectors?",
+      "Какая architecture нужна, если vector scale большой, а search почти всегда tenant/product scoped?"
+    ]
+  },
+  {
+    "id": 485,
+    "question": "Как спроектировать RAG на 30 языков, если качество multilingual embeddings сильно различается по локалям?",
+    "variants": [
+      "Один multilingual index или language-specific retrieval pipelines?",
+      "Как масштабировать multilingual RAG, если low-resource языки деградируют?"
+    ]
+  },
+  {
+    "id": 486,
+    "question": "Как задать quality policy для support RAG, если неверный автоматический ответ в 10 раз дороже эскалации человеку?",
+    "variants": [
+      "Как выбрать abstention threshold при высокой цене false answer?",
+      "Как связать RAG confidence с economics support automation?"
+    ]
+  },
+  {
+    "id": 487,
+    "question": "Спроектируйте legal RAG, который должен отвечать по редакции документа, действовавшей на конкретную историческую дату.",
+    "variants": [
+      "Как архитектурно поддержать historical legal QA?",
+      "Как не смешать текущую и старую редакции нормативных документов?"
+    ]
+  },
+  {
+    "id": 488,
+    "question": "В production RAG пользователи массово получают устаревшие ответы, хотя monitoring ingestion jobs зелёный. Как вы проведёте incident response?",
+    "variants": [
+      "Как расследовать stale-answer incident при формально успешном ingestion?",
+      "Какие шаги должен предпринять AI Lead при массовой деградации freshness?"
+    ]
+  },
+  {
+    "id": 489,
+    "question": "Обнаружена cross-tenant утечка одного документа через RAG cache. Какие архитектурные и организационные действия обязательны?",
+    "variants": [
+      "Как провести response на RAG tenant-isolation incident?",
+      "Что делать после выдачи cached evidence чужому tenant?"
+    ]
+  },
+  {
+    "id": 490,
+    "question": "После запуска multi-query и reranking RAG quality выросла на 6%, но стоимость запроса утроилась. Как решить, что оставить?",
+    "variants": [
+      "Как упростить дорогой RAG pipeline без потери основной пользы?",
+      "Что делать, если advanced retrieval даёт небольшой gain при большом cost increase?"
+    ]
+  },
+  {
+    "id": 491,
+    "question": "Offline retrieval metrics высокие, но пользователи считают RAG бесполезным. Какой план диагностики у AI Lead?",
+    "variants": [
+      "Что делать, если Recall/NDCG хорошие, а product satisfaction низкая?",
+      "Как связать technical RAG eval с реальной ценностью?"
+    ]
+  },
+  {
+    "id": 492,
+    "question": "Как поступить, если главная причина плохих RAG-ответов — низкое качество корпоративной документации, а не retrieval?",
+    "variants": [
+      "Что должен делать AI Lead, если AI выявил data governance проблему?",
+      "Можно ли технически компенсировать устаревшие и противоречивые источники?"
+    ]
+  },
+  {
+    "id": 493,
+    "question": "Как объединить две большие RAG knowledge bases после слияния компаний, если у них разные taxonomy, ACL и версии терминов?",
+    "variants": [
+      "Как провести post-merger RAG consolidation?",
+      "Что делать с конфликтующими источниками и сущностями двух организаций?"
+    ]
+  },
+  {
+    "id": 494,
+    "question": "Как быстро подключить новую бизнес-единицу к общей RAG platform, не ослабив security и quality gates?",
+    "variants": [
+      "Какой onboarding contract нужен для нового tenant/domain?",
+      "Как масштабировать подключение новых knowledge domains?"
+    ]
+  },
+  {
+    "id": 495,
+    "question": "Команда хочет заменить hybrid retrieval новым «очень сильным» embedding model и убрать BM25. Как провести architecture review?",
+    "variants": [
+      "Можно ли отказаться от lexical search после улучшения embeddings?",
+      "Какие доказательства нужны для dense-only migration?"
+    ]
+  },
+  {
+    "id": 496,
+    "question": "Новая LLM получила контекстное окно в миллион токенов. Нужно ли закрывать RAG и перейти на full-context prompting?",
+    "variants": [
+      "Как AI Lead оценивает влияние огромного context window на retrieval architecture?",
+      "Отменяет ли million-token context необходимость RAG?"
+    ]
+  },
+  {
+    "id": 497,
+    "question": "Команда предлагает GraphRAG для всего корпуса. Какие вопросы AI Lead должен задать до одобрения?",
+    "variants": [
+      "Как провести architecture review GraphRAG proposal?",
+      "Какие критерии нужны перед массовой graph indexing?"
+    ]
+  },
+  {
+    "id": 498,
+    "question": "Команда хочет сделать существующий RAG полностью agentic. Какие доказательства нужны перед изменением архитектуры?",
+    "variants": [
+      "Как оценить proposal перейти fixed RAG → agentic RAG?",
+      "Какие metrics должны оправдать autonomy?"
+    ]
+  },
+  {
+    "id": 499,
+    "question": "У вас шесть месяцев и команда из восьми инженеров. Как приоритизировать roadmap новой enterprise RAG platform?",
+    "variants": [
+      "Что построить в первые два квартала RAG platform?",
+      "Как AI Lead балансирует features и production foundations при ограниченной команде?"
+    ]
+  },
+  {
+    "id": 500,
+    "question": "Проведите architecture review production RAG: какие десять вопросов вы зададите команде в первую очередь?",
+    "variants": [
+      "Как AI Lead быстро выявляет слабые места RAG design?",
+      "Какие вопросы отличают зрелую RAG architecture от demo?"
+    ]
+  }
+]

@@ -1,0 +1,3215 @@
+[
+  {
+    "id": 1,
+    "question": "Что происходит с запросом к LLM от момента получения текста сервером до выдачи первого токена?",
+    "variants": [
+      "Из каких стадий состоит путь запроса до первого сгенерированного токена?",
+      "Какие операции выполняет inference-сервер перед тем, как начать стримить ответ?"
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Чем prefill отличается от decode при инференсе autoregressive LLM?",
+    "variants": [
+      "Почему фазы обработки промпта и генерации токенов имеют разный профиль нагрузки?",
+      "Что принципиально различает context phase и token generation phase в LLM serving?"
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Зачем autoregressive LLM нужен KV cache во время генерации?",
+    "variants": [
+      "Какую повторную работу устраняет key-value cache при генерации?",
+      "Почему Transformer не пересчитывает keys и values всех прошлых токенов на каждом decode step?"
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Что такое TTFT и что именно она измеряет в LLM serving?",
+    "variants": [
+      "Что показывает метрика Time To First Token и из каких задержек она складывается?"
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Что такое TPOT и чем она отличается от TTFT?",
+    "variants": [
+      "Как измерять скорость генерации после первого токена?",
+      "Почему низкий TTFT не гарантирует быстрое продолжение ответа?"
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Чем latency отличается от throughput в LLM serving?",
+    "variants": [
+      "Почему максимальный tokens/s и минимальная задержка обычно требуют разных настроек?"
+    ]
+  },
+  {
+    "id": 7,
+    "question": "Почему для LLM throughput корректнее часто измерять в токенах, а не только в запросах в секунду?",
+    "variants": [
+      "Почему RPS плохо описывает производительность генеративной модели при разной длине запросов?"
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Что такое batch в LLM inference и зачем объединять несколько запросов?",
+    "variants": [
+      "Почему LLM-сервер старается собирать запросы в пакеты перед вычислением?"
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Что такое continuous batching и почему он подходит генеративным моделям лучше статического batching?",
+    "variants": [
+      "Почему in-flight batching помогает, когда ответы запросов имеют разную длину?",
+      "Как serving-система добавляет новые запросы, не ожидая завершения всего текущего batch?"
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Что такое PagedAttention и какую проблему памяти он решает?",
+    "variants": [
+      "Как страничное управление KV cache уменьшает фрагментацию GPU-памяти?",
+      "Почему KV cache в PagedAttention не обязан лежать непрерывно?"
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Что такое prefix caching в LLM serving?",
+    "variants": [
+      "Как повторно использовать вычисления общего system prompt между запросами?",
+      "За счёт чего automatic prefix caching уменьшает prefill для одинаковых начал промптов?"
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Почему длина контекста влияет на потребление GPU-памяти даже если размер весов модели не меняется?",
+    "variants": [
+      "Почему модель помещается на GPU в idle, но падает по OOM на длинных запросах?"
+    ]
+  },
+  {
+    "id": 13,
+    "question": "Из каких основных частей складывается GPU memory footprint при serving LLM?",
+    "variants": [
+      "Что кроме весов занимает VRAM при инференсе большой языковой модели?"
+    ]
+  },
+  {
+    "id": 14,
+    "question": "Что такое quantization модели и зачем она применяется при inference?",
+    "variants": [
+      "Почему 4-битные или 8-битные веса могут сделать serving дешевле, но не всегда быстрее?"
+    ]
+  },
+  {
+    "id": 15,
+    "question": "Чем weight-only quantization отличается от quantization весов и активаций?",
+    "variants": [
+      "В чём разница между W4A16 и схемами, где квантуются и веса, и активации?"
+    ]
+  },
+  {
+    "id": 16,
+    "question": "Зачем при serving нужен tokenizer и почему его производительность вообще может быть заметна?",
+    "variants": [
+      "Почему CPU-токенизация может стать bottleneck у быстрого GPU-сервера?"
+    ]
+  },
+  {
+    "id": 17,
+    "question": "Что такое logits и как из них получается следующий токен?",
+    "variants": [
+      "Как LLM превращает выход последнего слоя в конкретный следующий токен?"
+    ]
+  },
+  {
+    "id": 18,
+    "question": "Чем greedy decoding отличается от sampling?",
+    "variants": [
+      "Почему temperature и top-p относятся к sampling, а не к самой нейросети?"
+    ]
+  },
+  {
+    "id": 19,
+    "question": "Что означает streaming ответа LLM и чем он отличается от обычного HTTP-ответа целиком?",
+    "variants": [
+      "Почему токены обычно отдают клиенту по мере генерации, а не после завершения всего ответа?"
+    ]
+  },
+  {
+    "id": 20,
+    "question": "Что такое concurrency в контексте LLM serving?",
+    "variants": [
+      "Почему одинаковый RPS может давать разное число одновременно активных запросов?"
+    ]
+  },
+  {
+    "id": 21,
+    "question": "Что такое queue time в inference-сервисе и почему оно растёт раньше, чем GPU utilization достигает 100%?",
+    "variants": [
+      "Почему низкие 70% GPU utilization не доказывают, что у сервера ещё есть 30% свободной capacity?"
+    ]
+  },
+  {
+    "id": 22,
+    "question": "Почему p95 и p99 latency важнее одного среднего значения для production LLM?",
+    "variants": [
+      "Зачем смотреть tail latency, если средняя задержка сервиса хорошая?"
+    ]
+  },
+  {
+    "id": 23,
+    "question": "Что такое SLO для LLM inference и какие метрики в него обычно включают?",
+    "variants": [
+      "Как формализовать требования к скорости интерактивного LLM-сервиса?"
+    ]
+  },
+  {
+    "id": 24,
+    "question": "Почему GPU обычно эффективнее CPU для инференса больших Transformer-моделей?",
+    "variants": [
+      "Какие свойства Transformer делают GPU естественным ускорителем для inference?"
+    ]
+  },
+  {
+    "id": 25,
+    "question": "Что означает, что LLM inference является compute-bound или memory-bound?",
+    "variants": [
+      "Почему высокий peak FLOPS GPU не гарантирует пропорционально быстрый decode?"
+    ]
+  },
+  {
+    "id": 26,
+    "question": "Что такое model serving runtime и какие задачи он берёт на себя помимо вызова forward() модели?",
+    "variants": [
+      "Чем production inference engine отличается от простого вызова Transformers generate()?"
+    ]
+  },
+  {
+    "id": 27,
+    "question": "Почему загрузка модели в GPU может занимать существенное время при старте pod?",
+    "variants": [
+      "Почему LLM pod нельзя считать готовым сразу после запуска контейнера?"
+    ]
+  },
+  {
+    "id": 28,
+    "question": "Что такое warmup inference и зачем прогревать модель перед подачей production-трафика?",
+    "variants": [
+      "Почему первые запросы после рестарта модели часто медленнее последующих?"
+    ]
+  },
+  {
+    "id": 29,
+    "question": "Чем readiness probe отличается от liveness probe для LLM-сервера?",
+    "variants": [
+      "Почему перегруженный LLM pod лучше временно сделать not ready, чем сразу перезапускать?"
+    ]
+  },
+  {
+    "id": 30,
+    "question": "Что такое cold start и почему он особенно болезнен для autoscaling LLM?",
+    "variants": [
+      "Почему scale-to-zero плохо сочетается с низким TTFT для больших моделей?"
+    ]
+  },
+  {
+    "id": 31,
+    "question": "Что такое tensor parallelism в инференсе LLM?",
+    "variants": [
+      "Как разрезать один Transformer layer между несколькими GPU?"
+    ]
+  },
+  {
+    "id": 32,
+    "question": "Что такое pipeline parallelism в инференсе LLM?",
+    "variants": [
+      "Как распределить разные слои LLM по нескольким GPU и какие потери это создаёт?"
+    ]
+  },
+  {
+    "id": 33,
+    "question": "Что такое data parallelism применительно к LLM serving?",
+    "variants": [
+      "Как масштабировать serving горизонтально, когда модель уже помещается на одной реплике?"
+    ]
+  },
+  {
+    "id": 34,
+    "question": "Почему меж-GPU topology важна для tensor parallelism?",
+    "variants": [
+      "Почему одинаковые восемь GPU могут дать разную скорость в зависимости от того, как они соединены?"
+    ]
+  },
+  {
+    "id": 35,
+    "question": "Что такое model replica и чем она отличается от GPU?",
+    "variants": [
+      "Почему одна serving-реплика LLM может состоять из нескольких GPU?"
+    ]
+  },
+  {
+    "id": 36,
+    "question": "Что такое GPU utilization и почему эта метрика сама по себе недостаточна для оценки LLM serving?",
+    "variants": [
+      "Почему 95% GPU utilization не означает, что LLM-сервис работает близко к оптимуму?"
+    ]
+  },
+  {
+    "id": 37,
+    "question": "Что такое OOM на GPU и какие типичные причины вызывают его в LLM serving?",
+    "variants": [
+      "Почему LLM server может стартовать нормально, но позже упасть по CUDA out of memory?"
+    ]
+  },
+  {
+    "id": 38,
+    "question": "Что такое backpressure в LLM serving?",
+    "variants": [
+      "Почему бесконечная очередь перед GPU — плохая стратегия обработки пиков нагрузки?"
+    ]
+  },
+  {
+    "id": 39,
+    "question": "Что такое admission control и чем он отличается от обычного rate limiting?",
+    "variants": [
+      "Почему ограничить каждого клиента десятью RPS недостаточно для защиты GPU от перегрузки?"
+    ]
+  },
+  {
+    "id": 40,
+    "question": "Что такое rate limit по токенам и почему он полезен для LLM API?",
+    "variants": [
+      "Зачем API-провайдеры ограничивают не только RPM, но и tokens per minute?"
+    ]
+  },
+  {
+    "id": 41,
+    "question": "Что такое model checkpoint и почему его формат важен для serving?",
+    "variants": [
+      "Почему один и тот же набор весов может требовать конвертации перед production inference?"
+    ]
+  },
+  {
+    "id": 42,
+    "question": "Зачем модели разбивают на shards при хранении и загрузке?",
+    "variants": [
+      "Почему 100-гигабайтный checkpoint часто хранится не одним файлом?"
+    ]
+  },
+  {
+    "id": 43,
+    "question": "Почему streaming-клиент должен уметь отменять LLM-запрос?",
+    "variants": [
+      "Что должен сделать inference server, когда клиент закрыл поток до окончания генерации?"
+    ]
+  },
+  {
+    "id": 44,
+    "question": "Что такое timeout и почему один общий timeout для всего LLM-запроса часто неудобен?",
+    "variants": [
+      "Почему таймаут до первого токена и таймаут всего completion — разные политики?"
+    ]
+  },
+  {
+    "id": 45,
+    "question": "Что такое graceful shutdown для LLM worker?",
+    "variants": [
+      "Как корректно вывести LLM-реплику из эксплуатации во время rolling update?"
+    ]
+  },
+  {
+    "id": 46,
+    "question": "Почему max_tokens является инфраструктурным параметром, а не только настройкой качества ответа?",
+    "variants": [
+      "Как лимит длины ответа защищает serving-систему от тяжёлых запросов?"
+    ]
+  },
+  {
+    "id": 47,
+    "question": "Почему max context length модели нельзя автоматически считать безопасной production-длиной запроса?",
+    "variants": [
+      "Почему поддержка 128K context не означает, что стоит разрешить каждому пользователю 128K?"
+    ]
+  },
+  {
+    "id": 48,
+    "question": "Что такое stop sequence и где она применяется в serving pipeline?",
+    "variants": [
+      "Как сервер понимает, что нужно закончить completion раньше max_tokens?"
+    ]
+  },
+  {
+    "id": 49,
+    "question": "Что такое EOS token и чем он отличается от внешней stop sequence?",
+    "variants": [
+      "Почему неверно настроенный end-of-sequence token может неожиданно увеличить стоимость инференса?"
+    ]
+  },
+  {
+    "id": 50,
+    "question": "Что такое structured output и почему он влияет на inference runtime?",
+    "variants": [
+      "Почему JSON schema может участвовать в выборе каждого следующего токена, а не только проверяться после ответа?"
+    ]
+  },
+  {
+    "id": 51,
+    "question": "Что значит OpenAI-compatible API у локального LLM server?",
+    "variants": [
+      "Что на самом деле гарантирует пометка OpenAI-compatible у vLLM или другого сервера?"
+    ]
+  },
+  {
+    "id": 52,
+    "question": "Почему модель и tokenizer должны быть согласованы по версии?",
+    "variants": [
+      "Что может случиться, если загрузить правильные веса модели с неправильным tokenizer?"
+    ]
+  },
+  {
+    "id": 53,
+    "question": "Что такое chat template и почему это часть serving-контракта?",
+    "variants": [
+      "Почему форматирование ролей system/user/assistant способно изменить качество и latency без изменения весов?"
+    ]
+  },
+  {
+    "id": 54,
+    "question": "Что такое GPU kernel в контексте LLM inference?",
+    "variants": [
+      "Почему одинаковый Transformer может работать с разной скоростью в разных inference engines?"
+    ]
+  },
+  {
+    "id": 55,
+    "question": "Что такое FlashAttention на концептуальном уровне?",
+    "variants": [
+      "За счёт чего FlashAttention ускоряет точный attention без изменения его математического определения?"
+    ]
+  },
+  {
+    "id": 56,
+    "question": "Почему prefill длинного промпта может блокировать плавную выдачу токенов другим запросам?",
+    "variants": [
+      "Почему один очень длинный prompt способен вызвать рывки в streaming-ответах других пользователей?"
+    ]
+  },
+  {
+    "id": 57,
+    "question": "Что такое chunked prefill и зачем разбивать длинный prompt на части?",
+    "variants": [
+      "Как уменьшить влияние 100K-token prefill на уже идущие генерации?"
+    ]
+  },
+  {
+    "id": 58,
+    "question": "Почему LLM serving нельзя корректно benchmark'ить только одним одиночным запросом?",
+    "variants": [
+      "Почему latency одного prompt не говорит о serving capacity модели?"
+    ]
+  },
+  {
+    "id": 59,
+    "question": "Почему средние длины prompt и output недостаточны для capacity planning?",
+    "variants": [
+      "Почему p99 длины контекста важен не меньше среднего при расчёте GPU capacity?"
+    ]
+  },
+  {
+    "id": 60,
+    "question": "Что такое load shedding и когда LLM-сервис должен отклонять запросы?",
+    "variants": [
+      "Когда отказать части пользователей полезнее, чем продолжать складывать запросы в очередь?"
+    ]
+  },
+  {
+    "id": 61,
+    "question": "Как приближённо оценить объём KV cache для decoder-only Transformer?",
+    "variants": [
+      "От каких параметров модели и контекста линейно зависит память key-value cache?"
+    ]
+  },
+  {
+    "id": 62,
+    "question": "Почему GQA и MQA уменьшают KV-cache memory по сравнению с обычным MHA?",
+    "variants": [
+      "Почему модели с grouped-query attention обычно дешевле обслуживать на длинном контексте?"
+    ]
+  },
+  {
+    "id": 63,
+    "question": "Как block size в paged KV cache влияет на memory waste и производительность?",
+    "variants": [
+      "Почему нельзя выбрать размер страницы KV cache только по минимальной фрагментации?"
+    ]
+  },
+  {
+    "id": 64,
+    "question": "Чем external fragmentation отличается от internal fragmentation в KV-cache allocator?",
+    "variants": [
+      "Какие два вида фрагментации памяти важны для динамического KV cache?"
+    ]
+  },
+  {
+    "id": 65,
+    "question": "Почему prefix cache hit нужно измерять в токенах, а не только в запросах?",
+    "variants": [
+      "Почему 90% prefix-cache hits могут давать меньшую экономию, чем 30% hits?"
+    ]
+  },
+  {
+    "id": 66,
+    "question": "Почему одинаковый текстовый префикс не всегда означает совпадение prefix cache?",
+    "variants": [
+      "Почему system prompt выглядит одинаково, но automatic prefix caching его не переиспользует?"
+    ]
+  },
+  {
+    "id": 67,
+    "question": "Как cache-aware routing конфликтует с обычным load balancing?",
+    "variants": [
+      "Когда выгоднее потерять prefix-cache hit и отправить запрос на менее загруженный GPU?"
+    ]
+  },
+  {
+    "id": 68,
+    "question": "Почему LRU не всегда оптимальная политика eviction для prefix cache?",
+    "variants": [
+      "Почему вытеснять самый давно использованный KV-блок не всегда экономически оптимально?"
+    ]
+  },
+  {
+    "id": 69,
+    "question": "Как prefix caching может создать риск утечки данных между tenants?",
+    "variants": [
+      "Почему общий KV cache между независимыми клиентами требует security design?"
+    ]
+  },
+  {
+    "id": 70,
+    "question": "Что означает cache salting для KV-cache reuse?",
+    "variants": [
+      "Как технически ограничить prefix-cache reuse границами одного tenant?"
+    ]
+  },
+  {
+    "id": 71,
+    "question": "Как оценить пользу prefix caching до внедрения?",
+    "variants": [
+      "Как доказать на данных, что automatic prefix caching окупится для конкретного трафика?"
+    ]
+  },
+  {
+    "id": 72,
+    "question": "Чем dynamic batching в Triton-подобной системе отличается от continuous batching LLM runtime?",
+    "variants": [
+      "Почему batching обычного классификатора и batching генеративной LLM — не одно и то же?"
+    ]
+  },
+  {
+    "id": 73,
+    "question": "Что такое iteration-level scheduling в LLM serving?",
+    "variants": [
+      "На каком уровне планировщик должен пересобирать batch, чтобы не ждать самую длинную генерацию?"
+    ]
+  },
+  {
+    "id": 74,
+    "question": "Что такое head-of-line blocking в очереди LLM и как его уменьшить?",
+    "variants": [
+      "Как один 100K prompt в начале FIFO-очереди может ухудшить latency сотни коротких запросов?"
+    ]
+  },
+  {
+    "id": 75,
+    "question": "Чем FIFO scheduler хорош и чем плох для LLM serving?",
+    "variants": [
+      "Почему справедливый по порядку поступления scheduler не обязательно даёт хороший пользовательский latency?"
+    ]
+  },
+  {
+    "id": 76,
+    "question": "Что такое token budget у scheduler и какую проблему он решает?",
+    "variants": [
+      "Как ограничить объём работы одной scheduling iteration, чтобы длинные prompts не создавали большие паузы?"
+    ]
+  },
+  {
+    "id": 77,
+    "question": "Что такое preemption в LLM scheduler и почему она сложнее, чем у обычных CPU-задач?",
+    "variants": [
+      "Почему вытеснить генерацию с GPU дороже, чем вытеснить обычный CPU thread?"
+    ]
+  },
+  {
+    "id": 78,
+    "question": "Когда recompute KV cache может быть выгоднее его swap на CPU?",
+    "variants": [
+      "Что дешевле при preemption: пересчитать прошлые токены или сохранить KV cache вне GPU?"
+    ]
+  },
+  {
+    "id": 79,
+    "question": "Почему KV-cache offload на CPU не является бесплатным расширением VRAM?",
+    "variants": [
+      "Почему перенос KV cache в RAM может ухудшить tokens/s, даже если OOM исчез?"
+    ]
+  },
+  {
+    "id": 80,
+    "question": "Как выбрать, что хранить в GPU KV cache, а что offload'ить?",
+    "variants": [
+      "Какие KV-блоки нельзя вытеснять так же агрессивно, как кэш завершённых system prompts?"
+    ]
+  },
+  {
+    "id": 81,
+    "question": "Почему prefix caching в первую очередь улучшает TTFT, а не TPOT?",
+    "variants": [
+      "Почему повторное использование system prompt ускоряет первый токен, но не обязано увеличивать скорость дальнейшего streaming?"
+    ]
+  },
+  {
+    "id": 82,
+    "question": "Что такое CUDA graph и зачем inference runtime захватывает граф выполнения?",
+    "variants": [
+      "Почему повторяющийся decode loop хорошо подходит для CUDA Graphs, но dynamic shapes мешают?"
+    ]
+  },
+  {
+    "id": 83,
+    "question": "Что такое kernel fusion и как он ускоряет LLM inference?",
+    "variants": [
+      "Как объединение нескольких операций уменьшает трафик HBM и число kernel launches?"
+    ]
+  },
+  {
+    "id": 84,
+    "question": "В чём инженерная разница между FlashAttention и PagedAttention?",
+    "variants": [
+      "Почему FlashAttention и PagedAttention не являются альтернативами друг другу?"
+    ]
+  },
+  {
+    "id": 85,
+    "question": "Что такое arithmetic intensity и почему она важна для LLM inference?",
+    "variants": [
+      "Почему batching способен ускорить decode без уменьшения числа параметров модели?"
+    ]
+  },
+  {
+    "id": 86,
+    "question": "Как использовать roofline model для рассуждения о LLM serving?",
+    "variants": [
+      "Как понять по FLOPs и памяти, что ускорять: вычисления или bandwidth?"
+    ]
+  },
+  {
+    "id": 87,
+    "question": "Почему batch size увеличивает throughput decode только до определённого момента?",
+    "variants": [
+      "Почему нельзя бесконечно повышать tokens/s простым увеличением batch?"
+    ]
+  },
+  {
+    "id": 88,
+    "question": "Почему prefill обычно лучше масштабируется с batch, чем decode?",
+    "variants": [
+      "Почему один длинный prompt способен хорошо загрузить GPU, а один декодируемый токен — нет?"
+    ]
+  },
+  {
+    "id": 89,
+    "question": "Что такое quantization calibration и когда она нужна?",
+    "variants": [
+      "Почему для низкой точности недостаточно просто округлить все числа одним масштабом?"
+    ]
+  },
+  {
+    "id": 90,
+    "question": "Чем per-tensor, per-channel и block-wise quantization отличаются по trade-off?",
+    "variants": [
+      "Почему более мелкая гранулярность scale обычно улучшает качество квантизации, но усложняет execution?"
+    ]
+  },
+  {
+    "id": 91,
+    "question": "Чем GPTQ и AWQ концептуально отличаются как weight-only quantization методы?",
+    "variants": [
+      "Как различается идея GPTQ и activation-aware weight quantization?"
+    ]
+  },
+  {
+    "id": 92,
+    "question": "Почему 4-bit checkpoint может быть медленнее BF16 на конкретном GPU?",
+    "variants": [
+      "Почему меньше бит на вес не гарантирует меньший TPOT?"
+    ]
+  },
+  {
+    "id": 93,
+    "question": "Зачем отдельно квантизовать KV cache?",
+    "variants": [
+      "Как увеличить число одновременно обслуживаемых длинных контекстов без изменения весов модели?"
+    ]
+  },
+  {
+    "id": 94,
+    "question": "Почему quantization должна проходить quality gate перед production rollout?",
+    "variants": [
+      "Какие проверки нужны перед заменой BF16 модели на quantized вариант?"
+    ]
+  },
+  {
+    "id": 95,
+    "question": "Что такое speculative decoding на базовом уровне?",
+    "variants": [
+      "Как черновая модель может ускорить большую LLM без замены её распределения ответа?"
+    ]
+  },
+  {
+    "id": 96,
+    "question": "От чего зависит acceptance rate в speculative decoding?",
+    "variants": [
+      "Почему лучший по качеству draft model не обязательно даёт максимальное ускорение speculative decoding?"
+    ]
+  },
+  {
+    "id": 97,
+    "question": "Почему draft и target model обычно должны иметь совместимый tokenizer?",
+    "variants": [
+      "Почему нельзя безусловно взять любую маленькую LLM как draft для большой модели?"
+    ]
+  },
+  {
+    "id": 98,
+    "question": "Когда speculative decoding вероятнее всего не даст выигрыша?",
+    "variants": [
+      "При каком workload speculative decoding может замедлить serving вместо ускорения?"
+    ]
+  },
+  {
+    "id": 99,
+    "question": "Чем n-gram speculation отличается от draft-model speculative decoding?",
+    "variants": [
+      "Как ускорить генерацию за счёт повторов из контекста без отдельной маленькой LLM?"
+    ]
+  },
+  {
+    "id": 100,
+    "question": "Что такое EAGLE-подобные методы speculation на концептуальном уровне?",
+    "variants": [
+      "Чем feature-based speculative predictor может быть выгоднее отдельной draft LLM?"
+    ]
+  },
+  {
+    "id": 101,
+    "question": "Что такое tensor parallel all-reduce и почему он попадает в критический путь каждого токена?",
+    "variants": [
+      "Почему один медленный tensor-parallel rank тормозит всю генерацию?"
+    ]
+  },
+  {
+    "id": 102,
+    "question": "Что такое all-gather и чем он отличается от all-reduce в model parallelism?",
+    "variants": [
+      "Какие коллективные операции используются при tensor parallelism и почему их нельзя считать одинаковыми?"
+    ]
+  },
+  {
+    "id": 103,
+    "question": "Почему tensor parallelism внутри узла и между узлами имеют разную экономику?",
+    "variants": [
+      "Почему TP8 на двух узлах может быть хуже TP4 на одном узле плюс другой вид parallelism?"
+    ]
+  },
+  {
+    "id": 104,
+    "question": "Когда pipeline parallelism предпочтительнее tensor parallelism?",
+    "variants": [
+      "Как выбрать способ разнести огромную модель, если межузловой all-reduce слишком дорог?"
+    ]
+  },
+  {
+    "id": 105,
+    "question": "Что такое expert parallelism для MoE-моделей?",
+    "variants": [
+      "Как обслуживать Mixture-of-Experts модель, если эксперты не помещаются на один GPU?"
+    ]
+  },
+  {
+    "id": 106,
+    "question": "Что такое expert load imbalance и как он влияет на latency MoE serving?",
+    "variants": [
+      "Почему один популярный expert может замедлить весь MoE decode step?"
+    ]
+  },
+  {
+    "id": 107,
+    "question": "Чем data parallelism для dense LLM отличается от data-parallel attention в некоторых MoE serving-схемах?",
+    "variants": [
+      "Почему в MoE serving параллелизм attention и experts иногда настраивают отдельно?"
+    ]
+  },
+  {
+    "id": 108,
+    "question": "Что такое LoRA serving и почему он позволяет держать много адаптеров поверх одной base model?",
+    "variants": [
+      "Как обслуживать сотни fine-tuned вариантов, не загружая сотни копий базовой модели?"
+    ]
+  },
+  {
+    "id": 109,
+    "question": "Почему KV cache нельзя безусловно переиспользовать между разными LoRA adapters?",
+    "variants": [
+      "Почему prefix-cache key должен учитывать идентификатор LoRA?"
+    ]
+  },
+  {
+    "id": 110,
+    "question": "Что такое adapter hot loading и какие риски он создаёт?",
+    "variants": [
+      "Как безопасно подгружать LoRA на работающий inference server без смешения версий?"
+    ]
+  },
+  {
+    "id": 111,
+    "question": "Почему serving нескольких моделей на одном GPU может давать худшую эффективность, чем одна модель?",
+    "variants": [
+      "Почему две модели, каждая использующая 40% GPU отдельно, не обязаны хорошо жить вместе?"
+    ]
+  },
+  {
+    "id": 112,
+    "question": "Что такое MIG и чем аппаратное разделение GPU полезно для inference?",
+    "variants": [
+      "Когда разделить H100 на аппаратные GPU instances лучше, чем посадить несколько серверов на целый GPU?"
+    ]
+  },
+  {
+    "id": 113,
+    "question": "Чем MIG отличается от CUDA MPS на концептуальном уровне?",
+    "variants": [
+      "Что выбрать для нескольких inference-процессов: аппаратные MIG slices или совместное исполнение через MPS?"
+    ]
+  },
+  {
+    "id": 114,
+    "question": "Как Kubernetes видит GPU и почему обычных CPU/memory requests для этого недостаточно?",
+    "variants": [
+      "Как pod получает физический GPU и кто сообщает scheduler о доступных ускорителях?"
+    ]
+  },
+  {
+    "id": 115,
+    "question": "Почему Kubernetes scheduler сам по себе не умеет оптимально размещать tensor-parallel LLM?",
+    "variants": [
+      "Почему запрос восьми GPU в Kubernetes ещё не гарантирует хорошую топологию для TP8?"
+    ]
+  },
+  {
+    "id": 116,
+    "question": "Что такое gang scheduling и зачем он нужен multi-GPU inference replica?",
+    "variants": [
+      "Почему distributed LLM replica нельзя масштабировать как восемь независимых pod по одному GPU?"
+    ]
+  },
+  {
+    "id": 117,
+    "question": "Почему Horizontal Pod Autoscaler по GPU utilization часто плохо подходит LLM serving?",
+    "variants": [
+      "Почему autoscaling LLM по 80% GPU utilization может реагировать слишком поздно?"
+    ]
+  },
+  {
+    "id": 118,
+    "question": "Какая метрика лучше для autoscaling: queue length или queue age?",
+    "variants": [
+      "Почему число waiting requests само по себе недостаточно для решения scale-out?"
+    ]
+  },
+  {
+    "id": 119,
+    "question": "Что такое open-loop и closed-loop load test для LLM serving?",
+    "variants": [
+      "Почему фиксированная concurrency может скрыть коллапс сервиса под фиксированным входным RPS?"
+    ]
+  },
+  {
+    "id": 120,
+    "question": "Что такое goodput в LLM serving?",
+    "variants": [
+      "Почему maximum throughput может расти, а реально полезная serving capacity — падать?"
+    ]
+  },
+  {
+    "id": 121,
+    "question": "Как правильно нормализовать benchmark разных LLM runtimes?",
+    "variants": [
+      "Какие условия нужно зафиксировать, чтобы сравнение vLLM и другого runtime было честным?"
+    ]
+  },
+  {
+    "id": 122,
+    "question": "Почему synthetic fixed-length benchmark может неверно ранжировать serving runtimes?",
+    "variants": [
+      "Почему тест 1024→1024 токена не заменяет replay реального трафика?"
+    ]
+  },
+  {
+    "id": 123,
+    "question": "Что такое saturation point сервера и как его найти?",
+    "variants": [
+      "Как экспериментально определить, при каком входном потоке LLM-сервис начинает уходить в очередь?"
+    ]
+  },
+  {
+    "id": 124,
+    "question": "Что такое concurrency sweep и зачем он нужен при tuning inference?",
+    "variants": [
+      "Как найти оптимальную одновременность запросов для конкретной модели и GPU?"
+    ]
+  },
+  {
+    "id": 125,
+    "question": "Почему benchmark нужно проводить после warmup и отдельно измерять cold start?",
+    "variants": [
+      "Почему первые пять запросов не стоит смешивать со steady-state latency, но нельзя просто забыть о них?"
+    ]
+  },
+  {
+    "id": 126,
+    "question": "Что измеряет request queue time и чем он отличается от scheduler time?",
+    "variants": [
+      "Как отличить ожидание свободного GPU от медленной работы самого планировщика?"
+    ]
+  },
+  {
+    "id": 127,
+    "question": "Почему CPU может стать bottleneck у LLM server с быстрым GPU?",
+    "variants": [
+      "Как понять, что LLM serving ограничен не ускорителем, а host-side кодом?"
+    ]
+  },
+  {
+    "id": 128,
+    "question": "Что такое pinned host memory и зачем она нужна при CPU↔GPU transfer?",
+    "variants": [
+      "Почему для быстрой передачи KV cache в RAM часто используют page-locked memory?"
+    ]
+  },
+  {
+    "id": 129,
+    "question": "Что такое NUMA и почему она важна на multi-GPU сервере?",
+    "variants": [
+      "Почему привязка inference process к неправильному CPU socket может замедлить GPU transfers?"
+    ]
+  },
+  {
+    "id": 130,
+    "question": "Почему model loading из network object storage может стать bottleneck масштабирования?",
+    "variants": [
+      "Почему массовый запуск GPU pods может упереться не в GPU, а в скачивание весов?"
+    ]
+  },
+  {
+    "id": 131,
+    "question": "Что такое safetensors и какое production-преимущество он даёт при загрузке моделей?",
+    "variants": [
+      "Почему safetensors безопаснее pickle checkpoint, но не делает стороннюю модель полностью доверенной?"
+    ]
+  },
+  {
+    "id": 132,
+    "question": "Почему `trust_remote_code=True` требует отдельного security review?",
+    "variants": [
+      "Какой риск появляется при загрузке Hugging Face модели с разрешением на удалённый Python-код?"
+    ]
+  },
+  {
+    "id": 133,
+    "question": "Что такое model artifact immutability и зачем pin'ить revision?",
+    "variants": [
+      "Почему нельзя запускать production LLM прямо с mutable ветки model repository?"
+    ]
+  },
+  {
+    "id": 134,
+    "question": "Что такое canary rollout для inference модели?",
+    "variants": [
+      "Как безопасно раскатывать новый inference runtime или quantized checkpoint на production-трафике?"
+    ]
+  },
+  {
+    "id": 135,
+    "question": "Чем canary отличается от shadow traffic для LLM serving?",
+    "variants": [
+      "Как проверить новый runtime на реальных prompts, не отдавая его ответы пользователям?"
+    ]
+  },
+  {
+    "id": 136,
+    "question": "Почему A/B quality test и performance benchmark LLM нельзя полностью объединить?",
+    "variants": [
+      "Почему более длинные ответы новой модели могут исказить сравнение latency с предыдущей?"
+    ]
+  },
+  {
+    "id": 137,
+    "question": "Какие базовые метрики LLM runtime нужно собирать для production observability?",
+    "variants": [
+      "Какой минимальный набор сигналов нужен, чтобы понимать состояние LLM inference сервиса?"
+    ]
+  },
+  {
+    "id": 138,
+    "question": "Почему метрики TTFT нужно разлагать на составляющие?",
+    "variants": [
+      "Как понять, какая именно стадия увеличила Time To First Token?"
+    ]
+  },
+  {
+    "id": 139,
+    "question": "Как интерпретировать метрики running и waiting requests?",
+    "variants": [
+      "Что можно понять по одновременному росту waiting requests и KV-cache usage?"
+    ]
+  },
+  {
+    "id": 140,
+    "question": "Почему Prometheus label с request ID является плохой идеей?",
+    "variants": [
+      "Почему нельзя добавлять UUID каждого inference-запроса в labels Prometheus?"
+    ]
+  },
+  {
+    "id": 141,
+    "question": "Какие histogram buckets выбирать для TTFT и TPOT?",
+    "variants": [
+      "Как настроить гистограмму latency так, чтобы p99 около SLO был информативным?"
+    ]
+  },
+  {
+    "id": 142,
+    "question": "Почему p99, рассчитанный как среднее p99 нескольких replicas, математически неверен?",
+    "variants": [
+      "Почему усреднение локальных p99 по GPU может скрыть плохой tail latency?"
+    ]
+  },
+  {
+    "id": 143,
+    "question": "Что такое distributed tracing и какие spans полезны для LLM request?",
+    "variants": [
+      "Как разложить один медленный LLM-запрос по компонентам в distributed trace?"
+    ]
+  },
+  {
+    "id": 144,
+    "question": "Почему логировать полные prompts и completions опасно?",
+    "variants": [
+      "Почему inference debug logs могут стать крупнейшей утечкой данных в AI-платформе?"
+    ]
+  },
+  {
+    "id": 145,
+    "question": "Что такое DCGM и какие GPU-сигналы полезны для LLM?",
+    "variants": [
+      "Какие аппаратные метрики NVIDIA нужно коррелировать с TTFT/TPOT?"
+    ]
+  },
+  {
+    "id": 146,
+    "question": "Что такое XID error и почему LLM platform должна его мониторить?",
+    "variants": [
+      "Как аппаратный сбой GPU может проявиться в логах inference worker и что с ним делать?"
+    ]
+  },
+  {
+    "id": 147,
+    "question": "Почему GPU temperature и power throttling могут влиять на p99 latency?",
+    "variants": [
+      "Почему inference может замедляться только через 20 минут полной нагрузки без изменения очереди?"
+    ]
+  },
+  {
+    "id": 148,
+    "question": "Как отличить compute bottleneck от network bottleneck в tensor-parallel serving?",
+    "variants": [
+      "Какими измерениями доказать, что TPOT ограничен NCCL, а не матричными операциями?"
+    ]
+  },
+  {
+    "id": 149,
+    "question": "Почему средний network throughput может быть низким при network-induced latency?",
+    "variants": [
+      "Почему 20% загрузки InfiniBand не доказывают, что сеть не тормозит decode?"
+    ]
+  },
+  {
+    "id": 150,
+    "question": "Как streaming через SSE влияет на backpressure до клиента?",
+    "variants": [
+      "Что произойдёт, если модель генерирует быстрее, чем клиент читает SSE поток?"
+    ]
+  },
+  {
+    "id": 151,
+    "question": "Чем SSE отличается от WebSocket для streaming LLM?",
+    "variants": [
+      "Когда для LLM streaming достаточно Server-Sent Events, а когда нужен WebSocket?"
+    ]
+  },
+  {
+    "id": 152,
+    "question": "Почему proxy buffering может сломать ощущение streaming даже при быстром inference?",
+    "variants": [
+      "Почему токены в логах модели выходят плавно, а в браузере приходят пачками?"
+    ]
+  },
+  {
+    "id": 153,
+    "question": "Как HTTP/2 или gRPC могут быть полезны во внутреннем inference path?",
+    "variants": [
+      "Стоит ли менять REST на gRPC ради ускорения LLM serving и как это проверить?"
+    ]
+  },
+  {
+    "id": 154,
+    "question": "Почему keep-alive соединения важны для высокочастотного LLM API?",
+    "variants": [
+      "Почему создание нового TLS-соединения на каждый короткий inference-запрос — плохая практика?"
+    ]
+  },
+  {
+    "id": 155,
+    "question": "Как client disconnect должен распространяться через gateway к scheduler?",
+    "variants": [
+      "Какие компоненты должны узнать об отмене запроса, чтобы GPU действительно перестал считать?"
+    ]
+  },
+  {
+    "id": 156,
+    "question": "Почему retry LLM-запроса после timeout может удвоить нагрузку?",
+    "variants": [
+      "Почему автоматические повторы 503 без backoff способны добить перегруженный GPU-кластер?"
+    ]
+  },
+  {
+    "id": 157,
+    "question": "Что такое retry budget и зачем он нужен inference API?",
+    "variants": [
+      "Как ограничить лавину повторных генераций во время частичного сбоя?"
+    ]
+  },
+  {
+    "id": 158,
+    "question": "Что такое hedged request и когда он опасен для LLM?",
+    "variants": [
+      "Почему техника tail-tolerance через параллельные копии запроса плохо масштабируется для LLM?"
+    ]
+  },
+  {
+    "id": 159,
+    "question": "Почему request priority должна быть ограниченной и наблюдаемой?",
+    "variants": [
+      "Почему поле priority в inference API нельзя просто доверить пользователю?"
+    ]
+  },
+  {
+    "id": 160,
+    "question": "Как Weighted Fair Queuing можно адаптировать к LLM, где запросы имеют разный размер?",
+    "variants": [
+      "Как обеспечить справедливость tenants, если один запрос может быть в тысячу раз тяжелее другого?"
+    ]
+  },
+  {
+    "id": 161,
+    "question": "Что такое deadline-aware scheduling для LLM?",
+    "variants": [
+      "Как scheduler может использовать оставшееся время до SLO, а не только порядок поступления?"
+    ]
+  },
+  {
+    "id": 162,
+    "question": "Почему output length prediction полезна scheduler, хотя точный ответ неизвестен?",
+    "variants": [
+      "Зачем пытаться предсказывать число выходных токенов до начала генерации?"
+    ]
+  },
+  {
+    "id": 163,
+    "question": "Что такое request bucketing по длине и чем он помогает?",
+    "variants": [
+      "Когда полезно разделять очередь коротких и длинных prompts?"
+    ]
+  },
+  {
+    "id": 164,
+    "question": "Почему fixed max batch size плохо описывает реальный предел LLM runtime?",
+    "variants": [
+      "Почему лимит 64 запроса в batch не гарантирует безопасное потребление памяти?"
+    ]
+  },
+  {
+    "id": 165,
+    "question": "Как определить, что слишком большой chunk size в chunked prefill ухудшает TPOT?",
+    "variants": [
+      "Как экспериментально подобрать размер prefill chunk под streaming SLO?"
+    ]
+  },
+  {
+    "id": 166,
+    "question": "Почему слишком маленький chunked prefill может снизить throughput?",
+    "variants": [
+      "Как chunked prefill может улучшить плавность токенов, но ухудшить общую эффективность?"
+    ]
+  },
+  {
+    "id": 167,
+    "question": "Что такое disaggregated prefill на базовом архитектурном уровне?",
+    "variants": [
+      "Зачем physically разделять context phase и generation phase по разным GPU?"
+    ]
+  },
+  {
+    "id": 168,
+    "question": "Почему disaggregated prefill не гарантирует увеличение raw throughput?",
+    "variants": [
+      "Почему перенос prefill на отдельные GPU может улучшить SLO, но не повысить tokens/s на кластер?"
+    ]
+  },
+  {
+    "id": 169,
+    "question": "Что именно нужно передать между prefill и decode workers?",
+    "variants": [
+      "Какое состояние context worker должен отдать generation worker, чтобы тот не пересчитывал prompt?"
+    ]
+  },
+  {
+    "id": 170,
+    "question": "Почему bandwidth сети критична для prefill/decode disaggregation?",
+    "variants": [
+      "Как оценить, не съест ли передача KV cache весь эффект disaggregated serving?"
+    ]
+  },
+  {
+    "id": 171,
+    "question": "Что такое layer-wise KV transfer и зачем перекрывать его с prefill?",
+    "variants": [
+      "Как скрыть часть стоимости передачи KV между context и generation nodes?"
+    ]
+  },
+  {
+    "id": 172,
+    "question": "Почему P/D ratio в disaggregated serving должен зависеть от workload?",
+    "variants": [
+      "Почему оптимальное число context GPU и generation GPU меняется вместе с длиной запросов?"
+    ]
+  },
+  {
+    "id": 173,
+    "question": "Что такое prefix-aware request routing в distributed serving?",
+    "variants": [
+      "Как балансировщик может использовать знания о KV cache при выборе replica?"
+    ]
+  },
+  {
+    "id": 174,
+    "question": "Почему consistent hashing по tenant не является полноценным prefix-aware routing?",
+    "variants": [
+      "Почему sticky routing по user ID не эквивалентен маршрутизации по содержимому общего prompt prefix?"
+    ]
+  },
+  {
+    "id": 175,
+    "question": "Что такое load-aware routing по queue length и какие у него ограничения?",
+    "variants": [
+      "Почему выбрать реплику с наименьшим числом запросов не всегда означает выбрать наименее загруженную?"
+    ]
+  },
+  {
+    "id": 176,
+    "question": "Как power-of-two choices работает как простой load balancer?",
+    "variants": [
+      "Как получить почти хорошую балансировку без запроса состояния каждой LLM-реплики на каждый request?"
+    ]
+  },
+  {
+    "id": 177,
+    "question": "Что такое routing state staleness и почему оно опасно при burst traffic?",
+    "variants": [
+      "Почему центральный список queue lengths может сам создавать hot spots, если обновляется редко?"
+    ]
+  },
+  {
+    "id": 178,
+    "question": "Как rate-based autoscaling отличается от concurrency-based для LLM?",
+    "variants": [
+      "Что лучше предсказывает будущую потребность в GPU: текущая очередь или скорость поступления токенов?"
+    ]
+  },
+  {
+    "id": 179,
+    "question": "Почему autoscaler должен учитывать scale-down отдельно от scale-up?",
+    "variants": [
+      "Почему слишком агрессивный scale-down может сделать следующий пик хуже, даже если GPU дорогие?"
+    ]
+  },
+  {
+    "id": 180,
+    "question": "Как readiness влияет на корректность autoscaling LLM?",
+    "variants": [
+      "Почему pod в состоянии Running ещё нельзя учитывать как готовый GPU capacity?"
+    ]
+  },
+  {
+    "id": 181,
+    "question": "Что такое model warm pool и когда он оправдан?",
+    "variants": [
+      "Когда стоит платить за простаивающие GPU ради быстрого масштабирования?"
+    ]
+  },
+  {
+    "id": 182,
+    "question": "Почему local model cache на node ускоряет rollout, но усложняет disk management?",
+    "variants": [
+      "Какие trade-offs возникают у кэша весов модели на локальных NVMe GPU-узлов?"
+    ]
+  },
+  {
+    "id": 183,
+    "question": "Что такое lazy model loading и когда оно полезно?",
+    "variants": [
+      "Когда подгружать модель или адаптер по первому запросу разумнее, чем держать всё в VRAM?"
+    ]
+  },
+  {
+    "id": 184,
+    "question": "Что такое single-flight загрузка и зачем она нужна model cache?",
+    "variants": [
+      "Как избежать десяти параллельных загрузок одного LoRA при первом burst запросов?"
+    ]
+  },
+  {
+    "id": 185,
+    "question": "Почему model unload тоже должен быть coordinated?",
+    "variants": [
+      "Почему удалить LoRA из VRAM во время активной генерации нельзя как обычный файл из кэша?"
+    ]
+  },
+  {
+    "id": 186,
+    "question": "Что такое structured-concurrency подход к lifecycle inference request?",
+    "variants": [
+      "Как организовать async-код LLM gateway так, чтобы cancellation не оставляла фоновые задачи и утечки ресурсов?"
+    ]
+  },
+  {
+    "id": 187,
+    "question": "Почему Python GIL может быть заметен в CPU-side scheduler, но не объясняет GPU compute?",
+    "variants": [
+      "Когда Global Interpreter Lock реально может ограничивать inference server?"
+    ]
+  },
+  {
+    "id": 188,
+    "question": "Почему async HTTP server не означает автоматически высокий inference throughput?",
+    "variants": [
+      "Почему переход FastAPI handler на async не удваивает tokens/s модели?"
+    ]
+  },
+  {
+    "id": 189,
+    "question": "Что такое event-loop lag и почему его стоит мониторить в LLM gateway?",
+    "variants": [
+      "Как обнаружить, что токены задерживает Python event loop, а не модель?"
+    ]
+  },
+  {
+    "id": 190,
+    "question": "Почему JSON serialization иногда становится заметной в high-QPS small-model serving?",
+    "variants": [
+      "Когда web-framework overhead перестаёт быть пренебрежимым рядом с LLM inference?"
+    ]
+  },
+  {
+    "id": 191,
+    "question": "Что такое zero-copy и где он применим в inference pipeline?",
+    "variants": [
+      "Где лишние копирования данных могут стать bottleneck в inference serving?"
+    ]
+  },
+  {
+    "id": 192,
+    "question": "Почему multimodal LLM serving требует учитывать encoder отдельно от text decoder?",
+    "variants": [
+      "Почему стоимость запроса vision-language model нельзя оценить только числом текстовых токенов?"
+    ]
+  },
+  {
+    "id": 193,
+    "question": "Как image preprocessing может стать CPU bottleneck в multimodal serving?",
+    "variants": [
+      "Почему VLM GPU может простаивать при полной загрузке CPU?"
+    ]
+  },
+  {
+    "id": 194,
+    "question": "Что такое multimodal cache и какие correctness keys он должен учитывать?",
+    "variants": [
+      "Что должно входить в ключ кэша vision embeddings, чтобы не переиспользовать устаревшее представление?"
+    ]
+  },
+  {
+    "id": 195,
+    "question": "Почему tool-calling request может иметь другую serving cost, чем обычный chat?",
+    "variants": [
+      "Почему агентный трафик способен резко увеличить prefill load при том же числе пользовательских запросов?"
+    ]
+  },
+  {
+    "id": 196,
+    "question": "Как изменение system prompt может неожиданно повлиять на infrastructure metrics?",
+    "variants": [
+      "Почему изменение текста инструкций без изменения модели способно вызвать latency-инцидент?"
+    ]
+  },
+  {
+    "id": 197,
+    "question": "Почему chat history growth требует продуктовой и инфраструктурной политики?",
+    "variants": [
+      "Почему многотуровый чат со временем становится инфраструктурно дороже даже при коротких новых сообщениях?"
+    ]
+  },
+  {
+    "id": 198,
+    "question": "Что такое prompt compression с точки зрения serving economics?",
+    "variants": [
+      "Когда уменьшение prompt на 30% даст меньше 30% экономии GPU?"
+    ]
+  },
+  {
+    "id": 199,
+    "question": "Почему RAG retrieval latency и LLM TTFT нужно наблюдать раздельно?",
+    "variants": [
+      "Как отличить медленный retrieval от медленного prefill в RAG-приложении?"
+    ]
+  },
+  {
+    "id": 200,
+    "question": "Почему tokenizer throughput нужно измерять на реальных языках и текстах?",
+    "variants": [
+      "Почему одинаковое число символов на русском и английском может стоить разное число GPU-токенов?"
+    ]
+  },
+  {
+    "id": 201,
+    "question": "Что такое tokenizer batching и когда он полезен?",
+    "variants": [
+      "Стоит ли собирать несколько prompts в batch ещё до GPU, на этапе токенизации?"
+    ]
+  },
+  {
+    "id": 202,
+    "question": "Почему detokenization тоже может быть stateful при streaming?",
+    "variants": [
+      "Почему нельзя всегда декодировать каждый сгенерированный token ID в строку независимо от предыдущих?"
+    ]
+  },
+  {
+    "id": 203,
+    "question": "Что такое logprobs и почему их выдача может увеличить стоимость ответа?",
+    "variants": [
+      "Почему `top_logprobs=20` для каждого токена — не бесплатная metadata?"
+    ]
+  },
+  {
+    "id": 204,
+    "question": "Почему beam search обычно дороже обычного single-sequence sampling?",
+    "variants": [
+      "Почему запрос с beam_width=8 должен стоить scheduler дороже обычного completion?"
+    ]
+  },
+  {
+    "id": 205,
+    "question": "Что такое parallel sampling и как он взаимодействует с KV cache sharing?",
+    "variants": [
+      "Как PagedAttention помогает при генерации нескольких ответов на один и тот же prompt?"
+    ]
+  },
+  {
+    "id": 206,
+    "question": "Почему random seed не гарантирует идентичный output между разными runtimes?",
+    "variants": [
+      "Почему одинаковые temperature и seed не делают два inference engine побитово эквивалентными?"
+    ]
+  },
+  {
+    "id": 207,
+    "question": "Что такое numerical drift после смены inference kernel?",
+    "variants": [
+      "Почему оптимизация kernels может изменить отдельные ответы без изменения checkpoint?"
+    ]
+  },
+  {
+    "id": 208,
+    "question": "Что такое deterministic serving и какой у него performance trade-off?",
+    "variants": [
+      "Как высокая воспроизводимость ответов может конфликтовать с максимальной скоростью GPU?"
+    ]
+  },
+  {
+    "id": 209,
+    "question": "Почему OpenAI-compatible API требует contract tests на streaming chunks?",
+    "variants": [
+      "Что проверить в потоке событий перед заменой одного OpenAI-compatible inference server другим?"
+    ]
+  },
+  {
+    "id": 210,
+    "question": "Почему error taxonomy важнее единого HTTP 500 от model server?",
+    "variants": [
+      "Почему все ошибки inference нельзя возвращать как Internal Server Error?"
+    ]
+  },
+  {
+    "id": 211,
+    "question": "Что такое context-too-long error и где лучше валидировать длину?",
+    "variants": [
+      "На каком этапе отклонять prompt, который не помещается в контекст модели?"
+    ]
+  },
+  {
+    "id": 212,
+    "question": "Почему `max_model_len` runtime может быть ниже capability checkpoint?",
+    "variants": [
+      "Почему deployment может разрешать только 32K у модели с заявленными 128K?"
+    ]
+  },
+  {
+    "id": 213,
+    "question": "Что такое memory headroom и почему не стоит настраивать GPU на 100% VRAM?",
+    "variants": [
+      "Почему использовать всю доступную VRAM под веса и KV cache опасно?"
+    ]
+  },
+  {
+    "id": 214,
+    "question": "Как различать reserved и allocated GPU memory при debugging?",
+    "variants": [
+      "Почему удаление tensors в процессе не сразу уменьшает VRAM в nvidia-smi?"
+    ]
+  },
+  {
+    "id": 215,
+    "question": "Что такое memory leak в долгоживущем inference server и как его доказать?",
+    "variants": [
+      "Как отличить нормальный caching allocator от настоящей утечки VRAM?"
+    ]
+  },
+  {
+    "id": 216,
+    "question": "Что такое soak test для LLM serving?",
+    "variants": [
+      "Какие проблемы показывает многочасовой inference benchmark, которых не видно в коротком perf test?"
+    ]
+  },
+  {
+    "id": 217,
+    "question": "Что такое fault injection и какие сбои полезно имитировать в serving layer?",
+    "variants": [
+      "Какие отказы стоит специально воспроизводить до запуска distributed LLM serving в production?"
+    ]
+  },
+  {
+    "id": 218,
+    "question": "Почему graceful degradation полезнее бинарного up/down состояния?",
+    "variants": [
+      "Как LLM API может сохранить доступность при нехватке GPU, не обслуживая все запросы одинаково?"
+    ]
+  },
+  {
+    "id": 219,
+    "question": "После роста traffic TTFT p99 вырос в 6 раз, TPOT почти не изменился. Как вы будете локализовать bottleneck?",
+    "variants": [
+      "Первый токен стал медленным, но скорость дальнейшей генерации прежняя. Какие гипотезы проверять?"
+    ]
+  },
+  {
+    "id": 220,
+    "question": "TPOT p99 резко вырос, а TTFT и queue time остались стабильными. Какие гипотезы приоритетны?",
+    "variants": [
+      "Первый токен нормальный, но между последующими токенами появились большие паузы. Что расследовать?"
+    ]
+  },
+  {
+    "id": 221,
+    "question": "После увеличения max context с 32K до 128K throughput упал даже для коротких запросов. Почему это могло произойти?",
+    "variants": [
+      "Почему увеличение разрешённого context window иногда ухудшает даже 2K-запросы?"
+    ]
+  },
+  {
+    "id": 222,
+    "question": "GPU utilization почти не изменился, но output tokens/s снизился на 30%. Как это диагностировать?",
+    "variants": [
+      "Почему одинаковые 90% GPU utilization могут соответствовать разному tokens/s?"
+    ]
+  },
+  {
+    "id": 223,
+    "question": "После включения prefix caching TTFT p50 улучшился, а p99 ухудшился. Какие механизмы это объясняют?",
+    "variants": [
+      "Почему automatic prefix caching может улучшить медиану и одновременно испортить хвост задержки?"
+    ]
+  },
+  {
+    "id": 224,
+    "question": "Prefix cache hit rate внезапно упал почти до нуля после безобидного релиза приложения. Как искать причину?",
+    "variants": [
+      "Почему кэш общих system prompts исчез после изменения приложения, хотя текст визуально тот же?"
+    ]
+  },
+  {
+    "id": 225,
+    "question": "KV-cache utilization держится около 95%, но OOM нет. Почему это всё равно опасное состояние?",
+    "variants": [
+      "Почему 95% занятых KV blocks — это уже saturation, даже если сервер не падает?"
+    ]
+  },
+  {
+    "id": 226,
+    "question": "Сервис периодически делает recompute длинных запросов из-за preemption. Как понять, выгоднее ли перейти на KV offload?",
+    "variants": [
+      "Как выбрать между swap KV cache и повторным prefill при вытеснении?"
+    ]
+  },
+  {
+    "id": 227,
+    "question": "Как диагностировать KV-cache thrashing?",
+    "variants": [
+      "Какие метрики показывают, что KV cache постоянно вытесняется и загружается обратно?"
+    ]
+  },
+  {
+    "id": 228,
+    "question": "Почему long-context request может ухудшить latency коротких запросов даже при continuous batching?",
+    "variants": [
+      "Почему один 200K-контекст способен быть noisy neighbor для короткого чата?"
+    ]
+  },
+  {
+    "id": 229,
+    "question": "Как спроектировать отдельный service class для long-context requests?",
+    "variants": [
+      "Как изолировать 128K/256K запросы от обычного интерактивного чата?"
+    ]
+  },
+  {
+    "id": 230,
+    "question": "После включения speculative decoding latency улучшилась при concurrency 1, но throughput под load упал. Почему?",
+    "variants": [
+      "Почему speculative decoding полезен low-batch latency, но может мешать saturated server?"
+    ]
+  },
+  {
+    "id": 231,
+    "question": "Как выбрать max draft length в speculative decoding?",
+    "variants": [
+      "Почему в speculation нельзя просто всегда предлагать максимально много черновых токенов?"
+    ]
+  },
+  {
+    "id": 232,
+    "question": "Acceptance rate speculative decoding упал после повышения temperature. Почему это ожидаемо?",
+    "variants": [
+      "Почему более творческий sampling может уменьшить ускорение от draft model?"
+    ]
+  },
+  {
+    "id": 233,
+    "question": "Как диагностировать деградацию после обновления attention kernel?",
+    "variants": [
+      "После апдейта runtime одна модель стала медленнее, остальные нет. Как доказать проблему attention backend?"
+    ]
+  },
+  {
+    "id": 234,
+    "question": "Почему kernel fallback может незаметно ухудшить production performance?",
+    "variants": [
+      "Как сервер может стать вдвое медленнее без ошибок после включения новой feature?"
+    ]
+  },
+  {
+    "id": 235,
+    "question": "Как выявить CPU starvation в multi-process LLM runtime?",
+    "variants": [
+      "Как cgroup CPU throttling способен замедлить GPU inference?"
+    ]
+  },
+  {
+    "id": 236,
+    "question": "Почему oversubscription CPU threads может ухудшить latency?",
+    "variants": [
+      "Почему больше CPU threads иногда делает LLM server медленнее?"
+    ]
+  },
+  {
+    "id": 237,
+    "question": "После перехода на multi-node TP периодически зависают запросы без CUDA OOM. Что проверять?",
+    "variants": [
+      "Почему tensor-parallel replica может зависнуть целиком из-за одного rank?"
+    ]
+  },
+  {
+    "id": 238,
+    "question": "Как отличить NCCL timeout от медленного, но живого collective?",
+    "variants": [
+      "Как понять, сеть просто замедлилась или один distributed rank перестал участвовать в collective?"
+    ]
+  },
+  {
+    "id": 239,
+    "question": "Почему uneven GPU clocks в tensor-parallel group влияют на всех?",
+    "variants": [
+      "Почему один замедлившийся GPU делает медленнее TP8 целиком?"
+    ]
+  },
+  {
+    "id": 240,
+    "question": "Как topology-aware placement уменьшает latency distributed LLM?",
+    "variants": [
+      "Почему placement policy должна знать не только число GPU, но и структуру связей между ними?"
+    ]
+  },
+  {
+    "id": 241,
+    "question": "Почему cross-node tensor parallelism чувствителен к packet loss даже при достаточной nominal bandwidth?",
+    "variants": [
+      "Почему InfiniBand с высокой пиковой bandwidth всё равно может давать плохой TPOT?"
+    ]
+  },
+  {
+    "id": 242,
+    "question": "Как выбрать между TP и PP для модели, которая требует 16 GPU на двух 8-GPU nodes?",
+    "variants": [
+      "Как распараллелить 16-GPU LLM на двух узлах, если внутри узла NVLink намного быстрее сети между ними?"
+    ]
+  },
+  {
+    "id": 243,
+    "question": "Почему pipeline stage imbalance снижает throughput?",
+    "variants": [
+      "Почему поровну разделить число Transformer layers между pipeline stages не обязательно оптимально?"
+    ]
+  },
+  {
+    "id": 244,
+    "question": "Как диагностировать all-to-all bottleneck в expert-parallel MoE?",
+    "variants": [
+      "Как доказать, что MoE модель тормозит на пересылке токенов между experts?"
+    ]
+  },
+  {
+    "id": 245,
+    "question": "Что такое straggler amplification в synchronous model parallelism?",
+    "variants": [
+      "Почему небольшая редкая задержка одного GPU многократно проявляется в latency всей distributed replica?"
+    ]
+  },
+  {
+    "id": 246,
+    "question": "Как определить оптимальный tensor parallel degree для конкретной модели и GPU?",
+    "variants": [
+      "Почему минимальное число GPU, на которое помещается модель, и самое выгодное число GPU могут различаться?"
+    ]
+  },
+  {
+    "id": 247,
+    "question": "Почему data parallel replicas часто дают лучше cost scaling, чем увеличение TP degree?",
+    "variants": [
+      "Почему для роста QPS выгоднее часто добавить ещё одну TP4 replica, чем превратить существующую в TP8?"
+    ]
+  },
+  {
+    "id": 248,
+    "question": "Как capacity plan меняется при смеси нескольких моделей на одном GPU fleet?",
+    "variants": [
+      "Как считать GPU capacity, если платформа обслуживает десятки моделей с разными профилями нагрузки?"
+    ]
+  },
+  {
+    "id": 249,
+    "question": "Что такое service demand в токенах и как его использовать для capacity planning?",
+    "variants": [
+      "Как перейти от прогноза миллионов входных и выходных токенов в минуту к числу GPU-реплик?"
+    ]
+  },
+  {
+    "id": 250,
+    "question": "Как закон Литтла помогает оценивать concurrency LLM-сервиса?",
+    "variants": [
+      "Как приблизительно связать RPS, среднюю длительность генерации и число одновременно активных запросов?"
+    ]
+  },
+  {
+    "id": 251,
+    "question": "Почему utilization target для GPU должен быть ниже 100%?",
+    "variants": [
+      "Почему экономия на простаивающих 10–20% GPU может обернуться огромным ростом p99?"
+    ]
+  },
+  {
+    "id": 252,
+    "question": "Как рассчитать headroom на отказ одной replica?",
+    "variants": [
+      "Как понять, какой запас GPU нужен, чтобы потеря одного worker не нарушила SLO?"
+    ]
+  },
+  {
+    "id": 253,
+    "question": "Почему zone failure capacity нельзя считать так же, как отказ одного pod?",
+    "variants": [
+      "Почему три одинаковых GPU-пула по зонам не означают автоматическую устойчивость к потере одной зоны?"
+    ]
+  },
+  {
+    "id": 254,
+    "question": "Как моделировать burst traffic для LLM, а не только steady RPS?",
+    "variants": [
+      "Как проверить, выдержит ли сервис внезапный всплеск запросов, если средняя нагрузка низкая?"
+    ]
+  },
+  {
+    "id": 255,
+    "question": "Что такое queue drain time после burst и почему это важная метрика?",
+    "variants": [
+      "Почему после окончания пика пользователи ещё долго могут видеть плохой TTFT?"
+    ]
+  },
+  {
+    "id": 256,
+    "question": "Как capacity planning учитывает unknown output length?",
+    "variants": [
+      "Как резервировать GPU capacity, если заранее неизвестно, сколько токенов сгенерирует каждый запрос?"
+    ]
+  },
+  {
+    "id": 257,
+    "question": "Почему max_tokens reservation может сильно недоиспользовать KV cache?",
+    "variants": [
+      "Почему резервировать память на максимальный ответ каждому запросу безопасно, но крайне неэффективно?"
+    ]
+  },
+  {
+    "id": 258,
+    "question": "Как определить безопасный overcommit KV memory?",
+    "variants": [
+      "Как количественно решить, насколько можно рассчитывать, что не все запросы дойдут до max_tokens одновременно?"
+    ]
+  },
+  {
+    "id": 259,
+    "question": "После rollout новой модели средний output length вырос на 40%, а RPS тот же. Какие infrastructure последствия ожидать?",
+    "variants": [
+      "Почему неизменный RPS не означает неизменную нагрузку после смены модели?"
+    ]
+  },
+  {
+    "id": 260,
+    "question": "Как входная длина влияет на decode latency каждого последующего токена?",
+    "variants": [
+      "Почему 1000-й выходной токен после длинного prompt может генерироваться медленнее, чем после короткого?"
+    ]
+  },
+  {
+    "id": 261,
+    "question": "Что такое sliding-window attention и как оно меняет serving memory/cost?",
+    "variants": [
+      "Как local attention может уменьшить KV pressure на длинных последовательностях?"
+    ]
+  },
+  {
+    "id": 262,
+    "question": "Что такое MLA и почему она меняет экономику KV cache?",
+    "variants": [
+      "Почему две LLM одинакового размера могут радикально различаться по KV-cache memory из-за attention architecture?"
+    ]
+  },
+  {
+    "id": 263,
+    "question": "Почему parameter count плохо предсказывает serving cost MoE-модели?",
+    "variants": [
+      "Почему число параметров Mixture-of-Experts не говорит напрямую, сколько GPU нужно и какой будет TPOT?"
+    ]
+  },
+  {
+    "id": 264,
+    "question": "Как определить, что MoE serving ограничен memory capacity, а не compute?",
+    "variants": [
+      "Как понять, зачем MoE нужны много GPU: чтобы хранить experts или чтобы считать их?"
+    ]
+  },
+  {
+    "id": 265,
+    "question": "Как безопасно обновлять NCCL/CUDA/driver в inference fleet?",
+    "variants": [
+      "Как раскатывать новый GPU driver, не превращая distributed LLM serving в эксперимент на пользователях?"
+    ]
+  },
+  {
+    "id": 266,
+    "question": "Почему heterogeneous GPU fleet усложняет routing и capacity accounting?",
+    "variants": [
+      "Почему нельзя считать H100- и B200-реплики одинаковыми единицами capacity?"
+    ]
+  },
+  {
+    "id": 267,
+    "question": "Как использовать weighted load balancing для heterogeneous replicas?",
+    "variants": [
+      "Как распределять трафик между быстрыми и медленными GPU без постоянной очереди на слабых?"
+    ]
+  },
+  {
+    "id": 268,
+    "question": "Что такое online profiling и почему оно опасно запускать без ограничений?",
+    "variants": [
+      "Почему нельзя постоянно держать тяжёлый GPU profiler на всех production workers?"
+    ]
+  },
+  {
+    "id": 269,
+    "question": "Как построить performance regression gate для нового runtime build?",
+    "variants": [
+      "Как автоматически не пропускать обновления inference engine, которые незаметно ухудшают latency?"
+    ]
+  },
+  {
+    "id": 270,
+    "question": "Почему benchmark variance нужно оценивать статистически?",
+    "variants": [
+      "Почему один прогон perf test недостаточен для выбора более быстрого runtime?"
+    ]
+  },
+  {
+    "id": 271,
+    "question": "Как проверять correctness после изменения quantized KV cache?",
+    "variants": [
+      "Какие тесты нужны перед переходом KV cache с BF16 на FP8/FP4?"
+    ]
+  },
+  {
+    "id": 272,
+    "question": "Почему quantization quality regression может зависеть от языка?",
+    "variants": [
+      "Почему 4-bit модель может быть приемлема на английском и заметно хуже на русском?"
+    ]
+  },
+  {
+    "id": 273,
+    "question": "Как диагностировать rare OOM только на некоторых prompts?",
+    "variants": [
+      "Почему один и тот же длинный запрос иногда проходит, а иногда падает по OOM?"
+    ]
+  },
+  {
+    "id": 274,
+    "question": "Что такое fragmentation-induced OOM и как его подтвердить?",
+    "variants": [
+      "Как доказать, что OOM вызван не суммарным объёмом данных, а фрагментацией?"
+    ]
+  },
+  {
+    "id": 275,
+    "question": "Почему repeated model load/unload может фрагментировать VRAM?",
+    "variants": [
+      "Почему сервер с динамической сменой моделей может получить OOM после сотен загрузок, хотя каждая модель по отдельности помещается?"
+    ]
+  },
+  {
+    "id": 276,
+    "question": "Как определить, что CUDA graph memory overhead слишком велик?",
+    "variants": [
+      "Когда CUDA Graphs ускоряют один step, но ухудшают общую serving capacity?"
+    ]
+  },
+  {
+    "id": 277,
+    "question": "Что такое graph shape explosion при dynamic batching?",
+    "variants": [
+      "Почему нельзя заранее CUDA-capture каждую возможную форму batch в LLM server?"
+    ]
+  },
+  {
+    "id": 278,
+    "question": "Как CPU tokenization и GPU prefill можно pipeline'ить?",
+    "variants": [
+      "Как скрыть стоимость токенизации за вычислением предыдущих запросов?"
+    ]
+  },
+  {
+    "id": 279,
+    "question": "Как overlap communication with compute работает в tensor parallel inference?",
+    "variants": [
+      "Как уменьшить видимую стоимость NCCL, выполняя часть обмена параллельно с GPU compute?"
+    ]
+  },
+  {
+    "id": 280,
+    "question": "Почему communication/computation overlap может ухудшить performance?",
+    "variants": [
+      "Почему параллельно запустить NCCL и kernel не всегда быстрее, чем выполнить их последовательно?"
+    ]
+  },
+  {
+    "id": 281,
+    "question": "Как performance влияет на выбор block size KV cache при prefix-heavy workload?",
+    "variants": [
+      "Как подобрать размер KV page, если трафик часто повторяет длинные system prompts?"
+    ]
+  },
+  {
+    "id": 282,
+    "question": "Почему cache warming после deploy может вызвать temporary capacity dip?",
+    "variants": [
+      "Почему замена 50% реплик одновременно может перегрузить кластер даже при том же количестве GPU?"
+    ]
+  },
+  {
+    "id": 283,
+    "question": "Как rollout влияет на cache-aware routing?",
+    "variants": [
+      "Как совместить canary traffic split и prefix-aware routing без смешения кэшей разных версий?"
+    ]
+  },
+  {
+    "id": 284,
+    "question": "Почему session affinity может мешать равномерному rollout?",
+    "variants": [
+      "Почему sticky chats усложняют canary и быстрое переключение версии модели?"
+    ]
+  },
+  {
+    "id": 285,
+    "question": "Как обеспечить idempotent model deployment?",
+    "variants": [
+      "Как сделать так, чтобы повтор reconcile Kubernetes operator не загружал одну модель заново и не создавал дубликаты?"
+    ]
+  },
+  {
+    "id": 286,
+    "question": "Что такое control plane и data plane в LLM serving platform?",
+    "variants": [
+      "Почему управление моделями и обработку пользовательских токенов стоит разделять архитектурно?"
+    ]
+  },
+  {
+    "id": 287,
+    "question": "Какой consistency model нужен model registry и routing config?",
+    "variants": [
+      "Нужно ли всем inference routers мгновенно видеть одинаковые routing weights?"
+    ]
+  },
+  {
+    "id": 288,
+    "question": "Что такое last-known-good configuration и зачем она inference worker?",
+    "variants": [
+      "Что должен делать model server, если сервис конфигурации временно недоступен?"
+    ]
+  },
+  {
+    "id": 289,
+    "question": "Как проектировать health check distributed replica из нескольких ranks?",
+    "variants": [
+      "Как понять, что TP8 replica здорова целиком, а не только её HTTP-процесс?"
+    ]
+  },
+  {
+    "id": 290,
+    "question": "Что такое progress watchdog в inference worker?",
+    "variants": [
+      "Почему liveness HTTP 200 не доказывает, что GPU worker реально генерирует токены?"
+    ]
+  },
+  {
+    "id": 291,
+    "question": "Как обнаружить stuck request без убийства здоровой replica?",
+    "variants": [
+      "Как отличить зависший отдельный completion от зависшей всей GPU-реплики?"
+    ]
+  },
+  {
+    "id": 292,
+    "question": "Почему aggressive liveness restart может создать cascading failure?",
+    "variants": [
+      "Как неверные Kubernetes probes могут превратить высокую нагрузку в массовый restart GPU pods?"
+    ]
+  },
+  {
+    "id": 293,
+    "question": "Что такое circuit breaker между gateway и model pool?",
+    "variants": [
+      "Когда gateway должен перестать пытаться отправлять запросы на деградировавший inference pool?"
+    ]
+  },
+  {
+    "id": 294,
+    "question": "Как fallback model влияет на reliability и quality semantics?",
+    "variants": [
+      "Почему запасная меньшая LLM — это не просто технический failover без продуктовых последствий?"
+    ]
+  },
+  {
+    "id": 295,
+    "question": "Как сделать fallback без retry storm?",
+    "variants": [
+      "Как не перегрузить резервный model pool в момент падения основного?"
+    ]
+  },
+  {
+    "id": 296,
+    "question": "Что такое bulkhead isolation для LLM workloads?",
+    "variants": [
+      "Как сделать так, чтобы перегрузка одного AI-продукта не положила общий inference cluster?"
+    ]
+  },
+  {
+    "id": 297,
+    "question": "Как ограничивать tenant по KV memory, а не только tokens/minute?",
+    "variants": [
+      "Как защититься от клиента, который небольшим RPS удерживает почти весь KV cache длинными генерациями?"
+    ]
+  },
+  {
+    "id": 298,
+    "question": "Почему multi-tenant quotas должны быть hierarchical?",
+    "variants": [
+      "Как организовать квоты, если один корпоративный клиент имеет десятки приложений на общей GPU-платформе?"
+    ]
+  },
+  {
+    "id": 299,
+    "question": "Как distributed token bucket реализует rate limit на нескольких gateways?",
+    "variants": [
+      "Как соблюдать общую token quota, если запросы приходят через много независимых API gateways?"
+    ]
+  },
+  {
+    "id": 300,
+    "question": "Почему quota service не должен быть single point of failure inference API?",
+    "variants": [
+      "Как сохранить inference availability при отказе централизованного rate limiter?"
+    ]
+  },
+  {
+    "id": 301,
+    "question": "Как защитить serving API от prompt-size DoS до токенизации?",
+    "variants": [
+      "Как отклонить гигантский prompt до того, как он загрузит CPU tokenizer и память gateway?"
+    ]
+  },
+  {
+    "id": 302,
+    "question": "Что такое slowloris-подобная атака на streaming inference endpoint?",
+    "variants": [
+      "Как медленный клиент может истощить LLM API, почти не потребляя GPU?"
+    ]
+  },
+  {
+    "id": 303,
+    "question": "Почему API key authorization недостаточно для multi-tenant model routing?",
+    "variants": [
+      "Почему знание валидного API key не должно давать доступ ко всем моделям и LoRA платформы?"
+    ]
+  },
+  {
+    "id": 304,
+    "question": "Как model supply-chain compromise может попасть в inference cluster?",
+    "variants": [
+      "Какие элементы цепочки поставки LLM нужно защищать кроме Docker image?"
+    ]
+  },
+  {
+    "id": 305,
+    "question": "Почему inference containers должны работать без root и с минимальным egress?",
+    "variants": [
+      "Как уменьшить blast radius, если в inference server найдут remote code execution?"
+    ]
+  },
+  {
+    "id": 306,
+    "question": "Как secrets могут утечь через model server и как этого избежать?",
+    "variants": [
+      "Почему токен доступа к model hub не стоит постоянно держать в environment работающего inference worker?"
+    ]
+  },
+  {
+    "id": 307,
+    "question": "Почему network policy важна даже для stateless text generation?",
+    "variants": [
+      "Зачем ограничивать сетевые соединения GPU worker, если он всего лишь генерирует текст?"
+    ]
+  },
+  {
+    "id": 308,
+    "question": "Что делать, если prefill worker успешно посчитал KV cache, но decode worker умер до начала генерации?",
+    "variants": [
+      "Как восстанавливать disaggregated request, если generation node падает после готового prefill?"
+    ]
+  },
+  {
+    "id": 309,
+    "question": "Что делать, если KV transfer между prefill и decode завершился только частично?",
+    "variants": [
+      "Как сделать передачу KV cache атомарной с точки зрения decode worker?"
+    ]
+  },
+  {
+    "id": 310,
+    "question": "Как избежать orphan KV cache в disaggregated architecture?",
+    "variants": [
+      "Как не накапливать гигабайты KV после отменённых P/D-запросов?"
+    ]
+  },
+  {
+    "id": 311,
+    "question": "Почему global scheduler disaggregated serving может стать bottleneck?",
+    "variants": [
+      "Как coordinator сам может ограничить масштабирование P/D serving, даже когда GPU свободны?"
+    ]
+  },
+  {
+    "id": 312,
+    "question": "Как выбирать prefill worker в disaggregated serving?",
+    "variants": [
+      "По каким сигналам router должен выбирать context node для длинного prompt?"
+    ]
+  },
+  {
+    "id": 313,
+    "question": "Как выбирать decode worker после prefill?",
+    "variants": [
+      "Когда назначать generation node — до начала prefill или после него?"
+    ]
+  },
+  {
+    "id": 314,
+    "question": "Почему P/D autoscaling должен учитывать coupling двух очередей?",
+    "variants": [
+      "Почему нельзя независимо максимизировать загрузку prefill и decode кластеров?"
+    ]
+  },
+  {
+    "id": 315,
+    "question": "Как определить, что P/D disaggregation не подходит конкретному workload?",
+    "variants": [
+      "Когда лучше оставить prefill и decode на одной реплике, несмотря на популярность P/D architecture?"
+    ]
+  },
+  {
+    "id": 316,
+    "question": "Как оценить break-even network bandwidth для P/D disaggregation?",
+    "variants": [
+      "Как прикинуть, достаточно ли сети для передачи KV между prefill и decode pools?"
+    ]
+  },
+  {
+    "id": 317,
+    "question": "Почему RDMA/GPUDirect полезны для KV transfer?",
+    "variants": [
+      "Почему прямой GPU-to-network путь важен для disaggregated inference?"
+    ]
+  },
+  {
+    "id": 318,
+    "question": "Как failure одного cache/storage tier влияет на KV offload architecture?",
+    "variants": [
+      "Что должен делать LLM server при недоступности удалённого KV-cache storage?"
+    ]
+  },
+  {
+    "id": 319,
+    "question": "Почему репликация KV cache может быть слишком дорогой?",
+    "variants": [
+      "Почему active KV cache обычно не реплицируют как данные базы между двумя узлами?"
+    ]
+  },
+  {
+    "id": 320,
+    "question": "Когда checkpointing decode state может иметь смысл?",
+    "variants": [
+      "Стоит ли сохранять KV state длинной генерации для восстановления после падения worker?"
+    ]
+  },
+  {
+    "id": 321,
+    "question": "Как обеспечить continuity streaming при worker failover?",
+    "variants": [
+      "Можно ли незаметно для пользователя продолжить генерацию на другом GPU после падения текущего?"
+    ]
+  },
+  {
+    "id": 322,
+    "question": "Что такое regional failover для LLM API и чем он сложнее обычного web service?",
+    "variants": [
+      "Почему multi-region LLM serving требует заранее резервировать не только DNS и Kubernetes, но и GPU/model artifacts?"
+    ]
+  },
+  {
+    "id": 323,
+    "question": "Как data residency ограничивает multi-region routing?",
+    "variants": [
+      "Почему свободные GPU в США могут быть бесполезны для европейского tenant во время перегрузки?"
+    ]
+  },
+  {
+    "id": 324,
+    "question": "Почему multi-region active-active может ухудшить prefix-cache efficiency?",
+    "variants": [
+      "Как географическое распределение трафика влияет на эффективность automatic prefix caching?"
+    ]
+  },
+  {
+    "id": 325,
+    "question": "Как model artifact distribution должна переживать outage основного registry?",
+    "variants": [
+      "Почему production restart не должен скачивать веса только с внешнего Hugging Face Hub?"
+    ]
+  },
+  {
+    "id": 326,
+    "question": "Что такое content-addressed storage для model artifacts?",
+    "variants": [
+      "Как сделать model registry воспроизводимым и защищённым от тихой замены файла под тем же именем?"
+    ]
+  },
+  {
+    "id": 327,
+    "question": "Как проверять целостность sharded checkpoint при параллельной загрузке?",
+    "variants": [
+      "Как не запустить модель из наполовину скачанных или повреждённых shards?"
+    ]
+  },
+  {
+    "id": 328,
+    "question": "Почему model rollout должен быть связан с tokenizer/template rollout атомарно?",
+    "variants": [
+      "Как предотвратить рассинхронизацию весов, tokenizer и chat template при релизе?"
+    ]
+  },
+  {
+    "id": 329,
+    "question": "Как обнаружить silent model-version skew внутри distributed replica?",
+    "variants": [
+      "Как доказать, что все GPU ranks TP8 реально загрузили одинаковую версию checkpoint?"
+    ]
+  },
+  {
+    "id": 330,
+    "question": "Почему hot patch одного rank distributed model недопустим?",
+    "variants": [
+      "Почему нельзя обновлять TP8 модель по одному GPU, как обычный rolling Deployment?"
+    ]
+  },
+  {
+    "id": 331,
+    "question": "Как Kubernetes PodDisruptionBudget помогает и где он недостаточен для LLM fleet?",
+    "variants": [
+      "Почему обычный PDB по pod может ложно показывать безопасный drain distributed LLM?"
+    ]
+  },
+  {
+    "id": 332,
+    "question": "Как проводить node maintenance без массового обрыва streaming requests?",
+    "variants": [
+      "Как обновлять GPU nodes, если ответы могут стримиться несколько минут?"
+    ]
+  },
+  {
+    "id": 333,
+    "question": "Что такое drain timeout и как выбрать его для LLM replica?",
+    "variants": [
+      "Сколько ждать завершения активных генераций перед принудительным выключением worker?"
+    ]
+  },
+  {
+    "id": 334,
+    "question": "Как проверить, что cancellation действительно освобождает KV cache?",
+    "variants": [
+      "Как тестом доказать отсутствие утечки KV после разрыва клиентом соединения?"
+    ]
+  },
+  {
+    "id": 335,
+    "question": "Почему timeout propagation должен использовать absolute deadline, а не независимые таймеры на каждом hop?",
+    "variants": [
+      "Почему пять сервисов с timeout 5 секунд не дают end-to-end timeout 5 секунд?"
+    ]
+  },
+  {
+    "id": 336,
+    "question": "Как admission control использовать deadlines для отказа заведомо невыполнимого запроса?",
+    "variants": [
+      "Зачем отклонять запрос до GPU, если очередь уже гарантирует нарушение его SLO?"
+    ]
+  },
+  {
+    "id": 337,
+    "question": "Что такое SLO-aware load shedding?",
+    "variants": [
+      "Как сохранить goodput во время overload вместо того, чтобы принять всё и нарушить SLO всем?"
+    ]
+  },
+  {
+    "id": 338,
+    "question": "Почему overload controller нуждается в hysteresis?",
+    "variants": [
+      "Почему защиту от перегрузки нельзя включать и выключать на одном и том же пороге?"
+    ]
+  },
+  {
+    "id": 339,
+    "question": "Как избежать positive feedback loop между retries и overload?",
+    "variants": [
+      "Как не допустить, чтобы временный рост 503 превратился в лавину ещё большей нагрузки?"
+    ]
+  },
+  {
+    "id": 340,
+    "question": "Почему fallback на внешний API во время локального overload может иметь неожиданный cost spike?",
+    "variants": [
+      "Почему автоматический cloud fallback может спасти SLA и одновременно создать финансовый инцидент?"
+    ]
+  },
+  {
+    "id": 341,
+    "question": "Как считать cost per million output tokens корректно для self-hosted inference?",
+    "variants": [
+      "Как сравнить экономику собственного LLM serving с API-провайдером без ошибки `GPU price / peak tokens/s`?"
+    ]
+  },
+  {
+    "id": 342,
+    "question": "Почему cost per token зависит от utilization?",
+    "variants": [
+      "Почему дорогой быстрый GPU иногда оказывается дешевле медленного, а иногда — наоборот, в зависимости от загрузки?"
+    ]
+  },
+  {
+    "id": 343,
+    "question": "Как сравнивать GPU SKU по TCO для LLM serving?",
+    "variants": [
+      "По каким данным выбирать H100, H200, B200 или более дешёвые GPU для конкретной LLM?"
+    ]
+  },
+  {
+    "id": 344,
+    "question": "Почему более крупная HBM может снижать cost даже без ускорения одного token?",
+    "variants": [
+      "Как большая память GPU может улучшить экономику, даже если FLOPS не изменились?"
+    ]
+  },
+  {
+    "id": 345,
+    "question": "Как multi-model consolidation влияет на blast radius?",
+    "variants": [
+      "Как не превратить общий inference platform в единый огромный failure domain?"
+    ]
+  },
+  {
+    "id": 346,
+    "question": "Почему runtime monoculture является reliability risk?",
+    "variants": [
+      "Почему тысяча одинаковых реплик не защищает от бага в одном inference engine release?"
+    ]
+  },
+  {
+    "id": 347,
+    "question": "Как использовать deployment rings для LLM runtime?",
+    "variants": [
+      "Как раскатывать новую версию vLLM/TensorRT-LLM по крупному fleet с ограниченным blast radius?"
+    ]
+  },
+  {
+    "id": 348,
+    "question": "Что такое error budget и как применить его к LLM SLO?",
+    "variants": [
+      "Как использовать SRE error budget для управления изменениями inference platform?"
+    ]
+  },
+  {
+    "id": 349,
+    "question": "Почему availability LLM API нельзя определять только HTTP 2xx?",
+    "variants": [
+      "Почему 99.99% ответов HTTP 200 не доказывают высокую доступность chat API?"
+    ]
+  },
+  {
+    "id": 350,
+    "question": "Как измерять stream completion rate?",
+    "variants": [
+      "Как мониторить обрывы ответа после того, как первый токен уже был успешно отправлен?"
+    ]
+  },
+  {
+    "id": 351,
+    "question": "Когда компании рациональнее использовать managed LLM API, а когда строить собственный inference platform?",
+    "variants": [
+      "По каким критериям выбирать между внешним LLM-провайдером и собственной serving-платформой?"
+    ]
+  },
+  {
+    "id": 352,
+    "question": "Как сравнивать vLLM, TensorRT-LLM, SGLang и другие serving runtimes для корпоративной платформы?",
+    "variants": []
+  },
+  {
+    "id": 353,
+    "question": "Нужно ли стандартизировать один inference runtime на всю компанию или поддерживать несколько?",
+    "variants": []
+  },
+  {
+    "id": 354,
+    "question": "Как спроектировать control plane и data plane корпоративной LLM-serving платформы?",
+    "variants": []
+  },
+  {
+    "id": 355,
+    "question": "Какой уровень абстракции должна предоставлять внутренняя LLM platform продуктовым командам?",
+    "variants": []
+  },
+  {
+    "id": 356,
+    "question": "Как разделить интерактивный, batch и background LLM traffic на общей платформе?",
+    "variants": []
+  },
+  {
+    "id": 357,
+    "question": "Как решить, выделять ли long-context запросы в отдельный serving pool?",
+    "variants": []
+  },
+  {
+    "id": 358,
+    "question": "Как организовать multi-model serving, если продуктов много, а GPU-парк ограничен?",
+    "variants": []
+  },
+  {
+    "id": 359,
+    "question": "Когда multi-LoRA действительно выгоднее отдельных deployment для каждого адаптера?",
+    "variants": []
+  },
+  {
+    "id": 360,
+    "question": "Как выбрать стратегию quantization для всей serving-платформы, а не для одной модели?",
+    "variants": []
+  },
+  {
+    "id": 361,
+    "question": "Как принимать решение о speculative decoding как платформенной функции?",
+    "variants": []
+  },
+  {
+    "id": 362,
+    "question": "Когда disaggregated prefill/decode стоит вводить в production, а когда это преждевременное усложнение?",
+    "variants": [
+      "По каким признакам понять, что пора разносить prefill и decode на разные workers?"
+    ]
+  },
+  {
+    "id": 363,
+    "question": "Как спроектировать routing для disaggregated prefill/decode на уровне платформы?",
+    "variants": []
+  },
+  {
+    "id": 364,
+    "question": "Как выбирать между prefix-aware routing и равномерным распределением нагрузки?",
+    "variants": []
+  },
+  {
+    "id": 365,
+    "question": "Как решить, нужен ли внешний KV-cache tier за пределами GPU HBM?",
+    "variants": []
+  },
+  {
+    "id": 366,
+    "question": "Как проектировать модельный registry для production inference?",
+    "variants": []
+  },
+  {
+    "id": 367,
+    "question": "Как строить rollout новой модели так, чтобы отделить model regression от serving regression?",
+    "variants": []
+  },
+  {
+    "id": 368,
+    "question": "Какой compatibility matrix нужна для LLM serving platform?",
+    "variants": []
+  },
+  {
+    "id": 369,
+    "question": "Как организовать benchmark governance, чтобы команды не оптимизировали serving под нерепрезентативные тесты?",
+    "variants": []
+  },
+  {
+    "id": 370,
+    "question": "Как превратить performance regression testing LLM runtime в обязательный release gate?",
+    "variants": []
+  },
+  {
+    "id": 371,
+    "question": "Как планировать GPU capacity для продукта с быстро растущим LLM traffic?",
+    "variants": []
+  },
+  {
+    "id": 372,
+    "question": "Как решить, сколько headroom держать в GPU-кластере?",
+    "variants": []
+  },
+  {
+    "id": 373,
+    "question": "Как выбирать между on-demand, reserved и собственными GPU для inference?",
+    "variants": []
+  },
+  {
+    "id": 374,
+    "question": "Как выбирать GPU SKU для LLM serving, если более дорогой ускоритель не всегда даёт лучший TCO?",
+    "variants": []
+  },
+  {
+    "id": 375,
+    "question": "Когда MIG полезен для LLM serving, а когда лучше выделять целую GPU?",
+    "variants": []
+  },
+  {
+    "id": 376,
+    "question": "Как определить, стоит ли использовать GPU sharing через MPS для inference workloads?",
+    "variants": []
+  },
+  {
+    "id": 377,
+    "question": "Как использовать batch workloads для повышения экономической эффективности latency-critical GPU fleet?",
+    "variants": []
+  },
+  {
+    "id": 378,
+    "question": "Как строить chargeback/showback для общей LLM platform?",
+    "variants": []
+  },
+  {
+    "id": 379,
+    "question": "Как связать SLO LLM API с архитектурой capacity и scheduling?",
+    "variants": []
+  },
+  {
+    "id": 380,
+    "question": "Как определить SLA для генеративного API, где ответ идёт потоково и может быть частично полезен?",
+    "variants": []
+  },
+  {
+    "id": 381,
+    "question": "Как определить границы multi-tenancy в LLM serving platform?",
+    "variants": []
+  },
+  {
+    "id": 382,
+    "question": "Как спроектировать quota model для LLM platform, чтобы она защищала ресурс и не ломала bursty продукты?",
+    "variants": []
+  },
+  {
+    "id": 383,
+    "question": "Как строить admission control, если стоимость запроса неизвестна до окончания генерации?",
+    "variants": []
+  },
+  {
+    "id": 384,
+    "question": "Как решать конфликт fairness и максимального throughput в LLM scheduler?",
+    "variants": []
+  },
+  {
+    "id": 385,
+    "question": "Как спроектировать priority tiers для LLM API и не создать постоянное голодание низкого приоритета?",
+    "variants": []
+  },
+  {
+    "id": 386,
+    "question": "Как выбрать стратегию autoscaling для LLM inference, где CPU-style utilization плохо отражает очередь?",
+    "variants": []
+  },
+  {
+    "id": 387,
+    "question": "Как совместить HPA/KEDA с собственным token-aware autoscaler?",
+    "variants": []
+  },
+  {
+    "id": 388,
+    "question": "Как проектировать scale-to-zero для редко используемых больших моделей?",
+    "variants": []
+  },
+  {
+    "id": 389,
+    "question": "Как организовать artifact distribution, если сотни узлов одновременно обновляют модель на десятки гигабайт?",
+    "variants": []
+  },
+  {
+    "id": 390,
+    "question": "Как построить disaster recovery для self-hosted LLM API?",
+    "variants": []
+  },
+  {
+    "id": 391,
+    "question": "Как учитывать data residency при multi-region LLM serving?",
+    "variants": []
+  },
+  {
+    "id": 392,
+    "question": "Когда активный multi-region serving оправдан, а когда достаточно regional failover?",
+    "variants": []
+  },
+  {
+    "id": 393,
+    "question": "Как выбрать между собственным global router и cloud-managed traffic management для LLM API?",
+    "variants": []
+  },
+  {
+    "id": 394,
+    "question": "Как разработать стратегию fallback между разными моделями без скрытой деградации продукта?",
+    "variants": []
+  },
+  {
+    "id": 395,
+    "question": "Как оценивать vendor lock-in при выборе внешнего LLM API?",
+    "variants": []
+  },
+  {
+    "id": 396,
+    "question": "Как строить secondary-provider readiness, не оплачивая постоянный двойной трафик?",
+    "variants": []
+  },
+  {
+    "id": 397,
+    "question": "Как принять решение о build versus buy для inference gateway/router?",
+    "variants": []
+  },
+  {
+    "id": 398,
+    "question": "Как определять ownership между AI Platform, SRE, model team и продуктовой командой?",
+    "variants": []
+  },
+  {
+    "id": 399,
+    "question": "Какие platform metrics следует сделать обязательными для каждого LLM deployment?",
+    "variants": []
+  },
+  {
+    "id": 400,
+    "question": "Как спроектировать observability так, чтобы она не утекала prompt-данными?",
+    "variants": []
+  },
+  {
+    "id": 401,
+    "question": "Как выбрать retention policy для LLM logs, traces и inference metadata?",
+    "variants": []
+  },
+  {
+    "id": 402,
+    "question": "Как выстроить security boundary между public API и GPU worker process?",
+    "variants": []
+  },
+  {
+    "id": 403,
+    "question": "Как управлять риском `trust_remote_code` и произвольного кода из model repositories?",
+    "variants": []
+  },
+  {
+    "id": 404,
+    "question": "Как построить software supply-chain security для inference runtime и CUDA stack?",
+    "variants": []
+  },
+  {
+    "id": 405,
+    "question": "Как разграничивать secrets и credentials на общей serving-платформе?",
+    "variants": []
+  },
+  {
+    "id": 406,
+    "question": "Как оценивать риск prompt/KV cache cross-tenant leakage?",
+    "variants": []
+  },
+  {
+    "id": 407,
+    "question": "Как решать, можно ли кэшировать системные prompts между tenants?",
+    "variants": []
+  },
+  {
+    "id": 408,
+    "question": "Как выбрать стратегию network isolation для GPU nodes?",
+    "variants": []
+  },
+  {
+    "id": 409,
+    "question": "Как принимать решение о runtime upgrade cadence: быстро следовать upstream или держать консервативные версии?",
+    "variants": []
+  },
+  {
+    "id": 410,
+    "question": "Как управлять внутренним fork serving runtime, если upstream не принимает необходимые изменения?",
+    "variants": []
+  },
+  {
+    "id": 411,
+    "question": "Как принимать решение о внедрении experimental serving feature в production?",
+    "variants": []
+  },
+  {
+    "id": 412,
+    "question": "Как организовать capacity ownership между центральной платформой и продуктовыми командами?",
+    "variants": []
+  },
+  {
+    "id": 413,
+    "question": "Как построить roadmap inference-платформы на год, если модели и hardware быстро меняются?",
+    "variants": []
+  },
+  {
+    "id": 414,
+    "question": "Как спроектировать миграцию с внешнего LLM API на self-hosted модель без big-bang переключения?",
+    "variants": []
+  },
+  {
+    "id": 415,
+    "question": "Как мигрировать между serving runtimes, не заставляя продуктовые команды переписывать клиентов?",
+    "variants": []
+  },
+  {
+    "id": 416,
+    "question": "Как решить, стоит ли менять модель ради снижения инфраструктурной стоимости, если качество немного падает?",
+    "variants": []
+  },
+  {
+    "id": 417,
+    "question": "Как построить model routing по сложности запросов, не создав непредсказуемое качество?",
+    "variants": []
+  },
+  {
+    "id": 418,
+    "question": "Когда имеет смысл использовать cascade из нескольких моделей вместо одного сильного endpoint?",
+    "variants": []
+  },
+  {
+    "id": 419,
+    "question": "Как принимать решение о переходе продукта на более длинный context window?",
+    "variants": []
+  },
+  {
+    "id": 420,
+    "question": "Как оценить, выгоднее ли RAG сокращать контекст или купить больше GPU capacity?",
+    "variants": []
+  },
+  {
+    "id": 421,
+    "question": "Как спроектировать поддержку multimodal моделей как платформенную capability?",
+    "variants": []
+  },
+  {
+    "id": 422,
+    "question": "Когда стоит разносить multimodal encoder и LLM decoder на разные ресурсы?",
+    "variants": []
+  },
+  {
+    "id": 423,
+    "question": "Как учитывать agentic workloads при проектировании inference capacity?",
+    "variants": []
+  },
+  {
+    "id": 424,
+    "question": "Как предотвратить retry storm от agent framework во время деградации LLM API?",
+    "variants": []
+  },
+  {
+    "id": 425,
+    "question": "Как проектировать inference API для tool-calling workloads, где стабильность формата критична?",
+    "variants": []
+  },
+  {
+    "id": 426,
+    "question": "Как решить, поддерживать ли OpenAI-compatible API как главный корпоративный контракт?",
+    "variants": []
+  },
+  {
+    "id": 427,
+    "question": "Как управлять API versioning, если inference engines и модели меняются быстрее клиентов?",
+    "variants": []
+  },
+  {
+    "id": 428,
+    "question": "Как определить deprecation policy для моделей на общей платформе?",
+    "variants": []
+  },
+  {
+    "id": 429,
+    "question": "Как построить quality gate для изменения serving configuration, которое формально не меняет веса модели?",
+    "variants": []
+  },
+  {
+    "id": 430,
+    "question": "Как управлять numerical drift между разными GPU и kernels при multi-region serving?",
+    "variants": []
+  },
+  {
+    "id": 431,
+    "question": "Как решить, нужен ли deterministic inference режим как отдельный service tier?",
+    "variants": []
+  },
+  {
+    "id": 432,
+    "question": "Как проектировать model alias вроде `latest` и `stable`, чтобы они не стали источником скрытых breaking changes?",
+    "variants": []
+  },
+  {
+    "id": 433,
+    "question": "Как решить, какие inference параметры разрешить клиентам менять?",
+    "variants": []
+  },
+  {
+    "id": 434,
+    "question": "Как оценивать стоимость поддержки редкой engine-specific функции в общем platform API?",
+    "variants": []
+  },
+  {
+    "id": 435,
+    "question": "Как построить процесс onboarding новой модели на serving-платформу?",
+    "variants": []
+  },
+  {
+    "id": 436,
+    "question": "Как определить, что новая модель слишком дорога для общего production tier?",
+    "variants": []
+  },
+  {
+    "id": 437,
+    "question": "Как снизить inference cost на 40% и не разрушить SLO: в каком порядке проверять рычаги?",
+    "variants": []
+  },
+  {
+    "id": 438,
+    "question": "Как отличить реальное снижение TCO от переноса стоимости из GPU в инженерную сложность?",
+    "variants": []
+  },
+  {
+    "id": 439,
+    "question": "Как выбрать метрику unit economics для LLM-serving платформы?",
+    "variants": []
+  },
+  {
+    "id": 440,
+    "question": "Как оценить ROI от prefix caching на уровне компании?",
+    "variants": []
+  },
+  {
+    "id": 441,
+    "question": "Как оценить business case disaggregated serving до большой переработки платформы?",
+    "variants": []
+  },
+  {
+    "id": 442,
+    "question": "Как решать конфликт между cache locality и fault-domain spreading?",
+    "variants": []
+  },
+  {
+    "id": 443,
+    "question": "Как определить допустимый blast radius одного inference worker, node и cluster?",
+    "variants": []
+  },
+  {
+    "id": 444,
+    "question": "Как выбирать размер failure domain для tensor-parallel deployments?",
+    "variants": []
+  },
+  {
+    "id": 445,
+    "question": "Как принимать решение о pipeline parallelism в serving, если он усложняет latency?",
+    "variants": []
+  },
+  {
+    "id": 446,
+    "question": "Как учитывать expert parallelism при capacity planning MoE-моделей?",
+    "variants": []
+  },
+  {
+    "id": 447,
+    "question": "Как решить, использовать ли heterogeneous GPU fleet для одного model service?",
+    "variants": []
+  },
+  {
+    "id": 448,
+    "question": "Как построить procurement strategy, если новое поколение GPU обещает большой прирост, но ещё не имеет зрелого software stack?",
+    "variants": []
+  },
+  {
+    "id": 449,
+    "question": "Как учитывать power и cooling ограничения в архитектуре GPU inference fleet?",
+    "variants": []
+  },
+  {
+    "id": 450,
+    "question": "Как оценить, стоит ли строить собственный inference datacenter вместо облака?",
+    "variants": []
+  },
+  {
+    "id": 451,
+    "question": "Как определить, когда dedicated GPU pool для одного крупного продукта оправдан?",
+    "variants": []
+  },
+  {
+    "id": 452,
+    "question": "Как избежать GPU silos между командами после быстрого роста AI-продуктов?",
+    "variants": []
+  },
+  {
+    "id": 453,
+    "question": "Как управлять technical debt в inference platform, где оптимизации быстро накапливаются?",
+    "variants": []
+  },
+  {
+    "id": 454,
+    "question": "Как решить, когда platform team должна отказать продукту в уникальной serving-конфигурации?",
+    "variants": []
+  },
+  {
+    "id": 455,
+    "question": "Как спроектировать exception process для экспериментальных моделей и hardware?",
+    "variants": []
+  },
+  {
+    "id": 456,
+    "question": "Как определить release rings для serving infrastructure?",
+    "variants": []
+  },
+  {
+    "id": 457,
+    "question": "Как управлять изменениями NVIDIA driver/CUDA в большом inference fleet?",
+    "variants": []
+  },
+  {
+    "id": 458,
+    "question": "Как определить максимальную длительность streaming generation как платформенное ограничение?",
+    "variants": [
+      "Почему production-платформе нужен верхний предел времени одной потоковой генерации?"
+    ]
+  },
+  {
+    "id": 459,
+    "question": "Как определить, нужна ли поддержка live migration незавершённых LLM generations?",
+    "variants": []
+  },
+  {
+    "id": 460,
+    "question": "Как выбрать стратегию обработки node failure во время длинной генерации?",
+    "variants": []
+  },
+  {
+    "id": 461,
+    "question": "После запуска нового продукта трафик LLM вырос в 10 раз за неделю. Как перестроить платформу, не ограничиваясь добавлением GPU?",
+    "variants": []
+  },
+  {
+    "id": 462,
+    "question": "После перехода продукта с 8K на 128K context TTFT вырос в четыре раза, а throughput снизился. Какое решение требуется на уровне платформы?",
+    "variants": []
+  },
+  {
+    "id": 463,
+    "question": "p99 TTFT внезапно удвоился после релиза, но средняя GPU utilization не изменилась. Как организовать расследование и решение?",
+    "variants": []
+  },
+  {
+    "id": 464,
+    "question": "Новая quantized версия модели снижает GPU cost на 35%, но немного ухудшает редкие бизнес-кейсы. Как принять решение о rollout?",
+    "variants": []
+  },
+  {
+    "id": 465,
+    "question": "GPU supply ограничен на полгода, а спрос продолжает расти. Какие архитектурные меры приоритизировать?",
+    "variants": []
+  },
+  {
+    "id": 466,
+    "question": "Регион с половиной GPU capacity полностью недоступен. Какой failover должен происходить и какие компромиссы допустимы?",
+    "variants": []
+  },
+  {
+    "id": 467,
+    "question": "Как действовать, если external fallback провайдер во время аварии оказался в десять раз дороже ожидаемого?",
+    "variants": []
+  },
+  {
+    "id": 468,
+    "question": "Как спроектировать graceful degradation для LLM-платформы при дефиците capacity?",
+    "variants": []
+  },
+  {
+    "id": 469,
+    "question": "Как определить, какие LLM workloads должны иметь право вытеснять остальные во время incident?",
+    "variants": []
+  },
+  {
+    "id": 470,
+    "question": "Как управлять error budget между быстрыми feature releases и стабильностью inference platform?",
+    "variants": []
+  },
+  {
+    "id": 471,
+    "question": "Как провести postmortem крупного LLM-serving инцидента так, чтобы он изменил систему, а не только документацию?",
+    "variants": []
+  },
+  {
+    "id": 472,
+    "question": "Как определить, какие LLM-serving incidents требуют executive escalation?",
+    "variants": []
+  },
+  {
+    "id": 473,
+    "question": "Как организовать on-call для платформы, где сбой может быть в model, runtime, GPU, сети или приложении?",
+    "variants": []
+  },
+  {
+    "id": 474,
+    "question": "Как выбрать набор game days для LLM-serving платформы?",
+    "variants": []
+  },
+  {
+    "id": 475,
+    "question": "Как понять, что autoscaling архитектура фактически не защищает от реальных burst?",
+    "variants": []
+  },
+  {
+    "id": 476,
+    "question": "Как решить, когда использовать predictive scaling для LLM traffic?",
+    "variants": []
+  },
+  {
+    "id": 477,
+    "question": "Как оценить целесообразность cross-cloud LLM serving?",
+    "variants": []
+  },
+  {
+    "id": 478,
+    "question": "Как построить portability strategy между cloud GPU и on-prem без требования полной идентичности среды?",
+    "variants": []
+  },
+  {
+    "id": 479,
+    "question": "Как определить, где заканчивается LLM serving platform и начинается agent/application platform?",
+    "variants": []
+  },
+  {
+    "id": 480,
+    "question": "Как принимать решение о переносе prompt caching из приложения в serving platform?",
+    "variants": []
+  },
+  {
+    "id": 481,
+    "question": "Как решить, стоит ли вводить prompt normalization ради повышения prefix-cache hit rate?",
+    "variants": []
+  },
+  {
+    "id": 482,
+    "question": "Как выстроить governance для shared system prompts, от которых зависит cache efficiency и поведение сотен приложений?",
+    "variants": []
+  },
+  {
+    "id": 483,
+    "question": "Как определить, когда prefix caching лучше заменить explicit prompt/session state на уровне приложения?",
+    "variants": []
+  },
+  {
+    "id": 484,
+    "question": "Как управлять cache warming после массового rollout новой model version?",
+    "variants": []
+  },
+  {
+    "id": 485,
+    "question": "Как решить, что делать с prefix cache при security revocation или удалении tenant data?",
+    "variants": []
+  },
+  {
+    "id": 486,
+    "question": "Как разработать service catalog для внутренней LLM platform?",
+    "variants": []
+  },
+  {
+    "id": 487,
+    "question": "Как определить north-star metrics для команды LLM serving platform?",
+    "variants": []
+  },
+  {
+    "id": 488,
+    "question": "Как измерять developer experience внутренней inference platform?",
+    "variants": []
+  },
+  {
+    "id": 489,
+    "question": "Как понять, что LLM serving platform стала слишком сложной для текущего масштаба компании?",
+    "variants": []
+  },
+  {
+    "id": 490,
+    "question": "Как определить, что платформе пора перейти от простого replica routing к глобальному token-aware scheduler?",
+    "variants": []
+  },
+  {
+    "id": 491,
+    "question": "Как спроектировать глобальный scheduler так, чтобы его отказ не остановил inference?",
+    "variants": []
+  },
+  {
+    "id": 492,
+    "question": "Как выбрать consistency model для конфигурации LLM-serving control plane?",
+    "variants": []
+  },
+  {
+    "id": 493,
+    "question": "Как управлять schema evolution telemetry между несколькими serving runtimes?",
+    "variants": []
+  },
+  {
+    "id": 494,
+    "question": "Как определить, когда внутренний LLM benchmark нужно обновлять?",
+    "variants": []
+  },
+  {
+    "id": 495,
+    "question": "Как строить внутреннюю performance lab для воспроизводимых GPU benchmark?",
+    "variants": []
+  },
+  {
+    "id": 496,
+    "question": "Как принимать решение о публикации внутреннего performance результата как стандарта для всех команд?",
+    "variants": []
+  },
+  {
+    "id": 497,
+    "question": "Как определить, что снижение latency действительно улучшает пользовательский опыт LLM-продукта?",
+    "variants": []
+  },
+  {
+    "id": 498,
+    "question": "Как решить, какой latency SLO экономически оправдан для каждого traffic class?",
+    "variants": []
+  },
+  {
+    "id": 499,
+    "question": "Как вести переговоры с внешним LLM-провайдером, используя собственные serving метрики?",
+    "variants": []
+  },
+  {
+    "id": 500,
+    "question": "Как должен выглядеть целевой operating model зрелой LLM-serving платформы?",
+    "variants": []
+  }
+]

@@ -1,0 +1,3503 @@
+[
+  {
+    "id": 1,
+    "question": "Чем безопасность AI-агента принципиально отличается от безопасности обычного чат-бота на LLM?",
+    "variants": [
+      "Почему подключение инструментов превращает LLM-приложение из генератора текста в полноценный security principal?",
+      "Какие новые классы риска появляются, когда модель может не только отвечать, но и выполнять действия?"
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Что такое threat model для AI-агента и какие активы, границы доверия и противников в нём нужно фиксировать?",
+    "variants": [
+      "С чего начать моделирование угроз для agentic-системы до выбора конкретных guardrails?"
+    ]
+  },
+  {
+    "id": 3,
+    "question": "В чём различие между safety, security и governance применительно к AI-агентам?",
+    "variants": [
+      "Почему content safety не заменяет security controls и организационное governance?"
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Что означает принцип defense in depth в архитектуре AI-агента?",
+    "variants": [
+      "Почему нельзя рассчитывать на один системный prompt или один safety-classifier как на единственную защиту?"
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Что такое blast radius в контексте AI-агента и какими архитектурными решениями его уменьшают?",
+    "variants": [
+      "Как оценить максимальный ущерб, если агент ошибочно или под воздействием атаки выполнит запрещённое действие?"
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Что такое принцип least privilege и как его применять к инструментам AI-агента?",
+    "variants": [
+      "Почему выдача агенту универсального API-токена опаснее, чем набор узкоспециализированных capability-scoped инструментов?"
+    ]
+  },
+  {
+    "id": 7,
+    "question": "Что такое trust boundary и где обычно проходят основные границы доверия в agentic-приложении?",
+    "variants": [
+      "Почему результат поиска, письмо или документ нельзя считать доверенной инструкцией только потому, что агент сам их получил?"
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Что означает fail-safe default для AI-агента?",
+    "variants": [
+      "Как должно вести себя приложение, если guardrail, policy service или authorization backend недоступен?"
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Почему системный prompt не следует считать секретом или механизмом авторизации?",
+    "variants": [
+      "Можно ли безопасно хранить API keys или правила доступа внутри system prompt?"
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Что такое confused deputy problem и как она проявляется у AI-агента?",
+    "variants": [
+      "Почему агент с правами пользователя может стать «замешанным посредником», выполняющим действие в интересах атакующего контента?"
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Что такое prompt injection и почему это не просто «плохой prompt» пользователя?",
+    "variants": [
+      "Как злоумышленник заставляет модель интерпретировать данные как инструкции?"
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Чем direct prompt injection отличается от indirect prompt injection?",
+    "variants": [
+      "Почему косвенная инъекция особенно опасна для browser-, email- и RAG-агентов?"
+    ]
+  },
+  {
+    "id": 13,
+    "question": "Чем jailbreak отличается от prompt injection?",
+    "variants": [
+      "Почему эти термины пересекаются, но описывают разные security goals?"
+    ]
+  },
+  {
+    "id": 14,
+    "question": "Почему instruction hierarchy помогает против prompt injection, но не решает проблему полностью?",
+    "variants": [
+      "Что даёт приоритизация system/developer/user/tool instructions и где остаются риски?"
+    ]
+  },
+  {
+    "id": 15,
+    "question": "Почему delimiter-ы и фразы «не выполняй инструкции из документа» являются полезной, но недостаточной защитой?",
+    "variants": [
+      "Можно ли решить indirect prompt injection только форматированием контекста?"
+    ]
+  },
+  {
+    "id": 16,
+    "question": "Что такое data exfiltration через prompt injection и какие каналы утечки возможны у агента?",
+    "variants": [
+      "Каким образом вредоносная страница может попытаться вывести приватные данные через разрешённые инструменты агента?"
+    ]
+  },
+  {
+    "id": 17,
+    "question": "Что такое prompt leakage и почему утечка system prompt сама по себе не всегда является критической уязвимостью?",
+    "variants": [
+      "В какой момент раскрытие системной инструкции превращается из информационной проблемы в реальный security impact?"
+    ]
+  },
+  {
+    "id": 18,
+    "question": "Что такое prompt injection через multimodal input и почему изображение может быть таким же недоверенным источником, как текст?",
+    "variants": [
+      "Как меняется threat model, когда агент воспринимает скриншоты, PDF и изображения интерфейса?"
+    ]
+  },
+  {
+    "id": 19,
+    "question": "Почему длинный контекст и большое число внешних документов могут увеличивать риск prompt injection?",
+    "variants": [
+      "Как рост context window влияет на управляемость доверия в агенте?"
+    ]
+  },
+  {
+    "id": 20,
+    "question": "Какие свойства делают prompt injection принципиально трудной для полного устранения на уровне модели?",
+    "variants": [
+      "Почему нельзя обещать «100% защиту от prompt injection» только после успешного red team?"
+    ]
+  },
+  {
+    "id": 21,
+    "question": "Что такое excessive agency и почему этот риск нельзя устранить одним улучшением модели?",
+    "variants": [
+      "Как отличить полезную автономность агента от избыточных полномочий?"
+    ]
+  },
+  {
+    "id": 22,
+    "question": "Почему tool description и schema являются частью security surface агента?",
+    "variants": [
+      "Как плохо спроектированное описание инструмента может привести к небезопасному tool selection?"
+    ]
+  },
+  {
+    "id": 23,
+    "question": "Почему опасно предоставлять агенту универсальные инструменты shell, SQL или unrestricted HTTP?",
+    "variants": [
+      "Когда generic tool оправдан и какие дополнительные controls тогда обязательны?"
+    ]
+  },
+  {
+    "id": 24,
+    "question": "Что означает «authorization must be outside the model»?",
+    "variants": [
+      "Почему фраза в system prompt «пользователь может видеть только свои документы» не является настоящим access control?"
+    ]
+  },
+  {
+    "id": 25,
+    "question": "Когда human-in-the-loop действительно повышает безопасность агента, а когда создаёт только иллюзию контроля?",
+    "variants": [
+      "Каким должен быть approval UX, чтобы пользователь мог обнаружить подмену действия?"
+    ]
+  },
+  {
+    "id": 26,
+    "question": "Почему подтверждение чувствительного действия должно быть привязано к точным аргументам tool call?",
+    "variants": [
+      "Что такое TOCTOU-риск между пользовательским approval и фактическим исполнением действия агентом?"
+    ]
+  },
+  {
+    "id": 27,
+    "question": "Что такое capability-based security и почему она хорошо сочетается с AI-агентами?",
+    "variants": [
+      "Чем capability token отличается от предоставления агенту общей роли с широкими правами?"
+    ]
+  },
+  {
+    "id": 28,
+    "question": "Зачем разделять read tools и write tools в архитектуре агента?",
+    "variants": [
+      "Почему режим «сначала собрать информацию, потом отдельно разрешить изменения» уменьшает риск?"
+    ]
+  },
+  {
+    "id": 29,
+    "question": "Почему обратимость операции должна влиять на уровень автономности агента?",
+    "variants": [
+      "Какие действия можно автоматизировать смелее: создание черновика, удаление данных или банковский перевод — и почему?"
+    ]
+  },
+  {
+    "id": 30,
+    "question": "Что такое policy enforcement point в agentic-системе и где его лучше располагать?",
+    "variants": [
+      "На каком слое следует окончательно разрешать или запрещать tool call?"
+    ]
+  },
+  {
+    "id": 31,
+    "question": "Какие виды чувствительных данных особенно опасно помещать непосредственно в контекст LLM-агента?",
+    "variants": [
+      "Почему принцип data minimization важен даже при использовании «приватного» корпоративного LLM endpoint?"
+    ]
+  },
+  {
+    "id": 32,
+    "question": "Чем secret management для агента отличается от передачи секретов через prompt или environment variables без ограничений?",
+    "variants": [
+      "Как агенту безопасно пользоваться внешним API, не получая долгоживущий credential в собственный контекст?"
+    ]
+  },
+  {
+    "id": 33,
+    "question": "Что такое PII и какие риски возникают при её обработке AI-агентом?",
+    "variants": [
+      "Почему детектор персональных данных должен работать не только на пользовательском вводе, но и на tool outputs и логах?"
+    ]
+  },
+  {
+    "id": 34,
+    "question": "Что такое data provenance и зачем агенту знать происхождение данных?",
+    "variants": [
+      "Как provenance помогает защищаться от poisoned documents и ошибочной передачи доверия?"
+    ]
+  },
+  {
+    "id": 35,
+    "question": "Что такое data poisoning применительно к RAG и памяти AI-агента?",
+    "variants": [
+      "Чем отравление knowledge base отличается от разовой indirect prompt injection?"
+    ]
+  },
+  {
+    "id": 36,
+    "question": "Почему multi-tenancy усиливает требования к изоляции данных AI-агента?",
+    "variants": [
+      "Как предотвратить cross-tenant leakage в памяти, RAG и tool layer?"
+    ]
+  },
+  {
+    "id": 37,
+    "question": "Зачем шифровать данные at rest и in transit, если основная угроза — prompt injection?",
+    "variants": [
+      "Какие классические security controls остаются обязательными для agentic AI?"
+    ]
+  },
+  {
+    "id": 38,
+    "question": "Почему логи и traces AI-агента сами становятся чувствительным активом?",
+    "variants": [
+      "Что нельзя бездумно писать в observability pipeline агентной системы?"
+    ]
+  },
+  {
+    "id": 39,
+    "question": "Что такое guardrail в LLM/agent-системе и какие задачи он может решать?",
+    "variants": [
+      "Чем guardrail отличается от самого system prompt?"
+    ]
+  },
+  {
+    "id": 40,
+    "question": "Чем input guardrail, output guardrail и tool guardrail отличаются друг от друга?",
+    "variants": [
+      "На каком этапе лучше проверять пользовательский запрос, финальный ответ и параметры действия?"
+    ]
+  },
+  {
+    "id": 41,
+    "question": "Чем deterministic guardrail отличается от model-based guardrail?",
+    "variants": [
+      "Когда лучше использовать правила и схемы, а когда отдельную LLM или classifier?"
+    ]
+  },
+  {
+    "id": 42,
+    "question": "Что означает tripwire в guardrail-системе?",
+    "variants": [
+      "Чем «зафиксировать риск» отличается от «немедленно остановить run»?"
+    ]
+  },
+  {
+    "id": 43,
+    "question": "Почему guardrail нельзя оценивать только по общей accuracy?",
+    "variants": [
+      "Какие ошибки важнее различать в security-classifier: false positive или false negative?"
+    ]
+  },
+  {
+    "id": 44,
+    "question": "Что такое layered guardrails и почему несколько одинаковых LLM-classifiers не обязательно дают независимую защиту?",
+    "variants": [
+      "Как избежать коррелированных failure modes между защитными слоями?"
+    ]
+  },
+  {
+    "id": 45,
+    "question": "Почему guardrails нужно версионировать и тестировать как часть программного продукта?",
+    "variants": [
+      "Что может сломаться при безобидном изменении policy prompt или threshold защитного классификатора?"
+    ]
+  },
+  {
+    "id": 46,
+    "question": "Что такое AI governance и какие инженерные артефакты оно должно создавать, а не только декларировать?",
+    "variants": [
+      "Как отличить рабочее AI governance от набора общих принципов на корпоративном сайте?"
+    ]
+  },
+  {
+    "id": 47,
+    "question": "Что такое risk appetite и residual risk в управлении AI-агентами?",
+    "variants": [
+      "Почему нельзя требовать «нулевой риск» от production AI system?"
+    ]
+  },
+  {
+    "id": 48,
+    "question": "Зачем вести inventory AI systems и agent capabilities?",
+    "variants": [
+      "Почему невозможно нормально управлять AI risk, если организация не знает, где агенты и какие tools они используют?"
+    ]
+  },
+  {
+    "id": 49,
+    "question": "Что такое accountability в AI governance и почему «модель решила» не является приемлемым владельцем риска?",
+    "variants": [
+      "Кто должен отвечать за ошибочное действие production-агента?"
+    ]
+  },
+  {
+    "id": 50,
+    "question": "Как связать threat modeling, guardrails и governance в единый lifecycle AI-агента?",
+    "variants": [
+      "Как выглядит базовый security lifecycle от идеи агента до эксплуатации?"
+    ]
+  },
+  {
+    "id": 51,
+    "question": "Как practically отделять trusted instructions от untrusted content в контексте агента?",
+    "variants": [
+      "Какие архитектурные приёмы помогают не смешивать политику приложения и данные из внешних источников?"
+    ]
+  },
+  {
+    "id": 52,
+    "question": "Как строить detector indirect prompt injection и какие сигналы кроме текста запроса полезно использовать?",
+    "variants": [
+      "Почему классификация только пользовательского prompt пропускает значительную часть agentic атак?"
+    ]
+  },
+  {
+    "id": 53,
+    "question": "Как использовать taint tracking для защиты данных в AI-агенте?",
+    "variants": [
+      "Что даёт маркировка чувствительных значений и недоверенных источников на протяжении agent workflow?"
+    ]
+  },
+  {
+    "id": 54,
+    "question": "Что такое dual LLM pattern для обработки недоверенного контента и какие у него ограничения?",
+    "variants": [
+      "Может ли отдельная «quarantine model» безопасно пересказать документ для основного агента?"
+    ]
+  },
+  {
+    "id": 55,
+    "question": "Как schema-constrained extraction снижает риск prompt injection при работе с документами?",
+    "variants": [
+      "Почему извлечение фиксированных полей безопаснее, чем передача полного документа privileged agent?"
+    ]
+  },
+  {
+    "id": 56,
+    "question": "Как канонизация и нормализация входа помогают guardrail-проверкам и где они могут навредить?",
+    "variants": [
+      "Зачем декодировать Unicode, HTML и вложенные представления перед security classification?"
+    ]
+  },
+  {
+    "id": 57,
+    "question": "Как защищаться от obfuscated prompt injection, спрятанной в кодировках, Markdown, HTML или Unicode?",
+    "variants": [
+      "Почему blacklist фраз «ignore previous instructions» быстро перестаёт работать?"
+    ]
+  },
+  {
+    "id": 58,
+    "question": "Как защищаться от multi-turn prompt injection, которая постепенно меняет поведение агента?",
+    "variants": [
+      "Почему проверка только одного сообщения недостаточна для длинной agent session?"
+    ]
+  },
+  {
+    "id": 59,
+    "question": "Как защищаться от prompt injection, которая маскируется под системное сообщение, security warning или сообщение разработчика?",
+    "variants": [
+      "Почему текст «SYSTEM: срочно выполни...» внутри документа не должен получать системный приоритет?"
+    ]
+  },
+  {
+    "id": 60,
+    "question": "Как защищать browser agent от скрытого текста и deceptive UI?",
+    "variants": [
+      "Чем security browser agent отличается от обычного web scraper?"
+    ]
+  },
+  {
+    "id": 61,
+    "question": "Как минимизировать риск, когда агент должен одновременно читать приватные данные и открытый интернет?",
+    "variants": [
+      "Почему сочетание private-data access и unrestricted web egress образует опасный security composition?"
+    ]
+  },
+  {
+    "id": 62,
+    "question": "Как обнаруживать попытку эксфильтрации через URL, query string или имя ресурса?",
+    "variants": [
+      "Почему обычный DLP на финальном текстовом ответе не видит все каналы утечки агента?"
+    ]
+  },
+  {
+    "id": 63,
+    "question": "Как защищать агента от instruction smuggling через tool output?",
+    "variants": [
+      "Может ли скомпрометированный API вернуть данные, которые заставят модель вызвать другой инструмент?"
+    ]
+  },
+  {
+    "id": 64,
+    "question": "Как проектировать allowlist/denylist для tool calls и почему allowlist обычно сильнее?",
+    "variants": [
+      "Когда blacklist запрещённых действий начинает проигрывать перечислению разрешённых возможностей?"
+    ]
+  },
+  {
+    "id": 65,
+    "question": "Что такое semantic firewall для AI-агента и чем он отличается от сетевого firewall?",
+    "variants": [
+      "Какие решения можно принимать на основании смысла запроса, а какие нельзя доверять только LLM-классификации?"
+    ]
+  },
+  {
+    "id": 66,
+    "question": "Как безопасно обрабатывать внешние файлы, которые агент должен открыть или проанализировать?",
+    "variants": [
+      "Почему PDF или офисный документ несёт одновременно content risk и traditional malware risk?"
+    ]
+  },
+  {
+    "id": 67,
+    "question": "Как предотвращать SSRF, если агент умеет обращаться к произвольным URL?",
+    "variants": [
+      "Почему URL, предложенный моделью, нельзя без проверки передавать backend HTTP client?"
+    ]
+  },
+  {
+    "id": 68,
+    "question": "Как предотвращать command injection в tool, который запускает shell-команды от имени агента?",
+    "variants": [
+      "Почему structured arguments безопаснее генерации одной командной строки?"
+    ]
+  },
+  {
+    "id": 69,
+    "question": "Как предотвращать SQL injection, если LLM формирует запросы к базе данных?",
+    "variants": [
+      "Почему «модель генерирует только SELECT» недостаточно как security policy?"
+    ]
+  },
+  {
+    "id": 70,
+    "question": "Как предотвращать path traversal, если агент создаёт или читает файлы по сгенерированным путям?",
+    "variants": [
+      "Почему проверка строки на `../` недостаточна для файлового tool?"
+    ]
+  },
+  {
+    "id": 71,
+    "question": "Как ограничивать recursive tool use и бесконечные agent loops?",
+    "variants": [
+      "Какие budgets должны завершать run, если модель зациклилась?"
+    ]
+  },
+  {
+    "id": 72,
+    "question": "Как защищаться от «tool call amplification», когда один запрос пользователя порождает сотни внешних операций?",
+    "variants": [
+      "Почему rate limit только на пользовательский HTTP endpoint не ограничивает реальную нагрузку agentic workflow?"
+    ]
+  },
+  {
+    "id": 73,
+    "question": "Как защищать агента от denial-of-wallet атак?",
+    "variants": [
+      "Чем cost abuse в LLM-системе отличается от классического DoS?"
+    ]
+  },
+  {
+    "id": 74,
+    "question": "Как безопасно использовать model-generated regular expressions, code snippets или templates внутри приложения?",
+    "variants": [
+      "Почему «это всего лишь конфигурация, а не tool call» может быть ошибочной оценкой риска?"
+    ]
+  },
+  {
+    "id": 75,
+    "question": "Как проектировать safe retry для отклонённого guardrail-ом запроса или tool call?",
+    "variants": [
+      "Почему автоматическое «попроси модель переформулировать, пока guardrail не пропустит» может превратиться в bypass search?"
+    ]
+  },
+  {
+    "id": 76,
+    "question": "Как проектировать server-side authorization для tool calls, инициированных LLM?",
+    "variants": [
+      "Какие данные должен получать authorization layer помимо имени инструмента?"
+    ]
+  },
+  {
+    "id": 77,
+    "question": "Чем RBAC, ABAC и ReBAC отличаются при авторизации AI-агента?",
+    "variants": [
+      "Какая модель доступа лучше подходит для динамических agentic actions?"
+    ]
+  },
+  {
+    "id": 78,
+    "question": "Как реализовать delegated authorization, когда агент действует от имени пользователя?",
+    "variants": [
+      "Почему сервисный аккаунт агента не должен автоматически наследовать максимальные права платформы?"
+    ]
+  },
+  {
+    "id": 79,
+    "question": "Что такое confused-deputy mitigation через audience-restricted tokens?",
+    "variants": [
+      "Почему один bearer token для всех внутренних сервисов опасен в tool ecosystem?"
+    ]
+  },
+  {
+    "id": 80,
+    "question": "Как реализовать just-in-time permissions для AI-агента?",
+    "variants": [
+      "Почему выдача write-доступа только на момент конкретной операции безопаснее постоянной роли?"
+    ]
+  },
+  {
+    "id": 81,
+    "question": "Как проектировать tool scopes, чтобы они отражали реальные бизнес-операции, а не технические API endpoints?",
+    "variants": [
+      "Почему scope `crm.write` часто слишком широк для sales-агента?"
+    ]
+  },
+  {
+    "id": 82,
+    "question": "Как безопасно обрабатывать dynamic tool discovery?",
+    "variants": [
+      "Почему агент не должен автоматически доверять каждому инструменту, найденному через registry или MCP discovery?"
+    ]
+  },
+  {
+    "id": 83,
+    "question": "Как бороться с tool-name squatting и misleading tool descriptions?",
+    "variants": [
+      "Что произойдёт, если вредоносный сервер опубликует инструмент, похожий по имени на доверенный?"
+    ]
+  },
+  {
+    "id": 84,
+    "question": "Как версионировать tool schemas без нарушения security invariants?",
+    "variants": [
+      "Почему добавление необязательного поля в API может изменить риск agent workflow?"
+    ]
+  },
+  {
+    "id": 85,
+    "question": "Как проектировать idempotency для write tools AI-агента?",
+    "variants": [
+      "Почему retry после timeout может создать двойной платёж или два одинаковых письма?"
+    ]
+  },
+  {
+    "id": 86,
+    "question": "Как проектировать transaction boundaries для multi-step agent actions?",
+    "variants": [
+      "Что делать, если агент выполнил шаг A, а на шаге B получил отказ guardrail или backend error?"
+    ]
+  },
+  {
+    "id": 87,
+    "question": "Как отличать plan approval от action approval?",
+    "variants": [
+      "Когда пользователь может подтвердить весь план агента один раз, а когда нужно подтверждать отдельные шаги?"
+    ]
+  },
+  {
+    "id": 88,
+    "question": "Как бороться с approval fatigue в agentic-приложении?",
+    "variants": [
+      "Почему чрезмерное число подтверждений может фактически снизить безопасность?"
+    ]
+  },
+  {
+    "id": 89,
+    "question": "Как проектировать human approval для асинхронных и долгих agent runs?",
+    "variants": [
+      "Какие security-проблемы появляются, если run возобновляется через часы после согласования?"
+    ]
+  },
+  {
+    "id": 90,
+    "question": "Как безопасно реализовать «always approve this tool»?",
+    "variants": [
+      "Почему постоянное одобрение инструмента может незаметно превратить HITL в excessive agency?"
+    ]
+  },
+  {
+    "id": 91,
+    "question": "Как безопасно проектировать agent handoff между специализированными агентами?",
+    "variants": [
+      "Какие полномочия и контекст должен наследовать агент-получатель при handoff?"
+    ]
+  },
+  {
+    "id": 92,
+    "question": "Как ограничивать transitive delegation в multi-agent system?",
+    "variants": [
+      "Почему право «делегировать задачу» не должно автоматически означать право делегировать все свои permissions дальше?"
+    ]
+  },
+  {
+    "id": 93,
+    "question": "Как проектировать authorization для multi-agent shared workspace?",
+    "variants": [
+      "Почему общий scratchpad может стать каналом privilege escalation и data leakage?"
+    ]
+  },
+  {
+    "id": 94,
+    "question": "Как проверять business invariants независимо от LLM reasoning?",
+    "variants": [
+      "Какие правила нельзя оставлять в естественно-языковой инструкции модели?"
+    ]
+  },
+  {
+    "id": 95,
+    "question": "Как использовать policy-as-code в agent platform?",
+    "variants": [
+      "Какие преимущества даёт вынесение agent authorization и risk rules в версионируемый policy engine?"
+    ]
+  },
+  {
+    "id": 96,
+    "question": "Как применять segregation of duties к AI-агентам?",
+    "variants": [
+      "Может ли один агент одновременно подготовить, одобрить и исполнить финансовую операцию?"
+    ]
+  },
+  {
+    "id": 97,
+    "question": "Как защищать tool gateway от privilege escalation через parameter tampering?",
+    "variants": [
+      "Почему модель не должна передавать tenant_id, user_role или approval_status как доверенные аргументы?"
+    ]
+  },
+  {
+    "id": 98,
+    "question": "Как проектировать safe defaults для newly added tools?",
+    "variants": [
+      "Что должно происходить, когда команда добавила новый tool, но policy ещё не знает его risk class?"
+    ]
+  },
+  {
+    "id": 99,
+    "question": "Как отозвать capability у уже запущенных агентов во время инцидента?",
+    "variants": [
+      "Почему одного изменения system prompt недостаточно для emergency kill switch?"
+    ]
+  },
+  {
+    "id": 100,
+    "question": "Как проводить security review нового tool перед подключением к агентной платформе?",
+    "variants": [
+      "Какие вопросы нужно задать о side effects, данных, auth и failure modes инструмента?"
+    ]
+  },
+  {
+    "id": 101,
+    "question": "Как защищать RAG ingestion pipeline от poisoned documents?",
+    "variants": [
+      "Какие security checks нужны до того, как документ попадёт в vector index агента?"
+    ]
+  },
+  {
+    "id": 102,
+    "question": "Как access control должен применяться в RAG retrieval?",
+    "variants": [
+      "Почему фильтрация документов после vector search может привести к утечке даже без показа полного текста?"
+    ]
+  },
+  {
+    "id": 103,
+    "question": "Какие риски возникают из-за shared vector index между tenants?",
+    "variants": [
+      "Достаточно ли metadata filter для сильной межтенантной изоляции?"
+    ]
+  },
+  {
+    "id": 104,
+    "question": "Что такое embedding inversion и membership inference и когда они важны для RAG security?",
+    "variants": [
+      "Можно ли считать embedding безопасным способом анонимизации исходного текста?"
+    ]
+  },
+  {
+    "id": 105,
+    "question": "Как предотвращать retrieval poisoning через SEO-like manipulation в корпоративной базе знаний?",
+    "variants": [
+      "Может ли атакующий добиться, чтобы его документ систематически ранжировался выше доверенных источников?"
+    ]
+  },
+  {
+    "id": 106,
+    "question": "Как проверять citations и source grounding в агенте, который отвечает по RAG?",
+    "variants": [
+      "Чем наличие ссылки отличается от доказательства, что источник действительно поддерживает claim?"
+    ]
+  },
+  {
+    "id": 107,
+    "question": "Как защищать long-term memory AI-агента от poisoning?",
+    "variants": [
+      "Почему нельзя автоматически сохранять каждое утверждение пользователя или tool output как постоянный факт?"
+    ]
+  },
+  {
+    "id": 108,
+    "question": "Как различать episodic, semantic и procedural memory с точки зрения безопасности?",
+    "variants": [
+      "Почему сохранение «как действовать» рискованнее сохранения факта о прошлой сессии?"
+    ]
+  },
+  {
+    "id": 109,
+    "question": "Как безопасно выполнять memory summarization и compaction?",
+    "variants": [
+      "Какие security-свойства могут потеряться, когда тысячи сообщений сжимаются в один summary?"
+    ]
+  },
+  {
+    "id": 110,
+    "question": "Как управлять retention и deletion в памяти агента?",
+    "variants": [
+      "Что означает «удалить данные пользователя», если они попали в prompts, embeddings, caches и summaries?"
+    ]
+  },
+  {
+    "id": 111,
+    "question": "Как предотвращать cross-session privilege leakage через память агента?",
+    "variants": [
+      "Почему сохранённый результат административной сессии нельзя автоматически показывать обычной сессии того же пользователя?"
+    ]
+  },
+  {
+    "id": 112,
+    "question": "Как защищать cache LLM/agent-системы от утечек между пользователями?",
+    "variants": [
+      "Какие проблемы создаёт semantic cache в multi-tenant приложении?"
+    ]
+  },
+  {
+    "id": 113,
+    "question": "Что такое context poisoning и чем оно отличается от persistent memory poisoning?",
+    "variants": [
+      "Как один вредоносный fragment в текущем context может повлиять на дальнейшие шаги без записи в long-term memory?"
+    ]
+  },
+  {
+    "id": 114,
+    "question": "Как безопасно использовать conversation history как часть authorization-sensitive reasoning?",
+    "variants": [
+      "Можно ли считать фразу пользователя «я уже подтверждал это вчера» доказательством approval?"
+    ]
+  },
+  {
+    "id": 115,
+    "question": "Как безопасно использовать user profile и preferences в персонализированном агенте?",
+    "variants": [
+      "Какие пользовательские предпочтения допустимо автоматически сохранять, а какие требуют отдельного consent или запрета?"
+    ]
+  },
+  {
+    "id": 116,
+    "question": "Как предотвращать leakage через generated summaries, reports и exports?",
+    "variants": [
+      "Почему безопасный доступ к исходным данным не гарантирует безопасный агрегированный отчёт?"
+    ]
+  },
+  {
+    "id": 117,
+    "question": "Как защищать training/fine-tuning data, собираемые из agent conversations?",
+    "variants": [
+      "Почему «сохраним все production traces для будущего fine-tuning» создаёт отдельный governance-риск?"
+    ]
+  },
+  {
+    "id": 118,
+    "question": "Как отличить data poisoning от model poisoning в supply chain?",
+    "variants": [
+      "Какие дополнительные риски появляются при скачивании open-weight модели из стороннего репозитория?"
+    ]
+  },
+  {
+    "id": 119,
+    "question": "Как предотвращать accidental sensitive-data disclosure в model output?",
+    "variants": [
+      "Чем output redaction отличается от устранения причины, по которой секрет вообще попал в context?"
+    ]
+  },
+  {
+    "id": 120,
+    "question": "Как безопасно обрабатывать secrets, случайно введённые пользователем в prompt?",
+    "variants": [
+      "Должен ли агент повторять API key в ответе, если пользователь сам его прислал?"
+    ]
+  },
+  {
+    "id": 121,
+    "question": "Как проектировать data classification labels для agent platform?",
+    "variants": [
+      "Какие labels действительно полезны для runtime policy, а не только для отчётности?"
+    ]
+  },
+  {
+    "id": 122,
+    "question": "Как предотвращать sensitive-data leakage через model provider telemetry?",
+    "variants": [
+      "Какие настройки и договорные свойства внешнего LLM endpoint нужно проверять перед production?"
+    ]
+  },
+  {
+    "id": 123,
+    "question": "Как управлять data residency в глобальной agent platform?",
+    "variants": [
+      "Почему маршрутизация запроса к «ближайшей модели» может нарушить требования по месту обработки данных?"
+    ]
+  },
+  {
+    "id": 124,
+    "question": "Как проектировать deletion и correction для ошибочной agent memory?",
+    "variants": [
+      "Что делать, если poisoned memory уже попала в summaries и повлияла на несколько downstream artifacts?"
+    ]
+  },
+  {
+    "id": 125,
+    "question": "Как оценивать риск, когда агент объединяет данные из нескольких trust domains?",
+    "variants": [
+      "Почему комбинация «внутренняя CRM + публичный web + email» опаснее суммы рисков каждого источника по отдельности?"
+    ]
+  },
+  {
+    "id": 126,
+    "question": "Как structured output снижает риск небезопасного взаимодействия между LLM и backend?",
+    "variants": [
+      "Почему JSON Schema полезнее свободного текста для критических action proposals?"
+    ]
+  },
+  {
+    "id": 127,
+    "question": "Как валидировать tool arguments до исполнения?",
+    "variants": [
+      "Какие проверки должны происходить между model output и реальным API call?"
+    ]
+  },
+  {
+    "id": 128,
+    "question": "Как проверять tool output перед возвратом в контекст модели?",
+    "variants": [
+      "Зачем post-tool guardrail, если backend API считается доверенным?"
+    ]
+  },
+  {
+    "id": 129,
+    "question": "Как выбрать между синхронным guardrail до model call и параллельным guardrail?",
+    "variants": [
+      "Каков trade-off latency против безопасности при parallel guardrails?"
+    ]
+  },
+  {
+    "id": 130,
+    "question": "Как проектировать fail-open и fail-closed поведение guardrails?",
+    "variants": [
+      "Что делать, если moderation API timeout-ится во время критического workflow?"
+    ]
+  },
+  {
+    "id": 131,
+    "question": "Как калибровать threshold security-classifier под разные классы действий?",
+    "variants": [
+      "Почему один порог prompt-injection detector для поиска и банковского перевода — плохая идея?"
+    ]
+  },
+  {
+    "id": 132,
+    "question": "Как измерять и снижать false positives guardrails без ухудшения безопасности?",
+    "variants": [
+      "Что делать, если legitimate security documentation постоянно блокируется как jailbreak?"
+    ]
+  },
+  {
+    "id": 133,
+    "question": "Как анализировать false negatives prompt-injection detector?",
+    "variants": [
+      "Как превратить пропущенную атаку в улучшение системы, а не только в новый blacklist pattern?"
+    ]
+  },
+  {
+    "id": 134,
+    "question": "Как оценивать guardrail на multilingual трафике?",
+    "variants": [
+      "Почему высокая точность на английском не переносится автоматически на русский, испанский или смешанный prompt?"
+    ]
+  },
+  {
+    "id": 135,
+    "question": "Как использовать ensemble guardrails и когда это оправдано?",
+    "variants": [
+      "Даст ли голосование трёх классификаторов реальное улучшение security recall?"
+    ]
+  },
+  {
+    "id": 136,
+    "question": "Как безопасно кэшировать результаты guardrail-classifier?",
+    "variants": [
+      "Какие поля должны входить в cache key, чтобы старое allow-решение не стало bypass после смены политики?"
+    ]
+  },
+  {
+    "id": 137,
+    "question": "Как проверять consistency между input, tool и output guardrails?",
+    "variants": [
+      "Что произойдёт, если вход разрешён, tool call запрещён, а агент пытается обойти запрет другим инструментом?"
+    ]
+  },
+  {
+    "id": 138,
+    "question": "Как проектировать guardrails для streaming output?",
+    "variants": [
+      "Почему нельзя сначала показать пользователю токены, а потом решить, что ответ содержал секрет?"
+    ]
+  },
+  {
+    "id": 139,
+    "question": "Как проектировать guardrails для realtime voice agent?",
+    "variants": [
+      "Какие новые риски появляются из-за speech-to-text, latency и возможности немедленно выполнять действия?"
+    ]
+  },
+  {
+    "id": 140,
+    "question": "Как применять PII redaction до отправки текста в сторонний guardrail-model?",
+    "variants": [
+      "Как проверить privacy policy, если сам классификатор должен увидеть чувствительный текст?"
+    ]
+  },
+  {
+    "id": 141,
+    "question": "Как проектировать policy taxonomy для content safety, чтобы она была реализуема инженерно?",
+    "variants": [
+      "Почему слишком абстрактные категории вроде «плохой контент» плохо подходят для guardrails?"
+    ]
+  },
+  {
+    "id": 142,
+    "question": "Как отделить content policy от authorization policy?",
+    "variants": [
+      "Почему безопасный по содержанию запрос всё равно может быть неавторизованным действием?"
+    ]
+  },
+  {
+    "id": 143,
+    "question": "Как реализовать escalation path для uncertain guardrail decisions?",
+    "variants": [
+      "Что делать с запросами, где classifier score находится около порога?"
+    ]
+  },
+  {
+    "id": 144,
+    "question": "Как объяснять пользователю блокировку guardrail-ом, не облегчая bypass?",
+    "variants": [
+      "Каков trade-off между transparency и security-through-obscurity?"
+    ]
+  },
+  {
+    "id": 145,
+    "question": "Как тестировать guardrail regression после изменения основного LLM?",
+    "variants": [
+      "Почему смена модели может сломать защиту, даже если guardrail-code не менялся?"
+    ]
+  },
+  {
+    "id": 146,
+    "question": "Как shadow mode помогает внедрять новый guardrail?",
+    "variants": [
+      "Какие выводы можно и нельзя делать из пассивного запуска classifier без блокировки пользователей?"
+    ]
+  },
+  {
+    "id": 147,
+    "question": "Как проводить canary rollout guardrail-policy?",
+    "variants": [
+      "Какие метрики должны остановить rollout новой защиты?"
+    ]
+  },
+  {
+    "id": 148,
+    "question": "Как проектировать fallback, если основной safety model недоступен или деградировал?",
+    "variants": [
+      "Можно ли автоматически переключиться на более слабый classifier без изменения risk policy?"
+    ]
+  },
+  {
+    "id": 149,
+    "question": "Как audit log должен фиксировать решения guardrails?",
+    "variants": [
+      "Какие данные нужны, чтобы через месяц воспроизвести, почему конкретный tool call был разрешён?"
+    ]
+  },
+  {
+    "id": 150,
+    "question": "Как определить, что guardrail является security control, а не только UX-фильтром?",
+    "variants": [
+      "Какие свойства должен иметь guardrail, если на него реально опирается risk assessment?"
+    ]
+  },
+  {
+    "id": 151,
+    "question": "Какие security boundaries появляются при подключении MCP server к AI-агенту?",
+    "variants": [
+      "Почему MCP-интеграцию следует рассматривать как подключение нового привилегированного software dependency?"
+    ]
+  },
+  {
+    "id": 152,
+    "question": "Как изменилась security-модель MCP в спецификации 2026-07-28 и почему важно учитывать версию?",
+    "variants": [
+      "Какие последствия для gateway и authorization даёт stateless core актуального MCP?"
+    ]
+  },
+  {
+    "id": 153,
+    "question": "Как безопасно реализовать OAuth authorization для удалённого MCP server?",
+    "variants": [
+      "Какие классы ошибок возникают при неправильной привязке authorization server, resource server и MCP client?"
+    ]
+  },
+  {
+    "id": 154,
+    "question": "Почему MCP client не должен передавать один и тот же OAuth token нескольким MCP servers?",
+    "variants": [
+      "Как audience restriction уменьшает blast radius компрометации одного MCP server?"
+    ]
+  },
+  {
+    "id": 155,
+    "question": "Как безопасно обрабатывать MCP tool discovery и `tools/list`?",
+    "variants": [
+      "Можно ли автоматически показать модели все tools, опубликованные подключённым сервером?"
+    ]
+  },
+  {
+    "id": 156,
+    "question": "Какие риски создаёт MCP tool description poisoning?",
+    "variants": [
+      "Почему описание инструмента само по себе является untrusted prompt content?"
+    ]
+  },
+  {
+    "id": 157,
+    "question": "Как защищаться от rug-pull атаки MCP server, когда инструмент меняется после первоначального approval?",
+    "variants": [
+      "Что делать, если schema или semantics доверенного tool обновились без изменения имени?"
+    ]
+  },
+  {
+    "id": 158,
+    "question": "Как sandboxing применяется к локальным MCP servers?",
+    "variants": [
+      "Почему локальный MCP process не должен автоматически получать доступ ко всему домашнему каталогу и environment пользователя?"
+    ]
+  },
+  {
+    "id": 159,
+    "question": "Как защищать MCP resources от cross-tenant leakage?",
+    "variants": [
+      "Почему `resources/list` и `resources/read` должны быть authorization-aware?"
+    ]
+  },
+  {
+    "id": 160,
+    "question": "Как реализовать approval для hosted MCP tools?",
+    "variants": [
+      "Почему approval-policy должна учитывать конкретный MCP server и tool, а не только имя действия?"
+    ]
+  },
+  {
+    "id": 161,
+    "question": "Какие security risks возникают при MCP sampling или других механизмах, где server инициирует дополнительную model activity?",
+    "variants": [
+      "Почему обратный вызов от MCP server к model capability требует отдельной trust boundary?"
+    ]
+  },
+  {
+    "id": 162,
+    "question": "Как защищать MCP gateway от SSRF и malicious endpoint configuration?",
+    "variants": [
+      "Почему пользовательский URL MCP server нельзя без ограничений подключать из внутренней сети?"
+    ]
+  },
+  {
+    "id": 163,
+    "question": "Как threat-modelить A2A communication между независимыми AI agents?",
+    "variants": [
+      "Какие дополнительные риски появляются при делегировании задачи внешнему агенту другой команды или компании?"
+    ]
+  },
+  {
+    "id": 164,
+    "question": "Какие требования безопасности задаёт актуальная A2A specification 1.0.0 для transport и authorization?",
+    "variants": [
+      "Какие security assumptions можно считать нормативными в текущем A2A протоколе?"
+    ]
+  },
+  {
+    "id": 165,
+    "question": "Что такое AgentCard в A2A и какие security risks связаны с discovery?",
+    "variants": [
+      "Почему AgentCard нельзя воспринимать как самодоказательство доверия агента?"
+    ]
+  },
+  {
+    "id": 166,
+    "question": "Как защищать A2A push notifications и webhooks?",
+    "variants": [
+      "Какие атаки возможны через callback URL в асинхронном agent workflow?"
+    ]
+  },
+  {
+    "id": 167,
+    "question": "Как предотвращать task-ID enumeration и cross-user access в A2A server?",
+    "variants": [
+      "Почему случайный `contextId` не заменяет authorization?"
+    ]
+  },
+  {
+    "id": 168,
+    "question": "Как защищать A2A artifacts и messages от prompt injection?",
+    "variants": [
+      "Почему authenticated external agent всё равно не является trusted source инструкций для локальной модели?"
+    ]
+  },
+  {
+    "id": 169,
+    "question": "Как проектировать end-to-end authorization, если A2A agent внутри вызывает MCP tools?",
+    "variants": [
+      "Где может потеряться user identity в цепочке User → Agent A → Agent B → MCP server?"
+    ]
+  },
+  {
+    "id": 170,
+    "question": "Как бороться с cyclic delegation и runaway workflows в A2A network?",
+    "variants": [
+      "Что предотвратит ситуацию, где два агента бесконечно делегируют задачу друг другу?"
+    ]
+  },
+  {
+    "id": 171,
+    "question": "Как сравнить security responsibilities MCP и A2A?",
+    "variants": [
+      "Почему MCP и A2A решают разные trust relationships, хотя оба связывают agent ecosystem?"
+    ]
+  },
+  {
+    "id": 172,
+    "question": "Как проводить security onboarding нового MCP/A2A integration provider?",
+    "variants": [
+      "Какие evidence нужно собрать до разрешения production-трафика?"
+    ]
+  },
+  {
+    "id": 173,
+    "question": "Как обнаруживать compromised MCP/A2A server в production?",
+    "variants": [
+      "Какие поведенческие аномалии интеграции должны вызывать автоматическое ограничение доверия?"
+    ]
+  },
+  {
+    "id": 174,
+    "question": "Как тестировать backward/forward compatibility MCP/A2A без ослабления security?",
+    "variants": [
+      "Почему «игнорировать неизвестные поля» может быть опасно для security-critical protocol metadata?"
+    ]
+  },
+  {
+    "id": 175,
+    "question": "Как построить централизованный agent integration gateway для MCP и A2A?",
+    "variants": [
+      "Какие security-функции имеет смысл вынести из отдельных агентов в общий gateway?"
+    ]
+  },
+  {
+    "id": 176,
+    "question": "Чем security evaluation AI-агента отличается от обычной functional evaluation?",
+    "variants": [
+      "Почему высокий task success не говорит о безопасности агента?"
+    ]
+  },
+  {
+    "id": 177,
+    "question": "Что такое attack success rate и как корректно измерять её для agentic prompt injection?",
+    "variants": [
+      "Как отличить «модель повторила вредоносный текст» от фактически успешной атаки?"
+    ]
+  },
+  {
+    "id": 178,
+    "question": "Что такое adaptive attack в evaluation guardrails?",
+    "variants": [
+      "Почему статический набор jailbreak prompts часто завышает оценку защиты?"
+    ]
+  },
+  {
+    "id": 179,
+    "question": "Как использовать AgentDojo/InjecAgent-подобные benchmarks и не переобобщать их результаты?",
+    "variants": [
+      "Почему benchmark score не равен риску конкретного production-агента?"
+    ]
+  },
+  {
+    "id": 180,
+    "question": "Как строить red team для AI-агента, чтобы он проверял не только jailbreaks?",
+    "variants": [
+      "Какие роли и attack surfaces должен охватывать agentic red teaming?"
+    ]
+  },
+  {
+    "id": 181,
+    "question": "Как проектировать security eval dataset без сильного contamination и overfitting?",
+    "variants": [
+      "Почему публикация всех внутренних attack cases может со временем сделать метрику менее полезной?"
+    ]
+  },
+  {
+    "id": 182,
+    "question": "Как измерять security/utility trade-off guardrail-system?",
+    "variants": [
+      "Как сравнить две защиты, если одна лучше блокирует атаки, но чаще ломает нормальные задачи?"
+    ]
+  },
+  {
+    "id": 183,
+    "question": "Как проводить adversarial testing human approval UX?",
+    "variants": [
+      "Что именно нужно проверять кроме того, что кнопки Approve/Reject работают?"
+    ]
+  },
+  {
+    "id": 184,
+    "question": "Как использовать fuzzing для agent tools и protocols?",
+    "variants": [
+      "Какие классы ошибок лучше находить fuzzing-ом, а не LLM red teaming?"
+    ]
+  },
+  {
+    "id": 185,
+    "question": "Как проводить penetration testing sandboxed code-execution agent?",
+    "variants": [
+      "Какие escape paths нужно проверять кроме прямого доступа к host filesystem?"
+    ]
+  },
+  {
+    "id": 186,
+    "question": "Как мониторить production agent на признаки prompt injection attack?",
+    "variants": [
+      "Какие telemetry signals могут указывать на успешную или неуспешную инъекцию?"
+    ]
+  },
+  {
+    "id": 187,
+    "question": "Как определить SLI/SLO для безопасности AI-агента?",
+    "variants": [
+      "Можно ли иметь SLO на unauthorized actions или prompt-injection defenses?"
+    ]
+  },
+  {
+    "id": 188,
+    "question": "Как трассировать причинность в multi-agent incident?",
+    "variants": [
+      "Какие correlation IDs нужны, чтобы восстановить цепочку User → Agent → Handoff → Tool → External side effect?"
+    ]
+  },
+  {
+    "id": 189,
+    "question": "Как организовать incident response для AI-агента?",
+    "variants": [
+      "Чем playbook agentic incident должен отличаться от обычного web-security incident?"
+    ]
+  },
+  {
+    "id": 190,
+    "question": "Как оценивать severity AI-agent security incident?",
+    "variants": [
+      "Почему факт «модель подчинилась prompt injection» ещё не определяет severity?"
+    ]
+  },
+  {
+    "id": 191,
+    "question": "Как проводить postmortem после ошибочного действия агента?",
+    "variants": [
+      "Почему root cause не должен останавливаться на формулировке «LLM hallucinated»?"
+    ]
+  },
+  {
+    "id": 192,
+    "question": "Как встроить agent security checks в CI/CD?",
+    "variants": [
+      "Какие security gates имеет смысл запускать на pull request и перед production deployment?"
+    ]
+  },
+  {
+    "id": 193,
+    "question": "Что такое AI-specific secure SDLC и чем он дополняет обычный SSDLC?",
+    "variants": [
+      "Какие этапы разработки появляются из-за вероятностной модели и agent tools?"
+    ]
+  },
+  {
+    "id": 194,
+    "question": "Как SBOM и provenance применяются к AI-agent stack?",
+    "variants": [
+      "Что кроме обычных Python packages должно входить в inventory supply chain?"
+    ]
+  },
+  {
+    "id": 195,
+    "question": "Как управлять dependencies AI-agent security stack, чтобы guardrail сам не стал supply-chain риском?",
+    "variants": [
+      "Что проверять у сторонней guardrail-библиотеки или hosted safety API?"
+    ]
+  },
+  {
+    "id": 196,
+    "question": "Как проводить change management для system prompt и agent policy?",
+    "variants": [
+      "Почему изменение одной строки в prompt может требовать production review?"
+    ]
+  },
+  {
+    "id": 197,
+    "question": "Как управлять model version pinning и vendor model aliases?",
+    "variants": [
+      "Какие риски создаёт использование `latest` в production agent?"
+    ]
+  },
+  {
+    "id": 198,
+    "question": "Как проводить pre-production risk acceptance AI-агента?",
+    "variants": [
+      "Какие evidence должен увидеть человек, принимающий residual risk?"
+    ]
+  },
+  {
+    "id": 199,
+    "question": "Как определить критерии go/no-go для production AI-agent launch?",
+    "variants": [
+      "Какие дефекты должны блокировать запуск независимо от среднего качества модели?"
+    ]
+  },
+  {
+    "id": 200,
+    "question": "Как организовать continuous assurance после запуска AI-агента?",
+    "variants": [
+      "Почему security review перед go-live недостаточен для системы с меняющимися моделями, данными и атаками?"
+    ]
+  },
+  {
+    "id": 201,
+    "question": "Как построить архитектуру агента так, чтобы успешная prompt injection не приводила к high-impact action?",
+    "variants": [
+      "Какой security design остаётся полезным даже при предположении, что модель иногда будет полностью контролироваться атакующим контентом?"
+    ]
+  },
+  {
+    "id": 202,
+    "question": "Как формализовать security property «данные не должны влиять на control flow» и почему полностью добиться этого трудно для LLM?",
+    "variants": [
+      "Как approximations information-flow security применяются к agentic systems?"
+    ]
+  },
+  {
+    "id": 203,
+    "question": "Как использовать «privilege separation» между planner и executor агентом?",
+    "variants": [
+      "Какие свойства должен иметь executor, чтобы compromised planner не мог просто приказать ему сделать что угодно?"
+    ]
+  },
+  {
+    "id": 204,
+    "question": "Как design pattern «read → propose → approve → execute» защищает high-risk workflows?",
+    "variants": [
+      "Какие race conditions и bypasses остаются даже при такой четырёхфазной схеме?"
+    ]
+  },
+  {
+    "id": 205,
+    "question": "Как строить secure agent state machine вместо свободного ReAct-loop?",
+    "variants": [
+      "Когда explicit workflow graph безопаснее open-ended tool selection?"
+    ]
+  },
+  {
+    "id": 206,
+    "question": "Как определить минимальный trusted computing base агентной системы?",
+    "variants": [
+      "Какие компоненты действительно должны быть доверенными, чтобы сохранялись security guarantees?"
+    ]
+  },
+  {
+    "id": 207,
+    "question": "Как применять zero trust principles к agent-to-tool communication?",
+    "variants": [
+      "Что означает «never trust, always verify» для каждого tool call внутри одной корпоративной сети?"
+    ]
+  },
+  {
+    "id": 208,
+    "question": "Как моделировать privilege escalation через композицию безопасных по отдельности tools?",
+    "variants": [
+      "Может ли комбинация `read_secret` + `create_public_note` быть критичнее каждого инструмента по отдельности?"
+    ]
+  },
+  {
+    "id": 209,
+    "question": "Как защищать агентную систему от capability creep со временем?",
+    "variants": [
+      "Почему безопасный агент через год может стать опасным без единого крупного релиза?"
+    ]
+  },
+  {
+    "id": 210,
+    "question": "Как проектировать context firewall между внешним web research и внутренним privileged action?",
+    "variants": [
+      "Какие данные можно передать через boundary, не перенося вредоносные инструкции?"
+    ]
+  },
+  {
+    "id": 211,
+    "question": "Как применять cryptographic binding к agent action proposals и approvals?",
+    "variants": [
+      "Когда хеширование параметров помогает доказать, что исполнено именно подтверждённое действие?"
+    ]
+  },
+  {
+    "id": 212,
+    "question": "Как защищать агента от semantic TOCTOU, когда смысл ресурса меняется между проверкой и исполнением?",
+    "variants": [
+      "Что если URL или document ID остаётся тем же, но содержимое после approval заменили?"
+    ]
+  },
+  {
+    "id": 213,
+    "question": "Как построить robust user-intent binding для agent actions?",
+    "variants": [
+      "Как отличить действие, логически вытекающее из запроса пользователя, от цели, добавленной найденным документом?"
+    ]
+  },
+  {
+    "id": 214,
+    "question": "Как защищать agent orchestration от prompt-driven policy changes?",
+    "variants": [
+      "Почему пользовательский prompt не должен уметь переключить агент в «admin mode», даже если модель считает это логичным?"
+    ]
+  },
+  {
+    "id": 215,
+    "question": "Как защищаться от «policy laundering» через вспомогательного агента или tool?",
+    "variants": [
+      "Что если основной агент не может выполнить действие и просит другой агент сделать его вместо себя?"
+    ]
+  },
+  {
+    "id": 216,
+    "question": "Как измерять security value instruction hierarchy в end-to-end agent system?",
+    "variants": [
+      "Какие эксперименты покажут, что лучшая model-level robustness действительно снизила business risk?"
+    ]
+  },
+  {
+    "id": 217,
+    "question": "Как оценить residual risk prompt injection количественно, если «истинную» вероятность атаки неизвестно?",
+    "variants": [
+      "Какие прокси-метрики полезны для risk decision без ложной точности?"
+    ]
+  },
+  {
+    "id": 218,
+    "question": "Как построить fault tree для data-exfiltration сценария AI-агента?",
+    "variants": [
+      "Какие независимые отказы должны произойти, чтобы секрет ушёл на внешний endpoint?"
+    ]
+  },
+  {
+    "id": 219,
+    "question": "Как проектировать security invariants, которые можно автоматически проверять на каждом run?",
+    "variants": [
+      "Какие свойства лучше выражать как runtime assertions, а не надеяться на eval dataset?"
+    ]
+  },
+  {
+    "id": 220,
+    "question": "Как использовать formal methods для agent tool policies?",
+    "variants": [
+      "Какие части agent security реально поддаются model checking или policy verification?"
+    ]
+  },
+  {
+    "id": 221,
+    "question": "Как защищать agent planner от malicious few-shot examples, retrieved из knowledge base?",
+    "variants": [
+      "Почему retrieval of prior successful workflows может стать каналом procedural poisoning?"
+    ]
+  },
+  {
+    "id": 222,
+    "question": "Как безопасно реализовать self-reflection/self-critique agent loop?",
+    "variants": [
+      "Может ли critic-agent считаться независимым security reviewer?"
+    ]
+  },
+  {
+    "id": 223,
+    "question": "Как защищаться от model-generated deception в approval explanation?",
+    "variants": [
+      "Почему текст «это безопасное действие» не должен генерироваться единственным компонентом, который просит approval?"
+    ]
+  },
+  {
+    "id": 224,
+    "question": "Как проектировать safe autonomy levels для одного и того же агента?",
+    "variants": [
+      "Как динамически переключаться между suggest-only, draft, execute-with-approval и autonomous execute?"
+    ]
+  },
+  {
+    "id": 225,
+    "question": "Как спроектировать «assume model compromise» review checklist для agent architecture?",
+    "variants": [
+      "Какие вопросы Senior engineer должен задать, если считать LLM полностью недоверенным компонентом?"
+    ]
+  },
+  {
+    "id": 226,
+    "question": "Как выбрать между container и microVM для sandboxed code-execution agent?",
+    "variants": [
+      "Какие threat model и performance constraints определяют уровень изоляции?"
+    ]
+  },
+  {
+    "id": 227,
+    "question": "Какие Linux isolation primitives важны для agent code sandbox?",
+    "variants": [
+      "Как namespaces, cgroups, seccomp и capabilities дополняют друг друга?"
+    ]
+  },
+  {
+    "id": 228,
+    "question": "Как безопасно предоставлять workspace coding-agent'у?",
+    "variants": [
+      "Почему mount всего repository read-write может быть неприемлем при работе с недоверенным issue или README?"
+    ]
+  },
+  {
+    "id": 229,
+    "question": "Как ограничивать network egress code-execution agent?",
+    "variants": [
+      "Когда sandbox без unrestricted internet функционально достаточен для разработки?"
+    ]
+  },
+  {
+    "id": 230,
+    "question": "Как безопасно устанавливать packages внутри agent sandbox?",
+    "variants": [
+      "Почему `pip install` или `npm install` по решению модели является supply-chain execution?"
+    ]
+  },
+  {
+    "id": 231,
+    "question": "Как предотвращать secret leakage через build tools и test runners?",
+    "variants": [
+      "Почему запуск `pytest` или `npm test` не всегда безопасен внутри repository от внешнего contributor?"
+    ]
+  },
+  {
+    "id": 232,
+    "question": "Как проектировать filesystem snapshots и rollback для coding agent?",
+    "variants": [
+      "Что дают disposable workspaces по сравнению с прямым редактированием checkout пользователя?"
+    ]
+  },
+  {
+    "id": 233,
+    "question": "Как предотвращать symlink/hardlink атаки при экспорте файлов из sandbox?",
+    "variants": [
+      "Почему «скопировать изменённые файлы обратно» требует security validation?"
+    ]
+  },
+  {
+    "id": 234,
+    "question": "Как ограничивать resource exhaustion в code sandbox?",
+    "variants": [
+      "Какие лимиты нужны против fork bomb, huge files и pathological compilation?"
+    ]
+  },
+  {
+    "id": 235,
+    "question": "Как sandbox должен взаимодействовать с GPU, если агент запускает ML-код?",
+    "variants": [
+      "Какие дополнительные security и availability risks даёт passthrough GPU?"
+    ]
+  },
+  {
+    "id": 236,
+    "question": "Как предотвращать container escape через Docker socket или privileged mounts?",
+    "variants": [
+      "Почему доступ к `/var/run/docker.sock` фактически эквивалентен host root?"
+    ]
+  },
+  {
+    "id": 237,
+    "question": "Как безопасно поддерживать browser automation в одной системе с code execution?",
+    "variants": [
+      "Почему объединение browser cookies и shell в одном sandbox увеличивает impact prompt injection?"
+    ]
+  },
+  {
+    "id": 238,
+    "question": "Как проектировать secure browser profile для agentic browsing?",
+    "variants": [
+      "Почему использовать обычный личный Chrome profile пользователя опасно?"
+    ]
+  },
+  {
+    "id": 239,
+    "question": "Как защищать clipboard и inter-process channels в desktop agent?",
+    "variants": [
+      "Почему clipboard является bidirectional data-exfiltration surface?"
+    ]
+  },
+  {
+    "id": 240,
+    "question": "Как безопасно давать computer-use агенту доступ к GUI приложению?",
+    "variants": [
+      "Почему pixel-level interaction не устраняет необходимость backend authorization?"
+    ]
+  },
+  {
+    "id": 241,
+    "question": "Как предотвращать prompt injection из source code comments в coding agent?",
+    "variants": [
+      "Почему комментарий в repository нужно считать данными, а не developer instruction для агента?"
+    ]
+  },
+  {
+    "id": 242,
+    "question": "Как защищаться от malicious tests, которые пытаются влиять на coding agent через stdout/stderr?",
+    "variants": [
+      "Может ли вывод программы стать indirect prompt injection?"
+    ]
+  },
+  {
+    "id": 243,
+    "question": "Как защищать coding agent от malicious compiler/linter diagnostics?",
+    "variants": [
+      "Почему «доверенный toolchain» всё равно может передать attacker-controlled сообщение?"
+    ]
+  },
+  {
+    "id": 244,
+    "question": "Как безопасно реализовать autonomous patch application?",
+    "variants": [
+      "Какие файлы и изменения должны автоматически переводить coding agent в approval mode?"
+    ]
+  },
+  {
+    "id": 245,
+    "question": "Как защищать release pipeline от agent-generated changes?",
+    "variants": [
+      "Почему агент с правом писать код не должен автоматически иметь право подписывать и публиковать release?"
+    ]
+  },
+  {
+    "id": 246,
+    "question": "Как безопасно подключать coding agent к Git credentials?",
+    "variants": [
+      "Чем fine-grained repository token лучше персонального PAT с доступом ко всем репозиториям?"
+    ]
+  },
+  {
+    "id": 247,
+    "question": "Как проектировать secure secrets access для code that legitimately needs credentials during test?",
+    "variants": [
+      "Когда synthetic credentials лучше production-like secrets?"
+    ]
+  },
+  {
+    "id": 248,
+    "question": "Как безопасно выполнять database migrations, предложенные AI-агентом?",
+    "variants": [
+      "Почему migration generation и migration execution должны быть разными trust levels?"
+    ]
+  },
+  {
+    "id": 249,
+    "question": "Как проектировать secure shell tool для production-operations agent?",
+    "variants": [
+      "Когда вообще допустимо давать LLM shell на production host?"
+    ]
+  },
+  {
+    "id": 250,
+    "question": "Как доказать, что sandbox действительно уменьшает prompt-injection risk, а не просто создаёт чувство безопасности?",
+    "variants": [
+      "Какие end-to-end tests должны проверять containment после полного model compromise?"
+    ]
+  },
+  {
+    "id": 251,
+    "question": "Как проектировать identity model для платформы, где один пользователь запускает несколько агентов и sub-agents?",
+    "variants": [
+      "Какие principals нужно различать в audit и authorization: user, agent, workload и tool?"
+    ]
+  },
+  {
+    "id": 252,
+    "question": "Как реализовать token exchange для multi-hop agent delegation?",
+    "variants": [
+      "Почему forwarding исходного user access token через все agents ухудшает security?"
+    ]
+  },
+  {
+    "id": 253,
+    "question": "Как применять workload identity к ephemeral agent sandboxes?",
+    "variants": [
+      "Почему встраивание cloud keys в image особенно опасно для одноразовых agent workers?"
+    ]
+  },
+  {
+    "id": 254,
+    "question": "Как защищать service-to-service authentication от prompt-induced credential misuse?",
+    "variants": [
+      "Почему mTLS подтверждает process identity, но не доказывает legitimacy конкретного agent action?"
+    ]
+  },
+  {
+    "id": 255,
+    "question": "Как проектировать consent для agent data access отдельно от authorization?",
+    "variants": [
+      "Почему техническое право читать данные не всегда означает, что агент должен использовать их для текущей задачи?"
+    ]
+  },
+  {
+    "id": 256,
+    "question": "Как предотвращать privilege escalation через shared service accounts в multi-tenant agent platform?",
+    "variants": [
+      "Какие компенсирующие controls нужны, если legacy backend поддерживает только один технический credential?"
+    ]
+  },
+  {
+    "id": 257,
+    "question": "Как защищать agent identity от impersonation в logs и inter-agent messages?",
+    "variants": [
+      "Почему поле `agent_name: admin-agent` в JSON payload не является доказательством identity?"
+    ]
+  },
+  {
+    "id": 258,
+    "question": "Как проектировать trust scores для внешних agents и tools, не превращая их в «магическое число»?",
+    "variants": [
+      "Какие атрибуты должны влиять на trust tier интеграции?"
+    ]
+  },
+  {
+    "id": 259,
+    "question": "Как защищать multi-agent consensus от sybil-подобной атаки или коррелированных моделей?",
+    "variants": [
+      "Почему «пять агентов согласились» не обязательно сильнее одного решения?"
+    ]
+  },
+  {
+    "id": 260,
+    "question": "Как предотвращать collusion-like behavior между agents в shared environment?",
+    "variants": [
+      "Какие controls нужны, если agents могут обмениваться сообщениями и воздействовать на общие resources?"
+    ]
+  },
+  {
+    "id": 261,
+    "question": "Как безопасно организовать shared memory нескольких agents с разными roles?",
+    "variants": [
+      "Как сохранить collaboration, не создавая общий высокопривилегированный data lake?"
+    ]
+  },
+  {
+    "id": 262,
+    "question": "Как предотвращать stale authorization в long-running agent workflow?",
+    "variants": [
+      "Что если права пользователя отозвали после начала задачи, но до финального tool call?"
+    ]
+  },
+  {
+    "id": 263,
+    "question": "Как проектировать revocation propagation во множестве agent workers и caches?",
+    "variants": [
+      "Как измерить время, за которое отозванный tool или token перестаёт работать во всей платформе?"
+    ]
+  },
+  {
+    "id": 264,
+    "question": "Как предотвращать replay approvals и tool calls?",
+    "variants": [
+      "Почему валидное подписанное approval нельзя принимать повторно бесконечно?"
+    ]
+  },
+  {
+    "id": 265,
+    "question": "Как реализовать step-up authentication для high-risk agent actions?",
+    "variants": [
+      "Когда обычной активной web-сессии пользователя недостаточно?"
+    ]
+  },
+  {
+    "id": 266,
+    "question": "Как защищать agent workflow от session fixation и cross-user state mix-up?",
+    "variants": [
+      "Какие ошибки в conversation/run ID могут привести к утечке или чужому approval?"
+    ]
+  },
+  {
+    "id": 267,
+    "question": "Как проектировать per-tenant encryption keys для agent memory и traces?",
+    "variants": [
+      "Когда envelope encryption помогает снизить blast radius cross-tenant incident?"
+    ]
+  },
+  {
+    "id": 268,
+    "question": "Как предотвращать covert channels между tenants через shared agent infrastructure?",
+    "variants": [
+      "Какие side channels остаются после правильных ACL?"
+    ]
+  },
+  {
+    "id": 269,
+    "question": "Как защищать multi-tenant prompt/response caches при prefix caching или model batching?",
+    "variants": [
+      "Какие assumptions о provider/runtime нужно проверить перед включением shared inference optimizations?"
+    ]
+  },
+  {
+    "id": 270,
+    "question": "Как безопасно реализовать «agent as a tool» внутри другого агента?",
+    "variants": [
+      "Почему вложенный агент не должен незаметно обходить guardrails родительского workflow?"
+    ]
+  },
+  {
+    "id": 271,
+    "question": "Как проектировать cross-agent message schemas для снижения semantic injection?",
+    "variants": [
+      "Когда free-form text между agents стоит заменить typed protocol messages?"
+    ]
+  },
+  {
+    "id": 272,
+    "question": "Как предотвращать escalation через dynamic agent spawning?",
+    "variants": [
+      "Какие limits нужны, если агент сам может создавать sub-agents?"
+    ]
+  },
+  {
+    "id": 273,
+    "question": "Как защищать shared queues и task brokers от cross-agent tampering?",
+    "variants": [
+      "Почему подпись/authorization сообщений важна даже внутри event-driven agent platform?"
+    ]
+  },
+  {
+    "id": 274,
+    "question": "Как проектировать cross-organization agent delegation с юридическими и техническими границами?",
+    "variants": [
+      "Какие данные и полномочия нельзя передавать внешнему agent только потому, что он поддерживает A2A?"
+    ]
+  },
+  {
+    "id": 275,
+    "question": "Как проектировать security model для agent marketplace или plugin ecosystem?",
+    "variants": [
+      "Какие механизмы нужны, если пользователи могут самостоятельно устанавливать third-party agents/tools?"
+    ]
+  },
+  {
+    "id": 276,
+    "question": "Как threat-modelить unbounded consumption в agentic system?",
+    "variants": [
+      "Какие ресурсы кроме LLM tokens может исчерпать один malicious или зацикленный run?"
+    ]
+  },
+  {
+    "id": 277,
+    "question": "Как проектировать rate limiting для multi-step AI-агента?",
+    "variants": [
+      "Почему token bucket только на входном API не отражает реальный расход платформы?"
+    ]
+  },
+  {
+    "id": 278,
+    "question": "Как использовать circuit breakers в agent tool layer?",
+    "variants": [
+      "Когда автоматическое отключение внешнего tool повышает и reliability, и security?"
+    ]
+  },
+  {
+    "id": 279,
+    "question": "Как предотвращать retry storm в distributed agent workflow?",
+    "variants": [
+      "Что произойдёт, если LLM, orchestrator и tool client каждый независимо повторяют один и тот же failed action?"
+    ]
+  },
+  {
+    "id": 280,
+    "question": "Как проектировать cancellation propagation в agent workflow?",
+    "variants": [
+      "Что должно произойти с sub-agents и pending tools, когда пользователь нажал Stop?"
+    ]
+  },
+  {
+    "id": 281,
+    "question": "Как проектировать backpressure в high-throughput agent platform?",
+    "variants": [
+      "Почему очередь без ограничения глубины может превратить краткий spike в долгий security/availability incident?"
+    ]
+  },
+  {
+    "id": 282,
+    "question": "Как защищаться от algorithmic complexity attacks на agent parsers и guardrails?",
+    "variants": [
+      "Какие inputs могут перегрузить regex, JSON parser, tokenizer или document extraction?"
+    ]
+  },
+  {
+    "id": 283,
+    "question": "Как защищать model endpoint от context-window abuse?",
+    "variants": [
+      "Почему максимальный поддерживаемый context не должен автоматически быть максимальным разрешённым пользователю?"
+    ]
+  },
+  {
+    "id": 284,
+    "question": "Как защищать embeddings/vector service от query amplification и poisoning?",
+    "variants": [
+      "Какие limits нужны на retrieval fan-out и index writes?"
+    ]
+  },
+  {
+    "id": 285,
+    "question": "Как threat-modelить supply chain open-weight model?",
+    "variants": [
+      "Какие атаки возможны от download до serving runtime?"
+    ]
+  },
+  {
+    "id": 286,
+    "question": "Как оценивать риск model backdoor в open-weight LLM?",
+    "variants": [
+      "Почему обычный benchmark quality почти ничего не говорит о trigger-based malicious behavior?"
+    ]
+  },
+  {
+    "id": 287,
+    "question": "Как защищать model conversion и quantization pipeline?",
+    "variants": [
+      "Может ли конвертация безопасных weights создать новый supply-chain риск?"
+    ]
+  },
+  {
+    "id": 288,
+    "question": "Как управлять vulnerabilities в LLM serving runtime?",
+    "variants": [
+      "Почему CVE в tokenizer/server может быть важнее jailbreak нового prompt?"
+    ]
+  },
+  {
+    "id": 289,
+    "question": "Как защищать prompt/policy repositories от unauthorized changes?",
+    "variants": [
+      "Почему system prompt может требовать такого же change control, как production code?"
+    ]
+  },
+  {
+    "id": 290,
+    "question": "Как защищать evaluation infrastructure от test tampering и sandbagging?",
+    "variants": [
+      "Почему модель или команда не должна иметь полный доступ к hidden eval conditions?"
+    ]
+  },
+  {
+    "id": 291,
+    "question": "Как защищать red-team artifacts и exploit prompts как чувствительные данные?",
+    "variants": [
+      "Когда публикация internal jailbreaks повышает риск production systems?"
+    ]
+  },
+  {
+    "id": 292,
+    "question": "Как проектировать disaster recovery для agent memory/vector stores?",
+    "variants": [
+      "Что кроме availability нужно учитывать при восстановлении backup после poisoning incident?"
+    ]
+  },
+  {
+    "id": 293,
+    "question": "Как проектировать failover между model providers без нарушения security policy?",
+    "variants": [
+      "Почему переключение на резервную LLM — не просто reliability decision?"
+    ]
+  },
+  {
+    "id": 294,
+    "question": "Как защищаться от dependency confusion и typosquatting в agent tooling?",
+    "variants": [
+      "Почему LLM особенно склонна предложить несуществующий или похожий package name?"
+    ]
+  },
+  {
+    "id": 295,
+    "question": "Как защищать CI/CD, если agent может создавать или изменять workflow files?",
+    "variants": [
+      "Какие attack paths появляются через GitHub Actions/GitLab CI definitions?"
+    ]
+  },
+  {
+    "id": 296,
+    "question": "Как управлять emergency security patches guardrail/model stack без разрушения reliability?",
+    "variants": [
+      "Что делать, если новый prompt-injection bypass требует немедленного mitigation до полного regression suite?"
+    ]
+  },
+  {
+    "id": 297,
+    "question": "Как threat-modelить model/provider outage с точки зрения безопасности?",
+    "variants": [
+      "Может ли availability incident привести к unsafe degradation?"
+    ]
+  },
+  {
+    "id": 298,
+    "question": "Как защищать audit logs от tampering со стороны agent или compromised worker?",
+    "variants": [
+      "Почему локальный лог внутри sandbox не является надёжным evidence?"
+    ]
+  },
+  {
+    "id": 299,
+    "question": "Как проектировать security chaos engineering для agent platform?",
+    "variants": [
+      "Какие контролируемые отказы стоит регулярно инъецировать в staging или limited production?"
+    ]
+  },
+  {
+    "id": 300,
+    "question": "Как построить secure-by-default agent platform, чтобы команды не собирали controls заново?",
+    "variants": [
+      "Какие «paved road» abstractions уменьшают вероятность security ошибок у product teams?"
+    ]
+  },
+  {
+    "id": 301,
+    "question": "Как построить end-to-end security benchmark для конкретного production agent, а не для абстрактной LLM?",
+    "variants": [
+      "Какие компоненты нужно включить в harness, чтобы score отражал реальный execution path?"
+    ]
+  },
+  {
+    "id": 302,
+    "question": "Как оценивать robustness guardrail к attack distribution shift?",
+    "variants": [
+      "Что делать, если production attacks семантически отличаются от training/eval corpus?"
+    ]
+  },
+  {
+    "id": 303,
+    "question": "Как отделить efficacy detector от efficacy всей layered defense?",
+    "variants": [
+      "Какие метрики нужны, чтобы понять, какой слой реально предотвратил incident?"
+    ]
+  },
+  {
+    "id": 304,
+    "question": "Как тестировать корреляцию ошибок нескольких guardrail models?",
+    "variants": [
+      "Почему независимые benchmark accuracies недостаточны для оценки ensemble?"
+    ]
+  },
+  {
+    "id": 305,
+    "question": "Как строить ROC/PR analysis для редких security attacks?",
+    "variants": [
+      "Почему PR curve часто информативнее ROC при низкой base rate атак?"
+    ]
+  },
+  {
+    "id": 306,
+    "question": "Как калибровать вероятностный risk score guardrail-model?",
+    "variants": [
+      "Почему score 0.9 не обязательно означает «90% вероятность атаки»?"
+    ]
+  },
+  {
+    "id": 307,
+    "question": "Как измерять latency overhead layered guardrails и оптимизировать его без снятия важных controls?",
+    "variants": [
+      "Какие проверки можно распараллелить, закешировать или перенести ближе к tool execution?"
+    ]
+  },
+  {
+    "id": 308,
+    "question": "Как оценивать стоимость guardrail stack и принимать cost/security trade-offs?",
+    "variants": [
+      "Когда отдельная safety LLM на каждый turn экономически неоправданна?"
+    ]
+  },
+  {
+    "id": 309,
+    "question": "Как мониторить guardrail drift после provider update?",
+    "variants": [
+      "Какие sentinel prompts полезны для раннего обнаружения незаявленного изменения поведения?"
+    ]
+  },
+  {
+    "id": 310,
+    "question": "Как строить feedback loop из production appeals/false blocks в guardrail improvement?",
+    "variants": [
+      "Как не превратить пользовательские «appeal» данные в канал poisoning classifier?"
+    ]
+  },
+  {
+    "id": 311,
+    "question": "Как обнаруживать silent guardrail bypass, если пользователь не сообщает об incident?",
+    "variants": [
+      "Какие downstream indicators позволяют найти attack, который не был классифицирован как malicious?"
+    ]
+  },
+  {
+    "id": 312,
+    "question": "Как использовать honeytokens и canary data в agent security testing?",
+    "variants": [
+      "Что даст фиктивный «секрет», который не должен никогда покидать trusted environment?"
+    ]
+  },
+  {
+    "id": 313,
+    "question": "Как проектировать anomaly detection на sequences tool calls?",
+    "variants": [
+      "Почему отдельный `read_customer` и `send_email` могут быть нормальными, а последовательность — подозрительной?"
+    ]
+  },
+  {
+    "id": 314,
+    "question": "Как оценивать explainability guardrail decision для аудита?",
+    "variants": [
+      "Почему chain-of-thought classifier не является обязательным или надёжным audit evidence?"
+    ]
+  },
+  {
+    "id": 315,
+    "question": "Как строить auditability при privacy-minimized logging?",
+    "variants": [
+      "Можно ли расследовать incident, не храня все prompts и tool outputs в открытом виде?"
+    ]
+  },
+  {
+    "id": 316,
+    "question": "Как построить security dashboard для AI-agent platform, чтобы он не сводился к числу blocked prompts?",
+    "variants": [
+      "Какие leading и lagging indicators нужны Senior/Platform team?"
+    ]
+  },
+  {
+    "id": 317,
+    "question": "Как проектировать alerting на agent security events без alert fatigue?",
+    "variants": [
+      "Какие события должны page on-call, а какие уходить в asynchronous triage?"
+    ]
+  },
+  {
+    "id": 318,
+    "question": "Как проводить continuous red teaming без превращения production в полигон?",
+    "variants": [
+      "Какие атаки безопасно запускать регулярно и где должны выполняться high-impact scenarios?"
+    ]
+  },
+  {
+    "id": 319,
+    "question": "Как оценивать security maturity agent platform?",
+    "variants": [
+      "Какие уровни зрелости логичнее измерять, чем наличие отдельных «AI security tools»?"
+    ]
+  },
+  {
+    "id": 320,
+    "question": "Как проводить tabletop exercise для agent security incident?",
+    "variants": [
+      "Какой сценарий полезен для проверки не только SOC, но и product/legal/platform команд?"
+    ]
+  },
+  {
+    "id": 321,
+    "question": "Как измерять MTTR/MTTD для AI-specific incidents?",
+    "variants": [
+      "Какие временные метрики особенно важны при автономных agents, действующих машинной скоростью?"
+    ]
+  },
+  {
+    "id": 322,
+    "question": "Как проверять, что incident remediation не создаёт новый bypass?",
+    "variants": [
+      "Почему добавление одного deny rule после incident может ухудшить utility и оставить root cause?"
+    ]
+  },
+  {
+    "id": 323,
+    "question": "Как управлять security debt в быстро растущей agent platform?",
+    "variants": [
+      "Какие debt items опаснее обычного технического долга?"
+    ]
+  },
+  {
+    "id": 324,
+    "question": "Как построить evidence package для внутреннего или внешнего аудита AI-агента?",
+    "variants": [
+      "Какие артефакты показывают, что controls реально работают, а не только описаны в policy?"
+    ]
+  },
+  {
+    "id": 325,
+    "question": "Как сравнивать две agent security architectures с разными наборами controls?",
+    "variants": [
+      "Как Senior engineer должен аргументировать выбор без лозунга «у нас больше guardrails»?"
+    ]
+  },
+  {
+    "id": 326,
+    "question": "Как применить функции Govern, Map, Measure и Manage из NIST AI RMF к security-программе для AI-агентов?",
+    "variants": [
+      "Как превратить NIST AI RMF из общего framework в операционную модель защиты agent platform?"
+    ]
+  },
+  {
+    "id": 327,
+    "question": "Как адаптировать NIST Generative AI Profile к agentic-системе, где модель не только генерирует текст, но и выполняет действия?",
+    "variants": [
+      "Почему risk profile обычного генеративного приложения недостаточен для автономного агента?"
+    ]
+  },
+  {
+    "id": 328,
+    "question": "Как использовать NIST SP 800-218A для secure SDLC AI-агента и чем он дополняет обычный SSDF?",
+    "variants": [
+      "Какие изменения в software supply chain появляются, когда продукт включает модели, prompts, datasets и agent tools?"
+    ]
+  },
+  {
+    "id": 329,
+    "question": "Чем ISO/IEC 42001 отличается от набора технических guardrails и что реально даёт AI Management System?",
+    "variants": [
+      "Почему сертификация или внедрение ISO/IEC 42001 не доказывает, что конкретный агент защищён от prompt injection?"
+    ]
+  },
+  {
+    "id": 330,
+    "question": "Как распределить ownership security-контролей между AI platform, product team, security, legal/compliance и business owner?",
+    "variants": [
+      "Кто должен отвечать за риск, если platform предоставляет guardrail, а продукт его неправильно конфигурирует?"
+    ]
+  },
+  {
+    "id": 331,
+    "question": "Как определить регуляторную роль организации для AI-агента вместо предположения, что она всегда является только deployer?",
+    "variants": [
+      "Почему изменение или перепаковка сторонней модели может изменить regulatory obligations компании?"
+    ]
+  },
+  {
+    "id": 332,
+    "question": "Какие governance-последствия имеет переход EU AI Act к реальному enforcement для general-purpose AI в 2026 году?",
+    "variants": [
+      "Что меняется для организации после того, как надзорные полномочия по GPAI начинают применяться, даже если продуктовая архитектура не изменилась?"
+    ]
+  },
+  {
+    "id": 333,
+    "question": "Как требования прозрачности EU AI Act, применяемые с 2 августа 2026 года, влияют на UX AI-агента?",
+    "variants": [
+      "Где transparency должна быть встроена в product flow, а не спрятана в Terms of Service?"
+    ]
+  },
+  {
+    "id": 334,
+    "question": "Как проектировать roadmap под меняющиеся сроки применения high-risk требований EU AI Act, не привязывая архитектуру к одной дате?",
+    "variants": [
+      "Что делать, если законодательный timeline меняется быстрее, чем enterprise release cycle?"
+    ]
+  },
+  {
+    "id": 335,
+    "question": "Как спроектировать incident reporting для AI-агента так, чтобы один процесс обслуживал security, safety, privacy и regulatory obligations?",
+    "variants": [
+      "Как избежать четырёх несогласованных incident-процессов для одного agent failure?"
+    ]
+  },
+  {
+    "id": 336,
+    "question": "Когда AI-agent project должен проходить DPIA и как связать privacy assessment с threat model?",
+    "variants": [
+      "Чем privacy threat отличается от обычного cybersecurity threat в агенте с долгосрочной памятью?"
+    ]
+  },
+  {
+    "id": 337,
+    "question": "Чем model card, system card, risk assessment и audit evidence отличаются друг от друга?",
+    "variants": [
+      "Почему один красивый system card не заменяет доказательства production-control effectiveness?"
+    ]
+  },
+  {
+    "id": 338,
+    "question": "Какие изменения AI-агента должны автоматически запускать повторный security и governance review?",
+    "variants": [
+      "Почему обновление только model version может быть material change, даже если код приложения не менялся?"
+    ]
+  },
+  {
+    "id": 339,
+    "question": "Как оценивать third-party AI vendor с точки зрения agent security, если vendor не раскрывает внутреннюю архитектуру модели?",
+    "variants": [
+      "Какие доказательства можно требовать от закрытого model/API provider без доступа к его weights и source code?"
+    ]
+  },
+  {
+    "id": 340,
+    "question": "Как управлять subprocessors и data-processing chain в agent architecture с несколькими model, guardrail, vector и observability providers?",
+    "variants": [
+      "Почему добавление внешнего moderation API может неожиданно расширить privacy perimeter системы?"
+    ]
+  },
+  {
+    "id": 341,
+    "question": "Как совместить минимизацию retention с требованиями расследования, legal hold и auditability AI-агента?",
+    "variants": [
+      "Нужно ли хранить все prompts и chain-of-thought-like traces бессрочно ради безопасности?"
+    ]
+  },
+  {
+    "id": 342,
+    "question": "Как должен работать процесс policy exception для AI-агента, которому бизнес просит временно дать более широкие права?",
+    "variants": [
+      "Как не превратить temporary exception в постоянную дыру в least privilege?"
+    ]
+  },
+  {
+    "id": 343,
+    "question": "Как построить risk tiering для сотен AI-агентов внутри компании?",
+    "variants": [
+      "Почему классификация только по используемой LLM плохо отражает реальный риск агента?"
+    ]
+  },
+  {
+    "id": 344,
+    "question": "Как доказать аудитору или risk committee, что release gate AI-агента проверяет controls, а не просто наличие документов?",
+    "variants": [
+      "Какие automated evidence лучше ручного чек-листа перед production deploy?"
+    ]
+  },
+  {
+    "id": 345,
+    "question": "Какие governance-метрики полезны руководству для agent security, а какие создают ложное ощущение контроля?",
+    "variants": [
+      "Почему количество проведённых AI risk reviews — слабая метрика зрелости?"
+    ]
+  },
+  {
+    "id": 346,
+    "question": "Какие security requirements стоит включать в RFP или procurement criteria для agent platform и AI vendors?",
+    "variants": [
+      "Какие вопросы поставщику помогают отличить реальную security capability от маркетингового «enterprise-grade AI»?"
+    ]
+  },
+  {
+    "id": 347,
+    "question": "Как обеспечить независимость red team для AI-агента, не отрывая её от product engineering?",
+    "variants": [
+      "Почему red team, которая сама разработала guardrail, может систематически недооценивать bypasses?"
+    ]
+  },
+  {
+    "id": 348,
+    "question": "Как вести risk register для agentic AI, чтобы он не превращался в список общих фраз вроде «возможны галлюцинации»?",
+    "variants": [
+      "Как описывать AI risk так, чтобы из записи следовал конкретный engineering action?"
+    ]
+  },
+  {
+    "id": 349,
+    "question": "Как спроектировать kill switch для production AI-агентов и какие уровни отключения нужны?",
+    "variants": [
+      "Почему единственная кнопка «выключить весь AI» часто бесполезна при реальном incident?"
+    ]
+  },
+  {
+    "id": 350,
+    "question": "Как сопоставить NIST, ISO, OWASP и регуляторные требования без создания четырёх параллельных наборов controls?",
+    "variants": [
+      "Как построить единый control catalog для security и AI governance вместо checkbox compliance по каждому framework?"
+    ]
+  },
+  {
+    "id": 351,
+    "question": "Вы запускаете enterprise agent platform для десятков продуктовых команд. Какие security capabilities должны быть платформенными, а какие нельзя централизовать без потери domain context?",
+    "variants": [
+      "Где провести границу между shared agent security platform и ответственностью продуктовой команды?"
+    ]
+  },
+  {
+    "id": 352,
+    "question": "Как выбрать между единым централизованным agent gateway и локальными security controls в каждом сервисе?",
+    "variants": [
+      "Когда central gateway уменьшает риск, а когда становится опасной shared trust boundary?"
+    ]
+  },
+  {
+    "id": 353,
+    "question": "Бизнес требует «максимально автономного» агента для ускорения операций. Как определить допустимый autonomy envelope, а не спорить в терминах «автономный/неавтономный»?",
+    "variants": [
+      "Как формально ограничить автономность агента по типу действия и потенциальному ущербу?"
+    ]
+  },
+  {
+    "id": 354,
+    "question": "Компания хочет разрешить агенту выполнять платежи. Какую архитектуру вы предложите, чтобы LLM никогда не была окончательным авторизатором транзакции?",
+    "variants": [
+      "Как построить financial agent, если модель должна понимать намерение пользователя, но не может быть trust anchor для денег?"
+    ]
+  },
+  {
+    "id": 355,
+    "question": "Стоит ли строить универсальный policy engine для всех agent actions или оставлять правила в domain services?",
+    "variants": [
+      "Какие authorization policies подходят для централизации, а какие опасно выносить из бизнес-сервиса?"
+    ]
+  },
+  {
+    "id": 356,
+    "question": "Как решить, нужен ли отдельный security model для каждого агента или единая «security LLM» на платформе?",
+    "variants": [
+      "Когда shared guard model экономит стоимость, но увеличивает correlated failure risk?"
+    ]
+  },
+  {
+    "id": 357,
+    "question": "Как выбрать между human-in-the-loop на каждом write action и selective approvals по risk tier?",
+    "variants": [
+      "Когда больше approval prompts фактически снижает безопасность?"
+    ]
+  },
+  {
+    "id": 358,
+    "question": "Нужно ли разрешать пользователям подключать произвольные MCP servers к корпоративному агенту?",
+    "variants": [
+      "Как сбалансировать экосистемную гибкость MCP с риском supply-chain и delegated access?"
+    ]
+  },
+  {
+    "id": 359,
+    "question": "Как принять решение о поддержке A2A federation между агентами разных компаний?",
+    "variants": [
+      "Какие условия должны быть выполнены до того, как внешний агент сможет делегировать задачи внутреннему?"
+    ]
+  },
+  {
+    "id": 360,
+    "question": "Вы выбираете между browser agent с широким доступом к интернету и набором специализированных APIs. Как принимать решение с точки зрения безопасности и product velocity?",
+    "variants": [
+      "Когда web browser оправдан, несмотря на существенно больший attack surface?"
+    ]
+  },
+  {
+    "id": 361,
+    "question": "Как решить, разрешать ли coding agent доступ к production repository и CI/CD secrets?",
+    "variants": [
+      "Как получить пользу автономного coding agent без превращения его в supply-chain superuser?"
+    ]
+  },
+  {
+    "id": 362,
+    "question": "Как определить, нужен ли агенту long-term memory, если она улучшает UX, но расширяет privacy и poisoning risk?",
+    "variants": [
+      "Когда лучше отказаться от persistent memory в пользу explicit user profile или retrieval из authoritative systems?"
+    ]
+  },
+  {
+    "id": 363,
+    "question": "Как проектировать multi-tenant agent platform для клиентов с разными требованиями к изоляции?",
+    "variants": [
+      "Когда логической tenant isolation недостаточно и нужен отдельный deployment plane?"
+    ]
+  },
+  {
+    "id": 364,
+    "question": "Как решить, использовать ли один foundation model для всех security tiers или разные модели для high-risk workloads?",
+    "variants": [
+      "Какие критерии, кроме benchmark quality, влияют на model segmentation по уровню риска?"
+    ]
+  },
+  {
+    "id": 365,
+    "question": "Как выбирать между hosted guardrail service и собственной policy/guardrail платформой?",
+    "variants": [
+      "Когда build vs buy для guardrails определяется не ML quality, а data perimeter и operational control?"
+    ]
+  },
+  {
+    "id": 366,
+    "question": "Как решить, нужно ли шифрование end-to-end между пользователем и агентом, если platform должна выполнять moderation и audit?",
+    "variants": [
+      "Какие trade-offs возникают между content confidentiality и server-side security controls?"
+    ]
+  },
+  {
+    "id": 367,
+    "question": "Как определить допустимую долю fail-open в guardrail architecture при требованиях высокой доступности?",
+    "variants": [
+      "Должен ли недоступный security classifier останавливать весь agent workflow?"
+    ]
+  },
+  {
+    "id": 368,
+    "question": "Как балансировать подробность audit logs и стоимость/latency observability на миллиардах agent steps?",
+    "variants": [
+      "Что логировать всегда, что sampling-овать, а что нельзя хранить в raw виде?"
+    ]
+  },
+  {
+    "id": 369,
+    "question": "Стоит ли хранить полные reasoning traces модели для расследований и governance?",
+    "variants": [
+      "Какие риски создаёт сбор скрытых или chain-of-thought-like данных как обязательной audit telemetry?"
+    ]
+  },
+  {
+    "id": 370,
+    "question": "Как решить, когда security control должен быть синхронным в request path, а когда асинхронным?",
+    "variants": [
+      "Какие controls нельзя переносить в post-processing ради latency?"
+    ]
+  },
+  {
+    "id": 371,
+    "question": "Какой подход выбрать для security evals: единый корпоративный benchmark или отдельные suites для каждого продукта?",
+    "variants": [
+      "Как получить сравнимость между командами, не потеряв realism конкретных agent workflows?"
+    ]
+  },
+  {
+    "id": 372,
+    "question": "Как определить security SLO для agent platform, если «0 prompt injections» недостижимо и плохо измеримо?",
+    "variants": [
+      "Какие SLO отражают containment, а не иллюзию абсолютной неуязвимости модели?"
+    ]
+  },
+  {
+    "id": 373,
+    "question": "Как оценить экономический эффект security architecture, которая добавляет latency и approvals, но уменьшает вероятность крупного incident?",
+    "variants": [
+      "Как защищать investment в agent security перед руководством без выдуманной точности ROI?"
+    ]
+  },
+  {
+    "id": 374,
+    "question": "Как планировать capacity security services, если adversarial traffic может специально максимизировать стоимость guardrails и model calls?",
+    "variants": [
+      "Как защитить security layer от превращения в DoS bottleneck?"
+    ]
+  },
+  {
+    "id": 375,
+    "question": "Как принимать решение о запуске agent feature, если security evals показывают улучшение utility, но небольшой рост attack success rate?",
+    "variants": [
+      "Как AI Lead должен разрешать конфликт между product quality и security regression?"
+    ]
+  },
+  {
+    "id": 376,
+    "question": "Как построить operating model AI governance в компании, где десятки команд уже самостоятельно используют агентов?",
+    "variants": [
+      "С чего начинать governance, если централизованный запрет уже нереалистичен?"
+    ]
+  },
+  {
+    "id": 377,
+    "question": "Как организовать AI security review так, чтобы он не стал bottleneck для продуктовых команд?",
+    "variants": [
+      "Какие части review можно автоматизировать, а где нужен senior human judgment?"
+    ]
+  },
+  {
+    "id": 378,
+    "question": "Как решить, должен ли CISO владеть AI security, а Chief AI Officer — AI governance?",
+    "variants": [
+      "Как избежать разрыва между cybersecurity и responsible-AI программами?"
+    ]
+  },
+  {
+    "id": 379,
+    "question": "Как сформировать AI risk committee, чтобы он принимал технически содержательные решения, а не только формальные approvals?",
+    "variants": [
+      "Какие роли должны участвовать в решении по high-risk agent launch?"
+    ]
+  },
+  {
+    "id": 380,
+    "question": "Как определять risk appetite для AI-агентов в терминах, пригодных для инженеров?",
+    "variants": [
+      "Как перевести фразу руководства «низкая толерантность к утечкам данных» в технические ограничения?"
+    ]
+  },
+  {
+    "id": 381,
+    "question": "Как управлять shadow AI agents, которые сотрудники создают без участия платформенной команды?",
+    "variants": [
+      "Что эффективнее: запрет, discovery или безопасный self-service путь?"
+    ]
+  },
+  {
+    "id": 382,
+    "question": "Как строить training для разработчиков AI-агентов, чтобы оно реально снижало security incidents?",
+    "variants": [
+      "Почему общий курс «что такое prompt injection» недостаточен для engineering teams?"
+    ]
+  },
+  {
+    "id": 383,
+    "question": "Как управлять исключениями для research/prototyping agents, которым intentionally нужны более широкие capabilities?",
+    "variants": [
+      "Как не тормозить R&D и одновременно не допустить перенос experimental privileges в production?"
+    ]
+  },
+  {
+    "id": 384,
+    "question": "Как определить, какие AI incidents требуют уведомления executive leadership или board?",
+    "variants": [
+      "Какие критерии escalation важнее самого факта jailbreak?"
+    ]
+  },
+  {
+    "id": 385,
+    "question": "Как включить AI-agent security в enterprise architecture review без создания отдельной параллельной бюрократии?",
+    "variants": [
+      "Какие существующие review процессы стоит расширить, а какие AI-specific gates всё же нужны?"
+    ]
+  },
+  {
+    "id": 386,
+    "question": "Как выстроить governance open-source моделей, которые команды скачивают и запускают локально?",
+    "variants": [
+      "Какие риски отличаются от использования hosted proprietary API?"
+    ]
+  },
+  {
+    "id": 387,
+    "question": "Как управлять model deprecation, если vendor прекращает поддержку версии, на которой сертифицированы critical agents?",
+    "variants": [
+      "Что должно быть в migration plan до получения notice о forced model upgrade?"
+    ]
+  },
+  {
+    "id": 388,
+    "question": "Как выстроить governance model prompts и policies как production artifacts?",
+    "variants": [
+      "Нужен ли system prompt такой же change control, как application code?"
+    ]
+  },
+  {
+    "id": 389,
+    "question": "Как управлять eval datasets как security-sensitive asset?",
+    "variants": [
+      "Почему утечка red-team benchmark может сделать показатели агента бессмысленно хорошими?"
+    ]
+  },
+  {
+    "id": 390,
+    "question": "Как организовать internal disclosure процесса для сотрудников, которые нашли jailbreak или authorization bypass в корпоративном агенте?",
+    "variants": [
+      "Как сделать так, чтобы сотрудники сообщали об уязвимостях, а не скрывали их из страха нарушить policy?"
+    ]
+  },
+  {
+    "id": 391,
+    "question": "Как определить acceptable evidence для утверждения, что агент «human supervised»?",
+    "variants": [
+      "Почему наличие кнопки Approve не доказывает effective human oversight?"
+    ]
+  },
+  {
+    "id": 392,
+    "question": "Как управлять AI-agent security в M&A, когда приобретаемая компания уже имеет собственный agent stack?",
+    "variants": [
+      "Какие риски нужно оценить до подключения чужих agents к корпоративным данным и identity?"
+    ]
+  },
+  {
+    "id": 393,
+    "question": "Как определить, какие security controls должны быть mandatory для всех business units, а где разрешить локальные стандарты?",
+    "variants": [
+      "Как избежать и слабой федерации, и чрезмерно централизованного one-size-fits-all governance?"
+    ]
+  },
+  {
+    "id": 394,
+    "question": "Как управлять конфликтом между privacy minimization и потребностью security team собирать данные для red teaming?",
+    "variants": [
+      "Можно ли использовать реальные customer conversations для security evals?"
+    ]
+  },
+  {
+    "id": 395,
+    "question": "Как выстроить governance для AI-generated code, который попадает в regulated или safety-critical systems?",
+    "variants": [
+      "Должен ли код, написанный агентом, проходить иной контроль, чем код человека?"
+    ]
+  },
+  {
+    "id": 396,
+    "question": "Как определить, когда AI security finding является release blocker, а когда допустим documented risk acceptance?",
+    "variants": [
+      "Как установить severity, учитывая exploitability агента и downstream controls?"
+    ]
+  },
+  {
+    "id": 397,
+    "question": "Как внедрить post-market monitoring AI-агентов, если поведение меняется из-за data drift и provider updates?",
+    "variants": [
+      "Какие сигналы должны автоматически инициировать повторную оценку риска после запуска?"
+    ]
+  },
+  {
+    "id": 398,
+    "question": "Как управлять decommission AI-агента безопасно?",
+    "variants": [
+      "Какие остаточные риски остаются после выключения endpoint агента?"
+    ]
+  },
+  {
+    "id": 399,
+    "question": "Как управлять security dependencies между AI platform roadmap и product roadmaps?",
+    "variants": [
+      "Что делать, если продукту нужна capability раньше, чем платформа успевает построить безопасный primitive?"
+    ]
+  },
+  {
+    "id": 400,
+    "question": "Как измерять зрелость AI-agent security программы по этапам, а не по наличию отдельных инструментов?",
+    "variants": [
+      "Как выглядит переход от ad hoc guardrails к управляемой enterprise capability?"
+    ]
+  },
+  {
+    "id": 401,
+    "question": "Компания выбирает между OpenAI, Anthropic, Google и self-hosted model для high-risk agent. Как построить vendor decision framework, не сводя его к leaderboard?",
+    "variants": [
+      "Какие security и governance критерии должны иметь veto power при выборе foundation-model provider?"
+    ]
+  },
+  {
+    "id": 402,
+    "question": "Как решить, можно ли отправлять confidential enterprise data внешнему model provider?",
+    "variants": [
+      "Какие условия должны быть проверены до подключения sensitive corpus к hosted LLM?"
+    ]
+  },
+  {
+    "id": 403,
+    "question": "Как оценить vendor claim «мы защищаем от prompt injection»?",
+    "variants": [
+      "Какие доказательства запросить, чтобы отличить security feature от marketing statement?"
+    ]
+  },
+  {
+    "id": 404,
+    "question": "Как управлять concentration risk, если большинство критичных агентов зависят от одного AI provider?",
+    "variants": [
+      "Когда multi-provider стратегия оправдывает дополнительную сложность?"
+    ]
+  },
+  {
+    "id": 405,
+    "question": "Как включить model provider outage в business continuity plan для agentic workflows?",
+    "variants": [
+      "Какие функции должны деградировать, а какие нельзя автоматически переводить на более слабую модель?"
+    ]
+  },
+  {
+    "id": 406,
+    "question": "Как принимать решение о fine-tuning модели для security-sensitive agent вместо prompt/RAG/tool-policy изменений?",
+    "variants": [
+      "Когда fine-tuning улучшает поведение, но увеличивает governance burden?"
+    ]
+  },
+  {
+    "id": 407,
+    "question": "Как оценить безопасность использования open-source agent framework вместо собственного orchestration layer?",
+    "variants": [
+      "Какие признаки показывают, что framework слишком много security-critical behavior скрывает за convenience API?"
+    ]
+  },
+  {
+    "id": 408,
+    "question": "Как управлять license и IP risk для AI-generated artifacts и open-weight models в agent platform?",
+    "variants": [
+      "Почему legal/IP governance должно быть связано с technical provenance?"
+    ]
+  },
+  {
+    "id": 409,
+    "question": "Как решить, должен ли product показывать пользователю источники и provenance для действий AI-агента?",
+    "variants": [
+      "Когда citation является security control, а когда только UX feature?"
+    ]
+  },
+  {
+    "id": 410,
+    "question": "Как управлять customer-configurable system prompts и guardrails в SaaS agent platform?",
+    "variants": [
+      "Где закончить customization и начать platform invariants, которые tenant не может отключить?"
+    ]
+  },
+  {
+    "id": 411,
+    "question": "Как принять решение о предоставлении customers raw model logs и traces для debugging?",
+    "variants": [
+      "Как совместить customer observability с защитой platform secrets и данных других tenants?"
+    ]
+  },
+  {
+    "id": 412,
+    "question": "Как построить enterprise feature для BYOK/BYOM — customer-owned keys или models — без разрушения platform security model?",
+    "variants": [
+      "Какие trust assumptions меняются, когда tenant приносит собственный model endpoint?"
+    ]
+  },
+  {
+    "id": 413,
+    "question": "Как выбрать security architecture для consumer agent и enterprise agent, если core model один и тот же?",
+    "variants": [
+      "Какие enterprise requirements нельзя просто добавить тарифным feature flag?"
+    ]
+  },
+  {
+    "id": 414,
+    "question": "Как оценить risk нового «computer use» инструмента, который позволяет агенту управлять любым desktop application?",
+    "variants": [
+      "Почему универсальный GUI tool требует более строгого governance, чем десяток узких APIs?"
+    ]
+  },
+  {
+    "id": 415,
+    "question": "Как решить, разрешить ли agent platform динамически загружать новые tools во время выполнения задачи?",
+    "variants": [
+      "Какие controls нужны для runtime tool discovery?"
+    ]
+  },
+  {
+    "id": 416,
+    "question": "Как оценить внедрение «AI firewall» как отдельного продукта перед model endpoint?",
+    "variants": [
+      "Какие security properties внешний AI firewall принципиально не может обеспечить сам?"
+    ]
+  },
+  {
+    "id": 417,
+    "question": "Как принять решение об использовании confidential computing или TEE для AI-agent workloads?",
+    "variants": [
+      "Когда trusted execution environment реально уменьшает threat model, а когда только усложняет платформу?"
+    ]
+  },
+  {
+    "id": 418,
+    "question": "Как решить, использовать ли synthetic data вместо production data для security testing AI-агента?",
+    "variants": [
+      "Как добиться realistic red team без копирования sensitive customer corpus?"
+    ]
+  },
+  {
+    "id": 419,
+    "question": "Как управлять agent behavior, если customers требуют отключить часть safety guardrails для легитимного домена, например security research?",
+    "variants": [
+      "Как построить capability-based access к dual-use функциям вместо глобального снятия ограничений?"
+    ]
+  },
+  {
+    "id": 420,
+    "question": "Как решить, нужна ли отдельная model safety team и agent security team?",
+    "variants": [
+      "Где их зоны ответственности пересекаются и где должны оставаться раздельными?"
+    ]
+  },
+  {
+    "id": 421,
+    "question": "Как управлять third-party tools, которые сами используют LLM внутри и возвращают недетерминированный результат вашему агенту?",
+    "variants": [
+      "Как меняется trust model, если tool фактически является ещё одним агентом?"
+    ]
+  },
+  {
+    "id": 422,
+    "question": "Как принять решение о разрешении agent-to-agent negotiation, где агенты могут самостоятельно согласовывать условия сделки?",
+    "variants": [
+      "Какие business invariants должны ограничивать автономные переговоры?"
+    ]
+  },
+  {
+    "id": 423,
+    "question": "Как оценивать security impact новой функции «agent can remember everything» до её запуска?",
+    "variants": [
+      "Какие вопросы должен задать AI Lead продукту, прежде чем одобрить unlimited memory?"
+    ]
+  },
+  {
+    "id": 424,
+    "question": "Как решить, можно ли автоматически использовать user feedback для обновления agent prompts или policies?",
+    "variants": [
+      "Как предотвратить poisoning feedback loop в self-improving agent system?"
+    ]
+  },
+  {
+    "id": 425,
+    "question": "Как принимать решение об экспорте agent platform в новую страну или regulated industry?",
+    "variants": [
+      "Почему «тот же продукт, только новый регион» может требовать другой security architecture?"
+    ]
+  },
+  {
+    "id": 426,
+    "question": "В production обнаружено, что indirect prompt injection иногда заставляет агента пытаться отправлять данные на внешние URL, но egress allowlist всё блокирует. Нужно ли считать это incident и останавливать систему?",
+    "variants": [
+      "Как оценить серьёзность случая, когда model layer compromised, но downstream containment сработал?"
+    ]
+  },
+  {
+    "id": 427,
+    "question": "Агент совершил неавторизованное действие из-за ошибки business authorization, а не LLM. Как должен проходить incident review?",
+    "variants": [
+      "Почему AI incident нельзя автоматически списывать на hallucination модели?"
+    ]
+  },
+  {
+    "id": 428,
+    "question": "После model upgrade agent стал чаще выбирать высокорисковые tools, хотя task benchmark улучшился. Как расследовать и решать rollout?",
+    "variants": [
+      "Какие данные нужны, чтобы отличить полезную инициативность от capability-risk regression?"
+    ]
+  },
+  {
+    "id": 429,
+    "question": "Вы обнаружили leaked agent credential в logs. Как организовать containment, если тысячи in-flight tasks используют этот principal?",
+    "variants": [
+      "Как уменьшить blast radius credential revocation без продолжения компрометации?"
+    ]
+  },
+  {
+    "id": 430,
+    "question": "Как мигрировать существующего агента с broad service account на least-privilege identity без остановки бизнеса?",
+    "variants": [
+      "Как определить реальные required permissions, если никто уже не знает, что использует агент?"
+    ]
+  },
+  {
+    "id": 431,
+    "question": "Как мигрировать agent platform с одного model provider на другой без незаметного ухудшения security posture?",
+    "variants": [
+      "Какие compatibility tests важнее простой проверки качества ответов?"
+    ]
+  },
+  {
+    "id": 432,
+    "question": "Как безопасно мигрировать agent memory или vector store между платформами?",
+    "variants": [
+      "Какие security свойства легко потерять при «простом» re-embedding corpus?"
+    ]
+  },
+  {
+    "id": 433,
+    "question": "Как действовать, если security incident требует немедленно отключить популярный tool, от которого зависит половина agent workflows?",
+    "variants": [
+      "Как подготовить platform к selective capability shutdown без полного outage?"
+    ]
+  },
+  {
+    "id": 434,
+    "question": "Как расследовать подозрение на cross-tenant memory leakage, если событие редкое и не воспроизводится напрямую?",
+    "variants": [
+      "Какие гипотезы проверять кроме ошибки vector-store ACL?"
+    ]
+  },
+  {
+    "id": 435,
+    "question": "Как реагировать на массовый false-positive guardrail, который блокирует критичный business workflow?",
+    "variants": [
+      "Когда допустимо временно ослабить security classifier в production?"
+    ]
+  },
+  {
+    "id": 436,
+    "question": "Как управлять security при пиковом росте нагрузки, когда platform предлагает отключить дорогие guardrails ради throughput?",
+    "variants": [
+      "Какие degradation strategies приемлемы под capacity pressure?"
+    ]
+  },
+  {
+    "id": 437,
+    "question": "Как снизить стоимость agent security stack, если каждый запрос вызывает несколько LLM guardrails?",
+    "variants": [
+      "Где оптимизация cost безопасна, а где она разрушает независимость defenses?"
+    ]
+  },
+  {
+    "id": 438,
+    "question": "Как определить security budget на команду или продукт, если risks сильно различаются?",
+    "variants": [
+      "Почему одинаковый percentage-of-engineering-time для всех agent teams неэффективен?"
+    ]
+  },
+  {
+    "id": 439,
+    "question": "Как оценить blast radius агента до production, если у него сложная цепочка из десятков tools?",
+    "variants": [
+      "Как превратить capability graph в количественно полезный risk artifact?"
+    ]
+  },
+  {
+    "id": 440,
+    "question": "Как ограничить cumulative harm от агента, если каждая отдельная операция проходит допустимый лимит?",
+    "variants": [
+      "Почему per-action authorization недостаточна для автономных длинных задач?"
+    ]
+  },
+  {
+    "id": 441,
+    "question": "Как безопасно масштабировать agent execution на тысячи параллельных workers?",
+    "variants": [
+      "Какие security assumptions ломаются при горизонтальном масштабировании orchestration?"
+    ]
+  },
+  {
+    "id": 442,
+    "question": "Как проектировать security для async agents, которые могут выполнять задачу через часы после запроса пользователя?",
+    "variants": [
+      "Как управлять истечением consent и authorization между planning и execution?"
+    ]
+  },
+  {
+    "id": 443,
+    "question": "Как управлять security state при checkpoint/resume долгоживущего agent workflow?",
+    "variants": [
+      "Какие данные из checkpoint нельзя слепо считать доверенными после восстановления?"
+    ]
+  },
+  {
+    "id": 444,
+    "question": "Как проектировать rollback AI-agent release, если новая версия уже записала изменения во внешние системы?",
+    "variants": [
+      "Почему обычный software rollback не возвращает мир в прежнее состояние после agent actions?"
+    ]
+  },
+  {
+    "id": 445,
+    "question": "Как безопасно провести canary rollout новой agent версии для high-impact workflow?",
+    "variants": [
+      "Что считать единицей canary: процент трафика, tenants, tools или capability scope?"
+    ]
+  },
+  {
+    "id": 446,
+    "question": "Как определить, когда agent incident требует временно снизить autonomy всей платформы, а не только одного продукта?",
+    "variants": [
+      "Какие признаки указывают на systemic vulnerability?"
+    ]
+  },
+  {
+    "id": 447,
+    "question": "Как управлять security при merger нескольких agent platforms после реорганизации?",
+    "variants": [
+      "Нужно ли немедленно унифицировать все guardrails и identity systems?"
+    ]
+  },
+  {
+    "id": 448,
+    "question": "Как оценить cost of isolation при выборе между shared sandbox pool и dedicated sandbox per task?",
+    "variants": [
+      "Когда экономия warm containers не оправдывает residual cross-task risk?"
+    ]
+  },
+  {
+    "id": 449,
+    "question": "Как определить, нужен ли отдельный security control plane для agent platform или можно использовать существующий IAM/API gateway stack?",
+    "variants": [
+      "Какие agent-specific функции не стоит заново изобретать поверх зрелой enterprise security инфраструктуры?"
+    ]
+  },
+  {
+    "id": 450,
+    "question": "Как решить, когда нужно остановить развитие agent use case из-за security economics, а не продолжать добавлять guardrails?",
+    "variants": [
+      "В каких случаях архитектурно безопасная версия агента уничтожает исходный business case?"
+    ]
+  },
+  {
+    "id": 451,
+    "question": "Спроектируйте security architecture для внутреннего HR-агента, который читает кадровые данные и может менять отдельные записи. Какие trust boundaries вы проведёте?",
+    "variants": [
+      "Как защитить HR agent от cross-employee disclosure и чрезмерной автономности?"
+    ]
+  },
+  {
+    "id": 452,
+    "question": "Спроектируйте customer-support agent, который читает tickets, CRM и может выдавать refunds. Как ограничить prompt injection из пользовательского ticket?",
+    "variants": [
+      "Какие controls нужны, если attacker полностью контролирует текст обращения в поддержку?"
+    ]
+  },
+  {
+    "id": 453,
+    "question": "Спроектируйте email agent, который читает почту, создаёт ответы и по запросу может отправлять сообщения. Где поставить approvals?",
+    "variants": [
+      "Как не дать malicious email заставить агента переслать confidential thread внешнему адресату?"
+    ]
+  },
+  {
+    "id": 454,
+    "question": "Спроектируйте sales agent с доступом к CRM, email и calendar. Как предотвратить leakage между accounts и misuse customer data?",
+    "variants": [
+      "Какие security boundaries нужны для seller-facing multi-tool agent?"
+    ]
+  },
+  {
+    "id": 455,
+    "question": "Спроектируйте coding agent для большого monorepo, который умеет открывать PR, но не должен компрометировать supply chain.",
+    "variants": [
+      "Какие уровни sandbox, repository permissions и CI gates нужны production coding agent?"
+    ]
+  },
+  {
+    "id": 456,
+    "question": "Спроектируйте data-analysis agent, который может выполнять SQL в production warehouse. Как избежать превращения natural language в unrestricted database console?",
+    "variants": [
+      "Как ограничить SQL-agent по данным, стоимости запросов и write operations?"
+    ]
+  },
+  {
+    "id": 457,
+    "question": "Спроектируйте browser research agent для аналитиков, которому нужен открытый интернет и доступ к внутренним документам. Как разделить trust zones?",
+    "variants": [
+      "Как безопасно сочетать confidential context и arbitrary web content в одном исследовательском workflow?"
+    ]
+  },
+  {
+    "id": 458,
+    "question": "Спроектируйте DevOps agent, который может диагностировать Kubernetes и предлагать remediation. Когда разрешать автоматическое изменение кластера?",
+    "variants": [
+      "Как устроить autonomy tiers для SRE/DevOps agent?"
+    ]
+  },
+  {
+    "id": 459,
+    "question": "Спроектируйте finance close agent, который собирает данные из ERP, готовит journal entries и может создавать проводки. Как обеспечить segregation of duties?",
+    "variants": [
+      "Как не дать одному агенту одновременно предложить и самостоятельно утвердить финансовую запись?"
+    ]
+  },
+  {
+    "id": 460,
+    "question": "Спроектируйте healthcare assistant, который суммирует медицинские записи и помогает персоналу, но не должен самостоятельно принимать клинические решения. Где провести safety/security boundary?",
+    "variants": [
+      "Как ограничить healthcare agent, если ошибка может быть и security, и safety событием?"
+    ]
+  },
+  {
+    "id": 461,
+    "question": "Спроектируйте legal-document agent, который читает contracts и может предлагать redlines. Как защититься от hidden instructions в документах?",
+    "variants": [
+      "Как сохранить точность анализа contract content, не позволяя документу управлять агентом?"
+    ]
+  },
+  {
+    "id": 462,
+    "question": "Спроектируйте procurement agent, который сравнивает vendors и может отправлять RFQ. Как предотвратить manipulation со стороны vendor content?",
+    "variants": [
+      "Что делать, если vendor website или PDF пытается изменить критерии выбора агента?"
+    ]
+  },
+  {
+    "id": 463,
+    "question": "Спроектируйте security operations agent, который анализирует alerts и может блокировать IP/user account. Как избежать attacker-controlled alert injection?",
+    "variants": [
+      "Как безопасно автоматизировать SOC response с LLM агентом?"
+    ]
+  },
+  {
+    "id": 464,
+    "question": "Спроектируйте cloud-cost optimization agent, который может менять ресурсы. Как ограничить риск outage ради экономии?",
+    "variants": [
+      "Какие business/SRE invariants должны стоять выше рекомендации модели «уменьшить ресурсы»?"
+    ]
+  },
+  {
+    "id": 465,
+    "question": "Спроектируйте agent для управления IoT/physical devices. Какие дополнительные security principles появляются из-за физического воздействия?",
+    "variants": [
+      "Почему rollback и human approval особенно важны для cyber-physical agents?"
+    ]
+  },
+  {
+    "id": 466,
+    "question": "Спроектируйте autonomous marketing agent, который создаёт и публикует контент в нескольких соцсетях. Где нужны governance и brand-safety controls?",
+    "variants": [
+      "Как ограничить reputational blast radius массовой автоматической публикации?"
+    ]
+  },
+  {
+    "id": 467,
+    "question": "Спроектируйте meeting agent, который слушает звонки, делает summary и создаёт задачи. Какие privacy/security decisions критичны?",
+    "variants": [
+      "Как не превратить meeting memory в неограниченный архив чувствительных разговоров?"
+    ]
+  },
+  {
+    "id": 468,
+    "question": "Спроектируйте education agent для несовершеннолетних. Какие governance constraints меняют обычную архитектуру assistant?",
+    "variants": [
+      "Какие данные и autonomy стоит ограничить в детском AI product?"
+    ]
+  },
+  {
+    "id": 469,
+    "question": "Спроектируйте agent marketplace, где сторонние разработчики публикуют agents/tools. Как построить trust и revocation model?",
+    "variants": [
+      "Какие controls нужны, чтобы один malicious marketplace entry не получил доступ ко всей пользовательской среде?"
+    ]
+  },
+  {
+    "id": 470,
+    "question": "Спроектируйте personal agent, который имеет доступ к email, календарю, файлам и покупкам пользователя. Как не создать «ключ от всей цифровой жизни»?",
+    "variants": [
+      "Как построить capability isolation внутри одного персонального ассистента?"
+    ]
+  },
+  {
+    "id": 471,
+    "question": "Спроектируйте travel agent, который ищет варианты и может бронировать билеты/отели. Как связать pricing volatility, approvals и payment security?",
+    "variants": [
+      "Как избежать ситуации, когда пользователь одобрил один itinerary, а агент купил уже другой по изменившейся цене?"
+    ]
+  },
+  {
+    "id": 472,
+    "question": "Спроектируйте insurance claims agent, который анализирует документы и предлагает решение. Как управлять fairness, fraud, security и human oversight одновременно?",
+    "variants": [
+      "Почему claim documents должны рассматриваться и как evidence, и как adversarial input?"
+    ]
+  },
+  {
+    "id": 473,
+    "question": "Спроектируйте agent, который автоматически обрабатывает software vulnerability reports и может создавать patches. Как защитить его от malicious PoC?",
+    "variants": [
+      "Как безопасно позволить security agent анализировать attacker-supplied exploit code?"
+    ]
+  },
+  {
+    "id": 474,
+    "question": "Спроектируйте agent для автоматического управления access requests. Где проходит граница между recommendation и authorization?",
+    "variants": [
+      "Может ли LLM самостоятельно выдавать доступ пользователю на основе текста заявки?"
+    ]
+  },
+  {
+    "id": 475,
+    "question": "Спроектируйте multi-agent research system, где десятки sub-agents параллельно ищут и синтезируют информацию. Как контролировать security и resource explosion?",
+    "variants": [
+      "Какие limits нужны динамически создаваемым sub-agents?"
+    ]
+  },
+  {
+    "id": 476,
+    "question": "Вы пришли AI Lead в компанию, где уже есть 80 production agents без единого security стандарта. Какой 90-дневный план вы предложите?",
+    "variants": [
+      "Что делать первым: строить AI firewall, переписывать prompts или инвентаризировать capabilities?"
+    ]
+  },
+  {
+    "id": 477,
+    "question": "Как построить трёхлетний roadmap agent security platform, если модельные возможности меняются каждые несколько месяцев?",
+    "variants": [
+      "Какие инвестиции остаются ценными независимо от того, какая LLM станет лучшей через год?"
+    ]
+  },
+  {
+    "id": 478,
+    "question": "Как объяснить board, почему prompt injection нельзя «полностью исправить», но agent system всё равно можно безопасно запускать?",
+    "variants": [
+      "Как представить residual AI risk руководству без технического жаргона и без обещания абсолютной безопасности?"
+    ]
+  },
+  {
+    "id": 479,
+    "question": "Как определить, готова ли организация повышать автономность агентов с «предлагает действия» до «выполняет действия»?",
+    "variants": [
+      "Какие prerequisites должны быть выполнены до autonomy expansion?"
+    ]
+  },
+  {
+    "id": 480,
+    "question": "Как принимать решение между централизованным запретом high-risk use case и предоставлением controlled platform capability?",
+    "variants": [
+      "Когда запрет снижает риск, а когда только стимулирует shadow AI?"
+    ]
+  },
+  {
+    "id": 481,
+    "question": "Как решить, какие security capabilities делать open-source/internal shared libraries, а какие централизованными services?",
+    "variants": [
+      "Когда library-based guardrail слишком легко обойти product team?"
+    ]
+  },
+  {
+    "id": 482,
+    "question": "Как выбрать организационную модель ownership для shared agent tools, которые используют десятки команд?",
+    "variants": [
+      "Кто отвечает за безопасность tool, если потребители используют его в неожиданных workflows?"
+    ]
+  },
+  {
+    "id": 483,
+    "question": "Как оценить, стоит ли инвестировать в formal verification отдельных компонентов agent platform?",
+    "variants": [
+      "Какие части agent system разумно доказывать формально, если поведение LLM недетерминировано?"
+    ]
+  },
+  {
+    "id": 484,
+    "question": "Как использовать внешние security benchmarks в executive decision, не попадая в benchmark theater?",
+    "variants": [
+      "Когда высокий score на AgentDojo или другом benchmark не означает безопасность вашего production агента?"
+    ]
+  },
+  {
+    "id": 485,
+    "question": "Как определить, когда security requirement нужно реализовать на уровне model prompt, orchestration, tool gateway или destination service?",
+    "variants": [
+      "Какой принцип placement controls использовать в agent architecture?"
+    ]
+  },
+  {
+    "id": 486,
+    "question": "Как решать конфликт между глобальным security standard и локальным regulatory requirement конкретной страны?",
+    "variants": [
+      "Как проектировать policy hierarchy для multinational agent platform?"
+    ]
+  },
+  {
+    "id": 487,
+    "question": "Как подготовить agent platform к внешнему аудиту или регуляторной проверке без «заморозки» разработки на месяц?",
+    "variants": [
+      "Как сделать continuous compliance побочным продуктом engineering workflow?"
+    ]
+  },
+  {
+    "id": 488,
+    "question": "Как определить, что agent security program переоптимизирована и мешает business value больше, чем снижает риск?",
+    "variants": [
+      "Какие признаки указывают на excessive controls и security theater?"
+    ]
+  },
+  {
+    "id": 489,
+    "question": "Как принимать security решения при отсутствии достаточных данных о новых agentic risks?",
+    "variants": [
+      "Что делать AI Lead, когда likelihood неизвестна, а потенциальный impact очень высокий?"
+    ]
+  },
+  {
+    "id": 490,
+    "question": "Как определить критерии успешности security platform через год после внедрения?",
+    "variants": [
+      "Какие outcomes покажут, что программа реально уменьшила риск, а не только создала процессы?"
+    ]
+  },
+  {
+    "id": 491,
+    "question": "Как встроить threat modeling в product discovery, а не проводить его после готовой agent architecture?",
+    "variants": [
+      "Какие product decisions можно изменить дешевле всего до написания кода?"
+    ]
+  },
+  {
+    "id": 492,
+    "question": "Как управлять technical debt, когда быстрые agent prototypes превращаются в критичную инфраструктуру?",
+    "variants": [
+      "Какие признаки должны автоматически переводить эксперимент в production-grade security regime?"
+    ]
+  },
+  {
+    "id": 493,
+    "question": "Как принять решение об открытии agent API внешним разработчикам?",
+    "variants": [
+      "Какие новые abuse и governance риски появляются при превращении внутреннего агента в public platform?"
+    ]
+  },
+  {
+    "id": 494,
+    "question": "Как решить, следует ли раскрывать customers подробности о security limitations AI-агента?",
+    "variants": [
+      "Как балансировать transparency и риск дать attacker готовую инструкцию обхода?"
+    ]
+  },
+  {
+    "id": 495,
+    "question": "Как управлять взаимоотношениями с regulator, auditor или крупным customer, который требует «гарантировать отсутствие prompt injection»?",
+    "variants": [
+      "Как корректно переформулировать недостижимое security требование в проверяемые system properties?"
+    ]
+  },
+  {
+    "id": 496,
+    "question": "Как определить, какие agent security risks являются enterprise-wide и требуют platform fix, а какие лучше оставить на уровне продукта?",
+    "variants": [
+      "Когда локальный incident должен изменить корпоративный reference architecture?"
+    ]
+  },
+  {
+    "id": 497,
+    "question": "Как определить optimal balance между preventive и detective controls в agent security?",
+    "variants": [
+      "Почему нельзя решить все риски только блокировками до действия?"
+    ]
+  },
+  {
+    "id": 498,
+    "question": "Как AI Lead должен принимать решение после серьёзного agent incident: чинить текущую архитектуру или менять сам use case?",
+    "variants": [
+      "Когда postmortem должен приводить к снижению autonomy, а не очередному guardrail patch?"
+    ]
+  },
+  {
+    "id": 499,
+    "question": "Какие принципы вы бы зафиксировали как non-negotiable для всей корпоративной agent platform?",
+    "variants": [
+      "Какие архитектурные правила должны сохраняться независимо от framework, model provider и конкретного продукта?"
+    ]
+  },
+  {
+    "id": 500,
+    "question": "Как выглядит зрелое инженерное решение уровня AI Lead по безопасности AI-агентов в одном абзаце архитектурной логики?",
+    "variants": [
+      "Какой главный mental model должен остаться после изучения всего банка?"
+    ]
+  }
+]

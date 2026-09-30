@@ -1,0 +1,2836 @@
+[
+  {
+    "id": 1,
+    "question": "Что такое evaluation в LLM-системе?",
+    "variants": [
+      "Как следует понимать evaluation в LLM-системе в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Почему обычных unit-тестов недостаточно для LLM-приложения?",
+    "variants": [
+      "По каким причинам обычных unit-тестов недостаточно для LLM-приложения?"
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Чем testing отличается от evaluation?",
+    "variants": [
+      "В чём принципиальная разница между testing и evaluation?"
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Что такое eval dataset?",
+    "variants": [
+      "Как следует понимать eval dataset в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Что такое evaluator в контексте LLM evals?",
+    "variants": [
+      "Как следует понимать evaluator в контексте LLM evals в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Что такое rubric при оценке ответов LLM?",
+    "variants": [
+      "Как следует понимать rubric при оценке ответов LLM в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 7,
+    "question": "Зачем разделять quality metrics и operational metrics?",
+    "variants": []
+  },
+  {
+    "id": 8,
+    "question": "Что такое offline evaluation?",
+    "variants": [
+      "Как следует понимать offline evaluation в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Что такое online evaluation?",
+    "variants": [
+      "Как следует понимать online evaluation в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Чем offline evaluation отличается от online evaluation?",
+    "variants": [
+      "В чём принципиальная разница между offline evaluation и online evaluation?"
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Что такое reference-based evaluation?",
+    "variants": [
+      "Как следует понимать reference-based evaluation в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Что такое reference-free evaluation?",
+    "variants": [
+      "Как следует понимать reference-free evaluation в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 13,
+    "question": "Что такое exact match и когда он полезен?",
+    "variants": [
+      "Как следует понимать exact match и когда он полезен в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 14,
+    "question": "Что такое semantic similarity в LLM evaluation?",
+    "variants": [
+      "Как следует понимать semantic similarity в LLM evaluation в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 15,
+    "question": "Почему среднее значение метрики может скрывать важные ошибки?",
+    "variants": [
+      "По каким причинам среднее значение метрики может скрывать важные ошибки?"
+    ]
+  },
+  {
+    "id": 16,
+    "question": "Что такое pass rate в evals?",
+    "variants": [
+      "Как следует понимать pass rate в evals в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 17,
+    "question": "Что такое accuracy и когда она корректна для LLM-задачи?",
+    "variants": [
+      "Как следует понимать accuracy и когда она корректна для LLM-задачи в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 18,
+    "question": "Чем precision отличается от recall?",
+    "variants": [
+      "В чём принципиальная разница между precision и recall?"
+    ]
+  },
+  {
+    "id": 19,
+    "question": "Что показывает F1 и чего она не показывает?",
+    "variants": []
+  },
+  {
+    "id": 20,
+    "question": "Что такое confusion matrix и зачем она нужна при оценке LLM-классификатора?",
+    "variants": [
+      "Как следует понимать confusion matrix и зачем она нужна при оценке LLM-классификатора в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 21,
+    "question": "Что такое baseline в evals?",
+    "variants": [
+      "Как следует понимать baseline в evals в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 22,
+    "question": "Зачем нужен holdout set при разработке LLM-приложения?",
+    "variants": []
+  },
+  {
+    "id": 23,
+    "question": "Что такое regression в контексте LLM quality?",
+    "variants": [
+      "Как следует понимать regression в контексте LLM quality в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 24,
+    "question": "Что такое golden set?",
+    "variants": [
+      "Как следует понимать golden set в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 25,
+    "question": "Почему один benchmark не может полностью характеризовать production-агента?",
+    "variants": [
+      "По каким причинам один benchmark не может полностью характеризовать production-агента?"
+    ]
+  },
+  {
+    "id": 26,
+    "question": "Что такое ground truth в evaluation dataset?",
+    "variants": [
+      "Как следует понимать ground truth в evaluation dataset в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 27,
+    "question": "Чем micro-averaging отличается от macro-averaging?",
+    "variants": [
+      "В чём принципиальная разница между micro-averaging и macro-averaging?"
+    ]
+  },
+  {
+    "id": 28,
+    "question": "Что такое weighted average метрики?",
+    "variants": [
+      "Как следует понимать weighted average метрики в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 29,
+    "question": "Что такое false positive и false negative в LLM-классификации?",
+    "variants": [
+      "Как следует понимать false positive и false negative в LLM-классификации в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 30,
+    "question": "Что такое threshold у evaluator-а?",
+    "variants": [
+      "Как следует понимать threshold у evaluator-а в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 31,
+    "question": "Что такое score distribution и зачем смотреть на неё целиком?",
+    "variants": [
+      "Как следует понимать score distribution и зачем смотреть на неё целиком в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 32,
+    "question": "Почему полезно хранить per-example результаты evaluation?",
+    "variants": [
+      "По каким причинам полезно хранить per-example результаты evaluation?"
+    ]
+  },
+  {
+    "id": 33,
+    "question": "Что такое paired evaluation?",
+    "variants": [
+      "Как следует понимать paired evaluation в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 34,
+    "question": "Чем pairwise evaluation отличается от pointwise evaluation?",
+    "variants": [
+      "В чём принципиальная разница между pairwise evaluation и pointwise evaluation?"
+    ]
+  },
+  {
+    "id": 35,
+    "question": "Что такое ranking metric?",
+    "variants": [
+      "Как следует понимать ranking metric в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 36,
+    "question": "Что измеряет MRR?",
+    "variants": []
+  },
+  {
+    "id": 37,
+    "question": "Что измеряет NDCG?",
+    "variants": []
+  },
+  {
+    "id": 38,
+    "question": "Что такое recall@k для retrieval?",
+    "variants": [
+      "Как следует понимать recall@k для retrieval в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 39,
+    "question": "Что такое precision@k для retrieval?",
+    "variants": [
+      "Как следует понимать precision@k для retrieval в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 40,
+    "question": "Почему BLEU и ROUGE ограниченно полезны для современных LLM-ответов?",
+    "variants": [
+      "По каким причинам BLEU и ROUGE ограниченно полезны для современных LLM-ответов?"
+    ]
+  },
+  {
+    "id": 41,
+    "question": "Что такое deterministic evaluator?",
+    "variants": [
+      "Как следует понимать deterministic evaluator в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 42,
+    "question": "Что такое model-based evaluator?",
+    "variants": [
+      "Как следует понимать model-based evaluator в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 43,
+    "question": "Что такое human evaluation?",
+    "variants": [
+      "Как следует понимать human evaluation в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 44,
+    "question": "Зачем нужны metadata и dataset splits в eval dataset?",
+    "variants": []
+  },
+  {
+    "id": 45,
+    "question": "Что такое eval run?",
+    "variants": [
+      "Как следует понимать eval run в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 46,
+    "question": "Зачем фиксировать random seed в evaluation?",
+    "variants": []
+  },
+  {
+    "id": 47,
+    "question": "Почему temperature влияет на результаты eval?",
+    "variants": [
+      "По каким причинам temperature влияет на результаты eval?"
+    ]
+  },
+  {
+    "id": 48,
+    "question": "Зачем выполнять несколько повторов одного eval-примера?",
+    "variants": []
+  },
+  {
+    "id": 49,
+    "question": "Что такое success criterion для agent task?",
+    "variants": [
+      "Как следует понимать success criterion для agent task в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 50,
+    "question": "Почему outcome и trajectory нужно различать при оценке агента?",
+    "variants": [
+      "По каким причинам outcome и trajectory нужно различать при оценке агента?"
+    ]
+  },
+  {
+    "id": 51,
+    "question": "Как собрать первый eval dataset для нового LLM-продукта?",
+    "variants": []
+  },
+  {
+    "id": 52,
+    "question": "Как определить, что eval dataset репрезентативен production-трафику?",
+    "variants": []
+  },
+  {
+    "id": 53,
+    "question": "Как сочетать реальные и synthetic examples в evaluation dataset?",
+    "variants": []
+  },
+  {
+    "id": 54,
+    "question": "Как избежать leakage между training, prompt tuning и evaluation?",
+    "variants": []
+  },
+  {
+    "id": 55,
+    "question": "Как проектировать dataset для multi-turn диалогов?",
+    "variants": []
+  },
+  {
+    "id": 56,
+    "question": "Как включать edge cases, не разрушая репрезентативность общей метрики?",
+    "variants": []
+  },
+  {
+    "id": 57,
+    "question": "Как версионировать evaluation dataset?",
+    "variants": []
+  },
+  {
+    "id": 58,
+    "question": "Как обновлять eval dataset из production failures?",
+    "variants": []
+  },
+  {
+    "id": 59,
+    "question": "Как бороться с дубликатами и near-duplicates в eval dataset?",
+    "variants": []
+  },
+  {
+    "id": 60,
+    "question": "Как определить размер eval dataset?",
+    "variants": []
+  },
+  {
+    "id": 61,
+    "question": "Как строить stratified sample для evaluation?",
+    "variants": []
+  },
+  {
+    "id": 62,
+    "question": "Как учитывать temporal drift при создании eval dataset?",
+    "variants": []
+  },
+  {
+    "id": 63,
+    "question": "Как разметить неоднозначные вопросы, у которых несколько правильных ответов?",
+    "variants": []
+  },
+  {
+    "id": 64,
+    "question": "Как проектировать negative examples для evaluator-а?",
+    "variants": []
+  },
+  {
+    "id": 65,
+    "question": "Как использовать adversarial examples в LLM evals?",
+    "variants": []
+  },
+  {
+    "id": 66,
+    "question": "Как оценивать качество самого human-labeled dataset?",
+    "variants": [
+      "Какими методами следует оценивать качество самого human-labeled dataset?"
+    ]
+  },
+  {
+    "id": 67,
+    "question": "Как предотвратить overfitting команды на eval set?",
+    "variants": []
+  },
+  {
+    "id": 68,
+    "question": "Как организовать dataset splits для CI, nightly и pre-release evals?",
+    "variants": []
+  },
+  {
+    "id": 69,
+    "question": "Как хранить references для задач с меняющимися внешними данными?",
+    "variants": []
+  },
+  {
+    "id": 70,
+    "question": "Как оценивать multilingual LLM на одном продукте?",
+    "variants": [
+      "Какими методами следует оценивать multilingual LLM на одном продукте?"
+    ]
+  },
+  {
+    "id": 71,
+    "question": "Как создавать eval cases для tool-using agent?",
+    "variants": []
+  },
+  {
+    "id": 72,
+    "question": "Как создавать eval cases для RAG-системы?",
+    "variants": []
+  },
+  {
+    "id": 73,
+    "question": "Как спроектировать hard set, который остаётся полезным после роста модели?",
+    "variants": []
+  },
+  {
+    "id": 74,
+    "question": "Как валидировать synthetic eval data перед использованием?",
+    "variants": []
+  },
+  {
+    "id": 75,
+    "question": "Когда стоит удалять пример из eval dataset?",
+    "variants": []
+  },
+  {
+    "id": 76,
+    "question": "Когда exact-match evaluator лучше LLM-as-a-judge?",
+    "variants": []
+  },
+  {
+    "id": 77,
+    "question": "Как оценивать JSON-output LLM?",
+    "variants": [
+      "Какими методами следует оценивать JSON-output LLM?"
+    ]
+  },
+  {
+    "id": 78,
+    "question": "Как оценивать function/tool call arguments?",
+    "variants": [
+      "Какими методами следует оценивать function/tool call arguments?"
+    ]
+  },
+  {
+    "id": 79,
+    "question": "Как оценивать generated SQL?",
+    "variants": [
+      "Какими методами следует оценивать generated SQL?"
+    ]
+  },
+  {
+    "id": 80,
+    "question": "Как оценивать generated code?",
+    "variants": [
+      "Какими методами следует оценивать generated code?"
+    ]
+  },
+  {
+    "id": 81,
+    "question": "Как оценивать извлечение сущностей из текста?",
+    "variants": [
+      "Какими методами следует оценивать извлечение сущностей из текста?"
+    ]
+  },
+  {
+    "id": 82,
+    "question": "Как оценивать классификацию с abstain-классом?",
+    "variants": [
+      "Какими методами следует оценивать классификацию с abstain-классом?"
+    ]
+  },
+  {
+    "id": 83,
+    "question": "Как оценивать ответы с числовой погрешностью?",
+    "variants": [
+      "Какими методами следует оценивать ответы с числовой погрешностью?"
+    ]
+  },
+  {
+    "id": 84,
+    "question": "Как сравнивать unordered sets в eval?",
+    "variants": []
+  },
+  {
+    "id": 85,
+    "question": "Как оценивать ordered list результата?",
+    "variants": [
+      "Какими методами следует оценивать ordered list результата?"
+    ]
+  },
+  {
+    "id": 86,
+    "question": "Как использовать regex evaluator без хрупкости?",
+    "variants": []
+  },
+  {
+    "id": 87,
+    "question": "Как оценивать формат Markdown-ответа?",
+    "variants": [
+      "Какими методами следует оценивать формат Markdown-ответа?"
+    ]
+  },
+  {
+    "id": 88,
+    "question": "Как проверять citations в LLM-ответе детерминированно?",
+    "variants": []
+  },
+  {
+    "id": 89,
+    "question": "Как оценивать deterministic routing между моделями или агентами?",
+    "variants": [
+      "Какими методами следует оценивать deterministic routing между моделями или агентами?"
+    ]
+  },
+  {
+    "id": 90,
+    "question": "Как оценивать schema evolution структурированного output?",
+    "variants": [
+      "Какими методами следует оценивать schema evolution структурированного output?"
+    ]
+  },
+  {
+    "id": 91,
+    "question": "Как тестировать parser, который извлекает данные из LLM-ответа?",
+    "variants": []
+  },
+  {
+    "id": 92,
+    "question": "Как оценивать refusal behavior детерминированно и семантически?",
+    "variants": [
+      "Какими методами следует оценивать refusal behavior детерминированно и семантически?"
+    ]
+  },
+  {
+    "id": 93,
+    "question": "Как построить executable evaluator для workflow?",
+    "variants": []
+  },
+  {
+    "id": 94,
+    "question": "Как оценивать идемпотентность agent action?",
+    "variants": [
+      "Какими методами следует оценивать идемпотентность agent action?"
+    ]
+  },
+  {
+    "id": 95,
+    "question": "Как оценивать timeout handling у агента?",
+    "variants": [
+      "Какими методами следует оценивать timeout handling у агента?"
+    ]
+  },
+  {
+    "id": 96,
+    "question": "Как тестировать retry logic в LLM workflow?",
+    "variants": []
+  },
+  {
+    "id": 97,
+    "question": "Как оценивать fallback между моделями?",
+    "variants": [
+      "Какими методами следует оценивать fallback между моделями?"
+    ]
+  },
+  {
+    "id": 98,
+    "question": "Как оценивать budget limit для agent trajectory?",
+    "variants": [
+      "Какими методами следует оценивать budget limit для agent trajectory?"
+    ]
+  },
+  {
+    "id": 99,
+    "question": "Как тестировать state machine внутри агента?",
+    "variants": []
+  },
+  {
+    "id": 100,
+    "question": "Как оценивать tool selection, если несколько инструментов эквивалентны?",
+    "variants": [
+      "Какими методами следует оценивать tool selection, если несколько инструментов эквивалентны?"
+    ]
+  },
+  {
+    "id": 101,
+    "question": "Что такое LLM-as-a-judge и для каких задач он подходит?",
+    "variants": [
+      "Как следует понимать LLM-as-a-judge и для каких задач он подходит в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 102,
+    "question": "Как написать хорошую rubric для LLM-judge?",
+    "variants": []
+  },
+  {
+    "id": 103,
+    "question": "Почему LLM-judge может предпочитать более длинный ответ?",
+    "variants": [
+      "По каким причинам LLM-judge может предпочитать более длинный ответ?"
+    ]
+  },
+  {
+    "id": 104,
+    "question": "Что такое position bias в pairwise LLM evaluation?",
+    "variants": [
+      "Как следует понимать position bias в pairwise LLM evaluation в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 105,
+    "question": "Как обнаружить self-preference у judge-модели?",
+    "variants": []
+  },
+  {
+    "id": 106,
+    "question": "Когда pointwise LLM-judge предпочтительнее pairwise?",
+    "variants": []
+  },
+  {
+    "id": 107,
+    "question": "Когда pairwise LLM-judge лучше абсолютной шкалы?",
+    "variants": []
+  },
+  {
+    "id": 108,
+    "question": "Как калибровать LLM-judge на человеческой разметке?",
+    "variants": []
+  },
+  {
+    "id": 109,
+    "question": "Какие метрики использовать для проверки бинарного LLM-judge?",
+    "variants": []
+  },
+  {
+    "id": 110,
+    "question": "Как измерить согласованность LLM-judge при повторных запусках?",
+    "variants": []
+  },
+  {
+    "id": 111,
+    "question": "Зачем просить LLM-judge возвращать explanation вместе со score?",
+    "variants": []
+  },
+  {
+    "id": 112,
+    "question": "Почему structured output полезен для LLM evaluators?",
+    "variants": [
+      "По каким причинам structured output полезен для LLM evaluators?"
+    ]
+  },
+  {
+    "id": 113,
+    "question": "Как уменьшить стоимость массовых LLM-judge evals?",
+    "variants": []
+  },
+  {
+    "id": 114,
+    "question": "Можно ли использовать ту же модель как generator и judge?",
+    "variants": []
+  },
+  {
+    "id": 115,
+    "question": "Как использовать несколько LLM-judges в ensemble?",
+    "variants": []
+  },
+  {
+    "id": 116,
+    "question": "Как проектировать chain-of-verification для evaluator-а?",
+    "variants": []
+  },
+  {
+    "id": 117,
+    "question": "Как избежать того, чтобы judge использовал внешние знания вместо предоставленного контекста?",
+    "variants": []
+  },
+  {
+    "id": 118,
+    "question": "Как оценивать groundedness с помощью LLM-judge?",
+    "variants": [
+      "Какими методами следует оценивать groundedness с помощью LLM-judge?"
+    ]
+  },
+  {
+    "id": 119,
+    "question": "Как оценивать completeness с помощью LLM-judge?",
+    "variants": [
+      "Какими методами следует оценивать completeness с помощью LLM-judge?"
+    ]
+  },
+  {
+    "id": 120,
+    "question": "Как оценивать instruction following через LLM-judge?",
+    "variants": [
+      "Какими методами следует оценивать instruction following через LLM-judge?"
+    ]
+  },
+  {
+    "id": 121,
+    "question": "Как строить judge для domain-specific correctness?",
+    "variants": []
+  },
+  {
+    "id": 122,
+    "question": "Как валидировать новый prompt LLM-judge перед заменой старого?",
+    "variants": []
+  },
+  {
+    "id": 123,
+    "question": "Как обнаружить reward hacking против LLM-judge?",
+    "variants": []
+  },
+  {
+    "id": 124,
+    "question": "Когда LLM-judge нельзя использовать как единственный release gate?",
+    "variants": []
+  },
+  {
+    "id": 125,
+    "question": "Как работать с ошибками и timeouts LLM evaluator-а?",
+    "variants": []
+  },
+  {
+    "id": 126,
+    "question": "Когда human evaluation обязательна несмотря на наличие LLM-judge?",
+    "variants": []
+  },
+  {
+    "id": 127,
+    "question": "Как написать инструкции для human annotators?",
+    "variants": []
+  },
+  {
+    "id": 128,
+    "question": "Что такое inter-rater agreement и зачем он нужен?",
+    "variants": [
+      "Как следует понимать inter-rater agreement и зачем он нужен в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 129,
+    "question": "Когда использовать Cohen’s kappa, а когда простую долю совпадений?",
+    "variants": []
+  },
+  {
+    "id": 130,
+    "question": "Как проводить adjudication спорных human labels?",
+    "variants": []
+  },
+  {
+    "id": 131,
+    "question": "Как измерять качество annotator-ов?",
+    "variants": [
+      "Каким способом корректно измерить качество annotator-ов?"
+    ]
+  },
+  {
+    "id": 132,
+    "question": "Как выбирать annotators для специализированного домена?",
+    "variants": []
+  },
+  {
+    "id": 133,
+    "question": "Как уменьшить bias human evaluators при A/B сравнении?",
+    "variants": []
+  },
+  {
+    "id": 134,
+    "question": "Как определить размер human evaluation?",
+    "variants": []
+  },
+  {
+    "id": 135,
+    "question": "Как проектировать Likert scale для оценки LLM-ответа?",
+    "variants": []
+  },
+  {
+    "id": 136,
+    "question": "Почему thumbs up/down недостаточно как единственный quality signal?",
+    "variants": [
+      "По каким причинам thumbs up/down недостаточно как единственный quality signal?"
+    ]
+  },
+  {
+    "id": 137,
+    "question": "Как использовать pairwise human preference?",
+    "variants": []
+  },
+  {
+    "id": 138,
+    "question": "Как разметить несколько критериев без перегрузки annotator-а?",
+    "variants": []
+  },
+  {
+    "id": 139,
+    "question": "Как бороться с annotator fatigue?",
+    "variants": []
+  },
+  {
+    "id": 140,
+    "question": "Как оценивать multi-turn conversation человеком?",
+    "variants": [
+      "Какими методами следует оценивать multi-turn conversation человеком?"
+    ]
+  },
+  {
+    "id": 141,
+    "question": "Как использовать expert review для калибровки general annotators?",
+    "variants": []
+  },
+  {
+    "id": 142,
+    "question": "Как хранить provenance человеческой разметки?",
+    "variants": []
+  },
+  {
+    "id": 143,
+    "question": "Как работать с privacy при human review production traces?",
+    "variants": []
+  },
+  {
+    "id": 144,
+    "question": "Как совместить human и LLM evaluation в одном pipeline?",
+    "variants": []
+  },
+  {
+    "id": 145,
+    "question": "Как выявлять ambiguous examples в human dataset?",
+    "variants": []
+  },
+  {
+    "id": 146,
+    "question": "Как оценивать полезность объяснений annotator-ов?",
+    "variants": [
+      "Какими методами следует оценивать полезность объяснений annotator-ов?"
+    ]
+  },
+  {
+    "id": 147,
+    "question": "Как проводить blind review релизного кандидата?",
+    "variants": []
+  },
+  {
+    "id": 148,
+    "question": "Как разрешать конфликт между human preference и автоматическим metric uplift?",
+    "variants": []
+  },
+  {
+    "id": 149,
+    "question": "Когда нужно пересматривать human rubric?",
+    "variants": []
+  },
+  {
+    "id": 150,
+    "question": "Как построить annotation queue из production signals?",
+    "variants": []
+  },
+  {
+    "id": 151,
+    "question": "Как разделить evaluation RAG на retrieval и generation?",
+    "variants": []
+  },
+  {
+    "id": 152,
+    "question": "Что такое context relevance в RAG evaluation?",
+    "variants": [
+      "Как следует понимать context relevance в RAG evaluation в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 153,
+    "question": "Что такое answer relevance в RAG evaluation?",
+    "variants": [
+      "Как следует понимать answer relevance в RAG evaluation в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 154,
+    "question": "Что такое faithfulness или groundedness в RAG?",
+    "variants": [
+      "Как следует понимать faithfulness или groundedness в RAG в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 155,
+    "question": "Чем groundedness отличается от factual correctness?",
+    "variants": [
+      "В чём принципиальная разница между groundedness и factual correctness?"
+    ]
+  },
+  {
+    "id": 156,
+    "question": "Как измерять retrieval recall@k без полного списка релевантных документов?",
+    "variants": [
+      "Каким способом корректно измерить retrieval recall@k без полного списка релевантных документов?"
+    ]
+  },
+  {
+    "id": 157,
+    "question": "Как оценивать chunking strategy?",
+    "variants": [
+      "Какими методами следует оценивать chunking strategy?"
+    ]
+  },
+  {
+    "id": 158,
+    "question": "Как оценивать embedding model для RAG?",
+    "variants": [
+      "Какими методами следует оценивать embedding model для RAG?"
+    ]
+  },
+  {
+    "id": 159,
+    "question": "Как оценивать reranker?",
+    "variants": [
+      "Какими методами следует оценивать reranker?"
+    ]
+  },
+  {
+    "id": 160,
+    "question": "Как оценивать hybrid search против vector-only search?",
+    "variants": [
+      "Какими методами следует оценивать hybrid search против vector-only search?"
+    ]
+  },
+  {
+    "id": 161,
+    "question": "Как измерять citation correctness?",
+    "variants": [
+      "Каким способом корректно измерить citation correctness?"
+    ]
+  },
+  {
+    "id": 162,
+    "question": "Как измерять citation completeness?",
+    "variants": [
+      "Каким способом корректно измерить citation completeness?"
+    ]
+  },
+  {
+    "id": 163,
+    "question": "Как оценивать RAG при нескольких источниках с конфликтующими фактами?",
+    "variants": [
+      "Какими методами следует оценивать RAG при нескольких источниках с конфликтующими фактами?"
+    ]
+  },
+  {
+    "id": 164,
+    "question": "Как тестировать RAG на устаревших документах?",
+    "variants": []
+  },
+  {
+    "id": 165,
+    "question": "Как оценивать RAG для unanswerable questions?",
+    "variants": [
+      "Какими методами следует оценивать RAG для unanswerable questions?"
+    ]
+  },
+  {
+    "id": 166,
+    "question": "Как измерять context utilization?",
+    "variants": [
+      "Каким способом корректно измерить context utilization?"
+    ]
+  },
+  {
+    "id": 167,
+    "question": "Как обнаружить lost-in-the-middle эффект в RAG?",
+    "variants": []
+  },
+  {
+    "id": 168,
+    "question": "Как оценивать динамический top-k retrieval?",
+    "variants": [
+      "Какими методами следует оценивать динамический top-k retrieval?"
+    ]
+  },
+  {
+    "id": 169,
+    "question": "Как тестировать metadata filters в RAG?",
+    "variants": []
+  },
+  {
+    "id": 170,
+    "question": "Как оценивать multi-hop RAG?",
+    "variants": [
+      "Какими методами следует оценивать multi-hop RAG?"
+    ]
+  },
+  {
+    "id": 171,
+    "question": "Как оценивать query rewriting в RAG?",
+    "variants": [
+      "Какими методами следует оценивать query rewriting в RAG?"
+    ]
+  },
+  {
+    "id": 172,
+    "question": "Как оценивать conversational RAG?",
+    "variants": [
+      "Какими методами следует оценивать conversational RAG?"
+    ]
+  },
+  {
+    "id": 173,
+    "question": "Как отличить retrieval failure от generation failure?",
+    "variants": []
+  },
+  {
+    "id": 174,
+    "question": "Как строить RAG regression suite после production incident?",
+    "variants": []
+  },
+  {
+    "id": 175,
+    "question": "Когда RAG evaluation требует human expert?",
+    "variants": []
+  },
+  {
+    "id": 176,
+    "question": "Чем evaluation агента отличается от evaluation одиночного LLM-вызова?",
+    "variants": [
+      "В чём принципиальная разница между evaluation агента и evaluation одиночного LLM-вызова?"
+    ]
+  },
+  {
+    "id": 177,
+    "question": "Как определить task success для автономного агента?",
+    "variants": []
+  },
+  {
+    "id": 178,
+    "question": "Что такое trajectory evaluation?",
+    "variants": [
+      "Как следует понимать trajectory evaluation в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 179,
+    "question": "Как оценивать tool selection у агента?",
+    "variants": [
+      "Какими методами следует оценивать tool selection у агента?"
+    ]
+  },
+  {
+    "id": 180,
+    "question": "Как оценивать tool argument correctness?",
+    "variants": [
+      "Какими методами следует оценивать tool argument correctness?"
+    ]
+  },
+  {
+    "id": 181,
+    "question": "Как оценивать planning quality агента?",
+    "variants": [
+      "Какими методами следует оценивать planning quality агента?"
+    ]
+  },
+  {
+    "id": 182,
+    "question": "Как оценивать способность агента останавливаться?",
+    "variants": [
+      "Какими методами следует оценивать способность агента останавливаться?"
+    ]
+  },
+  {
+    "id": 183,
+    "question": "Как измерять efficiency agent trajectory?",
+    "variants": [
+      "Каким способом корректно измерить efficiency agent trajectory?"
+    ]
+  },
+  {
+    "id": 184,
+    "question": "Как оценивать agent retries?",
+    "variants": [
+      "Какими методами следует оценивать agent retries?"
+    ]
+  },
+  {
+    "id": 185,
+    "question": "Как оценивать агента при недоступном tool?",
+    "variants": [
+      "Какими методами следует оценивать агента при недоступном tool?"
+    ]
+  },
+  {
+    "id": 186,
+    "question": "Как оценивать memory агента в multi-turn задачах?",
+    "variants": [
+      "Какими методами следует оценивать memory агента в multi-turn задачах?"
+    ]
+  },
+  {
+    "id": 187,
+    "question": "Как тестировать long-horizon агента?",
+    "variants": []
+  },
+  {
+    "id": 188,
+    "question": "Как оценивать multi-agent system?",
+    "variants": [
+      "Какими методами следует оценивать multi-agent system?"
+    ]
+  },
+  {
+    "id": 189,
+    "question": "Как оценивать handoff между агентами?",
+    "variants": [
+      "Какими методами следует оценивать handoff между агентами?"
+    ]
+  },
+  {
+    "id": 190,
+    "question": "Как оценивать agent delegation?",
+    "variants": [
+      "Какими методами следует оценивать agent delegation?"
+    ]
+  },
+  {
+    "id": 191,
+    "question": "Как оценивать browsing agent?",
+    "variants": [
+      "Какими методами следует оценивать browsing agent?"
+    ]
+  },
+  {
+    "id": 192,
+    "question": "Как оценивать computer-use agent?",
+    "variants": [
+      "Какими методами следует оценивать computer-use agent?"
+    ]
+  },
+  {
+    "id": 193,
+    "question": "Как оценивать coding agent?",
+    "variants": [
+      "Какими методами следует оценивать coding agent?"
+    ]
+  },
+  {
+    "id": 194,
+    "question": "Как оценивать research agent?",
+    "variants": [
+      "Какими методами следует оценивать research agent?"
+    ]
+  },
+  {
+    "id": 195,
+    "question": "Как оценивать agent с недетерминированным environment?",
+    "variants": [
+      "Какими методами следует оценивать agent с недетерминированным environment?"
+    ]
+  },
+  {
+    "id": 196,
+    "question": "Как оценивать recovery после неверного промежуточного шага?",
+    "variants": [
+      "Какими методами следует оценивать recovery после неверного промежуточного шага?"
+    ]
+  },
+  {
+    "id": 197,
+    "question": "Как оценивать соблюдение agent policy?",
+    "variants": [
+      "Какими методами следует оценивать соблюдение agent policy?"
+    ]
+  },
+  {
+    "id": 198,
+    "question": "Как оценивать агентные loops?",
+    "variants": [
+      "Какими методами следует оценивать агентные loops?"
+    ]
+  },
+  {
+    "id": 199,
+    "question": "Как оценивать agent trajectory, если правильных путей много?",
+    "variants": [
+      "Какими методами следует оценивать agent trajectory, если правильных путей много?"
+    ]
+  },
+  {
+    "id": 200,
+    "question": "Как использовать trace grading для agent evals?",
+    "variants": []
+  },
+  {
+    "id": 201,
+    "question": "Почему нельзя принимать решение по одному среднему score без доверительного интервала?",
+    "variants": [
+      "По каким причинам нельзя принимать решение по одному среднему score без доверительного интервала?"
+    ]
+  },
+  {
+    "id": 202,
+    "question": "Как построить bootstrap confidence interval для eval metric?",
+    "variants": []
+  },
+  {
+    "id": 203,
+    "question": "Когда paired statistical test предпочтительнее независимого сравнения двух eval runs?",
+    "variants": []
+  },
+  {
+    "id": 204,
+    "question": "Как применять McNemar test к LLM regression evaluation?",
+    "variants": []
+  },
+  {
+    "id": 205,
+    "question": "Когда использовать permutation test для сравнения LLM-систем?",
+    "variants": []
+  },
+  {
+    "id": 206,
+    "question": "Как оценить statistical power перед дорогим LLM eval?",
+    "variants": []
+  },
+  {
+    "id": 207,
+    "question": "Почему p-value недостаточен для решения о релизе LLM?",
+    "variants": [
+      "По каким причинам p-value недостаточен для решения о релизе LLM?"
+    ]
+  },
+  {
+    "id": 208,
+    "question": "Как контролировать multiple comparisons при десятках eval metrics?",
+    "variants": []
+  },
+  {
+    "id": 209,
+    "question": "Как отличить statistical significance от practical significance?",
+    "variants": []
+  },
+  {
+    "id": 210,
+    "question": "Как сравнивать две системы, если LLM-judge сам недетерминирован?",
+    "variants": []
+  },
+  {
+    "id": 211,
+    "question": "Как рассчитывать uncertainty для pass rate?",
+    "variants": []
+  },
+  {
+    "id": 212,
+    "question": "Как оценивать rare catastrophic failures статистически?",
+    "variants": [
+      "Какими методами следует оценивать rare catastrophic failures статистически?"
+    ]
+  },
+  {
+    "id": 213,
+    "question": "Как учитывать correlation между примерами одного пользователя или диалога?",
+    "variants": []
+  },
+  {
+    "id": 214,
+    "question": "Как сравнивать модели на dataset со смешанными difficulty levels?",
+    "variants": []
+  },
+  {
+    "id": 215,
+    "question": "Как использовать weighted metrics без статистического самообмана?",
+    "variants": []
+  },
+  {
+    "id": 216,
+    "question": "Как проводить equivalence test, если нужно доказать, что качество не ухудшилось?",
+    "variants": []
+  },
+  {
+    "id": 217,
+    "question": "Как выбрать non-inferiority margin для model migration?",
+    "variants": []
+  },
+  {
+    "id": 218,
+    "question": "Как анализировать win/tie/loss в pairwise model comparison?",
+    "variants": []
+  },
+  {
+    "id": 219,
+    "question": "Как оценить inter-judge agreement между несколькими LLM evaluators?",
+    "variants": []
+  },
+  {
+    "id": 220,
+    "question": "Как обнаружить Simpson’s paradox в aggregate eval metrics?",
+    "variants": []
+  },
+  {
+    "id": 221,
+    "question": "Как измерять calibration confidence score у модели или evaluator-а?",
+    "variants": [
+      "Каким способом корректно измерить calibration confidence score у модели или evaluator-а?"
+    ]
+  },
+  {
+    "id": 222,
+    "question": "Как оценивать metric sensitivity к небольшим изменениям rubric?",
+    "variants": [
+      "Какими методами следует оценивать metric sensitivity к небольшим изменениям rubric?"
+    ]
+  },
+  {
+    "id": 223,
+    "question": "Как отделить dataset shift от model regression в online A/B?",
+    "variants": []
+  },
+  {
+    "id": 224,
+    "question": "Как применять sequential testing, если хочется смотреть A/B каждый час?",
+    "variants": []
+  },
+  {
+    "id": 225,
+    "question": "Как строить статистически корректный gate для нескольких critical slices?",
+    "variants": []
+  },
+  {
+    "id": 226,
+    "question": "Какие данные должен содержать trace LLM-запроса для production debugging?",
+    "variants": []
+  },
+  {
+    "id": 227,
+    "question": "Чем trace отличается от обычного application log при диагностике агента?",
+    "variants": [
+      "В чём принципиальная разница между trace и обычного application log при диагностике агента?"
+    ]
+  },
+  {
+    "id": 228,
+    "question": "Как проектировать span hierarchy для multi-step агента?",
+    "variants": []
+  },
+  {
+    "id": 229,
+    "question": "Какие OpenTelemetry GenAI attributes особенно полезны для LLM monitoring?",
+    "variants": []
+  },
+  {
+    "id": 230,
+    "question": "Почему prompt и response content нельзя безусловно писать в traces?",
+    "variants": [
+      "По каким причинам prompt и response content нельзя безусловно писать в traces?"
+    ]
+  },
+  {
+    "id": 231,
+    "question": "Как связать quality evaluation score с trace?",
+    "variants": []
+  },
+  {
+    "id": 232,
+    "question": "Как instrumentировать retrieval внутри LLM trace?",
+    "variants": []
+  },
+  {
+    "id": 233,
+    "question": "Как instrumentировать tool calls агента?",
+    "variants": []
+  },
+  {
+    "id": 234,
+    "question": "Как трассировать multi-agent handoffs?",
+    "variants": []
+  },
+  {
+    "id": 235,
+    "question": "Как проектировать session-level observability для multi-turn assistant?",
+    "variants": []
+  },
+  {
+    "id": 236,
+    "question": "Как избежать high-cardinality explosion в LLM metrics?",
+    "variants": []
+  },
+  {
+    "id": 237,
+    "question": "Как выбрать sampling strategy для LLM traces?",
+    "variants": []
+  },
+  {
+    "id": 238,
+    "question": "Когда tail-based sampling лучше head-based sampling?",
+    "variants": []
+  },
+  {
+    "id": 239,
+    "question": "Как мониторить стоимость через tracing?",
+    "variants": []
+  },
+  {
+    "id": 240,
+    "question": "Как диагностировать рост TTFT по traces?",
+    "variants": []
+  },
+  {
+    "id": 241,
+    "question": "Как диагностировать рост end-to-end latency у агента при стабильной latency модели?",
+    "variants": []
+  },
+  {
+    "id": 242,
+    "question": "Как обнаружить скрытый retry storm по telemetry?",
+    "variants": []
+  },
+  {
+    "id": 243,
+    "question": "Как instrumentировать streaming LLM response?",
+    "variants": []
+  },
+  {
+    "id": 244,
+    "question": "Как наблюдать token cache effectiveness?",
+    "variants": []
+  },
+  {
+    "id": 245,
+    "question": "Как диагностировать prompt growth с помощью observability?",
+    "variants": []
+  },
+  {
+    "id": 246,
+    "question": "Как связать deployment version с LLM traces?",
+    "variants": []
+  },
+  {
+    "id": 247,
+    "question": "Как проектировать trace retention для LLM systems?",
+    "variants": []
+  },
+  {
+    "id": 248,
+    "question": "Как обеспечить observability при использовании нескольких LLM providers?",
+    "variants": []
+  },
+  {
+    "id": 249,
+    "question": "Как отделить telemetry pipeline failure от реального отсутствия LLM traffic?",
+    "variants": []
+  },
+  {
+    "id": 250,
+    "question": "Как проверять качество instrumentation как часть CI?",
+    "variants": []
+  },
+  {
+    "id": 251,
+    "question": "Какие quality signals стоит мониторить online после релиза LLM-приложения?",
+    "variants": []
+  },
+  {
+    "id": 252,
+    "question": "Как выбрать sampling rate для online LLM evaluation?",
+    "variants": []
+  },
+  {
+    "id": 253,
+    "question": "Как обнаруживать quality drift без ground truth в production?",
+    "variants": []
+  },
+  {
+    "id": 254,
+    "question": "Чем data drift отличается от concept drift для LLM-продукта?",
+    "variants": [
+      "В чём принципиальная разница между data drift и concept drift для LLM-продукта?"
+    ]
+  },
+  {
+    "id": 255,
+    "question": "Как мониторить изменение traffic mix и не путать его с regression?",
+    "variants": []
+  },
+  {
+    "id": 256,
+    "question": "Как строить online quality alert, чтобы не получать постоянные false positives?",
+    "variants": []
+  },
+  {
+    "id": 257,
+    "question": "Как мониторить hallucination rate в production RAG?",
+    "variants": []
+  },
+  {
+    "id": 258,
+    "question": "Как мониторить tool failure rate у AI-агента?",
+    "variants": []
+  },
+  {
+    "id": 259,
+    "question": "Как обнаружить рост agent loops в production?",
+    "variants": []
+  },
+  {
+    "id": 260,
+    "question": "Как мониторить refusal rate без ложного вывода о safety regression?",
+    "variants": []
+  },
+  {
+    "id": 261,
+    "question": "Как использовать user feedback для online evals с учётом selection bias?",
+    "variants": []
+  },
+  {
+    "id": 262,
+    "question": "Как мониторить business outcome для agent systems?",
+    "variants": []
+  },
+  {
+    "id": 263,
+    "question": "Как строить anomaly detection для token usage?",
+    "variants": []
+  },
+  {
+    "id": 264,
+    "question": "Как мониторить cost per successful task?",
+    "variants": []
+  },
+  {
+    "id": 265,
+    "question": "Как мониторить latency для multi-step агента?",
+    "variants": []
+  },
+  {
+    "id": 266,
+    "question": "Как обнаружить provider degradation до массовых пользовательских жалоб?",
+    "variants": []
+  },
+  {
+    "id": 267,
+    "question": "Как мониторить LLM quality после silent provider model update?",
+    "variants": []
+  },
+  {
+    "id": 268,
+    "question": "Как мониторить embedding/index drift в RAG?",
+    "variants": []
+  },
+  {
+    "id": 269,
+    "question": "Как оценивать freshness quality для knowledge-intensive приложения?",
+    "variants": [
+      "Какими методами следует оценивать freshness quality для knowledge-intensive приложения?"
+    ]
+  },
+  {
+    "id": 270,
+    "question": "Как мониторить policy compliance online без отправки всех данных во внешний judge?",
+    "variants": []
+  },
+  {
+    "id": 271,
+    "question": "Как спроектировать feedback loop из online failures в offline eval suite?",
+    "variants": []
+  },
+  {
+    "id": 272,
+    "question": "Как мониторить quality slices при маленьком трафике?",
+    "variants": []
+  },
+  {
+    "id": 273,
+    "question": "Как обнаруживать evaluator drift в online monitoring?",
+    "variants": []
+  },
+  {
+    "id": 274,
+    "question": "Как организовать shadow evaluation новой модели на production inputs?",
+    "variants": []
+  },
+  {
+    "id": 275,
+    "question": "Как выбрать период baseline для online anomaly detection?",
+    "variants": []
+  },
+  {
+    "id": 276,
+    "question": "После обновления prompt quality упала только на длинных диалогах. Как расследовать?",
+    "variants": []
+  },
+  {
+    "id": 277,
+    "question": "RAG начал давать нерелевантный контекст после роста corpus в 20 раз. Что проверять?",
+    "variants": []
+  },
+  {
+    "id": 278,
+    "question": "После смены embedding model retrieval recall вырос, а answer quality упала. Почему так бывает?",
+    "variants": []
+  },
+  {
+    "id": 279,
+    "question": "LLM-judge показывает +8% uplift, а human reviewers не видят улучшения. Как расследовать?",
+    "variants": []
+  },
+  {
+    "id": 280,
+    "question": "После релиза p95 latency вырос вдвое, хотя число запросов и модель не менялись. Как локализовать причину?",
+    "variants": []
+  },
+  {
+    "id": 281,
+    "question": "Cost per request вырос на 40% без изменения цены модели. Какие гипотезы проверять?",
+    "variants": []
+  },
+  {
+    "id": 282,
+    "question": "Агент иногда дважды выполняет платёж после timeout tool. Как расследовать?",
+    "variants": []
+  },
+  {
+    "id": 283,
+    "question": "После добавления нового tool агент стал чаще выбирать старый неправильный tool. Что проверять?",
+    "variants": []
+  },
+  {
+    "id": 284,
+    "question": "Агент проходит offline evals, но проваливается на production traffic. Как искать mismatch?",
+    "variants": []
+  },
+  {
+    "id": 285,
+    "question": "После обновления judge model historical quality резко упала. Как понять, это regression или смена измерителя?",
+    "variants": []
+  },
+  {
+    "id": 286,
+    "question": "Groundedness score высокий, но пользователи жалуются на неправильные факты. Какие причины возможны?",
+    "variants": []
+  },
+  {
+    "id": 287,
+    "question": "Retrieval metrics хорошие, но citations часто не подтверждают claims. Где искать ошибку?",
+    "variants": []
+  },
+  {
+    "id": 288,
+    "question": "Success rate агента снизился после уменьшения max_steps. Как оценить, оправдан ли trade-off?",
+    "variants": []
+  },
+  {
+    "id": 289,
+    "question": "После включения aggressive retry success rate вырос, но пользователи стали ждать дольше. Что делать?",
+    "variants": []
+  },
+  {
+    "id": 290,
+    "question": "В online dashboard quality падает ночью. Как проверить, это реальная деградация?",
+    "variants": []
+  },
+  {
+    "id": 291,
+    "question": "После model migration вырос refusal rate на безопасных запросах. Как диагностировать?",
+    "variants": []
+  },
+  {
+    "id": 292,
+    "question": "Агент зацикливается только при одном внешнем API. Как доказать root cause?",
+    "variants": []
+  },
+  {
+    "id": 293,
+    "question": "После увеличения context window качество части задач ухудшилось. Какие гипотезы проверять?",
+    "variants": []
+  },
+  {
+    "id": 294,
+    "question": "Agent evaluation flaky: один и тот же тест проходит 70–90% запусков. Как стабилизировать диагностику?",
+    "variants": []
+  },
+  {
+    "id": 295,
+    "question": "Новый prompt улучшил average score, но ухудшил один critical slice. Как принимать решение?",
+    "variants": []
+  },
+  {
+    "id": 296,
+    "question": "Почему после включения caching latency снизилась, а ответы иногда стали устаревшими?",
+    "variants": [
+      "По каким причинам после включения caching latency снизилась, а ответы иногда стали устаревшими?"
+    ]
+  },
+  {
+    "id": 297,
+    "question": "После изменения chunking вырос token usage и снизился groundedness. Как связаны эти симптомы?",
+    "variants": []
+  },
+  {
+    "id": 298,
+    "question": "Human feedback резко ухудшился после UI-релиза, хотя model evals стабильны. Что проверить?",
+    "variants": []
+  },
+  {
+    "id": 299,
+    "question": "В traces исчезли tool spans, но agent success не изменился. Почему это всё равно incident?",
+    "variants": []
+  },
+  {
+    "id": 300,
+    "question": "Как проводить postmortem quality incident LLM-системы?",
+    "variants": []
+  },
+  {
+    "id": 301,
+    "question": "Как оценивать quality-latency trade-off между двумя LLM?",
+    "variants": [
+      "Какими методами следует оценивать quality-latency trade-off между двумя LLM?"
+    ]
+  },
+  {
+    "id": 302,
+    "question": "Как оценивать quality-cost trade-off при выборе модели?",
+    "variants": [
+      "Какими методами следует оценивать quality-cost trade-off при выборе модели?"
+    ]
+  },
+  {
+    "id": 303,
+    "question": "Почему throughput LLM-сервиса нельзя оценивать только requests per second?",
+    "variants": [
+      "По каким причинам throughput LLM-сервиса нельзя оценивать только requests per second?"
+    ]
+  },
+  {
+    "id": 304,
+    "question": "Как связать context length с latency и cost в eval?",
+    "variants": []
+  },
+  {
+    "id": 305,
+    "question": "Как оценивать batching для LLM inference?",
+    "variants": [
+      "Какими методами следует оценивать batching для LLM inference?"
+    ]
+  },
+  {
+    "id": 306,
+    "question": "Как оценивать влияние streaming на пользовательское качество?",
+    "variants": [
+      "Какими методами следует оценивать влияние streaming на пользовательское качество?"
+    ]
+  },
+  {
+    "id": 307,
+    "question": "Как оценивать fallback model по качеству и надёжности?",
+    "variants": [
+      "Какими методами следует оценивать fallback model по качеству и надёжности?"
+    ]
+  },
+  {
+    "id": 308,
+    "question": "Как проектировать eval для rate-limit behavior?",
+    "variants": []
+  },
+  {
+    "id": 309,
+    "question": "Как оценивать resilience при частичных отказах tools?",
+    "variants": [
+      "Какими методами следует оценивать resilience при частичных отказах tools?"
+    ]
+  },
+  {
+    "id": 310,
+    "question": "Как оценивать graceful degradation LLM-продукта?",
+    "variants": [
+      "Какими методами следует оценивать graceful degradation LLM-продукта?"
+    ]
+  },
+  {
+    "id": 311,
+    "question": "Как измерять reliability недетерминированного агента?",
+    "variants": [
+      "Каким способом корректно измерить reliability недетерминированного агента?"
+    ]
+  },
+  {
+    "id": 312,
+    "question": "Что такое pass@k и когда он уместен для agent/code eval?",
+    "variants": [
+      "Как следует понимать pass@k и когда он уместен для agent/code eval в контексте оценки LLM и агентов?"
+    ]
+  },
+  {
+    "id": 313,
+    "question": "Как оценивать self-consistency или majority voting?",
+    "variants": [
+      "Какими методами следует оценивать self-consistency или majority voting?"
+    ]
+  },
+  {
+    "id": 314,
+    "question": "Как оценивать speculative или multi-model routing architecture?",
+    "variants": [
+      "Какими методами следует оценивать speculative или multi-model routing architecture?"
+    ]
+  },
+  {
+    "id": 315,
+    "question": "Как оценивать prompt caching?",
+    "variants": [
+      "Какими методами следует оценивать prompt caching?"
+    ]
+  },
+  {
+    "id": 316,
+    "question": "Как оценивать semantic response cache?",
+    "variants": [
+      "Какими методами следует оценивать semantic response cache?"
+    ]
+  },
+  {
+    "id": 317,
+    "question": "Как измерять benefit от context compression?",
+    "variants": [
+      "Каким способом корректно измерить benefit от context compression?"
+    ]
+  },
+  {
+    "id": 318,
+    "question": "Как оценивать summarization memory для длинных сессий?",
+    "variants": [
+      "Какими методами следует оценивать summarization memory для длинных сессий?"
+    ]
+  },
+  {
+    "id": 319,
+    "question": "Как оценивать model quantization для production serving?",
+    "variants": [
+      "Какими методами следует оценивать model quantization для production serving?"
+    ]
+  },
+  {
+    "id": 320,
+    "question": "Как оценивать локальную модель против облачного API?",
+    "variants": [
+      "Какими методами следует оценивать локальную модель против облачного API?"
+    ]
+  },
+  {
+    "id": 321,
+    "question": "Как вычислять capacity headroom для agent platform?",
+    "variants": []
+  },
+  {
+    "id": 322,
+    "question": "Как оценивать queueing policy для дорогих agent tasks?",
+    "variants": [
+      "Какими методами следует оценивать queueing policy для дорогих agent tasks?"
+    ]
+  },
+  {
+    "id": 323,
+    "question": "Как оценивать cancellation и client disconnect behavior?",
+    "variants": [
+      "Какими методами следует оценивать cancellation и client disconnect behavior?"
+    ]
+  },
+  {
+    "id": 324,
+    "question": "Как оценивать availability LLM-зависимости с точки зрения приложения?",
+    "variants": [
+      "Какими методами следует оценивать availability LLM-зависимости с точки зрения приложения?"
+    ]
+  },
+  {
+    "id": 325,
+    "question": "Как выбирать SLO для AI-агента с качеством и latency одновременно?",
+    "variants": []
+  },
+  {
+    "id": 326,
+    "question": "Как встроить LLM evals в CI pipeline?",
+    "variants": []
+  },
+  {
+    "id": 327,
+    "question": "Какие evals запускать на каждом PR, а какие nightly?",
+    "variants": []
+  },
+  {
+    "id": 328,
+    "question": "Как проектировать release gate для LLM-приложения?",
+    "variants": []
+  },
+  {
+    "id": 329,
+    "question": "Как версионировать prompts как production artifacts?",
+    "variants": []
+  },
+  {
+    "id": 330,
+    "question": "Как версионировать evaluator prompts и rubrics?",
+    "variants": []
+  },
+  {
+    "id": 331,
+    "question": "Как хранить eval results для воспроизводимости?",
+    "variants": []
+  },
+  {
+    "id": 332,
+    "question": "Как спроектировать experiment tracking для LLM applications?",
+    "variants": []
+  },
+  {
+    "id": 333,
+    "question": "Как использовать production traces как источник eval data без утечки приватных данных?",
+    "variants": []
+  },
+  {
+    "id": 334,
+    "question": "Как реализовать deterministic replay agent trace?",
+    "variants": []
+  },
+  {
+    "id": 335,
+    "question": "Как оценивать counterfactual model change на старых traces?",
+    "variants": [
+      "Какими методами следует оценивать counterfactual model change на старых traces?"
+    ]
+  },
+  {
+    "id": 336,
+    "question": "Как построить eval service, независимый от конкретного LLM framework?",
+    "variants": []
+  },
+  {
+    "id": 337,
+    "question": "Как спроектировать evaluator API для code, human и LLM judges?",
+    "variants": []
+  },
+  {
+    "id": 338,
+    "question": "Как контролировать concurrency массового eval run?",
+    "variants": []
+  },
+  {
+    "id": 339,
+    "question": "Как кэшировать evals без потери корректности?",
+    "variants": []
+  },
+  {
+    "id": 340,
+    "question": "Как обрабатывать частично завершённый eval run?",
+    "variants": []
+  },
+  {
+    "id": 341,
+    "question": "Как обеспечить reproducibility при внешних model APIs?",
+    "variants": []
+  },
+  {
+    "id": 342,
+    "question": "Как построить model/prompt registry, связанный с eval evidence?",
+    "variants": []
+  },
+  {
+    "id": 343,
+    "question": "Как организовать canary rollout с quality evaluation?",
+    "variants": []
+  },
+  {
+    "id": 344,
+    "question": "Как использовать shadow traffic перед canary?",
+    "variants": []
+  },
+  {
+    "id": 345,
+    "question": "Как проектировать rollback для prompt/model regression?",
+    "variants": []
+  },
+  {
+    "id": 346,
+    "question": "Как хранить benchmark history при изменении datasets?",
+    "variants": []
+  },
+  {
+    "id": 347,
+    "question": "Как автоматизировать semantic deduplication eval cases?",
+    "variants": []
+  },
+  {
+    "id": 348,
+    "question": "Как построить lineage от production incident до regression test и fix?",
+    "variants": []
+  },
+  {
+    "id": 349,
+    "question": "Как тестировать evaluation infrastructure itself?",
+    "variants": []
+  },
+  {
+    "id": 350,
+    "question": "Как управлять cost budget evaluation platform?",
+    "variants": []
+  },
+  {
+    "id": 351,
+    "question": "Как построить evaluation strategy для компании с десятками LLM-продуктов?",
+    "variants": []
+  },
+  {
+    "id": 352,
+    "question": "Какие eval metrics должны быть company-wide, а какие доменными?",
+    "variants": []
+  },
+  {
+    "id": 353,
+    "question": "Как определить минимальный evaluation bar для выхода нового AI-продукта в production?",
+    "variants": []
+  },
+  {
+    "id": 354,
+    "question": "Как превратить evals из исследовательского инструмента в release governance?",
+    "variants": []
+  },
+  {
+    "id": 355,
+    "question": "Как определить risk tiers для LLM и agent use cases?",
+    "variants": []
+  },
+  {
+    "id": 356,
+    "question": "Как решить, какие failures должны быть hard gates, а какие допускают trade-off?",
+    "variants": []
+  },
+  {
+    "id": 357,
+    "question": "Как оценивать ROI investment в evaluation infrastructure?",
+    "variants": [
+      "Какими методами следует оценивать ROI investment в evaluation infrastructure?"
+    ]
+  },
+  {
+    "id": 358,
+    "question": "Как определить ownership quality metrics между product, ML, platform и SRE?",
+    "variants": []
+  },
+  {
+    "id": 359,
+    "question": "Как управлять изменениями rubric, чтобы не потерять историческую сопоставимость?",
+    "variants": []
+  },
+  {
+    "id": 360,
+    "question": "Как построить process для exception к release gate?",
+    "variants": []
+  },
+  {
+    "id": 361,
+    "question": "Как выбирать north-star quality metric для LLM-продукта?",
+    "variants": []
+  },
+  {
+    "id": 362,
+    "question": "Как защититься от Goodhart’s law при оптимизации eval metrics?",
+    "variants": []
+  },
+  {
+    "id": 363,
+    "question": "Как определить, когда публичный benchmark полезен для vendor/model selection?",
+    "variants": []
+  },
+  {
+    "id": 364,
+    "question": "Как управлять benchmark contamination риском?",
+    "variants": []
+  },
+  {
+    "id": 365,
+    "question": "Как определить частоту пересмотра eval strategy?",
+    "variants": []
+  },
+  {
+    "id": 366,
+    "question": "Как оценивать качество AI-функции, если business outcome проявляется через недели?",
+    "variants": [
+      "Какими методами следует оценивать качество AI-функции, если business outcome проявляется через недели?"
+    ]
+  },
+  {
+    "id": 367,
+    "question": "Как управлять конфликтом между safety metric и user helpfulness?",
+    "variants": []
+  },
+  {
+    "id": 368,
+    "question": "Как принимать решение при конфликте offline eval и online A/B?",
+    "variants": []
+  },
+  {
+    "id": 369,
+    "question": "Как определить, какие online evals запускать на 100% трафика?",
+    "variants": []
+  },
+  {
+    "id": 370,
+    "question": "Как строить eval strategy для модели, которая часто обновляется поставщиком?",
+    "variants": []
+  },
+  {
+    "id": 371,
+    "question": "Как оценить готовность команды к agentic production до выбора framework?",
+    "variants": []
+  },
+  {
+    "id": 372,
+    "question": "Как приоритизировать новые evaluators при ограниченной команде?",
+    "variants": []
+  },
+  {
+    "id": 373,
+    "question": "Как определить, что eval program стал слишком сложным?",
+    "variants": []
+  },
+  {
+    "id": 374,
+    "question": "Как задать quality budget аналогично error budget?",
+    "variants": []
+  },
+  {
+    "id": 375,
+    "question": "Как оценивать зрелость LLMOps/evaluation процессов организации?",
+    "variants": [
+      "Какими методами следует оценивать зрелость LLMOps/evaluation процессов организации?"
+    ]
+  },
+  {
+    "id": 376,
+    "question": "Как спроектировать централизованную evaluation platform для нескольких AI-команд?",
+    "variants": []
+  },
+  {
+    "id": 377,
+    "question": "Какие компоненты нужны в production-grade eval platform?",
+    "variants": []
+  },
+  {
+    "id": 378,
+    "question": "Как выбрать data model для traces, eval results и datasets?",
+    "variants": []
+  },
+  {
+    "id": 379,
+    "question": "Как обеспечить portability observability между LangChain, custom agents и другими frameworks?",
+    "variants": []
+  },
+  {
+    "id": 380,
+    "question": "Когда отдельный evaluation store нужен помимо observability backend?",
+    "variants": []
+  },
+  {
+    "id": 381,
+    "question": "Как проектировать evaluator registry?",
+    "variants": []
+  },
+  {
+    "id": 382,
+    "question": "Как спроектировать dataset registry для shared и private eval sets?",
+    "variants": []
+  },
+  {
+    "id": 383,
+    "question": "Как спроектировать large-scale eval runner?",
+    "variants": []
+  },
+  {
+    "id": 384,
+    "question": "Как обеспечить idempotency eval jobs?",
+    "variants": []
+  },
+  {
+    "id": 385,
+    "question": "Как проектировать cost controls в shared eval platform?",
+    "variants": []
+  },
+  {
+    "id": 386,
+    "question": "Как спроектировать human annotation subsystem рядом с automated evals?",
+    "variants": []
+  },
+  {
+    "id": 387,
+    "question": "Как проектировать online evaluator service без риска перегрузить production?",
+    "variants": []
+  },
+  {
+    "id": 388,
+    "question": "Как организовать schema evolution telemetry для GenAI semantic conventions?",
+    "variants": []
+  },
+  {
+    "id": 389,
+    "question": "Как спроектировать correlation между traces, user feedback и business outcomes?",
+    "variants": []
+  },
+  {
+    "id": 390,
+    "question": "Как реализовать searchable corpus production failures?",
+    "variants": []
+  },
+  {
+    "id": 391,
+    "question": "Как обеспечить isolation eval environments для tool-using agents?",
+    "variants": []
+  },
+  {
+    "id": 392,
+    "question": "Как спроектировать replay infrastructure для incident debugging?",
+    "variants": []
+  },
+  {
+    "id": 393,
+    "question": "Как строить query layer для анализа миллионов LLM traces?",
+    "variants": []
+  },
+  {
+    "id": 394,
+    "question": "Как выбрать retention tiers для evaluation и tracing data?",
+    "variants": []
+  },
+  {
+    "id": 395,
+    "question": "Как проектировать access control для eval platform?",
+    "variants": []
+  },
+  {
+    "id": 396,
+    "question": "Как обеспечить vendor-neutral model gateway для evals?",
+    "variants": []
+  },
+  {
+    "id": 397,
+    "question": "Как спроектировать plugin model для custom evaluators без угрозы платформе?",
+    "variants": []
+  },
+  {
+    "id": 398,
+    "question": "Как обеспечить high availability evaluation platform, если она стоит в release path?",
+    "variants": []
+  },
+  {
+    "id": 399,
+    "question": "Как мигрировать между observability/eval vendors без потери истории?",
+    "variants": []
+  },
+  {
+    "id": 400,
+    "question": "Как измерять эффективность самой evaluation platform?",
+    "variants": [
+      "Каким способом корректно измерить эффективность самой evaluation platform?"
+    ]
+  },
+  {
+    "id": 401,
+    "question": "Как выбрать между собственной evaluation platform и SaaS-продуктом?",
+    "variants": []
+  },
+  {
+    "id": 402,
+    "question": "Какие критерии использовать при выборе LLM observability vendor?",
+    "variants": []
+  },
+  {
+    "id": 403,
+    "question": "Как сравнить LangSmith, MLflow, Phoenix/Arize, Weave и собственный стек без feature-matrix ловушки?",
+    "variants": []
+  },
+  {
+    "id": 404,
+    "question": "Когда open-source observability stack предпочтительнее managed SaaS?",
+    "variants": []
+  },
+  {
+    "id": 405,
+    "question": "Как оценить vendor lock-in evaluation platform?",
+    "variants": []
+  },
+  {
+    "id": 406,
+    "question": "Как оценивать model vendor кроме benchmark quality?",
+    "variants": [
+      "Какими методами следует оценивать model vendor кроме benchmark quality?"
+    ]
+  },
+  {
+    "id": 407,
+    "question": "Как строить vendor bake-off для нескольких LLM providers?",
+    "variants": []
+  },
+  {
+    "id": 408,
+    "question": "Когда стоит использовать model router вместо стандартизации на одной модели?",
+    "variants": []
+  },
+  {
+    "id": 409,
+    "question": "Как решить, стоит ли self-host open-source LLM?",
+    "variants": []
+  },
+  {
+    "id": 410,
+    "question": "Как оценивать коммерческую ценность более дорогой frontier model?",
+    "variants": [
+      "Какими методами следует оценивать коммерческую ценность более дорогой frontier model?"
+    ]
+  },
+  {
+    "id": 411,
+    "question": "Как сравнивать provider pricing при разных token accounting и cache discounts?",
+    "variants": []
+  },
+  {
+    "id": 412,
+    "question": "Как оценивать SLA LLM provider с точки зрения своего SLO?",
+    "variants": [
+      "Какими методами следует оценивать SLA LLM provider с точки зрения своего SLO?"
+    ]
+  },
+  {
+    "id": 413,
+    "question": "Как оценить риск deprecation модели поставщиком?",
+    "variants": []
+  },
+  {
+    "id": 414,
+    "question": "Когда model-specific prompt optimization создаёт неприемлемый lock-in?",
+    "variants": []
+  },
+  {
+    "id": 415,
+    "question": "Как выбрать human labeling vendor для eval program?",
+    "variants": []
+  },
+  {
+    "id": 416,
+    "question": "Как оценить LLM judge vendor/model как отдельную зависимость?",
+    "variants": []
+  },
+  {
+    "id": 417,
+    "question": "Как выбрать tracing standard при быстро меняющемся GenAI ecosystem?",
+    "variants": []
+  },
+  {
+    "id": 418,
+    "question": "Когда стоит покупать отдельный RAG evaluation продукт?",
+    "variants": []
+  },
+  {
+    "id": 419,
+    "question": "Как оценить build vs buy для agent sandbox/eval environments?",
+    "variants": []
+  },
+  {
+    "id": 420,
+    "question": "Как учитывать vendor roadmap в архитектурном решении без зависимости от обещаний?",
+    "variants": []
+  },
+  {
+    "id": 421,
+    "question": "Как сравнивать proprietary benchmark reports поставщиков?",
+    "variants": []
+  },
+  {
+    "id": 422,
+    "question": "Как определить допустимый уровень multi-vendor complexity?",
+    "variants": []
+  },
+  {
+    "id": 423,
+    "question": "Когда следует отказаться от vendor despite high eval score?",
+    "variants": []
+  },
+  {
+    "id": 424,
+    "question": "Как подготовить exit strategy до внедрения AI platform vendor?",
+    "variants": []
+  },
+  {
+    "id": 425,
+    "question": "Как оценивать vendor POC так, чтобы он предсказывал production reality?",
+    "variants": [
+      "Какими методами следует оценивать vendor POC так, чтобы он предсказывал production reality?"
+    ]
+  },
+  {
+    "id": 426,
+    "question": "Как спроектировать rollout новой модели для критичного AI-агента?",
+    "variants": []
+  },
+  {
+    "id": 427,
+    "question": "Какие метрики должны останавливать canary автоматически?",
+    "variants": []
+  },
+  {
+    "id": 428,
+    "question": "Как выбирать размер и длительность canary для LLM migration?",
+    "variants": []
+  },
+  {
+    "id": 429,
+    "question": "Как организовать rollback, если candidate успел изменить external state?",
+    "variants": []
+  },
+  {
+    "id": 430,
+    "question": "Как построить SLO для качества, если ground truth приходит с задержкой?",
+    "variants": []
+  },
+  {
+    "id": 431,
+    "question": "Как определить error budget для LLM quality?",
+    "variants": []
+  },
+  {
+    "id": 432,
+    "question": "Как связать technical SLO и business KPI для AI-агента?",
+    "variants": []
+  },
+  {
+    "id": 433,
+    "question": "Как организовать on-call для LLM quality incidents?",
+    "variants": []
+  },
+  {
+    "id": 434,
+    "question": "Какие признаки определяют severity LLM incident?",
+    "variants": []
+  },
+  {
+    "id": 435,
+    "question": "Как ограничить blast radius agent incident?",
+    "variants": []
+  },
+  {
+    "id": 436,
+    "question": "Как проводить game day для AI-agent failure?",
+    "variants": []
+  },
+  {
+    "id": 437,
+    "question": "Как определить rollback trigger при noisy quality metric?",
+    "variants": []
+  },
+  {
+    "id": 438,
+    "question": "Как управлять change freeze после серьёзного LLM incident?",
+    "variants": []
+  },
+  {
+    "id": 439,
+    "question": "Как оценивать migration одновременно модели, prompt и retrieval stack?",
+    "variants": [
+      "Какими методами следует оценивать migration одновременно модели, prompt и retrieval stack?"
+    ]
+  },
+  {
+    "id": 440,
+    "question": "Как безопасно rollout новый LLM-judge, который влияет на release gates?",
+    "variants": []
+  },
+  {
+    "id": 441,
+    "question": "Как управлять rollout нового tool для агента?",
+    "variants": []
+  },
+  {
+    "id": 442,
+    "question": "Как строить incident response при массовом hallucination spike?",
+    "variants": []
+  },
+  {
+    "id": 443,
+    "question": "Как реагировать на silent quality regression без user complaints?",
+    "variants": []
+  },
+  {
+    "id": 444,
+    "question": "Как управлять incident, если observability pipeline одновременно сломан?",
+    "variants": []
+  },
+  {
+    "id": 445,
+    "question": "Как определять MTTD и MTTR для quality incidents?",
+    "variants": []
+  },
+  {
+    "id": 446,
+    "question": "Как проводить postmortem без обвинения «модель непредсказуема»?",
+    "variants": []
+  },
+  {
+    "id": 447,
+    "question": "Как приоритизировать postmortem actions после agent incident?",
+    "variants": []
+  },
+  {
+    "id": 448,
+    "question": "Как решить, когда возвращать traffic после rollback?",
+    "variants": []
+  },
+  {
+    "id": 449,
+    "question": "Как учитывать коммуникацию с пользователями в AI incident process?",
+    "variants": []
+  },
+  {
+    "id": 450,
+    "question": "Как доказать, что incident fix действительно предотвратил повторение?",
+    "variants": []
+  },
+  {
+    "id": 451,
+    "question": "Как построить LLM observability, если prompts содержат PII и коммерческие секреты?",
+    "variants": []
+  },
+  {
+    "id": 452,
+    "question": "Как разделить trace visibility между tenants в shared AI platform?",
+    "variants": []
+  },
+  {
+    "id": 453,
+    "question": "Как оценивать cross-tenant data leakage у RAG-агента?",
+    "variants": [
+      "Какими методами следует оценивать cross-tenant data leakage у RAG-агента?"
+    ]
+  },
+  {
+    "id": 454,
+    "question": "Как безопасно использовать production traces для внешнего LLM-judge?",
+    "variants": []
+  },
+  {
+    "id": 455,
+    "question": "Как предотвращать утечку secrets через tool-call tracing?",
+    "variants": []
+  },
+  {
+    "id": 456,
+    "question": "Как проектировать PII redaction, не разрушая качество evals?",
+    "variants": []
+  },
+  {
+    "id": 457,
+    "question": "Как выполнять right-to-delete для данных, попавших в traces и eval datasets?",
+    "variants": []
+  },
+  {
+    "id": 458,
+    "question": "Как оценивать prompt injection с точки зрения observability и evals?",
+    "variants": [
+      "Какими методами следует оценивать prompt injection с точки зрения observability и evals?"
+    ]
+  },
+  {
+    "id": 459,
+    "question": "Как оценивать indirect prompt injection через retrieved documents?",
+    "variants": [
+      "Какими методами следует оценивать indirect prompt injection через retrieved documents?"
+    ]
+  },
+  {
+    "id": 460,
+    "question": "Как проектировать trace schema для security investigation AI-agent actions?",
+    "variants": []
+  },
+  {
+    "id": 461,
+    "question": "Как отделить model safety evaluation от deterministic authorization?",
+    "variants": []
+  },
+  {
+    "id": 462,
+    "question": "Как оценивать human-in-the-loop approval для high-risk tools?",
+    "variants": [
+      "Какими методами следует оценивать human-in-the-loop approval для high-risk tools?"
+    ]
+  },
+  {
+    "id": 463,
+    "question": "Как проектировать multi-tenant evaluator execution?",
+    "variants": []
+  },
+  {
+    "id": 464,
+    "question": "Как оценивать privacy risk от embeddings eval/search corpus?",
+    "variants": [
+      "Какими методами следует оценивать privacy risk от embeddings eval/search corpus?"
+    ]
+  },
+  {
+    "id": 465,
+    "question": "Как мониторить data exfiltration risk через LLM outputs?",
+    "variants": []
+  },
+  {
+    "id": 466,
+    "question": "Как оценивать logging policy при использовании chain-of-thought или hidden reasoning моделей?",
+    "variants": [
+      "Какими методами следует оценивать logging policy при использовании chain-of-thought или hidden reasoning моделей?"
+    ]
+  },
+  {
+    "id": 467,
+    "question": "Как управлять encryption keys для trace/eval data разных sensitivity tiers?",
+    "variants": []
+  },
+  {
+    "id": 468,
+    "question": "Как оценивать security regressions после смены model provider?",
+    "variants": [
+      "Какими методами следует оценивать security regressions после смены model provider?"
+    ]
+  },
+  {
+    "id": 469,
+    "question": "Как спроектировать audit trail для model/prompt/evaluator changes?",
+    "variants": []
+  },
+  {
+    "id": 470,
+    "question": "Как оценивать supply-chain risk LLM observability SDK?",
+    "variants": [
+      "Какими методами следует оценивать supply-chain risk LLM observability SDK?"
+    ]
+  },
+  {
+    "id": 471,
+    "question": "Как управлять data residency при глобальной AI platform?",
+    "variants": []
+  },
+  {
+    "id": 472,
+    "question": "Как оценивать tenant-specific quality без раскрытия данных центральной platform team?",
+    "variants": [
+      "Какими методами следует оценивать tenant-specific quality без раскрытия данных центральной platform team?"
+    ]
+  },
+  {
+    "id": 473,
+    "question": "Как предотвращать metric leakage между teams в shared leaderboard?",
+    "variants": []
+  },
+  {
+    "id": 474,
+    "question": "Как оценивать безопасность автоматического prompt optimization?",
+    "variants": [
+      "Какими методами следует оценивать безопасность автоматического prompt optimization?"
+    ]
+  },
+  {
+    "id": 475,
+    "question": "Как определить, какие telemetry fields запрещено собирать вообще?",
+    "variants": []
+  },
+  {
+    "id": 476,
+    "question": "Как организовать команду, отвечающую за LLM evaluation и observability platform?",
+    "variants": []
+  },
+  {
+    "id": 477,
+    "question": "Какие компетенции нужны AI Lead для сильной evaluation culture?",
+    "variants": []
+  },
+  {
+    "id": 478,
+    "question": "Как обучить продуктовые команды создавать хорошие domain evals?",
+    "variants": []
+  },
+  {
+    "id": 479,
+    "question": "Как приоритизировать roadmap evaluation platform на год?",
+    "variants": []
+  },
+  {
+    "id": 480,
+    "question": "Как решить, централизовать ли prompts и models в одной platform team?",
+    "variants": []
+  },
+  {
+    "id": 481,
+    "question": "Как организовать architecture review нового agent use case?",
+    "variants": []
+  },
+  {
+    "id": 482,
+    "question": "Как оценить технический долг в LLM evaluation?",
+    "variants": []
+  },
+  {
+    "id": 483,
+    "question": "Как измерять developer velocity при внедрении evals, а не только их стоимость?",
+    "variants": [
+      "Каким способом корректно измерить developer velocity при внедрении evals, а не только их стоимость?"
+    ]
+  },
+  {
+    "id": 484,
+    "question": "Как предотвратить превращение eval review в бюрократический bottleneck?",
+    "variants": []
+  },
+  {
+    "id": 485,
+    "question": "Как организовать shared taxonomy failure modes между командами?",
+    "variants": []
+  },
+  {
+    "id": 486,
+    "question": "Как решить конфликт, когда product хочет релиз, а eval evidence неоднозначна?",
+    "variants": []
+  },
+  {
+    "id": 487,
+    "question": "Как управлять stakeholder expectations вокруг benchmark scores?",
+    "variants": []
+  },
+  {
+    "id": 488,
+    "question": "Как оценивать эффективность fine-tuning против prompt/RAG improvements?",
+    "variants": [
+      "Какими методами следует оценивать эффективность fine-tuning против prompt/RAG improvements?"
+    ]
+  },
+  {
+    "id": 489,
+    "question": "Как решить, когда нужен отдельный evaluation team, а когда достаточно platform enablement?",
+    "variants": []
+  },
+  {
+    "id": 490,
+    "question": "Как построить quarterly quality review портфеля AI-продуктов?",
+    "variants": []
+  },
+  {
+    "id": 491,
+    "question": "Как определить, что пора стандартизировать framework для evals?",
+    "variants": []
+  },
+  {
+    "id": 492,
+    "question": "Как управлять миграцией сотен prompts на новую модель?",
+    "variants": []
+  },
+  {
+    "id": 493,
+    "question": "Как планировать capacity команды при резком росте числа agent use cases?",
+    "variants": []
+  },
+  {
+    "id": 494,
+    "question": "Как использовать incidents для приоритизации platform roadmap, не впадая в реактивность?",
+    "variants": []
+  },
+  {
+    "id": 495,
+    "question": "Как оценивать success AI-platform initiative через год?",
+    "variants": [
+      "Какими методами следует оценивать success AI-platform initiative через год?"
+    ]
+  },
+  {
+    "id": 496,
+    "question": "Компания хочет заменить сильную модель на в 5 раз более дешёвую с потерей 1% average quality. Как принимать решение?",
+    "variants": []
+  },
+  {
+    "id": 497,
+    "question": "Offline eval показывает новую agent architecture лучше на 6%, но она удваивает число tool calls. Что должен решить Lead?",
+    "variants": []
+  },
+  {
+    "id": 498,
+    "question": "После полугода оптимизации automated judge score растёт, а retention продукта не меняется. Что делать?",
+    "variants": []
+  },
+  {
+    "id": 499,
+    "question": "Команды требуют хранить все prompts и tool results навсегда для debugging. Как принять решение?",
+    "variants": []
+  },
+  {
+    "id": 500,
+    "question": "Какой финальный критерий показывает, что evaluation system действительно зрелая?",
+    "variants": []
+  }
+]
