@@ -1,0 +1,100 @@
+{
+  "name": "answerline",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Local AI tutor and conversation assistant: system audio in as questions, mic in as context, answers from a local model with bounded Qdrant RAG evidence.",
+  "type": "module",
+  "main": "out/main/index.js",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "npm run compile:mac-audio && electron-vite dev",
+    "build": "tsc --noEmit && electron-vite build",
+    "start": "npm run compile:mac-audio && electron-vite preview",
+    "compile:mac-audio": "node scripts/build-macos-audio-tap.mjs",
+    "package:mac": "npm run build && npm run compile:mac-audio -- --arch arm64 && electron-builder --mac --arm64",
+    "package:mac:x64": "npm run build && npm run compile:mac-audio -- --arch x64 && electron-builder --mac --x64",
+    "package:mac:universal": "npm run build && npm run compile:mac-audio -- --arch universal && electron-builder --mac --universal",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "doctor": "node scripts/doctor.mjs",
+    "rag:prepare": "node scripts/prepare-rag-corpus.mjs",
+    "rag:aliases": "node scripts/generate-rag-aliases.mjs",
+    "rag:index": "node scripts/index-rag.mjs",
+    "rag:evaluate": "node scripts/evaluate-rag.mjs",
+    "rag:answers": "node scripts/evaluate-rag-answers.mjs",
+    "prompt:evaluate": "node scripts/evaluate-system-prompt.mjs",
+    "document:extract": "node scripts/ingest-document.mjs --extract-only",
+    "document:ingest": "node scripts/ingest-document.mjs",
+    "translate:qa": "node scripts/translate-qa.mjs",
+    "benchmark:models": "node scripts/benchmark-models.mjs",
+    "hotkeys": "electron scripts/hotkey-probe.cjs"
+  },
+  "devDependencies": {
+    "@firecrawl/pdf-inspector": "^1.12.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "cheerio": "^1.2.0",
+    "electron": "^43.2.0",
+    "electron-builder": "^26.0.12",
+    "electron-vite": "^5.0.0",
+    "mammoth": "^1.12.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^7.0.0",
+    "vitest": "^3.0.0"
+  },
+  "build": {
+    "appId": "local.answerline",
+    "productName": "Answerline",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/it-ru-terms.md",
+        "to": "it-ru-terms.md"
+      },
+      {
+        "from": "resources/hallucinations.txt",
+        "to": "hallucinations.txt"
+      },
+      {
+        "from": "data",
+        "to": "data",
+        "filter": [
+          "**/*.md"
+        ]
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "minimumSystemVersion": "14.4",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "extraResources": [
+        {
+          "from": "resources/bin/macos-audio-tap",
+          "to": "macos-audio-tap"
+        }
+      ],
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "Answerline uses the microphone only to transcribe your side of a local interview session.",
+        "NSAudioCaptureUsageDescription": "Answerline captures system audio only to transcribe the interviewer's speech locally. It never records the screen."
+      }
+    }
+  }
+}

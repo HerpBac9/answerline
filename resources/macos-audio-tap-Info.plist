@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>local.answerline.audio-tap</string>
+	<key>CFBundleName</key>
+	<string>Answerline Audio Tap</string>
+	<key>CFBundleExecutable</key>
+	<string>macos-audio-tap</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>NSAudioCaptureUsageDescription</key>
+	<string>Answerline captures system audio only to transcribe the interviewer's speech locally. It never records the screen.</string>
+</dict>
+</plist>

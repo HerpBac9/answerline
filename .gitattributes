@@ -1,0 +1,19 @@
+# Нормализуем окончания строк в индексе, чтобы диффы не превращались в
+# шум на Windows и не ломались на macOS/Linux.
+* text=auto eol=lf
+
+# Двоичные файлы, для которых нормализация недопустима.
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.icns binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.node binary
+*.bin binary
+*.exe binary
+*.dll binary
+*.dylib binary
+*.wasm binary

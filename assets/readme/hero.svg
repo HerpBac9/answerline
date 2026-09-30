@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="300" viewBox="0 0 960 300" role="img" aria-labelledby="hero-title hero-desc">
+  <title id="hero-title">Answerline</title>
+  <desc id="hero-desc">Локальный ИИ-наставник: учит, готовит к собеседованию и напоминает факты на созвоне. Всё работает на вашей машине.</desc>
+
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="115%" r="80%">
+      <stop offset="0" stop-color="#1d2b3d" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#0b0f14" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6ea8fe" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#9cc4ff" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#6ea8fe" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6ea8fe"/>
+      <stop offset="1" stop-color="#7ee0a8"/>
+    </linearGradient>
+    <clipPath id="cardClip">
+      <rect x="1" y="1" width="958" height="298" rx="18"/>
+    </clipPath>
+  </defs>
+
+  <rect x=".5" y=".5" width="959" height="299" rx="18" fill="#0b0f14" stroke="#1d2836"/>
+  <rect x="1" y="1" width="958" height="298" rx="18" fill="url(#glow)"/>
+
+  <!-- moving sheen across the card -->
+  <g clip-path="url(#cardClip)">
+    <rect x="-260" y="0" width="260" height="300" fill="url(#sheen)">
+      <animateTransform attributeName="transform" type="translate"
+                        values="-260 0; 1220 0" dur="7s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <g text-anchor="middle" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif">
+    <text x="480" y="50" font-size="13" font-weight="700" letter-spacing="4.5" fill="#7d8b9c">ANSWERLINE · ПОЛНОСТЬЮ ЛОКАЛЬНО</text>
+    <text x="480" y="136" font-size="58" font-weight="800" letter-spacing="-1.5" fill="#f4f8fc">Локальный ИИ-наставник</text>
+    <text x="480" y="192" font-size="34" font-weight="600" fill="#dfe6ee">Учит, готовит к собеседованию</text>
+    <text x="480" y="234" font-size="34" font-weight="600" fill="#6ea8fe">и держит в голове факты за вас</text>
+  </g>
+
+  <!-- listening equalizer: the app is always listening to the headphones channel -->
+  <g transform="translate(0,272)">
+    <g fill="url(#bar)" opacity=".85">
+      <rect x="392" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 .22; 1 1; 1 .34" dur="1.5s" begin="-.05s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="406" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 .5; 1 .18; 1 1; 1 .3" dur="1.7s" begin="-.4s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="420" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 .3; 1 .9; 1 .2; 1 .6" dur="1.3s" begin="-.75s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="434" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 .8; 1 .25; 1 1; 1 .35" dur="1.9s" begin="-.2s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="448" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 .2; 1 .7; 1 1; 1 .28" dur="1.4s" begin="-.95s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="462" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 .65; 1 1; 1 .2; 1 .45" dur="1.6s" begin="-.55s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="476" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 1; 1 .3; 1 .75; 1 .22" dur="1.45s" begin="-.1s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="490" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 .35; 1 .85; 1 1; 1 .3" dur="1.8s" begin="-.65s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="504" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 .9; 1 .2; 1 .6; 1 1" dur="1.55s" begin="-.3s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="518" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 .25; 1 1; 1 .45; 1 .7" dur="1.7s" begin="-.85s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="532" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 .55; 1 .2; 1 .95; 1 .3" dur="1.35s" begin="-.45s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="546" y="-13" width="6" height="26" rx="3">
+        <animateTransform attributeName="transform" type="scale" values="1 .4; 1 1; 1 .25; 1 .8" dur="1.65s" begin="-.15s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+  </g>
+</svg>

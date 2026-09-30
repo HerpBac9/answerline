@@ -1,0 +1,18 @@
+node_modules/
+out/
+dist/
+*.log
+*.bundle
+.env
+.env.*
+.DS_Store
+resources/bin/
+answerline-llm-settings-test/
+.zcode*
+
+# RAG-корпус и манифест: это персональный материал пользователя, в общий
+# репозиторий он не попадает. Файлы data/*.md читаются как есть — папка
+# должна существовать, её достаточно создать и положить в неё свои Q&A.
+# Подробности в README, раздел «Заполните RAG-источник».
+data/*
+!data/.gitkeep

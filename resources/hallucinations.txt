@@ -1,0 +1,40 @@
+# Whisper hallucinations to drop before a transcript reaches the UI.
+#
+# Whisper invents text on near-silence and on noise. This is not a quirk of one
+# recording: it was reproduced on this repo's own silent fixture (RMS 0) across
+# every decoder configuration tried, including with --suppress-nst, which made it
+# worse rather than better. An initial prompt changes *which* phrase it invents,
+# not whether it invents one.
+#
+# The RMS gate in localWhisperService only rejects audio below its threshold, so
+# marginal audio - a quiet room, a breath, keyboard noise - still reaches the
+# decoder and still produces these.
+#
+# Format: one entry per line, matched against the trimmed transcript.
+#   plain text   -> case-insensitive exact match
+#   /regex/flags -> regular expression
+# Lines starting with # are comments. User-editable: add whatever your own
+# microphone and room produce.
+
+# --- Russian: subtitle-credit and filler artefacts ---
+Продолжение следует...
+Продолжение следует…
+/^редактор субтитров.*$/i
+/^корректор\s+[а-яё.\s]+$/i
+/^субтитры (?:сделал|подготовил|создал).*$/i
+/^перевод(?:чик)?\s+[а-яё.\s]+$/i
+
+# --- English: the classic silence outputs ---
+Thank you.
+Thank you very much.
+/^(?:thank you[.!]?\s*){2,}$/i
+/^(?:you[.!]?\s*){2,}$/i
+Bye.
+/^\[\s*(?:music|silence|applause|blank_audio|inaudible)\s*\]$/i
+/^\(\s*(?:music|silence|applause)\s*\)$/i
+
+# --- Spam-like artefacts the decoder emits on noise ---
+/^\s*www\.\S+\s*$/i
+/^\s*https?:\/\/\S+\s*$/i
+/^\s*[.…]+\s*$/
+/^\s*(?:\.{3}\s*){2,}$/
