@@ -40,6 +40,70 @@ npm.cmd run dev
 Для обычного интервью оставьте `ANSWERLINE_ANSWER_FROM_MIC=0`. Значение `1` включает
 ответы на вопросы, сказанные в микрофон, и предназначено для одиночного теста.
 
+### Подключение ChatGPT IDE Bridge из проекта notion
+
+Проверено с Gateway `http://127.0.0.1:17841` (`/v1/responses`, GPT-6).
+Bridge по умолчанию сохраняет **Extra High**, но Answerline выбирает
+**Low / GPT-6 Instant** для быстрых ответов. В `.env` Answerline установите:
+
+```dotenv
+LLM_PROVIDER=bridge
+LLM_BASE_URL=http://127.0.0.1:17841
+LLM_MODEL=chatgpt-web/gpt-6-sol
+LLM_REASONING_EFFORT=low
+LLM_PROJECT_URL=https://chatgpt.com/g/g-p-6acbc986ba2c8191bdbb04545b30a1ae-answerline/project
+LLM_PROJECT_PROMPT_MODE=project
+```
+
+В `answerline` одна запущенная копия приложения = один уникальный `x-session-id`
+в оперативной памяти. Bridge создаёт первый чат внутри этого проекта и
+сохраняет реальный адрес, а следующие вопросы направляет в него. Новый запуск
+после закрытия или явная кнопка сброса создают новый чат. Существующий чат,
+если его URL передали в `LLM_PROJECT_URL`, используется только для извлечения
+ID проекта, а не как адрес беседы. Настройте поле «Инструкции» внутри проекта,
+вставив [`prompts/chatgptProjectInstructions.md`](prompts/chatgptProjectInstructions.md):
+режим `project` не отправляет большой системный промпт на каждый запрос.
+Для старого поведения `LLM_PROJECT_PROMPT_MODE=inline`.
+
+Допустимые уровни: `low` (GPT-6 Instant), `medium`, `high`, `xhigh`.
+Уровень `none` ChatGPT Web GPT-6 не поддерживает. Если параметр не указан
+в Answerline, используется `low`; если не указан самим клиентом Bridge,
+его стандартное значение — `xhigh`.
+
+При старте `npm run doctor` проверяет Bridge через `/healthz` и
+`/bridge/settings`, но **не отправляет реальное сообщение**. Для полной проверки
+нужен запущенный Qdrant и индекс. Запуск приложения — `npm.cmd run dev` в
+Windows, `npm run dev` в macOS/Linux. Для возврата к локальной генерации
+поставьте `LLM_PROVIDER=lmstudio`, `LLM_BASE_URL=http://127.0.0.1:1234`,
+`LLM_MODEL=auto` и перезапустите приложение. Эмбеддинги и Qdrant остаются
+локальными на своих отдельных портах.
+
+**Важно:** при Bridge текущий транскрипт, вопрос и RAG evidence отправляются
+в ChatGPT Web; окно Answerline показывает предупреждение. Bridge не совместим
+с `/v1/chat/completions`, используется OpenAI Responses SSE. Отдельные
+скрипты проверки ответов на базе Chat Completions пока ориентированы на LM Studio.
+
+Для проверяемого end-to-end теста всей HTTP-цепочки без Electron используйте
+`answer:probe`. Сначала безопасный RAG dry-run (не отправляет данные в LLM),
+затем два последовательных реальных вопроса в **одном** Bridge-треде —
+это позволяет сравнить работу первого и повторного выбора модели:
+
+```powershell
+npm.cmd run answer:probe -- --dry-run --question "Что такое self-attention?"
+npm.cmd run answer:probe -- --question "Что такое RAG?" --question "Зачем нужен гибридный поиск?"
+```
+
+При `LLM_PROVIDER=bridge` явное `--question` обязательно: `answer:probe`
+передаст найденные ответы из Qdrant в ChatGPT Web. Если из личного корпуса
+не хотите отправлять контекст в облако, используйте только `--dry-run`.
+**Безопасность инструментов:** Bridge в режиме `npm run start` автоматически
+подключает `@Local` для обычных клиентов и может подтверждать его вызовы.
+Answerline передаёт `client_metadata.x-bridge-no-local=true`, `tools: []`
+и `tool_choice: none`; обновлённый Bridge запрещает выбор нативного
+`@Local` для таких запросов, независимо от глобального режима Bridge.
+Без отдельного `x-bridge-no-local` только `tool_choice: none` **недостаточно**.
+Для запрета Local всем клиентам можно по-прежнему использовать `npm run start:safe`.
+
 ### Тренировочный режим (ANSWERLINE_TRAINING_MODE=1)
 
 `ANSWERLINE_TRAINING_MODE=1` запускает приложение в режиме самотренировки: ИИ играет
@@ -406,17 +470,20 @@ QDRANT_URL=http://127.0.0.1:6333
 QDRANT_COLLECTION=answerline_qa
 EMBEDDING_BASE_URL=http://127.0.0.1:1234
 EMBEDDING_MODEL=text-embedding-qwen3-0.6b-text-embedding
-RAG_GENERAL_TOP_K=3
+RAG_GENERAL_TOP_K=0
 RAG_PERSONAL_TOP_K=1
 # RAG_TOP_K=5  # legacy fallback for старых конфигураций
 RAG_MAX_CONTEXT_TOKENS=4000
 ```
 
-Для каждого вопроса строится один embedding. Затем выполняются два поиска:
-`RAG_PERSONAL_TOP_K` — только по модулям проекта, и `RAG_GENERAL_TOP_K` — по
-остальным модулям. В текущей политике всегда передаются top-1 личный кандидат
-и top-3 теоретических кандидата. Score используется для ранжирования и
-диагностики, но не удаляет контекстный слот. `RAG_MAX_CONTEXT_TOKENS` ограничивает только evidence-блок. Общий context
+В режиме GPT-6/Bridge активна политика **Personal RAG**: для каждого вопроса
+строится embedding и выполняется только поиск по авторитетам `internal_project`
+и `personal_experience`. В prompt передаётся не более **одного** подходящего
+личного факта с учётом `RAG_PERSONAL_MIN_SCORE` (по умолчанию 0.60); если
+подходящего факта нет, секция не добавляется. Общая теория не ищется и в
+ChatGPT не передаётся. `RAG_GENERAL_TOP_K=3` можно вернуть при переходе на
+локальную модель; тогда снова появится ветка общего поиска.
+`RAG_MAX_CONTEXT_TOKENS` ограничивает только evidence-блок. Общий context
 window модели также включает system prompt, историю, transcript и место под
 генерацию. Увеличивайте его только после проверки context length в LM Studio,
 TTFT, памяти и ошибок переполнения.

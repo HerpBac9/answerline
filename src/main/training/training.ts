@@ -32,7 +32,7 @@ export interface TrainingEvents {
 }
 
 export interface TrainingDeps {
-  llm?: Pick<LocalLlm, 'stream' | 'abort'>
+  llm?: Pick<LocalLlm, 'stream' | 'abort'> & Partial<Pick<LocalLlm, 'resetConversation'>>
   rag?: RagRetriever
   /** Corpus-backed question source; injected by tests. */
   bank?: QuestionBank
@@ -75,7 +75,7 @@ function corpusDataDir(): string {
  * pipelines are not touched: when the env flag is off, nothing here runs.
  */
 export class TrainingSession {
-  private readonly llm: Pick<LocalLlm, 'stream' | 'abort'>
+  private readonly llm: Pick<LocalLlm, 'stream' | 'abort'> & Partial<Pick<LocalLlm, 'resetConversation'>>
   private readonly rag: RagRetriever
   private readonly bank: QuestionBank
   private readonly interviewerPrompt: string
@@ -250,6 +250,7 @@ export class TrainingSession {
     this.currentQuestion = null
     this.askedQuestions.length = 0
     this.bank.reset()
+    this.llm.resetConversation?.()
   }
 
   stop(): void {

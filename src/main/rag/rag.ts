@@ -99,7 +99,7 @@ export class LocalRag implements RagRetriever {
       const personalCandidateTopK = Math.max(personalTopK, 5)
       const [personalCandidates, generalCandidates] = await Promise.all([
         personalTopK === 0 ? Promise.resolve([]) : this.search(vector, personalCandidateTopK, personalFilter()),
-        this.search(vector, generalTopK, generalFilter()),
+        generalTopK === 0 ? Promise.resolve([]) : this.search(vector, generalTopK, generalFilter()),
       ])
       const personalCandidate = rerankRagHits(cleanQuery, personalCandidates, personalTopK)
         .at(0) ?? null
@@ -240,7 +240,8 @@ function lexicalOverlap(queryTokens: Set<string>, candidateTokens: Set<string>):
 
 function settingsFromConfig(): RagSettings {
   const config = loadConfig()
-  const generalTopK = positiveInteger(process.env.RAG_GENERAL_TOP_K, config.ragGeneralTopK ?? config.ragTopK)
+  // Zero explicitly disables general knowledge retrieval for powerful cloud models.
+  const generalTopK = nonNegativeInteger(process.env.RAG_GENERAL_TOP_K, config.ragGeneralTopK ?? config.ragTopK)
   return {
     qdrantUrl: process.env.QDRANT_URL ?? config.ragQdrantUrl,
     collection: process.env.QDRANT_COLLECTION ?? config.ragCollection,

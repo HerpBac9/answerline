@@ -57,6 +57,8 @@ export type StatusEvent = {
   answerFromMic?: boolean
   /** The only capture implementation appropriate to the current platform. */
   audioCaptureBackend: 'windows-native' | 'macos-native' | 'unsupported'
+  /** ChatGPT Bridge sends transcript, question and selected RAG evidence to ChatGPT Web. */
+  llmProvider?: 'lmstudio' | 'bridge'
   /** Practice loop (AI plays the interviewer). Exists only with ANSWERLINE_TRAINING_MODE. */
   trainingMode?: boolean
 }

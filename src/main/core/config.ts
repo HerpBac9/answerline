@@ -193,8 +193,16 @@ export function configFilePath(): string {
 }
 
 export interface LlmSettings {
+  /** LM Studio uses Chat Completions; the local ChatGPT IDE Bridge uses Responses. */
+  provider: 'lmstudio' | 'bridge'
   baseUrl: string
   model: string
+  /** GPT-6 mode used only by Bridge; low selects GPT-6 Instant. */
+  reasoningEffort?: 'low' | 'medium' | 'high' | 'xhigh'
+  /** Project home or a copied chat URL inside the project. The chat ID is ignored. */
+  projectUrl?: string
+  /** "project" delegates stable response rules to ChatGPT Project Instructions. */
+  projectPromptMode?: 'inline' | 'project'
   maxTokens: number
   temperature: number
   topP: number
@@ -213,9 +221,19 @@ export interface LlmSettings {
  */
 export function llmSettings(): LlmSettings {
   const config = loadConfig()
+  const provider = process.env.LLM_PROVIDER?.trim().toLowerCase() === 'bridge' ? 'bridge' : 'lmstudio'
+  const endpoint = (process.env.LLM_BASE_URL?.trim() || (provider === 'bridge' ? 'http://127.0.0.1:17841' : config.llmBaseUrl)).replace(/\/$/u, '')
+  const projectUrl = provider === 'bridge' ? bridgeProjectUrl() : undefined
   return {
-    baseUrl: (process.env.LLM_BASE_URL?.trim() || config.llmBaseUrl).replace(/\/$/u, ''),
-    model: process.env.LLM_MODEL?.trim() || config.llmModel,
+    provider,
+    // Accept both the gateway origin and its documented /v1 URL.
+    baseUrl: provider === 'bridge' ? endpoint.replace(/\/v1$/u, '') : endpoint,
+    model: process.env.LLM_MODEL?.trim() || (provider === 'bridge' ? 'chatgpt-web/gpt-6-sol' : config.llmModel),
+    ...(provider === 'bridge' ? {
+      reasoningEffort: bridgeReasoningEffort(),
+      ...(projectUrl ? { projectUrl } : {}),
+      projectPromptMode: bridgeProjectPromptMode(Boolean(projectUrl)),
+    } : {}),
     maxTokens: positiveIntegerEnv('LLM_MAX_TOKENS', config.answerMaxTokens),
     temperature: boundedNumberEnv('LLM_TEMPERATURE', config.llmTemperature, 0, 2),
     topP: boundedNumberEnv('LLM_TOP_P', config.llmTopP, 0, 1),
@@ -226,6 +244,37 @@ export function llmSettings(): LlmSettings {
     frequencyPenalty: finiteNumberEnv('LLM_FREQUENCY_PENALTY', config.llmFrequencyPenalty),
     seed: nullableIntegerEnv('LLM_SEED', config.llmSeed),
   }
+}
+
+function bridgeReasoningEffort(): NonNullable<LlmSettings['reasoningEffort']> {
+  const value = process.env.LLM_REASONING_EFFORT?.trim().toLowerCase() || 'low'
+  if (value !== 'low' && value !== 'medium' && value !== 'high' && value !== 'xhigh') {
+    throw new Error(`Invalid LLM_REASONING_EFFORT=${value}: use low, medium, high or xhigh (GPT-6 has no none mode)`)
+  }
+  return value
+}
+
+function bridgeProjectUrl(): string | undefined {
+  const value = process.env.LLM_PROJECT_URL?.trim()
+  if (!value) return undefined
+  let url: URL
+  try { url = new URL(value) }
+  catch { throw new Error('Invalid LLM_PROJECT_URL: expected a ChatGPT Project or Project-chat URL') }
+  if (url.protocol !== 'https:' || url.hostname !== 'chatgpt.com' ||
+    url.port || url.username || url.password || url.search || url.hash ||
+    !/^\/g\/g-p-[a-f0-9]{32}(?:-[a-z0-9]+)*\/(?:project\/?|c\/[a-fA-F0-9-]{24,80})$/.test(url.pathname)) {
+    throw new Error('Invalid LLM_PROJECT_URL: expected https://chatgpt.com/g/g-p-.../project or /c/...')
+  }
+  return url.origin + url.pathname
+}
+
+function bridgeProjectPromptMode(hasProject: boolean): 'inline' | 'project' {
+  const mode = process.env.LLM_PROJECT_PROMPT_MODE?.trim().toLowerCase() || (hasProject ? 'project' : 'inline')
+  if (mode !== 'inline' && mode !== 'project') {
+    throw new Error('Invalid LLM_PROJECT_PROMPT_MODE: use inline or project')
+  }
+  if (mode === 'project' && !hasProject) throw new Error('LLM_PROJECT_PROMPT_MODE=project requires LLM_PROJECT_URL')
+  return mode
 }
 
 function positiveIntegerEnv(name: string, fallback: number): number {

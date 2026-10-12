@@ -81,7 +81,7 @@ interface Turn extends ChatTurn {
 }
 
 export interface SessionDeps {
-  llm?: Pick<LocalLlm, 'stream' | 'abort'>
+  llm?: Pick<LocalLlm, 'stream' | 'abort'> & Partial<Pick<LocalLlm, 'resetConversation'>>
   rag?: RagRetriever
   /** Read per utterance, so the switch can be flipped without a restart. */
   answerFromMic?: () => boolean
@@ -91,7 +91,7 @@ export interface SessionDeps {
 
 /** Conversation state, RAG retrieval and answer generation. */
 export class Session {
-  private readonly llm: Pick<LocalLlm, 'stream' | 'abort'>
+  private readonly llm: Pick<LocalLlm, 'stream' | 'abort'> & Partial<Pick<LocalLlm, 'resetConversation'>>
   private readonly rag: RagRetriever
   private readonly answerFromMic: () => boolean
   private readonly systemPrompt: string
@@ -119,6 +119,7 @@ export class Session {
     this.pendingTokens = 0
     this.lastQuestion = null
     this.llm.abort()
+    this.llm.resetConversation?.()
     this.answering = false
     this.events.onReset?.()
     log.info('Session cleared')
@@ -238,6 +239,7 @@ export class Session {
       [...historyMessages, { role: 'user', content: promptUserTurn }],
       {
         onDelta: (text) => {
+          if (generation !== this.answerGeneration) return
           streamedText += text
           if (!started) {
             started = true

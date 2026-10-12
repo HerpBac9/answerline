@@ -4,8 +4,11 @@
 
 Answerline — локальный overlay для технического собеседования в Windows и
 macOS. Системный звук считается голосом интервьюера, микрофон — голосом
-пользователя. Распознавание и генерация выполняются на локальной машине:
-whisper.cpp и LM Studio соответственно.
+пользователя. Распознавание выполняется на локальной машине (whisper.cpp).
+По умолчанию генерация выполняется локально в LM Studio; опционально
+`LLM_PROVIDER=bridge` переключает генерацию на ChatGPT IDE Bridge
+(`127.0.0.1:17841`, OpenAI Responses API). В этом режиме вопросы,
+транскрипт и отобранные RAG evidence передаются в ChatGPT Web.
 
 ## Контуры процесса
 
@@ -22,7 +25,7 @@ flowchart LR
   Q0 --> Q
   Q --> G
   R["resources/*.md, *.txt"] --> F
-  G --> L["LocalLlm\nLM Studio"]
+  G --> L["LocalLlm\nLM Studio / Responses Bridge"]
   F --> I["IPC allow-list"]
   G --> I
   I --> P["Preload bridge"]

@@ -121,6 +121,31 @@ describe('LocalRag', () => {
     expect(result.generalHits).toHaveLength(2)
   })
 
+  it('personal-only mode retrieves exactly one relevant personal fact and never searches general knowledge', async () => {
+    const requests: Array<{ url: string; body: unknown }> = []
+    vi.stubGlobal('fetch', vi.fn(async (input: string | URL, init?: RequestInit) => {
+      const url = String(input)
+      const body = init?.body ? JSON.parse(String(init.body)) : null
+      requests.push({ url, body })
+      if (url.endsWith('/v1/embeddings')) {
+        return new Response(JSON.stringify({ data: [{ embedding: [0.1, 0.2] }] }), { status: 200 })
+      }
+      return new Response(JSON.stringify({ result: [
+        { score: 0.92, payload: { module: 'daxai', question: 'Какую архитектуру я создал в DaxAI?', answer: 'Подтверждённая архитектура DaxAI.' } },
+        { score: 0.87, payload: { module: 'daxai', question: 'Какие были результаты DaxAI?', answer: 'Неизвестно.' } },
+      ] }), { status: 200 })
+    }))
+    const result = await new LocalRag({ ...settings, generalTopK: 0, personalTopK: 1 }).retrieve('Какую архитектуру я создал в DaxAI?')
+    expect(requests).toHaveLength(2)
+    expect(requests[1].body).toMatchObject({ filter: { should: expect.any(Array) } })
+    expect(result.hits).toHaveLength(1)
+    expect(result.personalHit?.answer).toBe('Подтверждённая архитектура DaxAI.')
+    expect(result.generalHits).toEqual([])
+    expect(result.text).toContain('<personal_experience>')
+    expect(result.text).not.toContain('<knowledge_context>')
+    expect(result.text.match(/<evidence /g)).toHaveLength(1)
+  })
+
   it('does not query or include personal context when personal top-k is zero', async () => {
     const calls: Array<{ url: string; body: unknown }> = []
     vi.stubGlobal('fetch', vi.fn(async (input: string | URL, init?: RequestInit) => {

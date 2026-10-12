@@ -9,8 +9,12 @@ vi.mock('electron', () => ({
 import { llmSettings } from './config'
 
 const KEYS = [
+  'LLM_PROVIDER',
   'LLM_BASE_URL',
   'LLM_MODEL',
+  'LLM_REASONING_EFFORT',
+  'LLM_PROJECT_URL',
+  'LLM_PROJECT_PROMPT_MODE',
   'LLM_MAX_TOKENS',
   'LLM_TEMPERATURE',
   'LLM_TOP_P',
@@ -41,6 +45,7 @@ describe('llmSettings', () => {
     process.env.LLM_SEED = '42'
 
     expect(llmSettings()).toEqual({
+      provider: 'lmstudio',
       baseUrl: 'http://127.0.0.1:4321',
       model: 'gemma-test',
       maxTokens: 1234,
@@ -53,5 +58,46 @@ describe('llmSettings', () => {
       frequencyPenalty: -0.2,
       seed: 42,
     })
+  })
+
+  it('selects ChatGPT Bridge Responses with its own endpoint and model defaults', () => {
+    process.env.LLM_PROVIDER = 'bridge'
+    expect(llmSettings()).toMatchObject({
+      provider: 'bridge',
+      baseUrl: 'http://127.0.0.1:17841',
+      model: 'chatgpt-web/gpt-6-sol',
+      reasoningEffort: 'low',
+    })
+    process.env.LLM_REASONING_EFFORT = 'medium'
+    expect(llmSettings().reasoningEffort).toBe('medium')
+    process.env.LLM_REASONING_EFFORT = 'none'
+    expect(() => llmSettings()).toThrow(/LLM_REASONING_EFFORT/)
+    process.env.LLM_REASONING_EFFORT = 'low'
+    process.env.LLM_BASE_URL = 'http://127.0.0.1:20000/v1/'
+    process.env.LLM_MODEL = 'custom-model'
+    expect(llmSettings()).toMatchObject({
+      provider: 'bridge',
+      baseUrl: 'http://127.0.0.1:20000',
+      model: 'custom-model',
+    })
+  })
+
+  it('binds each Bridge session to an existing project and can omit repeated system instructions', () => {
+    process.env.LLM_PROVIDER = 'bridge'
+    process.env.LLM_PROJECT_URL = 'https://chatgpt.com/g/g-p-6acbc986ba2c8191bdbb04545b30a1ae-answerline/c/6acbd45c-337c-83eb-bb17-d2fc187e89fc'
+    expect(llmSettings()).toMatchObject({
+      projectUrl: process.env.LLM_PROJECT_URL,
+      projectPromptMode: 'project',
+      reasoningEffort: 'low',
+    })
+    process.env.LLM_PROJECT_PROMPT_MODE = 'inline'
+    expect(llmSettings().projectPromptMode).toBe('inline')
+    process.env.LLM_PROJECT_PROMPT_MODE = 'invalid'
+    expect(() => llmSettings()).toThrow(/LLM_PROJECT_PROMPT_MODE/)
+    process.env.LLM_PROJECT_PROMPT_MODE = 'project'
+    process.env.LLM_PROJECT_URL = 'https://evil.com/g/g-p-6acbc986ba2c8191bdbb04545b30a1ae-answerline/project'
+    expect(() => llmSettings()).toThrow(/LLM_PROJECT_URL/)
+    delete process.env.LLM_PROJECT_URL
+    expect(() => llmSettings()).toThrow(/requires LLM_PROJECT_URL/)
   })
 })

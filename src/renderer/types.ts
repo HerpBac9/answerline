@@ -16,6 +16,7 @@ export interface StatusEvent {
   captureExcluded?: boolean
   answerFromMic?: boolean
   audioCaptureBackend: 'windows-native' | 'macos-native' | 'unsupported'
+  llmProvider?: 'lmstudio' | 'bridge'
   /** Practice loop exists only when the app was started with ANSWERLINE_TRAINING_MODE=1. */
   trainingMode?: boolean
 }

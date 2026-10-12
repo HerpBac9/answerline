@@ -55,6 +55,7 @@ function pushStatus(): void {
     captureExcluded,
     answerFromMic,
     audioCaptureBackend: captureBackend(),
+    llmProvider: llmSettings().provider,
     trainingMode,
   } satisfies StatusEvent)
 }
@@ -136,7 +137,7 @@ if (!app.requestSingleInstanceLock()) {
       embeddingModel: process.env.EMBEDDING_MODEL?.trim() || config.ragEmbeddingModel,
       collection: process.env.QDRANT_COLLECTION?.trim() || config.ragCollection,
       personalTopK,
-      generalTopK: positiveIntegerEnv('RAG_GENERAL_TOP_K', config.ragGeneralTopK),
+      generalTopK: nonNegativeIntegerEnv('RAG_GENERAL_TOP_K', config.ragGeneralTopK),
       maxContextTokens: positiveIntegerEnv('RAG_MAX_CONTEXT_TOKENS', config.ragMaxContextTokens),
     })
 

@@ -337,6 +337,9 @@ function Header({ status, onToggleCapture, onClearSession }: { status: StatusEve
         </div>
       </div>
       {status.detail && <p className="detail">{status.detail}</p>}
+      {status.llmProvider === 'bridge' && (
+        <p className="capture-note">LLM: ChatGPT Bridge (GPT-6). Вопросы, транскрипты и RAG-контекст передаются в ChatGPT Web; Whisper и поиск остаются локальными.</p>
+      )}
 
       <div className="header-row header-row-secondary">
         {/* The requested OS mode is spelled out rather than implied by an icon.

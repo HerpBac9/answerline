@@ -19,6 +19,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "doctor": "node scripts/doctor.mjs",
+    "answer:probe": "node scripts/answer-probe.mjs",
     "rag:prepare": "node scripts/prepare-rag-corpus.mjs",
     "rag:aliases": "node scripts/generate-rag-aliases.mjs",
     "rag:index": "node scripts/index-rag.mjs",

@@ -169,21 +169,57 @@ try {
   bad('embedding endpoint unreachable', `${ragEmbeddingBaseUrl} - ${String(error).split('\n')[0]}`)
 }
 
-console.log('\nLM Studio')
+// The Bridge serves OpenAI Responses, not LM Studio's chat-completions API.
+const llmProvider = process.env.LLM_PROVIDER?.trim().toLowerCase() === 'bridge' ? 'bridge' : 'lmstudio'
+const configuredLlmUrl = (process.env.LLM_BASE_URL?.trim()
+  || (llmProvider === 'bridge' ? 'http://127.0.0.1:17841' : config.llmBaseUrl)).replace(/\/$/, '')
+const llmBaseUrl = llmProvider === 'bridge' ? configuredLlmUrl.replace(/\/v1$/, '') : configuredLlmUrl
+
+console.log(llmProvider === 'bridge' ? '\nChatGPT IDE Bridge' : '\nLM Studio')
 try {
-  const response = await fetch(`${config.llmBaseUrl}/api/v1/models`, { signal: AbortSignal.timeout(3000) })
-  const payload = await response.json()
-  const loaded = (payload.models ?? []).filter((m) => m.type === 'llm' && m.loaded_instances?.length > 0)
-  if (loaded.length === 0) bad('no LLM loaded', 'load a model in LM Studio and start its local server')
-  else {
-    for (const model of loaded) {
-      const context = model.loaded_instances[0]?.config?.context_length
-      ok(`loaded: ${model.key}`, `${model.quantization?.name ?? '?'}, context ${context ?? '?'}`)
+  if (llmProvider === 'bridge') {
+    // This is only a readiness check; it does not send an actual ChatGPT turn.
+    const [health, settings] = await Promise.all([
+      fetch(`${llmBaseUrl}/healthz`, { signal: AbortSignal.timeout(3000) }),
+      fetch(`${llmBaseUrl}/bridge/settings`, { signal: AbortSignal.timeout(3000) }),
+    ])
+    if (!health.ok || !settings.ok) {
+      bad('Bridge', `${llmBaseUrl}: health HTTP ${health.status}, settings HTTP ${settings.status}`)
+    } else {
+      const state = await health.json()
+      const pinned = await settings.json()
+      if (state.accepting_turns === false) bad('Bridge not accepting turns', llmBaseUrl)
+      else ok('Bridge responds', `${llmBaseUrl}, model ${pinned.model ?? '?'}`)
+      const requested = process.env.LLM_MODEL?.trim() || 'chatgpt-web/gpt-6-sol'
+      if (requested !== pinned.model) console.log(`  warn  Bridge pins GPT-6 family; requested ${requested} may be overridden`)
+      const effort = process.env.LLM_REASONING_EFFORT?.trim().toLowerCase() || 'low'
+      console.log(`  note  Answerline effort=${effort}${effort === 'low' ? ' (GPT-6 Instant)' : ''}; native @Local disabled per request`)
+      const projectRef = process.env.LLM_PROJECT_URL?.trim()
+      if (projectRef) {
+        const projectId = /^https:\/\/chatgpt\.com\/g\/(g-p-[a-f0-9]{32})/.exec(projectRef)?.[1]
+        if (projectId) {
+          ok('ChatGPT Project routing', `${projectId}; one new chat per app launch`)
+          const promptMode = process.env.LLM_PROJECT_PROMPT_MODE?.trim().toLowerCase() || 'project'
+          console.log(`  note  Project prompt mode=${promptMode}; verify Instructions are filled in the ChatGPT Project UI`)
+        } else bad('ChatGPT Project routing', 'Invalid LLM_PROJECT_URL')
+      }
     }
-    if (loaded.length > 1) console.log('  warn  more than one LLM loaded - set llmModel in config.json to a specific key')
+    console.log('  note  Bridge sends current questions, transcript and RAG evidence to ChatGPT Web. This is NOT local-only generation.')
+  } else {
+    const response = await fetch(`${llmBaseUrl}/api/v1/models`, { signal: AbortSignal.timeout(3000) })
+    const payload = await response.json()
+    const loaded = (payload.models ?? []).filter((m) => m.type === 'llm' && m.loaded_instances?.length > 0)
+    if (loaded.length === 0) bad('no LLM loaded', 'load a model in LM Studio and start its local server')
+    else {
+      for (const model of loaded) {
+        const context = model.loaded_instances[0]?.config?.context_length
+        ok(`loaded: ${model.key}`, `${model.quantization?.name ?? '?'}, context ${context ?? '?'}`)
+      }
+      if (loaded.length > 1) console.log('  warn  more than one LLM loaded - set LLM_MODEL in .env')
+    }
   }
 } catch (error) {
-  bad('LM Studio unreachable', `${config.llmBaseUrl} - ${String(error).split('\n')[0]}`)
+  bad(llmProvider === 'bridge' ? 'Bridge unreachable' : 'LM Studio unreachable', `${llmBaseUrl} - ${String(error).split('\n')[0]}`)
 }
 
 console.log(problems === 0 ? '\nReady.\n' : `\n${problems} problem(s) to fix before this will work.\n`)

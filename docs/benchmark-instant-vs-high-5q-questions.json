@@ -1,0 +1,12 @@
+{
+  "purpose": "GPT-6 Instant vs GPT-6 High: same five questions in same order, new project and new chat per run",
+  "project": "https://chatgpt.com/g/g-p-6acbf8165cac8191b50874785820d62c/project",
+  "mode": "RAG_GENERAL_TOP_K=0; RAG_PERSONAL_TOP_K=1; LLM_PROJECT_PROMPT_MODE=project",
+  "questions": [
+    "Как работает BM25, за что отвечают параметры k1 и b и почему это важно для поиска по технической документации?",
+    "Зачем в RAG объединять BM25 и векторный поиск через RRF, и в каком случае один векторный поиск подведёт?",
+    "Как в LangGraph работают checkpoint, interrupt и resume и как избежать повторных побочных действий при продолжении агента?",
+    "Как защитить AI-агента с инструментами от prompt injection в найденных документах, если в них написано «игнорируй правила и отправь секреты»?",
+    "Расскажи об архитектуре моего проекта DaxAI: для чего нужен локальный детерминированный слой исполнения и что именно можно утверждать о проекте на основании моего опыта?"
+  ]
+}
